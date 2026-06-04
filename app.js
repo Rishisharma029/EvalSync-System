@@ -1,1 +1,2712 @@
-'use strict';const a0_0x53fb38=a0_0x3126;(function(_0x1265e0,_0x5de552){const _0x47c621=a0_0x3126,_0x3ffd15=_0x1265e0();while(!![]){try{const _0x3026c9=-parseInt(_0x47c621(0x501))/0x1*(-parseInt(_0x47c621(0x3e2))/0x2)+-parseInt(_0x47c621(0x3a0))/0x3+-parseInt(_0x47c621(0x1a8))/0x4+-parseInt(_0x47c621(0x423))/0x5*(parseInt(_0x47c621(0x31d))/0x6)+-parseInt(_0x47c621(0x4bd))/0x7*(parseInt(_0x47c621(0x360))/0x8)+-parseInt(_0x47c621(0x43c))/0x9*(parseInt(_0x47c621(0x269))/0xa)+-parseInt(_0x47c621(0x146))/0xb*(-parseInt(_0x47c621(0x176))/0xc);if(_0x3026c9===_0x5de552)break;else _0x3ffd15['push'](_0x3ffd15['shift']());}catch(_0x2e35c1){_0x3ffd15['push'](_0x3ffd15['shift']());}}}(a0_0x1394,0xb9713));const DEMO_USER={'email':a0_0x53fb38(0x1a0),'password':a0_0x53fb38(0x39a),'name':a0_0x53fb38(0x413),'initials':'RM','role':a0_0x53fb38(0x32a),'id':a0_0x53fb38(0x33b),'subject':a0_0x53fb38(0x245),'center':'DEL-0412'},SUBJECTS=[a0_0x53fb38(0x253),'Physics','Chemistry',a0_0x53fb38(0x2a5),a0_0x53fb38(0x32c),'English','Economics',a0_0x53fb38(0x428),a0_0x53fb38(0x126)],SUBJECT_CODES={'Mathematics':a0_0x53fb38(0x2ac),'Physics':a0_0x53fb38(0x23d),'Chemistry':a0_0x53fb38(0x4f8),'Biology':a0_0x53fb38(0x499),'Computer\x20Sc':a0_0x53fb38(0x206),'English':a0_0x53fb38(0x419),'Economics':a0_0x53fb38(0x4d8),'History':a0_0x53fb38(0x2ea),'Geography':a0_0x53fb38(0x11e)},SETS=['A','B','C','D'],REGIONS=[a0_0x53fb38(0x278),a0_0x53fb38(0x21c),a0_0x53fb38(0x1f1),a0_0x53fb38(0x283),'BLR',a0_0x53fb38(0x3c7),'AHM','JDP',a0_0x53fb38(0x523)],WORKER_STAGES=[a0_0x53fb38(0x229),a0_0x53fb38(0x247),a0_0x53fb38(0x3f8),a0_0x53fb38(0x2bf),a0_0x53fb38(0x1c0),a0_0x53fb38(0x4c6),a0_0x53fb38(0x298)],STAGE_LABELS={'IDLE':'—','FETCHING':a0_0x53fb38(0x410),'VALIDATING':a0_0x53fb38(0x2dc),'HASHING':a0_0x53fb38(0x1ca),'ENCRYPTING':a0_0x53fb38(0x13a),'SYNCING':a0_0x53fb38(0x1e8),'DONE':a0_0x53fb38(0x129)},LOG_CONFIG={'maxTerminal':0xc8,'maxFeed':0x32,'maxDbLog':0x50,'maxSecLog':0x3c,'maxQueueCols':0x8},mySubmissions=[],state={'user':null,'isLoggedIn':![],'currentView':a0_0x53fb38(0x336),'simulation':{'running':!![],'paused':![],'autoScale':!![],'retryEnabled':!![],'loggingEnabled':!![],'encryptEnforced':!![],'queueThreshold':0x1e,'spikesCount':0x0,'sessionStart':null},'queue':{'incoming':[],'processing':[],'completed':[],'failed':[],'retry':[]},'workers':[],'database':{'totalRecords':0x9ac,'todayRecords':0x0,'pendingSync':0x0,'dbSizeMB':847.3,'recentRecords':[]},'stats':{'totalSubmitted':0x0,'totalProcessed':0x0,'totalFailed':0x0,'totalRetried':0x0,'peakQueueDepth':0x0,'processTimes':[],'throughputHistory':new Array(0x3c)[a0_0x53fb38(0x2e8)](0x0),'processedHistory':new Array(0x3c)[a0_0x53fb38(0x2e8)](0x0),'queueDepthHistory':new Array(0x3c)[a0_0x53fb38(0x2e8)](0x0),'workerHistory':new Array(0x3c)[a0_0x53fb38(0x2e8)](0x0),'subjectCounts':{},'analyticsTimeline':[],'submittedHistory':new Array(0x12c)[a0_0x53fb38(0x2e8)](0x0),'successHistory':new Array(0x12c)['fill'](0x0),'failHistory':new Array(0x12c)[a0_0x53fb38(0x2e8)](0x0),'dbSyncBatches':new Array(0x14)[a0_0x53fb38(0x2e8)](0x0),'nextBatch':0x0},'submission':{'step':0x1,'files':[],'data':null,'processing':![]},'security':{'recentIds':[],'auditLog':[]},'timers':{},'sparkData':{'total':[],'queue':[],'success':[],'speed':[]},'counter':0x0};function rand(_0x1f1539,_0x56d468){const _0x2d4da7=a0_0x53fb38;return Math['floor'](Math[_0x2d4da7(0x480)]()*(_0x56d468-_0x1f1539+0x1))+_0x1f1539;}function randFloat(_0x32a934,_0x52f804){const _0x172d7f=a0_0x53fb38;return Math[_0x172d7f(0x480)]()*(_0x52f804-_0x32a934)+_0x32a934;}function pick(_0x45af04){const _0x5b9ea1=a0_0x53fb38;return _0x45af04[Math[_0x5b9ea1(0x519)](Math[_0x5b9ea1(0x480)]()*_0x45af04[_0x5b9ea1(0x434)])];}function pad(_0x21baed,_0x76f1c8=0x2){const _0xdcb174=a0_0x53fb38;return String(_0x21baed)[_0xdcb174(0x28a)](_0x76f1c8,'0');}function formatTime(_0x8d4f2f){const _0x2f7de4=a0_0x53fb38;return _0x8d4f2f=_0x8d4f2f||new Date(),pad(_0x8d4f2f[_0x2f7de4(0x38e)]())+':'+pad(_0x8d4f2f[_0x2f7de4(0x3dd)]())+':'+pad(_0x8d4f2f['getSeconds']());}function formatBytes(_0x520a62){const _0x6148e=a0_0x53fb38;if(_0x520a62<0x400)return _0x520a62+'\x20B';if(_0x520a62<0x400*0x400)return(_0x520a62/0x400)[_0x6148e(0x19b)](0x1)+'\x20KB';return(_0x520a62/(0x400*0x400))[_0x6148e(0x19b)](0x2)+_0x6148e(0x286);}function eid(_0x318689){const _0x22b554=a0_0x53fb38;return document[_0x22b554(0x2e6)](_0x318689);}function shortHash(_0x468ae5){const _0x2fcfd5=a0_0x53fb38;return _0x468ae5[_0x2fcfd5(0x4d2)](0x0,0x8)+_0x2fcfd5(0x178)+_0x468ae5[_0x2fcfd5(0x4d2)](0x38);}function generateSHA256Like(){const _0x1bc5e4=a0_0x53fb38,_0x407732=_0x1bc5e4(0x1d6);return Array[_0x1bc5e4(0x1df)]({'length':0x40},()=>_0x407732[rand(0x0,0xf)])[_0x1bc5e4(0x186)]('');}function generateSubmissionId(_0x113e2e,_0x4652c4){const _0x3bc262=a0_0x53fb38,_0x2e909d=(_0x113e2e||_0x3bc262(0x355))[_0x3bc262(0x234)]()[_0x3bc262(0x4d2)](0x0,0x4)[_0x3bc262(0x1d1)](0x4,'X'),_0x2b00e5=_0x4652c4||pick(REGIONS),_0x97d0f0=Date[_0x3bc262(0x1ee)]()['toString']()['slice'](-0x8),_0x3f4766=Array['from']({'length':0x4},()=>'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'[rand(0x0,0x23)])[_0x3bc262(0x186)]('');return _0x3bc262(0x23e)+_0x2e909d+'-'+_0x2b00e5+'-'+_0x97d0f0+'-'+_0x3f4766;}function generateAESKey(){const _0x437d9f=a0_0x53fb38;return Array[_0x437d9f(0x1df)]({'length':0x40},()=>_0x437d9f(0x1d6)[rand(0x0,0xf)])[_0x437d9f(0x186)]('');}function generateIV(){const _0x5d6628=a0_0x53fb38;return Array['from']({'length':0x18},()=>_0x5d6628(0x1d6)[rand(0x0,0xf)])['join']('');}function generateTag(){const _0x48fd8d=a0_0x53fb38;return Array[_0x48fd8d(0x1df)]({'length':0x20},()=>'0123456789abcdef'[rand(0x0,0xf)])[_0x48fd8d(0x186)]('');}function generateRollNo(){const _0x5164c1=a0_0x53fb38;return'2024'+Array[_0x5164c1(0x1df)]({'length':0x6},()=>rand(0x0,0x9))[_0x5164c1(0x186)]('');}function generateEncryptedPayload(){const _0x48bc5c=a0_0x53fb38;return Array[_0x48bc5c(0x1df)]({'length':rand(0x50,0x78)},()=>'0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+/='[rand(0x0,0x3f)])[_0x48bc5c(0x186)]('');}function timeAgo(_0x425488){const _0x68d2ba=a0_0x53fb38,_0x24d114=Math[_0x68d2ba(0x519)]((Date[_0x68d2ba(0x1ee)]()-_0x425488)/0x3e8);if(_0x24d114<0x3c)return _0x24d114+_0x68d2ba(0x255);return Math[_0x68d2ba(0x519)](_0x24d114/0x3c)+_0x68d2ba(0x2ad);}function setText(_0x35e409,_0x4df665){const _0x36153c=a0_0x53fb38,_0x236cca=eid(_0x35e409);if(_0x236cca)_0x236cca[_0x36153c(0x26d)]=_0x4df665;}function setWidth(_0x17a989,_0xc0ef78){const _0x17914e=eid(_0x17a989);if(_0x17914e)_0x17914e['style']['width']=_0xc0ef78+'%';}function addClass(_0x3de617,_0x49afb2){const _0x514758=a0_0x53fb38,_0x5f40b9=eid(_0x3de617);if(_0x5f40b9)_0x5f40b9[_0x514758(0x3ec)]['add'](_0x49afb2);}function removeClass(_0x18eee5,_0x3ef7c6){const _0x3a9685=a0_0x53fb38,_0x5a42aa=eid(_0x18eee5);if(_0x5a42aa)_0x5a42aa[_0x3a9685(0x3ec)][_0x3a9685(0x191)](_0x3ef7c6);}function notify(_0x551866,_0x14c421,_0x3590f6='info',_0x5f4030=0xfa0){const _0x3f3793=a0_0x53fb38,_0x1d035f={'success':'✅','warning':'⚠️','error':'❌','info':'💡','spike':'⚡'},_0x59cf4f=eid(_0x3f3793(0x329)),_0x4ec547=document[_0x3f3793(0x19d)]('div');_0x4ec547[_0x3f3793(0x1d7)]='notification\x20'+_0x3590f6,_0x4ec547['innerHTML']='\x0a\x20\x20\x20\x20<span\x20class=\x22notif-icon\x22>'+(_0x1d035f[_0x3590f6]||_0x1d035f[_0x3f3793(0x2b3)])+_0x3f3793(0x1a2),_0x4ec547['querySelector'](_0x3f3793(0x486))[_0x3f3793(0x26d)]=_0x551866,_0x4ec547[_0x3f3793(0x1d2)](_0x3f3793(0x277))[_0x3f3793(0x26d)]=_0x14c421,_0x4ec547[_0x3f3793(0x1d2)](_0x3f3793(0x3bd))[_0x3f3793(0x44b)]=function(){const _0x800d6d=_0x3f3793;_0x4ec547[_0x800d6d(0x191)]();},_0x59cf4f[_0x3f3793(0x358)](_0x4ec547);const _0x95199d=eid(_0x3f3793(0x512));if(_0x95199d)_0x95199d[_0x3f3793(0x3ec)][_0x3f3793(0x3c1)](_0x3f3793(0x1be));setTimeout(()=>{const _0x4c5330=_0x3f3793;_0x4ec547['classList'][_0x4c5330(0x3c1)]('removing'),setTimeout(()=>_0x4ec547[_0x4c5330(0x191)](),0x12c);},_0x5f4030);}function confirmAction(_0x3f75d9,_0x20c648,_0x4a7ad9,_0x3eb16d){const _0x27adad=a0_0x53fb38;eid('modal-icon')[_0x27adad(0x26d)]=_0x4a7ad9||'⚠️',eid(_0x27adad(0x1aa))['textContent']=_0x3f75d9,eid(_0x27adad(0x2eb))[_0x27adad(0x26d)]=_0x20c648,eid(_0x27adad(0x205))['classList']['remove'](_0x27adad(0x291));const _0x477693=eid('modal-confirm'),_0xe8d266=eid('modal-cancel'),_0x4ed396=()=>eid(_0x27adad(0x205))[_0x27adad(0x3ec)]['add'](_0x27adad(0x291));_0x477693[_0x27adad(0x44b)]=()=>{_0x4ed396(),_0x3eb16d();},_0xe8d266[_0x27adad(0x44b)]=_0x4ed396;}function termLog(_0x1c690c,_0x26f2ff){const _0x52e374=a0_0x53fb38;if(!state[_0x52e374(0x134)][_0x52e374(0x239)])return;const _0x421e8d=eid('terminal');if(!_0x421e8d)return;const _0x4a4099=document[_0x52e374(0x19d)](_0x52e374(0x38c));_0x4a4099[_0x52e374(0x1d7)]=_0x52e374(0x1a1),_0x4a4099[_0x52e374(0x439)]=_0x52e374(0x48b)+formatTime()+_0x52e374(0x310)+_0x1c690c+'\x22>'+_0x1c690c[_0x52e374(0x1d1)](0x7)+_0x52e374(0x47d),_0x4a4099[_0x52e374(0x1d2)](_0x52e374(0x28e))[_0x52e374(0x26d)]=_0x26f2ff,_0x421e8d[_0x52e374(0x358)](_0x4a4099);if(_0x421e8d[_0x52e374(0x418)][_0x52e374(0x434)]>LOG_CONFIG[_0x52e374(0x4ab)])_0x421e8d[_0x52e374(0x17a)][_0x52e374(0x191)]();_0x421e8d['scrollTop']=_0x421e8d['scrollHeight'];}function feedLog(_0xf565e2,_0x512666,_0x38f4cc=a0_0x53fb38(0x2b3)){const _0x5fdcd9=a0_0x53fb38,_0x3d86cc=eid('live-feed');if(!_0x3d86cc)return;const _0x1f507d=document['createElement']('div');_0x1f507d[_0x5fdcd9(0x1d7)]=_0x5fdcd9(0x138)+_0x38f4cc,_0x1f507d['innerHTML']=_0x5fdcd9(0x184)+formatTime()+'</span><span\x20class=\x22fi-icon\x22>'+_0xf565e2+_0x5fdcd9(0x495)+_0x512666+'</span>',_0x3d86cc[_0x5fdcd9(0x1b8)](_0x1f507d,_0x3d86cc['firstChild']);if(_0x3d86cc[_0x5fdcd9(0x418)][_0x5fdcd9(0x434)]>LOG_CONFIG['maxFeed'])_0x3d86cc[_0x5fdcd9(0x2f1)][_0x5fdcd9(0x191)]();}function dbLog(_0x4b1e82,_0x18ff5d){const _0x5ddb23=a0_0x53fb38,_0x55a906=eid(_0x5ddb23(0x516));if(!_0x55a906)return;const _0x7bb7cb=document[_0x5ddb23(0x19d)](_0x5ddb23(0x38c));_0x7bb7cb[_0x5ddb23(0x1d7)]=_0x5ddb23(0x350),_0x7bb7cb[_0x5ddb23(0x439)]=_0x5ddb23(0x3f5)+formatTime()+_0x5ddb23(0x353)+_0x4b1e82+_0x5ddb23(0x223)+_0x18ff5d+_0x5ddb23(0x3e9),_0x55a906[_0x5ddb23(0x1b8)](_0x7bb7cb,_0x55a906[_0x5ddb23(0x17a)]);if(_0x55a906[_0x5ddb23(0x418)][_0x5ddb23(0x434)]>LOG_CONFIG['maxDbLog'])_0x55a906['lastChild'][_0x5ddb23(0x191)]();}function secLog(_0xbab747,_0x3fbb68,_0x58cb6a='ok'){const _0x37d408=a0_0x53fb38,_0x4825c4=eid('security-log');if(!_0x4825c4)return;const _0x1450fc=document[_0x37d408(0x19d)]('div');_0x1450fc['className']=_0x37d408(0x16e)+_0x58cb6a,_0x1450fc['innerHTML']='<span\x20class=\x22sli-time\x22>'+formatTime()+'</span><span\x20class=\x22sli-icon\x22>'+_0xbab747+'</span><span\x20class=\x22sli-text\x22>'+_0x3fbb68+'</span>',_0x4825c4['insertBefore'](_0x1450fc,_0x4825c4[_0x37d408(0x17a)]);if(_0x4825c4[_0x37d408(0x418)][_0x37d408(0x434)]>LOG_CONFIG['maxSecLog'])_0x4825c4['lastChild'][_0x37d408(0x191)]();}function switchView(_0x23e1f0){const _0x827dd7=a0_0x53fb38;document[_0x827dd7(0x447)](_0x827dd7(0x344))[_0x827dd7(0x200)](_0x4822a4=>_0x4822a4['classList'][_0x827dd7(0x191)]('active')),document['querySelectorAll'](_0x827dd7(0x147))['forEach'](_0x3259f3=>_0x3259f3['classList'][_0x827dd7(0x191)]('active'));const _0xdad7e0=eid(_0x827dd7(0x27a)+_0x23e1f0);if(_0xdad7e0)_0xdad7e0[_0x827dd7(0x3ec)][_0x827dd7(0x3c1)](_0x827dd7(0x130));const _0x4d940d=eid(_0x827dd7(0x3b0)+_0x23e1f0);if(_0x4d940d)_0x4d940d[_0x827dd7(0x3ec)][_0x827dd7(0x3c1)](_0x827dd7(0x130));state['currentView']=_0x23e1f0;const _0x101f15={'dashboard':'Dashboard','submit':_0x827dd7(0x3a4),'queue':_0x827dd7(0x466),'workers':_0x827dd7(0x30b),'analytics':_0x827dd7(0x41f),'security':_0x827dd7(0x224),'database':_0x827dd7(0x373),'admin':_0x827dd7(0x4ed)};setText(_0x827dd7(0x4b7),_0x101f15[_0x23e1f0]||_0x23e1f0),_0x23e1f0===_0x827dd7(0x338)&&setTimeout(()=>{renderAnalyticsChart(),renderSubjectChart();},0x64),_0x23e1f0==='database'&&setTimeout(()=>renderDbSyncChart(),0x64);}window[a0_0x53fb38(0x2ef)]=function(_0x13ef2a){const _0x55149e=a0_0x53fb38;if(_0x13ef2a===0x3){const _0xb16538=eid(_0x55149e(0x35a))?eid('sub-roll')['value']['trim']():'',_0x4a8d37=eid(_0x55149e(0x196))?eid('sub-marks')[_0x55149e(0x471)]['trim']():'';if(!_0xb16538){notify(_0x55149e(0x455),_0x55149e(0x4f6),_0x55149e(0x414));return;}if(!_0x4a8d37){notify('Missing\x20Field','Please\x20enter\x20total\x20marks\x20awarded',_0x55149e(0x414));return;}}if(_0x13ef2a===0x4&&state[_0x55149e(0x1db)][_0x55149e(0x394)][_0x55149e(0x434)]===0x0){notify('No\x20Files','Please\x20upload\x20at\x20least\x20one\x20answer\x20script\x20file',_0x55149e(0x414));return;}for(let _0x91168=0x1;_0x91168<_0x13ef2a;_0x91168++){const _0x24c696=eid(_0x55149e(0x1d3)+_0x91168);_0x24c696&&(_0x24c696['classList'][_0x55149e(0x191)](_0x55149e(0x130)),_0x24c696[_0x55149e(0x3ec)]['add']('completed'),_0x24c696[_0x55149e(0x1d2)](_0x55149e(0x227))[_0x55149e(0x26d)]='✓');const _0x3e0a34=eid(_0x55149e(0x454)+_0x91168);if(_0x3e0a34)_0x3e0a34[_0x55149e(0x3ec)][_0x55149e(0x3c1)](_0x55149e(0x265));}document[_0x55149e(0x447)](_0x55149e(0x384))[_0x55149e(0x200)](_0xc91576=>_0xc91576[_0x55149e(0x3ec)][_0x55149e(0x191)](_0x55149e(0x130))),document[_0x55149e(0x447)](_0x55149e(0x24f))[_0x55149e(0x200)](_0x3739f7=>_0x3739f7[_0x55149e(0x3ec)]['remove'](_0x55149e(0x130)));const _0x322694=eid(_0x55149e(0x40f)+_0x13ef2a);if(_0x322694)_0x322694[_0x55149e(0x3ec)][_0x55149e(0x3c1)](_0x55149e(0x130));const _0x53553f=eid(_0x55149e(0x1d3)+_0x13ef2a);_0x53553f&&(_0x53553f[_0x55149e(0x3ec)][_0x55149e(0x3c1)](_0x55149e(0x130)),_0x53553f['classList'][_0x55149e(0x191)]('completed')),state['submission'][_0x55149e(0x4d0)]=_0x13ef2a;},window[a0_0x53fb38(0x412)]=function(){const _0x10f6ca=a0_0x53fb38;if(state['submission'][_0x10f6ca(0x394)][_0x10f6ca(0x434)]===0x0)return;nextStep(0x4),runSubmissionProcessing();},window[a0_0x53fb38(0x1c7)]=function(){const _0x18c7c6=a0_0x53fb38;state['submission'][_0x18c7c6(0x394)]=[],state['submission'][_0x18c7c6(0x4d0)]=0x1;const _0xef41e1=eid(_0x18c7c6(0x2f0));if(_0xef41e1)_0xef41e1[_0x18c7c6(0x439)]='';const _0x522f61=eid(_0x18c7c6(0x159));if(_0x522f61)_0x522f61[_0x18c7c6(0x1fa)]=!![];document['querySelectorAll']('.step-item')[_0x18c7c6(0x200)](_0x282eaa=>{const _0x5969cb=_0x18c7c6;_0x282eaa[_0x5969cb(0x3ec)][_0x5969cb(0x191)](_0x5969cb(0x130),_0x5969cb(0x265)),_0x282eaa['querySelector']('.step-circle')[_0x5969cb(0x26d)]=_0x282eaa['dataset'][_0x5969cb(0x4d0)];}),document[_0x18c7c6(0x447)](_0x18c7c6(0x4bc))[_0x18c7c6(0x200)](_0x43239e=>_0x43239e[_0x18c7c6(0x3ec)][_0x18c7c6(0x191)](_0x18c7c6(0x265))),document[_0x18c7c6(0x447)]('.step-panel')[_0x18c7c6(0x200)](_0x3b8351=>_0x3b8351['classList']['remove']('active'));const _0x7bc44e=eid('sp-1');if(_0x7bc44e)_0x7bc44e[_0x18c7c6(0x3ec)][_0x18c7c6(0x3c1)](_0x18c7c6(0x130));const _0x26073a=eid('st-1');if(_0x26073a)_0x26073a[_0x18c7c6(0x3ec)][_0x18c7c6(0x3c1)]('active');state['submission']['step']=0x1,[_0x18c7c6(0x3d2),_0x18c7c6(0x3d7),_0x18c7c6(0x3c6),'id',_0x18c7c6(0x3bb)][_0x18c7c6(0x200)](_0x5f2507=>{const _0x34b3f8=_0x18c7c6,_0xc15a40=eid(_0x34b3f8(0x1ae)+_0x5f2507);_0xc15a40&&(_0xc15a40[_0x34b3f8(0x3ec)][_0x34b3f8(0x191)](_0x34b3f8(0x130),_0x34b3f8(0x3c5)),_0xc15a40[_0x34b3f8(0x1d2)](_0x34b3f8(0x172))[_0x34b3f8(0x3ec)]['remove'](_0x34b3f8(0x130),_0x34b3f8(0x3c5)),_0xc15a40['querySelector'](_0x34b3f8(0x172))[_0x34b3f8(0x3ec)][_0x34b3f8(0x3c1)](_0x34b3f8(0x2b8)),_0xc15a40[_0x34b3f8(0x1d2)](_0x34b3f8(0x172))['textContent']='⏳');const _0x220cc9=eid(_0x34b3f8(0x3e6)+_0x5f2507);if(_0x220cc9)_0x220cc9[_0x34b3f8(0x26d)]='Pending';}),setWidth(_0x18c7c6(0x2b9),0x0);};async function runSubmissionProcessing(){const _0x26072f=a0_0x53fb38,_0x2cf0cd=[{'key':_0x26072f(0x3d2),'icon':'📋','duration':0x3e8,'label':_0x26072f(0x14e),'detail':_0x26072f(0x3df)+state['submission'][_0x26072f(0x394)][_0x26072f(0x434)]+_0x26072f(0x451)+formatBytes(state['submission'][_0x26072f(0x394)][_0x26072f(0x12e)]((_0x188aaa,_0x1de85b)=>_0x188aaa+_0x1de85b[_0x26072f(0x202)],0x0))},{'key':'hash','icon':_0x26072f(0x436),'duration':0x4b0,'label':'Hashed','detail':_0x26072f(0x2aa)+generateSHA256Like()[_0x26072f(0x4d2)](0x0,0x18)+'...'},{'key':_0x26072f(0x3c6),'icon':'🔐','duration':0x5dc,'label':_0x26072f(0x1b0),'detail':_0x26072f(0x416)+generateAESKey()[_0x26072f(0x4d2)](0x0,0x10)+_0x26072f(0x178)},{'key':'id','icon':'🆔','duration':0x320,'label':_0x26072f(0x312),'detail':''},{'key':_0x26072f(0x3bb),'icon':'📦','duration':0x258,'label':'Queued','detail':_0x26072f(0x3c3)}],_0x5262bf=generateSubmissionId(_0x26072f(0x355),'DEL'),_0x5b1ba3=generateSHA256Like();_0x2cf0cd[0x3][_0x26072f(0x4eb)]=_0x26072f(0x4ce)+_0x5262bf;for(let _0x1ef370=0x0;_0x1ef370<_0x2cf0cd[_0x26072f(0x434)];_0x1ef370++){const {key:_0x35d603,icon:_0x21f638,duration:_0x2e29c4,label:_0x519bf3,detail:_0x1368f1}=_0x2cf0cd[_0x1ef370],_0x36af5e=eid(_0x26072f(0x1ae)+_0x35d603),_0x3bb1e4=eid(_0x26072f(0x3e6)+_0x35d603),_0x459815=eid(_0x26072f(0x192)+_0x35d603),_0x2aa668=_0x36af5e?_0x36af5e[_0x26072f(0x1d2)](_0x26072f(0x172)):null;if(_0x36af5e)_0x36af5e['classList'][_0x26072f(0x3c1)]('active');_0x2aa668&&(_0x2aa668[_0x26072f(0x3ec)]['remove']('pending'),_0x2aa668[_0x26072f(0x3ec)][_0x26072f(0x3c1)]('active'),_0x2aa668[_0x26072f(0x26d)]='⚙️');if(_0x3bb1e4)_0x3bb1e4['textContent']=_0x26072f(0x47a);await new Promise(_0x5df8f5=>setTimeout(_0x5df8f5,_0x2e29c4));_0x36af5e&&(_0x36af5e[_0x26072f(0x3ec)][_0x26072f(0x191)](_0x26072f(0x130)),_0x36af5e[_0x26072f(0x3ec)]['add'](_0x26072f(0x3c5)));_0x2aa668&&(_0x2aa668[_0x26072f(0x3ec)][_0x26072f(0x191)](_0x26072f(0x130)),_0x2aa668[_0x26072f(0x3ec)]['add']('done'),_0x2aa668[_0x26072f(0x26d)]=_0x21f638);if(_0x3bb1e4)_0x3bb1e4['textContent']=_0x519bf3;if(_0x459815&&_0x1368f1)_0x459815[_0x26072f(0x26d)]=_0x1368f1;setWidth('proc-progress-fill',(_0x1ef370+0x1)/_0x2cf0cd['length']*0x64),termLog('SUCCESS','<span>[SUBMIT]\x20Step\x20'+(_0x1ef370+0x1)+'/'+_0x2cf0cd['length']+_0x26072f(0x1ef)+_0x519bf3+':\x20'+_0x1368f1[_0x26072f(0x4d2)](0x0,0x3c)+'</span>');}const _0x3217ad=createSubmission({'id':_0x5262bf,'hash':_0x5b1ba3,'manual':!![]});state[_0x26072f(0x19e)][_0x26072f(0x1bc)][_0x26072f(0x12f)](_0x3217ad),state['stats'][_0x26072f(0x1b5)]++,trackMySubmission(_0x3217ad),await new Promise(_0x14d50e=>setTimeout(_0x14d50e,0x190)),nextStep(0x5),setText(_0x26072f(0x199),_0x5262bf),setText(_0x26072f(0x47b),_0x5b1ba3[_0x26072f(0x4d2)](0x0,0x14)+_0x26072f(0x178)+_0x5b1ba3['substring'](0x2c)),setText('cd-pos','#'+(state[_0x26072f(0x19e)][_0x26072f(0x1bc)]['length']+state[_0x26072f(0x19e)][_0x26072f(0x431)][_0x26072f(0x434)])),setText(_0x26072f(0x15c),'~'+rand(0xf,0x3c)+_0x26072f(0x4ad)),notify(_0x26072f(0x14a),_0x26072f(0x4ce)+_0x5262bf[_0x26072f(0x4d2)](0x0,0x14)+'...',_0x26072f(0x40e)),feedLog('📤',_0x26072f(0x4d3)+_0x5262bf['substring'](0x0,0x10)+_0x26072f(0x178),_0x26072f(0x3bb)),secLog('🔐',_0x26072f(0x4a8)+_0x5b1ba3[_0x26072f(0x4d2)](0x0,0xc)+'...','ok');}function initUploadZone(){const _0x48889f=a0_0x53fb38,_0x3782b1=eid(_0x48889f(0x4e9)),_0x3f6575=eid(_0x48889f(0x3f0)),_0x1b5dbe=eid(_0x48889f(0x159));if(!_0x3782b1||!_0x3f6575)return;_0x3782b1[_0x48889f(0x44b)]=()=>_0x3f6575[_0x48889f(0x122)](),_0x3782b1[_0x48889f(0x453)]('dragover',_0x4bb848=>{const _0x5d11e1=_0x48889f;_0x4bb848[_0x5d11e1(0x2db)](),_0x3782b1['classList']['add'](_0x5d11e1(0x500));}),_0x3782b1[_0x48889f(0x453)](_0x48889f(0x24a),()=>_0x3782b1[_0x48889f(0x3ec)][_0x48889f(0x191)]('dragover')),_0x3782b1[_0x48889f(0x453)]('drop',_0x497546=>{const _0x508aaa=_0x48889f;_0x497546['preventDefault'](),_0x3782b1['classList']['remove'](_0x508aaa(0x500)),_0x1a1942(Array[_0x508aaa(0x1df)](_0x497546[_0x508aaa(0x296)]['files']));}),_0x3f6575[_0x48889f(0x453)]('change',()=>{const _0x4e9f53=_0x48889f;_0x1a1942(Array['from'](_0x3f6575[_0x4e9f53(0x394)])),_0x3f6575[_0x4e9f53(0x471)]='';});function _0x1a1942(_0xcd4088){const _0x5de538=_0x48889f,_0x2f02a9=[_0x5de538(0x217),_0x5de538(0x460),_0x5de538(0x260),_0x5de538(0x372)],_0x59e235=0x32*0x400*0x400;_0xcd4088[_0x5de538(0x200)](_0x3f360b=>{const _0x3b4b5c=_0x5de538;if(!_0x2f02a9[_0x3b4b5c(0x32b)](_0x3f360b[_0x3b4b5c(0x2ce)])&&!_0x3f360b[_0x3b4b5c(0x3ce)]['match'](/\.(pdf|jpg|jpeg|png|tif|tiff)$/i)){notify(_0x3b4b5c(0x427),_0x3f360b[_0x3b4b5c(0x3ce)]+'\x20—\x20unsupported\x20format',_0x3b4b5c(0x396));return;}if(_0x3f360b['size']>_0x59e235){notify('File\x20Too\x20Large',_0x3f360b[_0x3b4b5c(0x3ce)]+_0x3b4b5c(0x282),_0x3b4b5c(0x396));return;}state['submission'][_0x3b4b5c(0x394)][_0x3b4b5c(0x12f)](_0x3f360b),_0x4963a4(_0x3f360b),termLog(_0x3b4b5c(0x13d),_0x3b4b5c(0x470)+_0x3f360b[_0x3b4b5c(0x3ce)]+_0x3b4b5c(0x4a6)+formatBytes(_0x3f360b[_0x3b4b5c(0x202)])+')</span>');});if(_0x1b5dbe)_0x1b5dbe['disabled']=state['submission'][_0x5de538(0x394)][_0x5de538(0x434)]===0x0;}function _0x4963a4(_0x3e9d9d){const _0x19d158=_0x48889f,_0x41748f=eid(_0x19d158(0x2f0));if(!_0x41748f)return;const _0x5d3301=_0x3e9d9d[_0x19d158(0x3ce)][_0x19d158(0x389)]('.')[_0x19d158(0x37f)]()[_0x19d158(0x3b3)](),_0x5a0174={'pdf':'📄','jpg':_0x19d158(0x155),'jpeg':'🖼️','png':_0x19d158(0x155),'tif':'📑','tiff':'📑'},_0x155ee9=document['createElement'](_0x19d158(0x38c));_0x155ee9['className']=_0x19d158(0x42f),_0x155ee9[_0x19d158(0x463)][_0x19d158(0x3da)]=_0x3e9d9d[_0x19d158(0x3ce)],_0x155ee9[_0x19d158(0x439)]=_0x19d158(0x34c)+(_0x5a0174[_0x5d3301]||'📎')+_0x19d158(0x4f9),_0x155ee9[_0x19d158(0x1d2)](_0x19d158(0x2e5))[_0x19d158(0x26d)]=_0x3e9d9d['name'],_0x155ee9[_0x19d158(0x1d2)](_0x19d158(0x152))[_0x19d158(0x26d)]=formatBytes(_0x3e9d9d[_0x19d158(0x202)])+_0x19d158(0x370)+_0x5d3301[_0x19d158(0x234)](),_0x155ee9[_0x19d158(0x1d2)](_0x19d158(0x2ee))[_0x19d158(0x44b)]=()=>{const _0x1e81e8=_0x19d158;state[_0x1e81e8(0x1db)][_0x1e81e8(0x394)]=state[_0x1e81e8(0x1db)][_0x1e81e8(0x394)]['filter'](_0x447d5c=>_0x447d5c[_0x1e81e8(0x3ce)]!==_0x3e9d9d['name']),_0x155ee9[_0x1e81e8(0x191)]();if(_0x1b5dbe)_0x1b5dbe[_0x1e81e8(0x1fa)]=state[_0x1e81e8(0x1db)][_0x1e81e8(0x394)][_0x1e81e8(0x434)]===0x0;},_0x41748f[_0x19d158(0x358)](_0x155ee9);}}function createWorker(_0x4e9daa,_0x163d63=![]){const _0x19b149=a0_0x53fb38;return{'id':_0x4e9daa,'isScaled':_0x163d63,'status':_0x19b149(0x12b),'stage':_0x19b149(0x229),'progress':0x0,'currentTask':null,'tasksCompleted':0x0,'totalProcessingTime':0x0,'errors':0x0,'startTime':Date[_0x19b149(0x1ee)](),'stageProgress':0x0,'stageInterval':null};}function initWorkers(_0x1e20d5=0x6){const _0x124286=a0_0x53fb38;state[_0x124286(0x2fc)]=Array['from']({'length':_0x1e20d5},(_0x9cd4d1,_0x284219)=>createWorker(_0x284219+0x1,![])),renderWorkers();}function renderWorkers(){const _0xa41d17=a0_0x53fb38,_0x135a93=eid('workers-grid');if(!_0x135a93)return;_0x135a93[_0xa41d17(0x439)]='',state['workers']['forEach'](_0x205ea7=>{const _0x37f19d=_0xa41d17,_0x574616=document[_0x37f19d(0x19d)](_0x37f19d(0x38c));_0x574616[_0x37f19d(0x1d7)]=_0x37f19d(0x23c)+(_0x205ea7['status']==='active'||_0x205ea7[_0x37f19d(0x1ac)]===_0x37f19d(0x431)?_0x37f19d(0x2ab):'')+'\x20'+(_0x205ea7[_0x37f19d(0x440)]?_0x37f19d(0x123):''),_0x574616['id']=_0x37f19d(0x3f4)+_0x205ea7['id'];const _0xa3e25d=_0x205ea7[_0x37f19d(0x482)]>0x0?Math[_0x37f19d(0x3b2)](_0x205ea7['totalProcessingTime']/_0x205ea7[_0x37f19d(0x482)]):0x0,_0x361849={'idle':_0x37f19d(0x12b),'active':_0x37f19d(0x431),'processing':_0x37f19d(0x431)};_0x574616[_0x37f19d(0x439)]='\x0a\x20\x20\x20\x20\x20\x20<div\x20class=\x22wc-header\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22wc-title\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<span\x20class=\x22wc-icon\x22>⚙️</span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<span\x20class=\x22wc-name\x22>Worker-'+String(_0x205ea7['id'])[_0x37f19d(0x28a)](0x2,'0')+(_0x205ea7[_0x37f19d(0x440)]?_0x37f19d(0x1fe):'')+_0x37f19d(0x27e)+(_0x361849[_0x205ea7[_0x37f19d(0x1ac)]]||_0x37f19d(0x12b))+'\x22>'+_0x205ea7['status'][_0x37f19d(0x234)]()+_0x37f19d(0x322)+_0x205ea7['id']+'\x22>'+STAGE_LABELS[_0x205ea7[_0x37f19d(0x306)]]+_0x37f19d(0x2b5)+_0x205ea7['id']+'\x22>'+(_0x205ea7[_0x37f19d(0x4b4)]?_0x205ea7[_0x37f19d(0x4b4)]['id'][_0x37f19d(0x4d2)](0x0,0x14)+_0x37f19d(0x178):'No\x20task')+_0x37f19d(0x3d3)+_0x205ea7['id']+'\x22>'+_0x205ea7[_0x37f19d(0x1c5)]+_0x37f19d(0x4fe)+_0x205ea7['id']+_0x37f19d(0x2a8)+_0x205ea7[_0x37f19d(0x1c5)]+'%\x22></div></div>\x0a\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20<div\x20class=\x22wc-stats\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22wcs\x22><span\x20class=\x22wcs-val\x20text-success\x22\x20id=\x22wcc-'+_0x205ea7['id']+'\x22>'+_0x205ea7[_0x37f19d(0x482)]+'</span><span\x20class=\x22wcs-label\x22>Done</span></div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22wcs\x22><span\x20class=\x22wcs-val\x22\x20id=\x22wca-'+_0x205ea7['id']+'\x22>'+_0xa3e25d+_0x37f19d(0x4b1)+_0x205ea7['id']+'\x22>'+_0x205ea7[_0x37f19d(0x449)]+_0x37f19d(0x4c7),_0x135a93[_0x37f19d(0x358)](_0x574616);}),updateWorkerBadges();}function updateWorkerCard(_0x24e565){const _0x3ccf6a=a0_0x53fb38,_0x564e02=eid(_0x3ccf6a(0x3f4)+_0x24e565['id']);if(!_0x564e02)return;const _0x5d6448={'idle':_0x3ccf6a(0x12b),'active':_0x3ccf6a(0x431),'processing':_0x3ccf6a(0x431)},_0x14f8e5=_0x564e02[_0x3ccf6a(0x1d2)]('.wc-status-badge');_0x14f8e5&&(_0x14f8e5['className']='wc-status-badge\x20'+(_0x5d6448[_0x24e565[_0x3ccf6a(0x1ac)]]||_0x3ccf6a(0x12b)),_0x14f8e5[_0x3ccf6a(0x26d)]=_0x24e565[_0x3ccf6a(0x1ac)][_0x3ccf6a(0x234)]());setText(_0x3ccf6a(0x164)+_0x24e565['id'],STAGE_LABELS[_0x24e565[_0x3ccf6a(0x306)]]||_0x24e565['stage']),setText(_0x3ccf6a(0x4ac)+_0x24e565['id'],_0x24e565[_0x3ccf6a(0x4b4)]?_0x24e565[_0x3ccf6a(0x4b4)]['id'][_0x3ccf6a(0x4d2)](0x0,0x16)+_0x3ccf6a(0x178):'No\x20task'),setText(_0x3ccf6a(0x429)+_0x24e565['id'],_0x24e565['progress']+'%'),setWidth(_0x3ccf6a(0x2ae)+_0x24e565['id'],_0x24e565['progress']);const _0x5cd663=_0x24e565[_0x3ccf6a(0x482)]>0x0?Math[_0x3ccf6a(0x3b2)](_0x24e565[_0x3ccf6a(0x2bb)]/_0x24e565[_0x3ccf6a(0x482)]):0x0;setText(_0x3ccf6a(0x207)+_0x24e565['id'],_0x24e565['tasksCompleted']),setText(_0x3ccf6a(0x20e)+_0x24e565['id'],_0x5cd663+'ms'),setText(_0x3ccf6a(0x1e5)+_0x24e565['id'],_0x24e565[_0x3ccf6a(0x449)]),_0x564e02['className']=_0x3ccf6a(0x23c)+(_0x24e565[_0x3ccf6a(0x1ac)]===_0x3ccf6a(0x130)||_0x24e565[_0x3ccf6a(0x1ac)]==='processing'?_0x3ccf6a(0x2ab):'')+'\x20'+(_0x24e565[_0x3ccf6a(0x440)]?_0x3ccf6a(0x123):'');}function updateWorkerBadges(){const _0x22d66d=a0_0x53fb38,_0x539684=state['workers'][_0x22d66d(0x485)](_0x2c1fc7=>_0x2c1fc7[_0x22d66d(0x1ac)]==='active'||_0x2c1fc7[_0x22d66d(0x1ac)]===_0x22d66d(0x431))['length'],_0x54bc77=state[_0x22d66d(0x2fc)]['filter'](_0x4fd6ad=>_0x4fd6ad[_0x22d66d(0x1ac)]===_0x22d66d(0x12b))[_0x22d66d(0x434)],_0x3d38be=state['workers']['filter'](_0x57d76d=>_0x57d76d[_0x22d66d(0x440)])['length'];setText('wsb-active',_0x539684+'\x20Active'),setText(_0x22d66d(0x3d9),_0x54bc77+_0x22d66d(0x2b1)),setText('wsb-scaled',_0x3d38be+_0x22d66d(0x39c)),setText(_0x22d66d(0x2c2),state['workers']['length']);const _0x5e5e43=eid(_0x22d66d(0x28d));_0x5e5e43&&(_0x5e5e43[_0x22d66d(0x439)]='',state[_0x22d66d(0x2fc)][_0x22d66d(0x3a6)](0x0,0x9)[_0x22d66d(0x200)](_0x56a4a4=>{const _0x5222e1=_0x22d66d,_0x2bb9a6=_0x56a4a4[_0x5222e1(0x1ac)]===_0x5222e1(0x431)||_0x56a4a4[_0x5222e1(0x1ac)]==='active'?_0x5222e1(0x431):_0x56a4a4[_0x5222e1(0x1ac)],_0x55ab79=document[_0x5222e1(0x19d)]('div');_0x55ab79['className']=_0x5222e1(0x2ff),_0x55ab79[_0x5222e1(0x439)]=_0x5222e1(0x30f)+String(_0x56a4a4['id'])[_0x5222e1(0x28a)](0x2,'0')+_0x5222e1(0x1e2)+_0x2bb9a6+'\x22>'+_0x2bb9a6['toUpperCase']()+'</span>',_0x5e5e43['appendChild'](_0x55ab79);}));}let subCounter=0x2710;function createSubmission(_0x1249c0={}){const _0xea05d0=a0_0x53fb38;subCounter++;const _0x3448ed=_0x1249c0['subject']||pick(SUBJECTS),_0x1f2513=_0x1249c0[_0xea05d0(0x22f)]||pick(REGIONS);return{'id':_0x1249c0['id']||generateSubmissionId(_0x3448ed,_0x1f2513),'hash':_0x1249c0['hash']||generateSHA256Like(),'subject':_0x3448ed,'subjectCode':SUBJECT_CODES[_0x3448ed]||_0xea05d0(0x442),'set':pick(SETS),'roll':_0x1249c0[_0xea05d0(0x1a6)]||generateRollNo(),'region':_0x1f2513,'fileSize':rand(0x30d40,0x4c4b40),'createdAt':Date['now'](),'priority':rand(0x1,0x5),'retryCount':_0x1249c0[_0xea05d0(0x405)]||0x0,'status':_0xea05d0(0x1bc),'processTime':null,'manual':_0x1249c0['manual']||![]};}function enqueueSubmission(_0x267265){const _0x3a8152=a0_0x53fb38;if(state['simulation'][_0x3a8152(0x408)])return;_0x267265[_0x3a8152(0x1ac)]='incoming',state[_0x3a8152(0x19e)][_0x3a8152(0x1bc)][_0x3a8152(0x12f)](_0x267265),state[_0x3a8152(0x249)][_0x3a8152(0x1b5)]++;const _0x5194b5=_0x267265[_0x3a8152(0x158)];state[_0x3a8152(0x249)][_0x3a8152(0x3f1)][_0x5194b5]=(state[_0x3a8152(0x249)][_0x3a8152(0x3f1)][_0x5194b5]||0x0)+0x1,updateQueueStats(),addQueueCard(_0x3a8152(0x1bc),_0x267265),feedLog('📥',_0x3a8152(0x421)+_0x267265['id']['substring'](0x0,0x14)+_0x3a8152(0x343),_0x3a8152(0x2b3)),termLog('INFO',_0x3a8152(0x221)+_0x267265['subject']+']\x20'+_0x267265['id']['substring'](0x0,0x1c)+_0x3a8152(0x222)+_0x267265[_0x3a8152(0x1a6)]+'\x20·\x20Size:\x20'+formatBytes(_0x267265[_0x3a8152(0x302)])+_0x3a8152(0x3e9));}function addQueueCard(_0x20028e,_0x476498){const _0x41e4bd=a0_0x53fb38,_0x2d4a68=eid(_0x41e4bd(0x25d)+_0x20028e);if(!_0x2d4a68)return;_0x2d4a68['children']['length']>=LOG_CONFIG[_0x41e4bd(0x32f)]&&(_0x2d4a68[_0x41e4bd(0x2f1)]&&_0x2d4a68[_0x41e4bd(0x2f1)]['remove']());const _0x220440=document['createElement'](_0x41e4bd(0x38c));_0x220440[_0x41e4bd(0x1d7)]='queue-item\x20'+(_0x20028e!==_0x41e4bd(0x1bc)?_0x20028e+_0x41e4bd(0x235):''),_0x220440['id']=_0x41e4bd(0x3d6)+_0x476498['id'][_0x41e4bd(0x4d2)](_0x476498['id'][_0x41e4bd(0x434)]-0x8),_0x220440[_0x41e4bd(0x439)]='\x0a\x20\x20\x20\x20<span\x20class=\x22qi-id\x22>'+_0x476498['id'][_0x41e4bd(0x4d2)](0x0,0x1a)+'...</span>\x0a\x20\x20\x20\x20<span\x20class=\x22qi-sub\x22>'+_0x476498[_0x41e4bd(0x158)]+'\x20·\x20Roll:\x20'+_0x476498[_0x41e4bd(0x1a6)]+_0x41e4bd(0x4c3)+formatTime()+'\x20·\x20'+formatBytes(_0x476498[_0x41e4bd(0x302)])+_0x41e4bd(0x45c)+(_0x20028e===_0x41e4bd(0x431)?_0x41e4bd(0x1cf):'')+'\x0a\x20\x20',_0x2d4a68[_0x41e4bd(0x1b8)](_0x220440,_0x2d4a68[_0x41e4bd(0x17a)]);}function updateQueueCard(_0x39a578,_0x31bec2){const _0x18cd2a=a0_0x53fb38,_0x167c8c=_0x39a578['id'][_0x18cd2a(0x4d2)](_0x39a578['id'][_0x18cd2a(0x434)]-0x8),_0x54c5b1=eid(_0x18cd2a(0x3d6)+_0x167c8c);if(_0x54c5b1){const _0x30d29b=_0x54c5b1[_0x18cd2a(0x1d2)](_0x18cd2a(0x376));if(_0x30d29b)_0x30d29b[_0x18cd2a(0x505)][_0x18cd2a(0x141)]=_0x31bec2+'%';}}function moveQueueCard(_0x5223cb,_0x48c4f2,_0x56b7e7){const _0x3392af=a0_0x53fb38,_0x4e511f=_0x5223cb['id'][_0x3392af(0x4d2)](_0x5223cb['id'][_0x3392af(0x434)]-0x8),_0x519a26=eid(_0x3392af(0x3d6)+_0x4e511f);if(_0x519a26)_0x519a26[_0x3392af(0x191)]();if(_0x56b7e7)addQueueCard(_0x56b7e7,_0x5223cb);}function updateQueueStats(){const _0x3f4066=a0_0x53fb38,_0x416853=state[_0x3f4066(0x19e)][_0x3f4066(0x1bc)][_0x3f4066(0x434)]+state[_0x3f4066(0x19e)][_0x3f4066(0x431)]['length'],_0x25b3d5=_0x416853+state['queue'][_0x3f4066(0x1e9)][_0x3f4066(0x434)];setText('kv-queue',_0x25b3d5),setText(_0x3f4066(0x446),_0x25b3d5>0x0?_0x25b3d5+_0x3f4066(0x289):_0x3f4066(0x31b)),setText(_0x3f4066(0x1c1),_0x25b3d5),setText(_0x3f4066(0x490),state[_0x3f4066(0x19e)]['incoming'][_0x3f4066(0x434)]),setText(_0x3f4066(0x303),state[_0x3f4066(0x19e)][_0x3f4066(0x431)][_0x3f4066(0x434)]),setText(_0x3f4066(0x13c),state[_0x3f4066(0x19e)][_0x3f4066(0x265)][_0x3f4066(0x434)]),setText(_0x3f4066(0x151),state[_0x3f4066(0x19e)][_0x3f4066(0x324)][_0x3f4066(0x434)]),setText(_0x3f4066(0x270),state['queue']['retry'][_0x3f4066(0x434)]),setText(_0x3f4066(0x3c4),state['queue']['incoming'][_0x3f4066(0x434)]),setText('qcc-processing',state[_0x3f4066(0x19e)]['processing']['length']),setText(_0x3f4066(0x511),state[_0x3f4066(0x19e)][_0x3f4066(0x265)][_0x3f4066(0x434)]),setText(_0x3f4066(0x456),state[_0x3f4066(0x19e)][_0x3f4066(0x324)][_0x3f4066(0x434)]);_0x25b3d5>state[_0x3f4066(0x249)][_0x3f4066(0x3ea)]&&(state[_0x3f4066(0x249)][_0x3f4066(0x3ea)]=_0x25b3d5,setText('stat-peak',_0x25b3d5));_0x25b3d5>state['simulation'][_0x3f4066(0x261)]&&!state[_0x3f4066(0x134)][_0x3f4066(0x171)]&&(state[_0x3f4066(0x134)][_0x3f4066(0x171)]=!![],notify(_0x3f4066(0x39b),'Queue\x20depth\x20'+_0x25b3d5+_0x3f4066(0x2c1)+state['simulation'][_0x3f4066(0x261)],'warning'),setTimeout(()=>{const _0x500c87=_0x3f4066;state[_0x500c87(0x134)][_0x500c87(0x171)]=![];},0x2710));const _0x359385=Math[_0x3f4066(0x299)](state[_0x3f4066(0x249)][_0x3f4066(0x18c)][_0x3f4066(0x3a6)](-0x1)[0x0]*0x14,0x64),_0x2fbae3=Math['min'](_0x25b3d5/0x32*0x64,0x64),_0x596e28=state['workers'][_0x3f4066(0x485)](_0x5ba949=>_0x5ba949[_0x3f4066(0x1ac)]!=='idle')[_0x3f4066(0x434)]/state[_0x3f4066(0x2fc)][_0x3f4066(0x434)]*0x64,_0x4d0732=Math[_0x3f4066(0x299)](state['database'][_0x3f4066(0x132)]/0x1f4*0x64,0x64);setWidth(_0x3f4066(0x4f1),_0x359385),setWidth(_0x3f4066(0x244),_0x2fbae3),setWidth(_0x3f4066(0x20f),_0x596e28),setWidth(_0x3f4066(0x12a),_0x4d0732);const _0x1f6010=state[_0x3f4066(0x249)][_0x3f4066(0x18c)][_0x3f4066(0x3a6)](-0x5)[_0x3f4066(0x12e)]((_0x39e1af,_0x29dd01)=>_0x39e1af+_0x29dd01,0x0)/0x5;setText(_0x3f4066(0x121),_0x1f6010[_0x3f4066(0x19b)](0x1)+'/s'),setText(_0x3f4066(0x169),_0x25b3d5+_0x3f4066(0x13b)),setText(_0x3f4066(0x4a1),state['workers'][_0x3f4066(0x485)](_0x484ae3=>_0x484ae3[_0x3f4066(0x1ac)]!==_0x3f4066(0x12b))[_0x3f4066(0x434)]+'\x20busy'),setText(_0x3f4066(0x11c),state[_0x3f4066(0x297)]['todayRecords']+_0x3f4066(0x307));}async function processWithWorker(_0x2a1e1e){const _0x1897b1=a0_0x53fb38;if(state['simulation'][_0x1897b1(0x408)])return;let _0x837bdc=state[_0x1897b1(0x19e)][_0x1897b1(0x1e9)]['shift']();if(!_0x837bdc)_0x837bdc=state[_0x1897b1(0x19e)]['incoming']['shift']();if(!_0x837bdc){_0x2a1e1e[_0x1897b1(0x1ac)]=_0x1897b1(0x12b),_0x2a1e1e[_0x1897b1(0x306)]='IDLE',_0x2a1e1e[_0x1897b1(0x1c5)]=0x0,updateWorkerCard(_0x2a1e1e);return;}_0x2a1e1e[_0x1897b1(0x1ac)]=_0x1897b1(0x431),_0x2a1e1e[_0x1897b1(0x4b4)]=_0x837bdc,_0x2a1e1e['stage']=_0x1897b1(0x247),_0x2a1e1e[_0x1897b1(0x1c5)]=0x0,_0x837bdc[_0x1897b1(0x1ac)]=_0x1897b1(0x431),state[_0x1897b1(0x19e)]['processing'][_0x1897b1(0x12f)](_0x837bdc),updateWorkerCard(_0x2a1e1e),moveQueueCard(_0x837bdc,_0x1897b1(0x1bc),_0x1897b1(0x431)),updateQueueStats();const _0x23d429=Date[_0x1897b1(0x1ee)](),_0x464315=[{'stage':_0x1897b1(0x247),'pct':0xf,'duration':rand(0xc8,0x190)},{'stage':_0x1897b1(0x3f8),'pct':0x23,'duration':rand(0x12c,0x258)},{'stage':_0x1897b1(0x2bf),'pct':0x3c,'duration':rand(0x190,0x2bc)},{'stage':_0x1897b1(0x1c0),'pct':0x55,'duration':rand(0x1f4,0x320)},{'stage':_0x1897b1(0x4c6),'pct':0x64,'duration':rand(0x12c,0x1f4)}];for(const {stage:_0x139062,pct:_0x20b86c,duration:_0x5d61aa}of _0x464315){state[_0x1897b1(0x134)]['paused']&&await new Promise(_0x352529=>setTimeout(_0x352529,0x1f4)),_0x2a1e1e[_0x1897b1(0x306)]=_0x139062,_0x2a1e1e[_0x1897b1(0x1c5)]=_0x20b86c,updateWorkerCard(_0x2a1e1e),updateQueueCard(_0x837bdc,_0x20b86c),termLog('INFO',_0x1897b1(0x335)+String(_0x2a1e1e['id'])[_0x1897b1(0x28a)](0x2,'0')+'\x20['+_0x139062+']\x20'+_0x837bdc['id']['substring'](0x0,0x18)+'...</span>'),await new Promise(_0x274320=>setTimeout(_0x274320,_0x5d61aa));}const _0x320076=Date[_0x1897b1(0x1ee)]()-_0x23d429;_0x2a1e1e[_0x1897b1(0x2bb)]+=_0x320076;const _0x59f4ec=Math['random']()<0.08&&_0x837bdc[_0x1897b1(0x405)]<0x3;if(!_0x59f4ec){_0x2a1e1e[_0x1897b1(0x482)]++,_0x2a1e1e[_0x1897b1(0x306)]=_0x1897b1(0x298),_0x837bdc['status']=_0x1897b1(0x265),_0x837bdc[_0x1897b1(0x173)]=_0x320076,state['queue']['processing']=state['queue'][_0x1897b1(0x431)]['filter'](_0x3c0ce1=>_0x3c0ce1['id']!==_0x837bdc['id']),state[_0x1897b1(0x19e)][_0x1897b1(0x265)][_0x1897b1(0x12f)](_0x837bdc);if(state[_0x1897b1(0x19e)][_0x1897b1(0x265)][_0x1897b1(0x434)]>0x1e)state['queue'][_0x1897b1(0x265)][_0x1897b1(0x2b7)]();state['stats']['totalProcessed']++,state[_0x1897b1(0x249)][_0x1897b1(0x3bc)][_0x1897b1(0x12f)](_0x320076);if(state['stats'][_0x1897b1(0x3bc)][_0x1897b1(0x434)]>0x64)state[_0x1897b1(0x249)][_0x1897b1(0x3bc)][_0x1897b1(0x2b7)]();moveQueueCard(_0x837bdc,_0x1897b1(0x431),_0x1897b1(0x265)),feedLog('✅','<strong>'+_0x837bdc[_0x1897b1(0x158)]+_0x1897b1(0x195)+_0x320076+_0x1897b1(0x1ed)+_0x837bdc['roll'],_0x1897b1(0x40e)),termLog('SUCCESS',_0x1897b1(0x43e)+_0x837bdc['id'][_0x1897b1(0x4d2)](0x0,0x1c)+'...\x20in\x20'+_0x320076+_0x1897b1(0x1fb)),syncToDatabase(_0x837bdc),updateQueueStats();}else{_0x2a1e1e[_0x1897b1(0x449)]++,_0x837bdc['retryCount']++,_0x837bdc[_0x1897b1(0x1ac)]=_0x837bdc[_0x1897b1(0x405)]>=0x3?'failed':_0x1897b1(0x1e9),state[_0x1897b1(0x19e)][_0x1897b1(0x431)]=state['queue']['processing'][_0x1897b1(0x485)](_0x5cbe39=>_0x5cbe39['id']!==_0x837bdc['id']);if(_0x837bdc[_0x1897b1(0x405)]<0x3&&state[_0x1897b1(0x134)]['retryEnabled'])state[_0x1897b1(0x19e)]['retry'][_0x1897b1(0x12f)](_0x837bdc),state[_0x1897b1(0x249)][_0x1897b1(0x425)]++,moveQueueCard(_0x837bdc,_0x1897b1(0x431),_0x1897b1(0x324)),feedLog('🔄',_0x1897b1(0x1ec)+_0x837bdc[_0x1897b1(0x405)]+_0x1897b1(0x465)+_0x837bdc['id']['substring'](0x0,0x12)+'...',_0x1897b1(0x414)),termLog(_0x1897b1(0x3b4),_0x1897b1(0x25b)+_0x837bdc[_0x1897b1(0x405)]+_0x1897b1(0x377)+_0x837bdc['id'][_0x1897b1(0x4d2)](0x0,0x1c)+'...\x20—\x20Worker-'+_0x2a1e1e['id']+_0x1897b1(0x3e9));else{state[_0x1897b1(0x19e)]['failed'][_0x1897b1(0x12f)](_0x837bdc);if(state[_0x1897b1(0x19e)]['failed']['length']>0x14)state[_0x1897b1(0x19e)]['failed'][_0x1897b1(0x2b7)]();state[_0x1897b1(0x249)][_0x1897b1(0x4ea)]++,moveQueueCard(_0x837bdc,_0x1897b1(0x431),_0x1897b1(0x324)),feedLog('❌',_0x1897b1(0x4de)+_0x837bdc['id'][_0x1897b1(0x4d2)](0x0,0x12)+_0x1897b1(0x366)+_0x837bdc[_0x1897b1(0x405)]+_0x1897b1(0x120),_0x1897b1(0x396)),termLog('ERROR',_0x1897b1(0x382)+_0x837bdc['id'][_0x1897b1(0x4d2)](0x0,0x1c)+_0x1897b1(0x366)+_0x837bdc[_0x1897b1(0x405)]+_0x1897b1(0x450)),secLog('⚠️',_0x1897b1(0x2e9)+_0x837bdc[_0x1897b1(0x405)]+_0x1897b1(0x3a8)+_0x837bdc['id'][_0x1897b1(0x4d2)](0x0,0x14)+_0x1897b1(0x178),'warn');}}_0x2a1e1e[_0x1897b1(0x1ac)]=_0x1897b1(0x130),_0x2a1e1e['stage']='IDLE',_0x2a1e1e[_0x1897b1(0x1c5)]=0x0,_0x2a1e1e['currentTask']=null,updateWorkerCard(_0x2a1e1e),updateQueueStats(),updateSessionStats();}function syncToDatabase(_0x3667b8){const _0x29ac8c=a0_0x53fb38;state[_0x29ac8c(0x297)][_0x29ac8c(0x4a5)]++,state[_0x29ac8c(0x297)][_0x29ac8c(0x132)]++,state['database'][_0x29ac8c(0x514)]+=randFloat(0.05,0.2),state['database'][_0x29ac8c(0x44e)]=Math['max'](0x0,state[_0x29ac8c(0x297)][_0x29ac8c(0x44e)]-0x1);const _0x5d07ad={'id':_0x3667b8['id'],'subject':_0x3667b8[_0x29ac8c(0x158)],'roll':_0x3667b8['roll'],'hash':_0x3667b8[_0x29ac8c(0x3d7)],'syncedAt':new Date(),'status':_0x29ac8c(0x51c)};state[_0x29ac8c(0x297)][_0x29ac8c(0x2c8)][_0x29ac8c(0x3b9)](_0x5d07ad);if(state[_0x29ac8c(0x297)]['recentRecords'][_0x29ac8c(0x434)]>0x32)state[_0x29ac8c(0x297)][_0x29ac8c(0x2c8)]['pop']();setText('dbv-total',state[_0x29ac8c(0x297)][_0x29ac8c(0x4a5)][_0x29ac8c(0x2b4)]()),setText(_0x29ac8c(0x467),state['database'][_0x29ac8c(0x132)][_0x29ac8c(0x2b4)]()),setText(_0x29ac8c(0x28b),state[_0x29ac8c(0x297)][_0x29ac8c(0x44e)]),setText(_0x29ac8c(0x287),formatTime()),setText('dbv-size',state[_0x29ac8c(0x297)][_0x29ac8c(0x514)][_0x29ac8c(0x19b)](0x1)+'\x20MB'),dbLog('✅','<strong>'+_0x3667b8['id'][_0x29ac8c(0x4d2)](0x0,0x16)+_0x29ac8c(0x2a2)+_0x3667b8[_0x29ac8c(0x158)]+'\x20·\x20Roll:\x20'+_0x3667b8[_0x29ac8c(0x1a6)]),updateRecordsTable();const _0x282052=state[_0x29ac8c(0x249)][_0x29ac8c(0x50d)]%0x14;state[_0x29ac8c(0x249)]['dbSyncBatches'][_0x282052]=(state['stats'][_0x29ac8c(0x19f)][_0x282052]||0x0)+0x1,state[_0x29ac8c(0x249)][_0x29ac8c(0x50d)]++;}function updateRecordsTable(){const _0x4d8e1a=a0_0x53fb38,_0x102d34=eid('records-tbody');if(!_0x102d34)return;_0x102d34[_0x4d8e1a(0x439)]=state['database']['recentRecords'][_0x4d8e1a(0x3a6)](0x0,0xf)[_0x4d8e1a(0x433)](_0x987167=>'\x0a\x20\x20\x20\x20<tr>\x0a\x20\x20\x20\x20\x20\x20<td><code>'+_0x987167['id'][_0x4d8e1a(0x4d2)](0x0,0x18)+_0x4d8e1a(0x16c)+_0x987167[_0x4d8e1a(0x158)]+_0x4d8e1a(0x38f)+_0x987167['roll']+_0x4d8e1a(0x385)+shortHash(_0x987167[_0x4d8e1a(0x3d7)])+_0x4d8e1a(0x4a9)+_0x987167[_0x4d8e1a(0x1ac)]+'\x22>'+_0x987167[_0x4d8e1a(0x1ac)][_0x4d8e1a(0x234)]()+_0x4d8e1a(0x4ba)+_0x987167[_0x4d8e1a(0x20b)][_0x4d8e1a(0x2c0)]()+_0x4d8e1a(0x409))[_0x4d8e1a(0x186)]('');}function checkAutoScale(){const _0x1ad53e=a0_0x53fb38;if(!state[_0x1ad53e(0x134)][_0x1ad53e(0x4e2)])return;const _0xb36ee0=state['queue']['incoming']['length']+state[_0x1ad53e(0x19e)]['retry'][_0x1ad53e(0x434)],_0x3f4c52=0x14;if(_0xb36ee0>0xf&&state[_0x1ad53e(0x2fc)][_0x1ad53e(0x434)]<_0x3f4c52){const _0x5bf832=state['workers'][_0x1ad53e(0x434)]+0x1,_0x29c40d=createWorker(_0x5bf832,!![]);state[_0x1ad53e(0x2fc)][_0x1ad53e(0x12f)](_0x29c40d);const _0x40ef97=eid(_0x1ad53e(0x432));if(_0x40ef97){const _0x1068a6=document[_0x1ad53e(0x19d)](_0x1ad53e(0x38c));_0x1068a6['id']=_0x1ad53e(0x3f4)+_0x29c40d['id'],_0x1068a6[_0x1ad53e(0x1d7)]=_0x1ad53e(0x51f),_0x1068a6[_0x1ad53e(0x439)]='<div\x20class=\x22wc-header\x22><div\x20class=\x22wc-title\x22><span\x20class=\x22wc-icon\x22>⚙️</span><span\x20class=\x22wc-name\x22>Worker-'+String(_0x29c40d['id'])[_0x1ad53e(0x28a)](0x2,'0')+_0x1ad53e(0x452)+_0x29c40d['id']+'\x22>—</span></div><div\x20class=\x22wc-progress\x22><div\x20class=\x22wcp-header\x22><span\x20id=\x22wctask-'+_0x29c40d['id']+_0x1ad53e(0x1d4)+_0x29c40d['id']+_0x1ad53e(0x4e8)+_0x29c40d['id']+'\x22\x20style=\x22width:0%\x22></div></div></div><div\x20class=\x22wc-stats\x22><div\x20class=\x22wcs\x22><span\x20class=\x22wcs-val\x20text-success\x22\x20id=\x22wcc-'+_0x29c40d['id']+_0x1ad53e(0x1f2)+_0x29c40d['id']+_0x1ad53e(0x361)+_0x29c40d['id']+'\x22>0</span><span\x20class=\x22wcs-label\x22>Errors</span></div></div>',_0x40ef97[_0x1ad53e(0x358)](_0x1068a6);}const _0x39555e=eid('autoscale-notice');_0x39555e&&(_0x39555e[_0x1ad53e(0x505)][_0x1ad53e(0x4a3)]=_0x1ad53e(0x391),setText('autoscale-msg',_0x1ad53e(0x49c)+state[_0x1ad53e(0x2fc)][_0x1ad53e(0x434)]+_0x1ad53e(0x181)+_0xb36ee0)),notify('Auto-Scaling',_0x1ad53e(0x402)+_0x5bf832+_0x1ad53e(0x41a)+_0xb36ee0,'info',0xbb8),termLog(_0x1ad53e(0x13d),'<span>AUTO-SCALE:\x20Spawned\x20Worker-'+_0x5bf832+'\x20·\x20Queue\x20depth:\x20'+_0xb36ee0+_0x1ad53e(0x3e9)),secLog('⚡',_0x1ad53e(0x117)+state['workers'][_0x1ad53e(0x434)]+'\x20workers\x20deployed','ok'),updateWorkerBadges();}else{if(_0xb36ee0<=0x5&&state[_0x1ad53e(0x2fc)]['filter'](_0x33603b=>_0x33603b[_0x1ad53e(0x440)]&&_0x33603b['status']==='idle')[_0x1ad53e(0x434)]>0x0){const _0x4696b9=state[_0x1ad53e(0x2fc)][_0x1ad53e(0x485)](_0x459149=>_0x459149[_0x1ad53e(0x440)]&&_0x459149[_0x1ad53e(0x1ac)]===_0x1ad53e(0x12b));if(_0x4696b9[_0x1ad53e(0x434)]>0x0){const _0x54ba1b=_0x4696b9[_0x4696b9[_0x1ad53e(0x434)]-0x1];state['workers']=state[_0x1ad53e(0x2fc)]['filter'](_0x46de04=>_0x46de04['id']!==_0x54ba1b['id']);const _0x1a2c0=eid(_0x1ad53e(0x3f4)+_0x54ba1b['id']);if(_0x1a2c0)_0x1a2c0[_0x1ad53e(0x191)]();const _0x4672de=eid('autoscale-notice');if(_0x4672de)_0x4672de[_0x1ad53e(0x505)]['display']=_0x1ad53e(0x34b);updateWorkerBadges();}}}}function startSimulation(){const _0x440eb8=a0_0x53fb38;state[_0x440eb8(0x148)][_0x440eb8(0x20c)]=setInterval(()=>{const _0x1a7d77=_0x440eb8;if(state['simulation'][_0x1a7d77(0x408)])return;const _0xc3bcb2=rand(0x0,0x2);for(let _0x138686=0x0;_0x138686<_0xc3bcb2;_0x138686++){enqueueSubmission(createSubmission());}},0x708),state[_0x440eb8(0x148)]['dispatcher']=setInterval(()=>{const _0x3ecec9=_0x440eb8;if(state[_0x3ecec9(0x134)][_0x3ecec9(0x408)])return;state[_0x3ecec9(0x2fc)][_0x3ecec9(0x200)](_0x1cc6fe=>{const _0x3339fb=_0x3ecec9;if(_0x1cc6fe[_0x3339fb(0x1ac)]===_0x3339fb(0x12b)||_0x1cc6fe[_0x3339fb(0x1ac)]==='active'){const _0x4a3bee=state[_0x3339fb(0x19e)][_0x3339fb(0x1bc)]['length']>0x0||state['queue']['retry']['length']>0x0;_0x4a3bee&&(_0x1cc6fe['status']=_0x3339fb(0x130),processWithWorker(_0x1cc6fe));}}),checkAutoScale();},0x3e8),state[_0x440eb8(0x148)]['stats']=setInterval(()=>{updateThroughputHistory(),updateKPIs(),updateResourceMeters(),updateSystemHealth();},0x3e8),state[_0x440eb8(0x148)][_0x440eb8(0x3dc)]=setInterval(()=>{const _0x2c5ef1=_0x440eb8;if(state['currentView']===_0x2c5ef1(0x336))renderThroughputChart();if(state['currentView']===_0x2c5ef1(0x19e))renderQueueDepthChart();if(state['currentView']===_0x2c5ef1(0x2fc))renderWorkerChart();},0x7d0),state['timers'][_0x440eb8(0x118)]=setInterval(()=>{const _0x2036d2=_0x440eb8;setText(_0x2036d2(0x3ab),formatTime());},0x3e8),state[_0x440eb8(0x148)]['sparklines']=setInterval(()=>{updateSparklines();},0xbb8),startParticles();}function updateThroughputHistory(){const _0x579663=a0_0x53fb38,_0x48e10e=state[_0x579663(0x249)][_0x579663(0x1b5)]-(state[_0x579663(0x1c8)]['_lastTotal']||0x0),_0x5d7cd1=state[_0x579663(0x249)][_0x579663(0x4c1)]-(state[_0x579663(0x1c8)]['_lastProcessed']||0x0);state[_0x579663(0x1c8)][_0x579663(0x461)]=state['stats'][_0x579663(0x1b5)],state[_0x579663(0x1c8)]['_lastProcessed']=state[_0x579663(0x249)][_0x579663(0x4c1)],state[_0x579663(0x249)][_0x579663(0x18c)]['push'](_0x48e10e),state[_0x579663(0x249)][_0x579663(0x18c)][_0x579663(0x2b7)](),state[_0x579663(0x249)]['processedHistory'][_0x579663(0x12f)](_0x5d7cd1),state['stats'][_0x579663(0x31e)][_0x579663(0x2b7)]();const _0x4911bd=state[_0x579663(0x19e)][_0x579663(0x1bc)][_0x579663(0x434)]+state[_0x579663(0x19e)]['processing'][_0x579663(0x434)]+state[_0x579663(0x19e)][_0x579663(0x1e9)][_0x579663(0x434)];state[_0x579663(0x249)]['queueDepthHistory']['push'](_0x4911bd),state[_0x579663(0x249)][_0x579663(0x46e)][_0x579663(0x2b7)](),state[_0x579663(0x249)][_0x579663(0x50c)][_0x579663(0x12f)](state[_0x579663(0x2fc)][_0x579663(0x485)](_0x463a56=>_0x463a56['status']!==_0x579663(0x12b))[_0x579663(0x434)]),state[_0x579663(0x249)][_0x579663(0x50c)][_0x579663(0x2b7)](),state[_0x579663(0x249)][_0x579663(0x1d0)][_0x579663(0x12f)](_0x48e10e),state['stats'][_0x579663(0x1d0)][_0x579663(0x2b7)](),state[_0x579663(0x249)][_0x579663(0x4c0)][_0x579663(0x12f)](_0x5d7cd1),state[_0x579663(0x249)][_0x579663(0x4c0)][_0x579663(0x2b7)]();const _0x431996=state[_0x579663(0x249)][_0x579663(0x4ea)]-(state[_0x579663(0x1c8)][_0x579663(0x3cd)]||0x0);state['sparkData'][_0x579663(0x3cd)]=state[_0x579663(0x249)][_0x579663(0x4ea)],state['stats'][_0x579663(0x4da)][_0x579663(0x12f)](_0x431996),state[_0x579663(0x249)][_0x579663(0x4da)][_0x579663(0x2b7)]();}function updateKPIs(){const _0x24dd7d=a0_0x53fb38;setText(_0x24dd7d(0x4d9),state[_0x24dd7d(0x249)][_0x24dd7d(0x1b5)][_0x24dd7d(0x2b4)]()),setText('kv-total',state[_0x24dd7d(0x249)][_0x24dd7d(0x1b5)]['toLocaleString']());const _0x43eea1=state[_0x24dd7d(0x249)][_0x24dd7d(0x4c1)],_0x29dd5a=state[_0x24dd7d(0x249)][_0x24dd7d(0x4ea)],_0x42e505=_0x43eea1+_0x29dd5a>0x0?(_0x43eea1/(_0x43eea1+_0x29dd5a)*0x64)[_0x24dd7d(0x19b)](0x1)+'%':_0x24dd7d(0x24b);setText(_0x24dd7d(0x2c4),_0x42e505);const _0x8153cd=state[_0x24dd7d(0x249)][_0x24dd7d(0x3bc)]['length']>0x0?Math['round'](state[_0x24dd7d(0x249)][_0x24dd7d(0x3bc)][_0x24dd7d(0x12e)]((_0x52eca2,_0x41fcaf)=>_0x52eca2+_0x41fcaf,0x0)/state['stats'][_0x24dd7d(0x3bc)][_0x24dd7d(0x434)]):0x8e;setText(_0x24dd7d(0x1c2),_0x8153cd+'ms');const _0x59f289=state[_0x24dd7d(0x249)][_0x24dd7d(0x18c)]['slice'](-0xa);state[_0x24dd7d(0x1c8)]['total']=_0x59f289,state[_0x24dd7d(0x1c8)][_0x24dd7d(0x19e)]=state['stats'][_0x24dd7d(0x46e)][_0x24dd7d(0x3a6)](-0xa);const _0x3809cc=state[_0x24dd7d(0x249)][_0x24dd7d(0x3bc)]['slice'](-0xa);state['sparkData'][_0x24dd7d(0x153)]=_0x3809cc[_0x24dd7d(0x434)]>0x0?[_0x3809cc[_0x3809cc[_0x24dd7d(0x434)]-0x1]]:[],setText(_0x24dd7d(0x246),state[_0x24dd7d(0x249)][_0x24dd7d(0x1b5)][_0x24dd7d(0x2b4)]()),setText(_0x24dd7d(0x34a),state['stats'][_0x24dd7d(0x4c1)]['toLocaleString']()),setText(_0x24dd7d(0x163),state[_0x24dd7d(0x249)]['totalFailed']),setText(_0x24dd7d(0x13f),state[_0x24dd7d(0x249)][_0x24dd7d(0x425)]),setText(_0x24dd7d(0x39f),state[_0x24dd7d(0x2fc)][_0x24dd7d(0x434)]),setText(_0x24dd7d(0x145),state[_0x24dd7d(0x134)][_0x24dd7d(0x334)]);if(state[_0x24dd7d(0x249)]['processTimes'][_0x24dd7d(0x434)]>0x0){const _0x283668=state[_0x24dd7d(0x249)][_0x24dd7d(0x3bc)];setText(_0x24dd7d(0x354),Math[_0x24dd7d(0x3b2)](_0x283668['reduce']((_0xe6535f,_0x2370c2)=>_0xe6535f+_0x2370c2,0x0)/_0x283668[_0x24dd7d(0x434)])+'ms');}const _0x304789=eid(_0x24dd7d(0x401));if(_0x304789){const _0xd26825=0x3c81c;_0x304789[_0x24dd7d(0x26d)]=(_0xd26825+state[_0x24dd7d(0x249)]['totalSubmitted'])[_0x24dd7d(0x2b4)]();}const _0x436cf8=calculateSystemHealth();setWidth(_0x24dd7d(0x496),_0x436cf8),setText(_0x24dd7d(0x2fa),_0x436cf8+'%');}function updateSessionStats(){updateKPIs();}function updateResourceMeters(){const _0xec98c7=a0_0x53fb38,_0xbb1929=state[_0xec98c7(0x19e)][_0xec98c7(0x1bc)]['length']+state[_0xec98c7(0x19e)][_0xec98c7(0x431)][_0xec98c7(0x434)]+state['queue']['retry'][_0xec98c7(0x434)],_0x1c6d91=state['workers'][_0xec98c7(0x485)](_0x498487=>_0x498487['status']!==_0xec98c7(0x12b))[_0xec98c7(0x434)],_0xf9b1f5=state[_0xec98c7(0x2fc)][_0xec98c7(0x434)],_0x58b12=0x1e+_0x1c6d91/Math[_0xec98c7(0x293)](_0xf9b1f5,0x1)*0x32+rand(-0x5,0x5),_0x1b4bb9=0x2d+_0xbb1929/0x64*0x1e+rand(-0x3,0x3),_0x150feb=Math['min'](_0xbb1929/0x32*0x64,0x63)+rand(-0x2,0x2),_0x22841c=0x14+_0x1c6d91/Math['max'](_0xf9b1f5,0x1)*0x3c+rand(-0xa,0xa),_0x354cd5=(_0x22841c*0.4)[_0xec98c7(0x19b)](0x1),_0x46d975=Math[_0xec98c7(0x299)](Math[_0xec98c7(0x293)](_0x58b12,0x5),0x62),_0x195bdd=Math['min'](Math['max'](_0x1b4bb9,0x14),0x5c),_0x5b91b5=Math['min'](Math['max'](_0x150feb,0x0),0x63),_0x5eb573=Math[_0xec98c7(0x299)](Math[_0xec98c7(0x293)](_0x22841c,0x0),0x63);setText(_0xec98c7(0x144),Math[_0xec98c7(0x3b2)](_0x46d975)+'%'),setText('rm-mem',Math[_0xec98c7(0x3b2)](_0x195bdd)+'%'),setText(_0xec98c7(0x154),Math[_0xec98c7(0x3b2)](_0x5b91b5)+'%'),setText('rm-net',_0x354cd5+'\x20MB/s'),setWidth(_0xec98c7(0x411),_0x46d975),setWidth(_0xec98c7(0x424),_0x195bdd),setWidth('rmf-qload',_0x5b91b5),setWidth(_0xec98c7(0x4ec),_0x5eb573);const _0x4c83ac=eid(_0xec98c7(0x197)),_0x5d3f5f=_0x4c83ac?_0x4c83ac['querySelector'](_0xec98c7(0x17b)):null,_0x4d176f=eid('ssb-text')||(_0x4c83ac?_0x4c83ac[_0xec98c7(0x1d2)](_0xec98c7(0x34e)):null);if(_0x5d3f5f&&_0x4d176f){if(_0x46d975>0x5a||_0xbb1929>0x2d)_0x5d3f5f['className']=_0xec98c7(0x521),_0x4d176f[_0xec98c7(0x26d)]=_0xec98c7(0x1e0);else _0x46d975>0x4b||_0xbb1929>0x19?(_0x5d3f5f[_0xec98c7(0x1d7)]=_0xec98c7(0x29c),_0x4d176f[_0xec98c7(0x26d)]=_0xec98c7(0x4cc)):(_0x5d3f5f[_0xec98c7(0x1d7)]=_0xec98c7(0x4df),_0x4d176f['textContent']=_0xec98c7(0x33a));}}function calculateSystemHealth(){const _0x31cf80=a0_0x53fb38,_0x1a1d42=state['queue'][_0x31cf80(0x1bc)][_0x31cf80(0x434)]+state[_0x31cf80(0x19e)][_0x31cf80(0x431)][_0x31cf80(0x434)]+state['queue'][_0x31cf80(0x1e9)][_0x31cf80(0x434)],_0x3712a9=state[_0x31cf80(0x249)]['totalFailed']/Math[_0x31cf80(0x293)](state['stats'][_0x31cf80(0x1b5)],0x1);let _0x56e94f=0x64-_0x1a1d42/0x64*0x1e-_0x3712a9*0x64*0.3+rand(-0x2,0x2);return Math[_0x31cf80(0x299)](Math[_0x31cf80(0x293)](Math[_0x31cf80(0x3b2)](_0x56e94f),0x3c),0x64);}function updateSystemHealth(){}function drawLineChart(_0x4eb07c,_0x159dcf,_0x3fdeb4={}){const _0x34e995=a0_0x53fb38;if(!_0x4eb07c)return;const _0x391bc5=_0x4eb07c[_0x34e995(0x3d5)]('2d'),_0x2e150b=_0x4eb07c[_0x34e995(0x141)],_0x10ba33=_0x4eb07c[_0x34e995(0x2be)],_0x45b487=_0x3fdeb4[_0x34e995(0x380)]||{'t':0xa,'r':0xa,'b':0x14,'l':0x23},_0x4d6889=_0x2e150b-_0x45b487['l']-_0x45b487['r'],_0x49138a=_0x10ba33-_0x45b487['t']-_0x45b487['b'];_0x391bc5[_0x34e995(0x4e6)](0x0,0x0,_0x2e150b,_0x10ba33),_0x391bc5[_0x34e995(0x168)]=_0x34e995(0x2ed),_0x391bc5['lineWidth']=0x1;for(let _0x5c85a7=0x0;_0x5c85a7<=0x4;_0x5c85a7++){const _0x3da470=_0x45b487['t']+_0x49138a/0x4*_0x5c85a7;_0x391bc5[_0x34e995(0x1f5)](),_0x391bc5[_0x34e995(0x4b2)](_0x45b487['l'],_0x3da470),_0x391bc5[_0x34e995(0x363)](_0x45b487['l']+_0x4d6889,_0x3da470),_0x391bc5[_0x34e995(0x1de)]();}_0x159dcf[_0x34e995(0x200)](_0x22c304=>{const _0x45ea89=_0x34e995;if(!_0x22c304[_0x45ea89(0x29f)]||_0x22c304[_0x45ea89(0x29f)]['length']===0x0)return;const _0x1ad198=_0x3fdeb4[_0x45ea89(0x293)]||Math[_0x45ea89(0x293)](..._0x159dcf[_0x45ea89(0x493)](_0x9fb44b=>_0x9fb44b[_0x45ea89(0x29f)]),0x1),_0x288c59=_0x4d6889/(_0x22c304[_0x45ea89(0x29f)][_0x45ea89(0x434)]-0x1||0x1);if(_0x22c304['fill']){_0x391bc5[_0x45ea89(0x1f5)](),_0x22c304[_0x45ea89(0x29f)][_0x45ea89(0x200)]((_0x51968b,_0x56b731)=>{const _0x3070d9=_0x45ea89,_0x106e19=_0x45b487['l']+_0x56b731*_0x288c59,_0x579f0b=_0x45b487['t']+_0x49138a-_0x51968b/_0x1ad198*_0x49138a;_0x56b731===0x0?_0x391bc5[_0x3070d9(0x4b2)](_0x106e19,_0x579f0b):_0x391bc5[_0x3070d9(0x363)](_0x106e19,_0x579f0b);}),_0x391bc5[_0x45ea89(0x363)](_0x45b487['l']+(_0x22c304[_0x45ea89(0x29f)][_0x45ea89(0x434)]-0x1)*_0x288c59,_0x45b487['t']+_0x49138a),_0x391bc5[_0x45ea89(0x363)](_0x45b487['l'],_0x45b487['t']+_0x49138a),_0x391bc5['closePath']();const _0x2ff5df=_0x391bc5[_0x45ea89(0x136)](0x0,_0x45b487['t'],0x0,_0x45b487['t']+_0x49138a);_0x2ff5df[_0x45ea89(0x34f)](0x0,_0x22c304[_0x45ea89(0x4e3)]||_0x45ea89(0x368)),_0x2ff5df['addColorStop'](0x1,_0x45ea89(0x21a)),_0x391bc5[_0x45ea89(0x44c)]=_0x2ff5df,_0x391bc5[_0x45ea89(0x2e8)]();}_0x391bc5[_0x45ea89(0x1f5)](),_0x391bc5[_0x45ea89(0x168)]=_0x22c304[_0x45ea89(0x469)]||_0x45ea89(0x420),_0x391bc5['lineWidth']=_0x22c304[_0x45ea89(0x3bf)]||0x2,_0x391bc5[_0x45ea89(0x3b8)]='round',_0x391bc5[_0x45ea89(0x258)]=_0x45ea89(0x3b2),_0x22c304[_0x45ea89(0x29f)][_0x45ea89(0x200)]((_0x5de7db,_0x291d35)=>{const _0x308b08=_0x45ea89,_0x4ad847=_0x45b487['l']+_0x291d35*_0x288c59,_0x30f11b=_0x45b487['t']+_0x49138a-_0x5de7db/_0x1ad198*_0x49138a;_0x291d35===0x0?_0x391bc5[_0x308b08(0x4b2)](_0x4ad847,_0x30f11b):_0x391bc5[_0x308b08(0x363)](_0x4ad847,_0x30f11b);}),_0x391bc5[_0x45ea89(0x1de)]();});if(_0x3fdeb4[_0x34e995(0x51b)]!==![]){const _0x12ac08=_0x3fdeb4['max']||Math['max'](..._0x159dcf[_0x34e995(0x493)](_0x2c5495=>_0x2c5495[_0x34e995(0x29f)]),0x1);_0x391bc5[_0x34e995(0x44c)]='rgba(148,163,184,0.7)',_0x391bc5[_0x34e995(0x476)]='9px\x20Inter';for(let _0x4f3458=0x0;_0x4f3458<=0x4;_0x4f3458++){const _0x2ae456=_0x12ac08-_0x12ac08/0x4*_0x4f3458,_0x3e5d13=_0x45b487['t']+_0x49138a/0x4*_0x4f3458;_0x391bc5[_0x34e995(0x4b6)](Math[_0x34e995(0x3b2)](_0x2ae456),0x0,_0x3e5d13+0x3);}}}function drawBarChart(_0x23b649,_0x3acb11,_0x275f75,_0x35e281={}){const _0x164ed1=a0_0x53fb38;if(!_0x23b649)return;const _0x343ac9=_0x23b649[_0x164ed1(0x3d5)]('2d'),_0x5691c7=_0x23b649[_0x164ed1(0x141)],_0x4e5768=_0x23b649[_0x164ed1(0x2be)],_0x53d048={'t':0xa,'r':0xa,'b':0x19,'l':0x28},_0x46a1af=_0x5691c7-_0x53d048['l']-_0x53d048['r'],_0x160f5d=_0x4e5768-_0x53d048['t']-_0x53d048['b'];_0x343ac9[_0x164ed1(0x4e6)](0x0,0x0,_0x5691c7,_0x4e5768);const _0x71d7d6=Math[_0x164ed1(0x293)](..._0x3acb11,0x1),_0x5c8ce3=_0x46a1af/_0x3acb11[_0x164ed1(0x434)]*0.6,_0x172d1a=_0x46a1af/_0x3acb11['length']*0.4;_0x3acb11[_0x164ed1(0x200)]((_0x7f95f0,_0x4c9c4c)=>{const _0x2ce21c=_0x164ed1,_0x1aca98=_0x7f95f0/_0x71d7d6*_0x160f5d,_0x326577=_0x53d048['l']+_0x4c9c4c*(_0x5c8ce3+_0x172d1a)+_0x172d1a/0x2,_0x3f23f3=_0x53d048['t']+_0x160f5d-_0x1aca98,_0xdf2907=_0x343ac9['createLinearGradient'](0x0,_0x3f23f3,0x0,_0x3f23f3+_0x1aca98);_0xdf2907['addColorStop'](0x0,_0x275f75[_0x4c9c4c%_0x275f75[_0x2ce21c(0x434)]]||_0x2ce21c(0x420)),_0xdf2907[_0x2ce21c(0x34f)](0x1,'rgba(0,0,0,0.2)'),_0x343ac9[_0x2ce21c(0x44c)]=_0xdf2907,_0x343ac9[_0x2ce21c(0x1f5)](),_0x343ac9['roundRect']?_0x343ac9['roundRect'](_0x326577,_0x3f23f3,_0x5c8ce3,_0x1aca98,[0x3,0x3,0x0,0x0]):_0x343ac9[_0x2ce21c(0x35d)](_0x326577,_0x3f23f3,_0x5c8ce3,_0x1aca98),_0x343ac9[_0x2ce21c(0x2e8)](),_0x35e281[_0x2ce21c(0x2df)]&&(_0x343ac9[_0x2ce21c(0x44c)]=_0x2ce21c(0x133),_0x343ac9['font']='8px\x20Inter',_0x343ac9[_0x2ce21c(0x3f6)]=_0x2ce21c(0x4d6),_0x343ac9['fillText'](_0x35e281['labels'][_0x4c9c4c]||'',_0x326577+_0x5c8ce3/0x2,_0x4e5768-0x5));});}function renderThroughputChart(){const _0x25d325=a0_0x53fb38,_0x23dcae=eid('throughput-chart');if(!_0x23dcae)return;const _0x1d6689=Math[_0x25d325(0x293)](...state['stats'][_0x25d325(0x18c)],...state[_0x25d325(0x249)][_0x25d325(0x31e)],0x5);drawLineChart(_0x23dcae,[{'data':state[_0x25d325(0x249)][_0x25d325(0x18c)],'color':_0x25d325(0x420),'fillColor':'rgba(99,102,241,0.1)','fill':!![],'lineWidth':0x2},{'data':state[_0x25d325(0x249)][_0x25d325(0x31e)],'color':_0x25d325(0x38b),'fillColor':_0x25d325(0x3fd),'fill':!![],'lineWidth':0x2}],{'max':_0x1d6689,'pad':{'t':0xa,'r':0xa,'b':0x14,'l':0x23}});}function renderQueueDepthChart(){const _0x250886=a0_0x53fb38,_0x56b1c4=eid(_0x250886(0x462));if(!_0x56b1c4)return;drawLineChart(_0x56b1c4,[{'data':state['stats'][_0x250886(0x46e)],'color':_0x250886(0x49d),'fillColor':_0x250886(0x346),'fill':!![],'lineWidth':2.5}],{'pad':{'t':0xa,'r':0xa,'b':0x14,'l':0x23}});}function renderWorkerChart(){const _0x3de9ca=a0_0x53fb38,_0x1b6c1c=eid('worker-chart');if(!_0x1b6c1c)return;drawLineChart(_0x1b6c1c,[{'data':state[_0x3de9ca(0x249)][_0x3de9ca(0x50c)],'color':'#6366f1','fillColor':'rgba(99,102,241,0.12)','fill':!![],'lineWidth':0x2}],{'pad':{'t':0xa,'r':0xa,'b':0x14,'l':0x23}});}function renderAnalyticsChart(){const _0xa95894=a0_0x53fb38,_0x25e943=eid(_0xa95894(0x3c0));if(!_0x25e943)return;const _0x3d3e6c=state[_0xa95894(0x249)][_0xa95894(0x1d0)][_0xa95894(0x3a6)](-0x78),_0x31e898=state['stats'][_0xa95894(0x4c0)][_0xa95894(0x3a6)](-0x78),_0x1a838e=state[_0xa95894(0x249)][_0xa95894(0x4da)][_0xa95894(0x3a6)](-0x78),_0x148082=Math['max'](..._0x3d3e6c,..._0x31e898,0x5);drawLineChart(_0x25e943,[{'data':_0x3d3e6c,'color':'#6366f1','fill':!![],'fillColor':_0xa95894(0x49a),'lineWidth':0x2},{'data':_0x31e898,'color':_0xa95894(0x38b),'fill':!![],'fillColor':'rgba(16,185,129,0.08)','lineWidth':0x2},{'data':_0x1a838e,'color':_0xa95894(0x1b3),'fill':!![],'fillColor':_0xa95894(0x3db),'lineWidth':1.5}],{'max':_0x148082,'pad':{'t':0xa,'r':0xa,'b':0x14,'l':0x23}});}function renderSubjectChart(){const _0x5b002a=a0_0x53fb38,_0xd125a5=eid(_0x5b002a(0x187));if(!_0xd125a5)return;const _0xc965ef=SUBJECTS,_0x4261cd=_0xc965ef['map'](_0x86d913=>state[_0x5b002a(0x249)][_0x5b002a(0x3f1)][_0x86d913]||0x0),_0x5adb70=['#6366f1',_0x5b002a(0x22a),_0x5b002a(0x38b),'#f59e0b','#f43f5e',_0x5b002a(0x51a),_0x5b002a(0x397),_0x5b002a(0x226),'#f97316'];drawBarChart(_0xd125a5,_0x4261cd,_0x5adb70,{'labels':_0xc965ef[_0x5b002a(0x433)](_0x2e7e82=>_0x2e7e82['substring'](0x0,0x4))});}function renderDbSyncChart(){const _0xa50a9f=a0_0x53fb38,_0x31d1fa=eid(_0xa50a9f(0x38a));if(!_0x31d1fa)return;const _0x57143e=Array(0x14)['fill']('#10b981');drawBarChart(_0x31d1fa,state[_0xa50a9f(0x249)][_0xa50a9f(0x19f)],_0x57143e);}function updateSparklines(){const _0x5529c3=a0_0x53fb38,_0x31a610=[_0x5529c3(0x369),_0x5529c3(0x19e),'success',_0x5529c3(0x153)],_0x107b21=[state[_0x5529c3(0x249)][_0x5529c3(0x18c)][_0x5529c3(0x3a6)](-0xf),state[_0x5529c3(0x249)][_0x5529c3(0x46e)][_0x5529c3(0x3a6)](-0xf),state['stats'][_0x5529c3(0x31e)][_0x5529c3(0x3a6)](-0xf),state[_0x5529c3(0x249)]['processTimes'][_0x5529c3(0x3a6)](-0xf)['map'](_0xcb937e=>_0xcb937e/0xa)],_0x201258=[_0x5529c3(0x420),_0x5529c3(0x49d),'#10b981',_0x5529c3(0x22a)];_0x31a610[_0x5529c3(0x200)]((_0x1d18ed,_0x2e145e)=>{const _0x4fe2cc=_0x5529c3,_0x41cc46=eid(_0x4fe2cc(0x294)+_0x1d18ed);if(!_0x41cc46)return;const _0x55183f=_0x107b21[_0x2e145e];if(!_0x55183f||_0x55183f[_0x4fe2cc(0x434)]===0x0)return;const _0x551079=_0x41cc46[_0x4fe2cc(0x3d5)]('2d'),_0x14dd46=_0x41cc46[_0x4fe2cc(0x141)],_0x5ba245=_0x41cc46[_0x4fe2cc(0x2be)];_0x551079[_0x4fe2cc(0x4e6)](0x0,0x0,_0x14dd46,_0x5ba245);const _0x3ca699=Math[_0x4fe2cc(0x293)](..._0x55183f,0x1),_0x25631d=_0x14dd46/(_0x55183f[_0x4fe2cc(0x434)]-0x1||0x1);_0x551079[_0x4fe2cc(0x1f5)](),_0x551079['strokeStyle']=_0x201258[_0x2e145e],_0x551079[_0x4fe2cc(0x3bf)]=1.5,_0x551079['lineJoin']=_0x4fe2cc(0x3b2),_0x55183f[_0x4fe2cc(0x200)]((_0x5dfc3a,_0x1295ee)=>{const _0x1878ce=_0x1295ee*_0x25631d,_0x152345=_0x5ba245-_0x5dfc3a/_0x3ca699*(_0x5ba245-0x4)-0x2;_0x1295ee===0x0?_0x551079['moveTo'](_0x1878ce,_0x152345):_0x551079['lineTo'](_0x1878ce,_0x152345);}),_0x551079[_0x4fe2cc(0x1de)](),_0x551079[_0x4fe2cc(0x363)]((_0x55183f['length']-0x1)*_0x25631d,_0x5ba245),_0x551079[_0x4fe2cc(0x363)](0x0,_0x5ba245),_0x551079[_0x4fe2cc(0x15d)]();const _0x486467=_0x551079[_0x4fe2cc(0x136)](0x0,0x0,0x0,_0x5ba245);_0x486467[_0x4fe2cc(0x34f)](0x0,_0x201258[_0x2e145e][_0x4fe2cc(0x323)](')',',\x200.15)')[_0x4fe2cc(0x323)](_0x4fe2cc(0x474),_0x4fe2cc(0x2a0))||'rgba(99,102,241,0.15)'),_0x486467[_0x4fe2cc(0x34f)](0x1,_0x4fe2cc(0x21a)),_0x551079[_0x4fe2cc(0x44c)]=_0x486467,_0x551079['fill']();});}function startParticles(){const _0x333173=a0_0x53fb38,_0x17b287=eid(_0x333173(0x225));if(!_0x17b287)return;const _0x3fb3e8=[_0x333173(0x420),'#06b6d4',_0x333173(0x38b),'#f59e0b',_0x333173(0x1b3)];let _0xda6b7=setInterval(()=>{const _0x3fe24b=_0x333173;if(!eid(_0x3fe24b(0x225))){clearInterval(_0xda6b7);return;}const _0x35fe60=document[_0x3fe24b(0x19d)](_0x3fe24b(0x38c));_0x35fe60[_0x3fe24b(0x1d7)]='particle',_0x35fe60['style'][_0x3fe24b(0x203)]=_0x3fe24b(0x4c9)+randFloat(0x0,0x2)+_0x3fe24b(0x26e)+randFloat(0x2,0x4)+_0x3fe24b(0x506)+pick(_0x3fb3e8)+';\x20top:'+rand(0x0,0x2)+'px',_0x17b287[_0x3fe24b(0x358)](_0x35fe60),setTimeout(()=>_0x35fe60[_0x3fe24b(0x191)](),0x1388);},0x320);}function triggerSpike(_0x55858d=0x32){const _0x20d6b6=a0_0x53fb38,_0x2390c2=()=>{const _0x41c634=a0_0x3126;for(let _0x2568b7=0x0;_0x2568b7<_0x55858d;_0x2568b7++){setTimeout(()=>enqueueSubmission(createSubmission()),_0x2568b7*0x28);}state[_0x41c634(0x134)][_0x41c634(0x334)]++,notify(_0x41c634(0x1d5),_0x55858d+'\x20submissions\x20injected\x20—\x20Queue\x20absorbing\x20load','warning',0x1388),feedLog('⚡',_0x41c634(0x4ff)+_0x55858d+_0x41c634(0x290),'warning'),termLog('WARN',_0x41c634(0x4c8)+_0x55858d+_0x41c634(0x3a7)),secLog('⚡',_0x41c634(0x241)+_0x55858d+_0x41c634(0x2cc),_0x41c634(0x1b6)),setText('stat-spikes',state[_0x41c634(0x134)][_0x41c634(0x334)]);};confirmAction(_0x20d6b6(0x24c),_0x20d6b6(0x448)+_0x55858d+_0x20d6b6(0x341),'⚡',_0x2390c2);}function a0_0x1394(){const _0x150d25=['incidents-list','contains','_lastFailed','name','<span\x20class=\x22lb-worker-load\x22\x20style=\x22','.nav-item[data-view]','\x22>W-','validate','</span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<span\x20id=\x22wcpct-','📦\x20Queue\x20depth:\x20CRITICAL\x20—\x20Spike\x20detected','getContext','qi-','hash','Setting\x20Updated','wsb-idle','filename','rgba(244,63,94,0.06)','chart','getMinutes','var(--danger)','File\x20OK\x20·\x20','<span>User:\x20','color:','11846RSECVS','superadmin@cbse.gov.in','mc-retry','metrics-latency-chart','ps-','dlqRetried','dbv-size','</span>','peakQueueDepth','auditCounter','classList','Worker\x20Terminated','👑\x20Super\x20Admin','⚠️\x20Back-pressure\x20alert\x20—\x20Rate\x20limiter\x20activating','file-input','subjectCounts',')\x22>🗑\x20Del</button></td></tr>','transform','wcard-','<span\x20class=\x22dli-time\x22>','textAlign','Even\x20Load','VALIDATING','metrics','mc-avgwait','lb-qdepth','<span>FULL\x20SYSTEM\x20RESET\x20performed\x20by\x20admin</span>','rgba(16,185,129,0.08)','⚙️\x20Worker\x20Alert','ADMIN','💥\x20Primary\x20DB\x20(Mumbai)\x20—\x20Connection\x20dropped!','ls-total','Spawned\x20Worker-','arc','ic-id','retryCount','.chaos-btn,\x20#btn-spike,\x20#btn-dlq-retry-all,\x20#btn-spawn-worker,\x20#btn-pause,\x20#btn-resume,\x20#btn-reset','dlqs-retried','paused','</td>\x0a\x20\x20\x20\x20</tr>\x0a\x20\x20','sla-slow','pa-detail','Queue\x20Active','processed','success','sp-','Fetching\x20item\x20from\x20queue','rmf-cpu','startProcessing','Rajan\x20Mehta','warning','degraded','AES-256-GCM\x20·\x20Key:\x20','menu-btn','children','301','\x20—\x20Queue\x20depth:\x20','role','✅\x20Primary\x20cipher\x20re-keyed\x20and\x20restored','Full\x20system\x20access\x20—\x20all\x20modules\x20unlocked','enabled','Analytics\x20&\x20Logs','#6366f1','Submission\x20<strong>','</code></td><td><code>','5046845ztFHpe','rmf-mem','totalRetried','svc-status\x20','Invalid\x20File','History','wcpct-','✅\x20Backlog\x20of\x20342\x20retries\x20cleared\x20in\x201.2s','audit','scale(1)','DEGRADED','opacity','uploaded-file','</span><span\x20class=\x22lh-time\x22>','processing','workers-grid','map','length',')\x22>🔄\x20Retry</button><button\x20class=\x22dlq-action-btn\x20delete\x22\x20onclick=\x22deleteFromDLQ(','#️⃣','CRITICAL','toggle','innerHTML','Read-only\x20—\x20Monitor\x20cannot\x20trigger\x20actions','.role-tab','838818NbSMdB','retryFromDLQ','<span>COMPLETED\x20','<span>👁\x20READ-ONLY\x20MODE\x20—\x20','isScaled','mc-throughput','000','</td><td><code>','mysubmissions','slaf-med','kc-queue','querySelectorAll','Inject\x20','errors','\x22></span><span\x20class=\x22ssb-text\x22>','onclick','fillStyle','submit','pendingSync','<strong>TLS\x201.3</strong>\x20session\x20established\x20·\x20Certificate\x20valid','\x20retries</span>','\x20script(s)\x20·\x20','\x20<span\x20style=\x22color:var(--primary);font-size:.6rem\x22>AUTO</span></span></div><span\x20class=\x22wc-status-badge\x20idle\x22>IDLE</span></div><div\x20class=\x22wc-task\x22>Stage:\x20<span\x20class=\x22wc-task-name\x22\x20id=\x22wstage-','addEventListener','sl-','Missing\x20Field','qcc-failed','readOnly','Logged\x20in\x20from\x20','<span\x20style=\x22color:','enc-input','Queue\x20Resumed','</span>\x0a\x20\x20\x20\x20','evalsync-audit.csv','\x20warning','<tr><td><code>','image/jpeg','_lastTotal','queue-depth-chart','dataset','chaos-','/3</strong>\x20—\x20','Queue\x20Monitor','dbv-today','keys','color','login-history','📉\x20Queue\x20depth\x20declining:\x20180\x20→\x20140\x20→\x2090...','switchView','prediction','queueDepthHistory','</span><span\x20style=\x22margin-left:auto;font-size:.65rem;color:var(--text-muted)\x22>','<span>File\x20loaded:\x20<strong>','value','LOGIN','scale(0.97)','rgb','btn-pause-queue','font','1000\x20submissions\x20injected\x20—\x20watch\x20the\x20queue\x20spike!','prepend','/3</td><td\x20style=\x22color:var(--warning)\x22>','Processing...','cd-hash','rgba(245,158,11,0.5)','</span><span\x20class=\x22tl-msg\x22></span>','Upload\x20answer\x20scripts\x20&\x20track\x20your\x20queue\x20position','✅\x20Back-Pressure\x20Control\x20—\x20Validated','random','rgba(255,255,255,0.8)','tasksCompleted','loadbalancer','Dead\x20Letter\x20Queue','filter','.notif-title','🛑\x20New\x20submissions\x20throttled\x20to\x2010/s\x20(from\x20100/s)','_drainMode','</td>\x0a\x20\x20\x20\x20\x20\x20<td><code\x20style=\x22font-size:.68rem\x22>','\x20submission','<span\x20class=\x22tl-time\x22>','sla-failed','eo-key','rec-queue-body','mysub-count','qs-incoming','eo-tag','\x20respawned\x20(','flatMap','</code></td>\x0a\x20\x20\x20\x20\x20\x20<td\x20style=\x22font-weight:700;color:var(--warning)\x22>','</span><span\x20class=\x22fi-text\x22>','shm-fill','slaf-slow','Need\x20','044','rgba(99,102,241,0.08)','-2024','Auto-scaled\x20to\x20','#f59e0b','initials','All\x20items\x20re-queued','dlqEnteredAt','psc-workers','description','display','audit-tbody','totalRecords','</strong>\x20(','login-form','<strong>AES-256</strong>\x20encryption\x20applied\x20·\x20Hash:\x20','</code></td>\x0a\x20\x20\x20\x20\x20\x20<td><span\x20class=\x22rt-status\x20','🔴\x20Initiating\x20Chaos\x20Test:\x20','maxTerminal','wctask-','\x20seconds','Peak\x20load\x20expected\x20in\x20','⚠️\x20','5s+','ms</span><span\x20class=\x22wcs-label\x22>Avg\x20Time</span></div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22wcs\x22><span\x20class=\x22wcs-val\x20text-danger\x22\x20id=\x22wce-','moveTo','QUEUE','currentTask','\x20recommended','fillText','bc-current','●\x20OFFLINE','psi-qdepth','</span></td>\x0a\x20\x20\x20\x20\x20\x20<td>','predicted','.step-line','1765141RfzedO','lbsr-resp','\x20test\x20active\x20—\x20System\x20under\x20stress','successHistory','totalProcessed','details','</span>\x0a\x20\x20\x20\x20<span\x20class=\x22qi-time\x22>','action','repst-primary','SYNCING','</span><span\x20class=\x22wcs-label\x22>Errors</span></div>\x0a\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20','<span>TRAFFIC\x20SPIKE:\x20','animation-delay:','var(--success)','critical','Elevated\x20Traffic\x20—\x20Monitoring','✅\x20Replica\x20(Delhi)\x20promoted\x20to\x20Primary\x20DB','ID:\x20','📡\x20Monitor','step','createObjectURL','substring','<strong>Manual\x20submission</strong>\x20queued\x20·\x20ID:\x20','⚡\x20Injecting\x201000\x20simultaneous\x20submissions...','\x20item\x20cap','center','rgba(245,158,11,0.04)','030','kv-total','failHistory','title','perfMetrics','Priya\x20Singh','<strong>FAILED</strong>\x20—\x20','ssb-dot\x20operational','isArray','AI\x20Prediction','autoScale','fillColor','/1000\x20injected\x20—\x20Queue:\x20','\x20records','clearRect','cid-value','\x22>0%</span></div><div\x20class=\x22wcp-bar\x22><div\x20class=\x22wcp-fill\x22\x20id=\x22wcpfill-','upload-zone','totalFailed','detail','rmf-net','Admin\x20Control','</span><span\x20class=\x22wcpu-val\x22\x20style=\x22color:','currentView','Invalid\x20credentials.\x20Use\x20the\x20demo\x20credentials\x20shown\x20above.','psf-gateway','🔄\x20Loading\x20backup\x20HSM\x20cipher\x20module...','<strong>Submission\x20ID</strong>\x20generated:\x20','✅\x20Cipher\x20Failover\x20—\x20<50ms\x20RTO','replica','Please\x20enter\x20a\x20student\x20roll\x20number','lbsr-workers','043','</span>\x0a\x20\x20\x20\x20\x20\x20<div\x20class=\x22uf-info\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<span\x20class=\x22uf-name\x22></span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<span\x20class=\x22uf-size\x22></span>\x0a\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20<button\x20class=\x22uf-remove\x22\x20title=\x22Remove\x22>✕</button>\x0a\x20\x20\x20\x20','DOMContentLoaded','auditEntries','Worker-','</td><td>','%</span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22wcp-bar\x22><div\x20class=\x22wcp-fill\x22\x20id=\x22wcpfill-','<strong>TRAFFIC\x20SPIKE</strong>\x20—\x20','dragover','33PcttLK','3.5s','🔐\x20AES-256-GCM\x20module\x20crash\x20—\x20Encryption\x20unavailable!','session-timer','style','s;\x20background:','health-latency-chart','🔪\x20SIGKILL\x20sent\x20to\x20all\x20','incident-item\x20','%</span><div\x20class=\x22wcpu-bar\x22><div\x20class=\x22wcpu-fill\x22\x20style=\x22width:','var(--warning)','workerHistory','nextBatch','Please\x20log\x20in\x20again','isLoggedIn','ic-subject','qcc-completed','notif-dot','In\x20Queue','dbSizeMB','📦\x20Queue\x20holding\x20safely\x20—\x200\x20items\x20lost\x20(FIFO\x20preserved)','db-log','Notifications','main-app','floor','#a855f7','yLabels','synced','setLineDash','globalAlpha','worker-card\x20scaled-worker','All\x20workers\x20are\x20busy','ssb-dot\x20critical','\x20spawned','LKW','<strong>ENCRYPTION\x20MODULE\x20CRASHED</strong>\x20—\x20AES-256\x20unavailable!','cls','%\x20capacity)','Validation\x20error','<strong>Auto-scale\x20event</strong>\x20—\x20','clock','<strong>Queue\x20processing\x20PAUSED</strong>\x20by\x20administrator','readonly-banner','worker-count-label','psc-db','SECURITY','029','hash-animation','\x20retries','psc-gateway','click','scaled-worker','input','background','Geography','✅\x20Worker-09,\x2010,\x2011,\x2012\x20spawned\x20(auto-scale\x20+6)','repl-r1','Task\x20complete','psf-db','idle','●\x20IN\x20SYNC','🌐\x20Inter-DC\x20links\x20degraded:\x20Mumbai\x20↔\x20Delhi\x20↔\x20Chennai','reduce','push','active','</span></td><td>','todayRecords','rgba(148,163,184,0.7)','simulation','lb-dist-chart','createLinearGradient','🏭\x20Current\x20workers:\x20','feed-item\x20','System\x20Reset','AES-256-GCM\x20encryption','\x20items','qs-completed','INFO','<span\x20style=\x22color:var(--text-muted);font-size:.65rem\x22>','stat-retried','🛡️\x20Admin','width','queueOverload','setItem','rm-cpu','stat-spikes','184030wGKUFs','.nav-item','timers','peakThroughput','Submission\x20Accepted','sessionStart','dlq-tbody','btn-spike-big','Validated','<tr>\x0a\x20\x20\x20\x20\x20\x20<td><code\x20style=\x22font-size:.72rem;color:var(--secondary)\x22>','btn-spike','qs-failed','.uf-size','speed','rm-qload','🖼️','<strong>Queue\x20processing\x20RESUMED</strong>\x20by\x20administrator','ERROR','subject','btn-proceed-upload','hash-result','su-role','cd-eta','closePath','splice','Are\x20you\x20sure\x20you\x20want\x20to\x20sign\x20out\x20of\x20EvalSync?','_inDLQ','✅\x20DB\x20Failover\x20—\x20Zero\x20Data\x20Lost','busy-lb','stat-failed','wstage-','\x20min','.main-content','</td>\x0a\x20\x20\x20\x20\x20\x20<td><span\x20class=\x22status-badge\x20','strokeStyle','psc-queue','\x20req/s','All\x20pending\x20items\x20cleared','...</code></td>\x0a\x20\x20\x20\x20\x20\x20<td>','rec-db-badge','sec-log-item\x20','\x20has\x20','border-color:','_alertFired','.proc-icon','processTime','worker-cpu-grid','stat-start','2616mPNlLb','📡\x20Network\x20partition\x20detected\x20—\x2050%\x20packet\x20loss','...','☠️\x20Dead\x20Letter\x20Queue','firstChild','.ssb-dot','All\x20data\x20cleared\x20—\x20Simulation\x20restarted','toggle-pass','<span>ADMIN:\x20Queue\x20processing\x20paused</span>','<strong>Primary\x20DB\x20online</strong>\x20·\x20Mumbai\x20data\x20center','📊\x20Queue\x20depth:\x20','\x20workers\x20—\x20Queue\x20depth:\x20','⚙️\x20Workers\x20entering\x20retry-with-backoff\x20mode','\x20spawned\x20(auto-scale)\x20—\x20Total:\x20','<span\x20class=\x22fi-time\x22>','\x20critical','join','subject-chart','Processing\x20restarted\x20—\x20Workers\x20active','\x20min!','...</code></td><td><span\x20class=\x22status-badge\x20ok\x22>SUCCESS</span></td></tr>','onsubmit','throughputHistory','fillRect','<div\x20class=\x22wcpu-card\x22><span\x20class=\x22wcpu-name\x22>W-','lb-dbrecs','⚠️\x20Test\x20already\x20running\x20—\x20wait\x20for\x20current\x20test\x20to\x20finish','remove','pd-','DB\x20write\x20failed','✅\x20Network\x20healed\x20—\x20Packet\x20loss\x200%','</strong>\x20processed\x20·\x20','sub-marks','system-status-bar','<strong>NETWORK\x20PARTITION</strong>\x20—\x2050%\x20packet\x20loss\x20on\x20inter-DC\x20links','cd-sid','📦\x20Queue\x20absorbing\x20load\x20—\x20No\x20submissions\x20lost','toFixed','Clear\x20all\x20pending\x20queue\x20items?\x20Workers\x20will\x20finish\x20their\x20current\x20tasks.','createElement','queue','dbSyncBatches','evaluator@cbse.gov.in','term-line','</span>\x0a\x20\x20\x20\x20<div\x20class=\x22notif-body\x22>\x0a\x20\x20\x20\x20\x20\x20<span\x20class=\x22notif-title\x22></span>\x0a\x20\x20\x20\x20\x20\x20<span\x20class=\x22notif-msg\x22></span>\x0a\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20<button\x20class=\x22notif-close\x22>✕</button>\x0a\x20\x20','slaf-fast','find','chaosActive','roll','peakPrediction','1426464pbRfPw','</span><span\x20class=\x22as-ip\x22>','modal-title','...</code></td><td>','status','encryptEnforced','proc-','queued','Encrypted','Session\x20started\x20·\x20Role:\x20','No\x20Idle\x20Workers','#f43f5e','btn-resume-queue','totalSubmitted','warn','Evaluator\x20session\x20started\x20·\x20IP:\x2010.0.4.112','insertBefore','operational','Reset\x20Queue','OFFLINE','incoming','4.5s','show','🏆\x20','ENCRYPTING','nb-queue','kv-speed','📥\x20','opacity\x200.5s,\x20transform\x200.5s','progress','EvalSync\x20session\x20started\x20·\x20','resetSubmission','sparkData','%;background:','Computing\x20SHA-256\x20hash','.btn-text','_lastWorkerCount','btn-logout','allowedViews','<div\x20class=\x22qi-progress\x22><div\x20class=\x22qi-progress-fill\x22\x20style=\x22width:0%\x22></div></div>','submittedHistory','padEnd','querySelector','st-','\x22>No\x20task</span><span\x20id=\x22wcpct-','⚡\x20Traffic\x20Spike!','0123456789abcdef','className','login-page','_encryptFail','dlqs-total','submission','nb-dlq','●\x20FAILOVER\x20ACTIVE','stroke','from','System\x20Under\x20Heavy\x20Load','Session\x20Expired','</span><span\x20class=\x22mwc-status\x20','audit-search','eo-iv','wce-','health','🔄\x20DLQ\x20Batch\x20Retry','Syncing\x20to\x20central\x20DB','retry','<div\x20class=\x22lh-item\x22><span\x20class=\x22role-pill\x20','slaf-recov','<strong>Retry\x20','ms\x20·\x20Roll:\x20','now','\x20—\x20','transition','CHN','\x22>0</span><span\x20class=\x22wcs-label\x22>Done</span></div><div\x20class=\x22wcs\x22><span\x20class=\x22wcs-val\x22\x20id=\x22wca-','🔴\x20CRITICAL\x20—\x20Primary\x20DB\x20Failure','nb-mysub','beginPath','📈\x20AUTO-SCALE\x20↑','<strong>DB\x20Failover\x20complete</strong>\x20—\x20Zero\x20data\x20loss\x20confirmed','psi-confidence','<500ms','disabled','ms</span>','Traffic\x20nominal\x20—\x20system\x20stable','<span\x20class=\x22ssb-dot\x20','\x20<span\x20style=\x22color:var(--primary);font-size:.6rem\x22>AUTO</span>','Chaos\x20test\x20completed:\x20','forEach','📦\x20Queue\x20Overload','size','cssText','</strong>','confirm-modal','083','wcc-','No\x20new\x20alerts\x20—\x20System\x20running\x20normally','eic-pending','\x0a▶\x20Starting:\x20','syncedAt','generator','✅\x20Worker\x20Recovery\x20—\x20FIFO\x20Preserved','wca-','psf-workers','eic-completed','Admin@2024','lb-rps','btn-demo-login','</span><span\x20style=\x22color:','🏆\x20Queue\x20absorbed\x20full\x20load\x20—\x20Zero\x20data\x20lost','nav-section-label','application/pdf','✅\x20Verified','</strong>\x20workers','transparent','🏆\x20DB\x20recovered\x20—\x20All\x2050\x20pending\x20submissions\x20synced','MUM','sla-recov','📦\x20Queue\x20buffering\x20—\x20submissions\x20held\x20safely\x20in\x20memory','📉\x20Auto-scale-down:\x20Pool\x20reduced\x20to\x20','sla-med','<span>ENQUEUE\x20[','...\x20·\x20Roll:\x20','</span><span\x20class=\x22dli-text\x22>','Security\x20Center','pipeline-particles','#14b8a6','.step-circle','remember-me','IDLE','#06b6d4','Completed','mc-p99','\x20—\x20Threshold\x20exceeded','OPERATIONAL','region','✅\x20OK','animation','Performance','Token\x20validated\x20·\x20Claims\x20verified','toUpperCase','-item','AES-256-GCM\x20encryption\x20complete','🟡\x20DEGRADED\x20—\x20Network\x20Partition\x20Active','rep-primary','loggingEnabled','#,Timestamp,User,Role,Action,Details,IP,Status','Full\x20System\x20Reset','worker-card\x20','042','CBSE-2024-','Processing\x20halted\x20—\x20All\x20workers\x20suspended','<strong>[CHAOS-','<strong>Traffic\x20spike\x20detected</strong>\x20—\x20','122.176.90.33','<strong>All\x20workers\x20restored</strong>\x20—\x20Processing\x20resumed','psf-queue','Mathematics\x20(041)','stat-total','FETCHING','#3b82f6','stats','dragleave','99.7%','Simulate\x20Traffic\x20Spike','💻\x20Chaos\x20Engineering\x20ready.\x20Select\x20a\x20failure\x20scenario\x20to\x20begin.','WARNING','.step-item','timestamp','pa-icon','🔴\x20CRITICAL\x20—\x20All\x20Workers\x20Terminated','Mathematics','scrollHeight','s\x20ago','\x20—\x20Pool:\x20','response-panel','lineCap','alert','btn-remove-worker','<span>RETRY\x20[','<strong>','qci-','Dr.\x20Arvind\x20Kumar','su-initials','image/png','queueThreshold','⚠️\x20Worker\x20pool:\x200\x20active\x20—\x20Queue\x20halted','prediction-alert\x20','%\x20·\x20LSTM+ARIMA\x20·\x20Peak:\x20','completed','SUCCESS','active-sessions','sidebar-collapse','10RQZZxd','gateway','fontWeight','\x20—\x20System\x20under\x20heavy\x20load','textContent','s;\x20animation-duration:','chaos-terminal','qs-retry','dlq','rgba(255,255,255,0.4)','scrollTop','This\x20will\x20reset\x20ALL\x20simulation\x20data\x20and\x20restart\x20the\x20engine.\x20Are\x20you\x20sure?','login-email','toggle-retry','.notif-msg','DEL','<strong>Database\x20connection</strong>\x20established\x20·\x203\x20replicas\x20online','view-','btn-full-reset','\x20submissions\x20rejected\x20—\x20Cannot\x20encrypt','pa-confidence','</span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<span\x20class=\x22wc-status-badge\x20','Worker\x20Added','failureReason','<div\x20class=\x22ri-item\x22>','\x20exceeds\x2050MB\x20limit','KOL','</span></td>\x0a\x20\x20\x20\x20\x20\x20<td\x20style=\x22font-family:\x27JetBrains\x20Mono\x27,monospace;font-size:.72rem\x22>','🗄️','\x20MB','dbv-last','superadmin','\x20items\x20pending','padStart','dbv-pending','</span></div>','mini-worker-grid','.tl-msg','\x20workers\x20sufficient','\x20submissions\x20injected\x20simultaneously','hidden','admin@cbse.gov.in','max','spark-','Hash\x20mismatch','dataTransfer','database','DONE','min','label','Moderate\x20traffic\x20in\x20','ssb-dot\x20degraded','partial','psi-load','data','rgba','password','...</strong>\x20synced\x20·\x20','Config\x20updated','Evaluator','Biology','\x20shut\x20down','btn-dlq-retry-all','\x22\x20style=\x22width:','pass','SHA-256:\x20','active-worker','041','m\x20ago','wcpfill-','checked','nextElementSibling','\x20Idle','toISOString','info','toLocaleString','</span>\x0a\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20<div\x20class=\x22wc-progress\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22wcp-header\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<span\x20id=\x22wctask-','\x20spawned\x20—\x20Total\x20workers:\x20','shift','pending','proc-progress-fill','dlq-count-badge','totalProcessingTime','change','login-pass','height','HASHING','toLocaleTimeString','\x20exceeds\x20threshold\x20of\x20','nb-workers','_netDelay','kv-success','✅\x20All\x20Systems\x20Operational','</span><span\x20class=\x22lh-info\x22>','🟡\x20DEGRADED\x20—\x20Queue\x20Saturation','recentRecords','\x22,\x22','<span>EvalSync\x20v3.2.1\x20initialized\x20·\x20','admin','\x20concurrent\x20submissions','🔴\x20CRITICAL\x20—\x20Encryption\x20Module\x20Failure','type','✅\x20WAL\x20replay\x20complete\x20—\x200\x20rows\x20lost','✅\x20Worker-','hash-status','⚙️\x20Worker-','.rp-idle','\x22\x20style=\x22','monitor@cbse.gov.in','</code></td><td>','evalsync_session','✅\x20Auto-Scale\x20—\x201000\x20Submissions\x20Handled','collapsed','Failed','preventDefault','Validating\x20file\x20integrity','mysub-tbody','✅\x20Workers\x2001–03\x20respawned','labels','text','btn-encrypt','cbr-','\x20items\x20(','</td><td><button\x20class=\x22dlq-action-btn\x20retry\x22\x20onclick=\x22retryFromDLQ(','.uf-name','getElementById','btn-reset-queue','fill','<strong>Submission\x20failed</strong>\x20after\x20','027','modal-msg','CHAOS','rgba(255,255,255,0.05)','.uf-remove','nextStep','uploaded-files','lastChild','fail','✅\x20Rate\x20limiter\x20lifted\x20—\x20Normal\x20throughput\x20restored','getItem','Failed\x20login\x20attempt\x20from\x20','security','✅\x20Workers\x2004–06\x20respawned\x20—\x20Full\x20pool\x20restored','testing','📊\x20','shm-val','hash-input','workers','login-spinner','pa-title','mini-worker-card','Read-only\x20monitoring\x20—\x20all\x20views,\x20zero\x20write\x20access','\x20Workers','fileSize','qs-processing','btn-hash','Audit\x20Log','stage','\x20synced','<strong>PRIMARY\x20DB\x20FAILURE</strong>\x20—\x20All\x20writes\x20paused,\x20failover\x20initiated','✅\x20Backup\x20AES-256-GCM\x20module\x20active','System\x20Health','Worker\x20Pool','rgba(255,255,255,0.3)','user','repl-r2','<span\x20class=\x22mwc-id\x22>W-','</span><span\x20class=\x22tl-level\x20','⬆\x20+','Assigned','Welcome,\x20','✅\x20Network\x20Resilience\x20—\x20Queue\x20Absorbed\x20Load','<strong>AES-256-GCM</strong>\x20encryption\x20successful\x20·\x20Key:\x20','</td><td><span\x20class=\x22role-pill\x20','rec-workers-badge','Authenticating...','Threshold\x20Updated','\x20DB\x20connections\x20needed','Queue\x20clear','net','6avTcXq','processedHistory','role-badge-topbar\x20','actual','demo','</span>\x0a\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20<div\x20class=\x22wc-task\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20Stage:\x20<span\x20class=\x22wc-task-name\x22\x20id=\x22wstage-','replace','failed','toggle-logging','\x20workers','</td><td\x20style=\x22max-width:180px;font-size:.72rem\x22>','audit-count','notifications-container','Senior\x20Evaluator','includes','Computer\x20Sc','📦\x20Queue\x20saturating\x20—\x20Injecting\x20','DEAD','maxQueueCols','sort','<strong>SHA-256</strong>\x20computed\x20·\x20Hash:\x20','👨‍🏫\x20Evaluator','49.248.17.5','spikesCount','<span>W-','dashboard','Processing','analytics','btn-login','All\x20Systems\x20Operational','EVL-DEL-0412-2024','ms\x20lag','email','</span>\x20','</span><span><strong>[','overload','\x20submissions\x20instantly\x20to\x20test\x20system\x20resilience?','pt-val','...</strong>\x20received','.view','lbsr-rps','rgba(245,158,11,0.12)','Queue\x20threshold\x20cleared','view','📉\x20SCALE-DOWN\x20↓','stat-success','none','\x0a\x20\x20\x20\x20\x20\x20<span\x20class=\x22uf-icon\x22>','btn-export-audit','.ssb-text','addColorStop','db-log-item','⚡\x20OVERLOAD\x20TEST','btn-add-worker','</span><span\x20class=\x22dli-icon\x22>','stat-avgtime','MATH','predictionHistory','🤖\x20Auto-respawn\x20system\x20activating...','appendChild','readonly-overlay','sub-roll','rec-workers-body','Resilience\x20Test','rect','\x20added\x20by\x20admin</span>','lastStatus','24ZZujPp','\x22>0ms</span><span\x20class=\x22wcs-label\x22>Avg\x20Time</span></div><div\x20class=\x22wcs\x22><span\x20class=\x22wcs-val\x20text-danger\x22\x20id=\x22wce-','rgba(244,63,94,0.6)','lineTo','entries','defaultView','...\x20after\x20','Sanjay\x20Patel','rgba(99,102,241,0.15)','total','<span\x20class=\x22ii-badge\x20',']</strong>\x20','<span>QUEUE\x20RESET:\x20All\x20pending\x20items\x20cleared\x20by\x20admin</span>','prediction-chart','healthLatencyHistory','🚨\x20Now','\x20·\x20','uptime-bar-row','image/tiff','Database\x20Sync','values','\x20worker\x20processes','.qi-progress-fill','/3]\x20','2.5s','<strong>EvalSync</strong>\x20simulation\x20engine\x20started','monitor','toggle-encrypt','findIndex','<span>ADMIN:\x20Queue\x20processing\x20resumed</span>','eic-submitted','pop','pad','sub-date','<span>FAILED\x20','103.25.41.12','.step-panel','</td>\x0a\x20\x20\x20\x20\x20\x20<td><code>','rec-scale-badge','🔁\x20Retry\x20storm:\x201,247\x20in-flight\x20retries','stringify','split','db-sync-chart','#10b981','div','index','getHours','</td>\x0a\x20\x20\x20\x20\x20\x20<td>','prediction-alert','flex','svcst-','audit-filter-action','files','recentIds','error','#ec4899','\x20error\x20rate\x20high','evaluator','CBSE@2024','Queue\x20Alert','\x20Auto-Scaled','text/csv','Encryption\x20module\x20initialized','stat-workers','2602056NWfVFm','Sign\x20Out','📊\x20Queue\x20draining\x20—\x20Backlog\x20clearing\x20at\x20full\x20speed','Confidence:\x20','Submit\x20Script','borderColor','slice','\x20submissions\x20injected\x20—\x20Queue\x20management\x20engaged</span>','\x20retries\x20—\x20ID:\x20','btn-moderate','TLS\x201.3\x20handshake\x20successful','topbar-clock','lb-workers-row','<div\x20style=\x22color:var(--text-muted);padding:.5rem;font-size:.75rem\x22>No\x20logins\x20yet</div>','queue-threshold','svc-','nav-','...\x20sent\x20to\x20DLQ','round','toLowerCase','WARN','svcl-','eo-result','healthStatus','lineJoin','unshift','Sign\x20In\x20Securely','enqueue','processTimes','.notif-close','down','lineWidth','analytics-main-chart','add','<strong>PRIMARY\x20DB\x20CRASHED</strong>\x20—\x20Mumbai\x20DC\x20unresponsive','Added\x20to\x20processing\x20queue','qcc-incoming','done','encrypt','HYD','btn-notifications','Monitor@2024','rgba(244,63,94,0.08)'];a0_0x1394=function(){return _0x150d25;};return a0_0x1394();}function initSecuritySimulator(){const _0x238407=a0_0x53fb38,_0x493e56=eid(_0x238407(0x2e1)),_0x34cc56=eid(_0x238407(0x304)),_0xd2208e=eid('btn-gen-id');_0x493e56&&(_0x493e56['onclick']=()=>{const _0x31c06e=_0x238407,_0x335a33=eid(_0x31c06e(0x45a))?eid(_0x31c06e(0x45a))[_0x31c06e(0x471)]:'',_0x2eca51=generateAESKey(),_0x623708=generateIV(),_0x261f21=generateTag(),_0x61c460=generateEncryptedPayload();setText(_0x31c06e(0x48d),_0x2eca51),setText(_0x31c06e(0x1e4),_0x623708),setText(_0x31c06e(0x491),_0x261f21),setText(_0x31c06e(0x3b6),_0x61c460);const _0x4cc1a0=eid(_0x31c06e(0x11f));_0x4cc1a0&&animateHash(_0x4cc1a0,_0x61c460['substring'](0x0,0x3c)),secLog('🔐',_0x31c06e(0x315)+_0x2eca51['substring'](0x0,0xc)+_0x31c06e(0x178),'ok'),notify(_0x31c06e(0x1b0),_0x31c06e(0x236),_0x31c06e(0x40e),0x7d0);}),_0x34cc56&&(_0x34cc56['onclick']=async()=>{const _0x21bba4=_0x238407,_0x112c13=eid(_0x21bba4(0x2fb))?eid('hash-input')[_0x21bba4(0x471)]:'',_0x1aca7c=generateSHA256Like();let _0x4f25b1='';const _0x130942=eid(_0x21bba4(0x15a)),_0x4012e0=setInterval(()=>{const _0x44aa97=_0x21bba4;_0x4f25b1=Array[_0x44aa97(0x1df)]({'length':0x40},()=>_0x44aa97(0x1d6)[rand(0x0,0xf)])[_0x44aa97(0x186)]('');if(_0x130942)_0x130942[_0x44aa97(0x26d)]=_0x4f25b1;},0x32);await new Promise(_0x1ba9cc=>setTimeout(_0x1ba9cc,0x320)),clearInterval(_0x4012e0);if(_0x130942)_0x130942[_0x21bba4(0x26d)]=_0x1aca7c;setText(_0x21bba4(0x2d1),_0x21bba4(0x218)),eid(_0x21bba4(0x2d1))&&(eid(_0x21bba4(0x2d1))[_0x21bba4(0x1d7)]='status-ok'),secLog(_0x21bba4(0x436),_0x21bba4(0x331)+_0x1aca7c[_0x21bba4(0x4d2)](0x0,0x14)+'...','ok');}),_0xd2208e&&(_0xd2208e[_0x238407(0x44b)]=()=>{const _0x10e570=_0x238407,_0x59c7ef=generateSubmissionId(pick(SUBJECTS)[_0x10e570(0x234)]()[_0x10e570(0x4d2)](0x0,0x4),pick(REGIONS));setText(_0x10e570(0x4e7),_0x59c7ef),state['security'][_0x10e570(0x395)][_0x10e570(0x3b9)](_0x59c7ef);if(state[_0x10e570(0x2f6)]['recentIds'][_0x10e570(0x434)]>0x5)state['security'][_0x10e570(0x395)][_0x10e570(0x37f)]();updateRecentIds(),secLog('🆔',_0x10e570(0x4f3)+_0x59c7ef,'ok');}),[_0x238407(0x1b7),_0x238407(0x3aa),_0x238407(0x233),_0x238407(0x39e),'Audit\x20trail\x20enabled'][_0x238407(0x200)](_0x273d2b=>{const _0x423088=_0x238407;setTimeout(()=>secLog('✅',_0x423088(0x25c)+_0x273d2b+_0x423088(0x204),'ok'),rand(0x64,0x3e8));});}async function animateHash(_0x33be2c,_0x148d8a){const _0x5b0ab1=a0_0x53fb38,_0x204947='0123456789abcdef';for(let _0x31489e=0x0;_0x31489e<0xa;_0x31489e++){_0x33be2c[_0x5b0ab1(0x26d)]=Array[_0x5b0ab1(0x1df)]({'length':_0x148d8a[_0x5b0ab1(0x434)]},()=>_0x204947[rand(0x0,0xf)])['join'](''),await new Promise(_0x19babc=>setTimeout(_0x19babc,0x3c));}_0x33be2c[_0x5b0ab1(0x26d)]=_0x148d8a;}function updateRecentIds(){const _0x529fab=a0_0x53fb38,_0x39cf6e=eid('ri-list');if(!_0x39cf6e)return;_0x39cf6e['innerHTML']=state[_0x529fab(0x2f6)][_0x529fab(0x395)][_0x529fab(0x433)](_0x51e234=>_0x529fab(0x281)+_0x51e234+'</div>')[_0x529fab(0x186)]('');}function initAdminControls(){const _0x5c7dc2=a0_0x53fb38,_0x45605c=eid(_0x5c7dc2(0x14d));if(_0x45605c)_0x45605c[_0x5c7dc2(0x44b)]=()=>triggerSpike(0x32);const _0x1132bc=eid(_0x5c7dc2(0x150));if(_0x1132bc)_0x1132bc[_0x5c7dc2(0x44b)]=()=>triggerSpike(0x1e);const _0x527080=eid(_0x5c7dc2(0x3a9));if(_0x527080)_0x527080['onclick']=()=>triggerSpike(0x14);const _0x480f68=eid(_0x5c7dc2(0x2e7));if(_0x480f68)_0x480f68[_0x5c7dc2(0x44b)]=()=>confirmAction(_0x5c7dc2(0x1ba),_0x5c7dc2(0x19c),'🔄',()=>{const _0x157334=_0x5c7dc2;state[_0x157334(0x19e)][_0x157334(0x1bc)]=[],state[_0x157334(0x19e)][_0x157334(0x1e9)]=[],['incoming',_0x157334(0x1e9)][_0x157334(0x200)](_0x25eb7c=>{const _0x569945=_0x157334,_0x2e7919=eid(_0x569945(0x25d)+_0x25eb7c);if(_0x2e7919)_0x2e7919[_0x569945(0x439)]='';}),updateQueueStats(),notify('Queue\x20Reset',_0x157334(0x16b),_0x157334(0x2b3)),termLog(_0x157334(0x3b4),_0x157334(0x36c));});const _0x590aa7=eid(_0x5c7dc2(0x352));if(_0x590aa7)_0x590aa7[_0x5c7dc2(0x44b)]=()=>{const _0x2ee9c4=_0x5c7dc2,_0xd513e=state[_0x2ee9c4(0x2fc)][_0x2ee9c4(0x434)]+0x1,_0x8514d=createWorker(_0xd513e,!![]);state[_0x2ee9c4(0x2fc)][_0x2ee9c4(0x12f)](_0x8514d),renderWorkers(),notify(_0x2ee9c4(0x27f),_0x2ee9c4(0x4fc)+String(_0xd513e)[_0x2ee9c4(0x28a)](0x2,'0')+_0x2ee9c4(0x522),'success',0x7d0),termLog('INFO','<span>MANUAL\x20SPAWN:\x20Worker-'+_0xd513e+_0x2ee9c4(0x35e));};const _0x520894=eid(_0x5c7dc2(0x25a));if(_0x520894)_0x520894[_0x5c7dc2(0x44b)]=()=>{const _0x295e26=_0x5c7dc2,_0x318ee7=state[_0x295e26(0x2fc)][_0x295e26(0x485)](_0x248dbe=>_0x248dbe[_0x295e26(0x1ac)]===_0x295e26(0x12b));if(_0x318ee7['length']===0x0){notify(_0x295e26(0x1b2),_0x295e26(0x520),'warning');return;}const _0x2b8b3d=_0x318ee7[_0x318ee7[_0x295e26(0x434)]-0x1];state[_0x295e26(0x2fc)]=state[_0x295e26(0x2fc)][_0x295e26(0x485)](_0x307fbc=>_0x307fbc['id']!==_0x2b8b3d['id']);const _0xcc8f2f=eid('wcard-'+_0x2b8b3d['id']);if(_0xcc8f2f)_0xcc8f2f[_0x295e26(0x191)]();notify(_0x295e26(0x3ed),_0x295e26(0x4fc)+String(_0x2b8b3d['id'])[_0x295e26(0x28a)](0x2,'0')+_0x295e26(0x2a6),_0x295e26(0x2b3),0x7d0),updateWorkerBadges();};const _0x4b38d3=eid('worker-slider');if(_0x4b38d3)_0x4b38d3[_0x5c7dc2(0x453)](_0x5c7dc2(0x124),()=>{const _0x2bcd40=_0x5c7dc2,_0x1e7844=parseInt(_0x4b38d3[_0x2bcd40(0x471)]);setText(_0x2bcd40(0x11b),_0x1e7844);const _0x2a7ac1=state[_0x2bcd40(0x2fc)][_0x2bcd40(0x434)];if(_0x1e7844>_0x2a7ac1){for(let _0x50d267=_0x2a7ac1+0x1;_0x50d267<=_0x1e7844;_0x50d267++)state[_0x2bcd40(0x2fc)][_0x2bcd40(0x12f)](createWorker(_0x50d267,!![]));renderWorkers();}else _0x1e7844<_0x2a7ac1&&(state[_0x2bcd40(0x2fc)]=state[_0x2bcd40(0x2fc)][_0x2bcd40(0x3a6)](0x0,_0x1e7844),renderWorkers());});const _0x401cc0=eid(_0x5c7dc2(0x475)),_0x3c14bf=eid(_0x5c7dc2(0x1b4));if(_0x401cc0)_0x401cc0[_0x5c7dc2(0x44b)]=()=>{const _0x5ac1a8=_0x5c7dc2;state[_0x5ac1a8(0x134)]['paused']=!![],_0x401cc0[_0x5ac1a8(0x1fa)]=!![];if(_0x3c14bf)_0x3c14bf[_0x5ac1a8(0x1fa)]=![];eid('system-status-bar')&&(eid(_0x5ac1a8(0x197))[_0x5ac1a8(0x1d2)](_0x5ac1a8(0x17b))[_0x5ac1a8(0x1d7)]='ssb-dot\x20degraded'),notify('Queue\x20Paused',_0x5ac1a8(0x23f),'warning',0x1f40),feedLog('⏸️',_0x5ac1a8(0x119),_0x5ac1a8(0x414)),termLog(_0x5ac1a8(0x3b4),_0x5ac1a8(0x17e));};if(_0x3c14bf)_0x3c14bf[_0x5c7dc2(0x44b)]=()=>{const _0x3e62fd=_0x5c7dc2;state[_0x3e62fd(0x134)][_0x3e62fd(0x408)]=![],_0x3c14bf['disabled']=!![];if(_0x401cc0)_0x401cc0[_0x3e62fd(0x1fa)]=![];notify(_0x3e62fd(0x45b),_0x3e62fd(0x188),_0x3e62fd(0x40e),0xbb8),feedLog('▶️',_0x3e62fd(0x156),'success'),termLog('SUCCESS',_0x3e62fd(0x37d));};const _0x19f633=eid(_0x5c7dc2(0x27b));if(_0x19f633)_0x19f633[_0x5c7dc2(0x44b)]=()=>confirmAction(_0x5c7dc2(0x23b),_0x5c7dc2(0x274),'🔃',()=>{const _0xc39439=_0x5c7dc2;state['queue'][_0xc39439(0x1bc)]=[],state[_0xc39439(0x19e)][_0xc39439(0x431)]=[],state['queue'][_0xc39439(0x265)]=[],state['queue'][_0xc39439(0x324)]=[],state[_0xc39439(0x19e)][_0xc39439(0x1e9)]=[],state['stats'][_0xc39439(0x1b5)]=0x0,state[_0xc39439(0x249)][_0xc39439(0x4c1)]=0x0,state[_0xc39439(0x249)][_0xc39439(0x4ea)]=0x0,state[_0xc39439(0x249)][_0xc39439(0x425)]=0x0,state['stats'][_0xc39439(0x3ea)]=0x0,state[_0xc39439(0x249)][_0xc39439(0x3bc)]=[],state[_0xc39439(0x249)]['throughputHistory']['fill'](0x0),state[_0xc39439(0x249)][_0xc39439(0x31e)][_0xc39439(0x2e8)](0x0),state[_0xc39439(0x249)][_0xc39439(0x46e)]['fill'](0x0),state[_0xc39439(0x249)]['workerHistory']['fill'](0x0),state[_0xc39439(0x297)][_0xc39439(0x132)]=0x0,state[_0xc39439(0x297)][_0xc39439(0x44e)]=0x0,state[_0xc39439(0x297)][_0xc39439(0x2c8)]=[],state['simulation'][_0xc39439(0x408)]=![],state[_0xc39439(0x134)][_0xc39439(0x334)]=0x0,initWorkers(0x6),[_0xc39439(0x1bc),_0xc39439(0x431),_0xc39439(0x265),'failed'][_0xc39439(0x200)](_0x152dae=>{const _0xb8f656=_0xc39439,_0x3ca559=eid(_0xb8f656(0x25d)+_0x152dae);if(_0x3ca559)_0x3ca559['innerHTML']='';}),updateQueueStats(),updateKPIs(),notify(_0xc39439(0x139),_0xc39439(0x17c),'info',0xfa0),termLog(_0xc39439(0x3b4),_0xc39439(0x3fc));});const _0x2fdfdd=[['toggle-autoscale','autoScale'],[_0x5c7dc2(0x276),'retryEnabled'],[_0x5c7dc2(0x325),'loggingEnabled'],[_0x5c7dc2(0x37b),_0x5c7dc2(0x1ad)]];_0x2fdfdd[_0x5c7dc2(0x200)](([_0x3f6e52,_0x475181])=>{const _0x6d2a34=_0x5c7dc2,_0x2f0168=eid(_0x3f6e52);if(_0x2f0168)_0x2f0168[_0x6d2a34(0x453)](_0x6d2a34(0x2bc),()=>{const _0x25cc51=_0x6d2a34;state[_0x25cc51(0x134)][_0x475181]=_0x2f0168['checked'],notify(_0x25cc51(0x3d8),_0x475181+'\x20'+(_0x2f0168[_0x25cc51(0x2af)]?_0x25cc51(0x41e):_0x25cc51(0x1fa)),'info',0x7d0);});});const _0x4a458a=eid(_0x5c7dc2(0x3ae));if(_0x4a458a)_0x4a458a[_0x5c7dc2(0x453)]('change',()=>{const _0x41f041=_0x5c7dc2;state['simulation']['queueThreshold']=parseInt(_0x4a458a[_0x41f041(0x471)])||0x1e,notify(_0x41f041(0x319),'Queue\x20alert\x20at\x20'+state[_0x41f041(0x134)][_0x41f041(0x261)]+_0x41f041(0x13b),_0x41f041(0x2b3),0x7d0);});}function initLogin(){const _0x12d216=a0_0x53fb38,_0x2ebb6f=eid(_0x12d216(0x4a7)),_0x5935bd=eid(_0x12d216(0x213)),_0x3547e1=eid(_0x12d216(0x17d)),_0x59e54f=eid(_0x12d216(0x2bd));_0x3547e1&&_0x59e54f&&(_0x3547e1[_0x12d216(0x44b)]=()=>{const _0x15cf35=_0x12d216;_0x59e54f['type']=_0x59e54f[_0x15cf35(0x2ce)]===_0x15cf35(0x2a1)?_0x15cf35(0x2e0):_0x15cf35(0x2a1);}),_0x5935bd&&(_0x5935bd[_0x12d216(0x44b)]=()=>{const _0x1145b9=_0x12d216,_0x1f09c3=eid('login-email'),_0x2785c3=eid('login-pass');if(_0x1f09c3)_0x1f09c3['value']=DEMO_USER[_0x1145b9(0x33d)];if(_0x2785c3)_0x2785c3[_0x1145b9(0x471)]=DEMO_USER[_0x1145b9(0x2a1)];setTimeout(()=>doLogin(DEMO_USER[_0x1145b9(0x33d)],DEMO_USER[_0x1145b9(0x2a1)]),0x12c);}),_0x2ebb6f&&(_0x2ebb6f[_0x12d216(0x18b)]=_0xabbc4b=>{const _0x5d888e=_0x12d216;_0xabbc4b['preventDefault']();const _0x5c0081=eid(_0x5d888e(0x275))?eid(_0x5d888e(0x275))['value']['trim']():'',_0x243a45=eid('login-pass')?eid(_0x5d888e(0x2bd))[_0x5d888e(0x471)]['trim']():'';let _0x2d2654=!![];const _0x819822=eid('err-email'),_0x439713=eid('err-pass');if(_0x819822)_0x819822[_0x5d888e(0x26d)]='';if(_0x439713)_0x439713[_0x5d888e(0x26d)]='';if(!_0x5c0081||!_0x5c0081[_0x5d888e(0x32b)]('@')){if(_0x819822)_0x819822[_0x5d888e(0x26d)]='Please\x20enter\x20a\x20valid\x20email\x20address';_0x2d2654=![];}if(!_0x243a45){if(_0x439713)_0x439713[_0x5d888e(0x26d)]='Password\x20is\x20required';_0x2d2654=![];}if(!_0x2d2654)return;const _0x47cce7=Object['keys'](ROLES)[_0x5d888e(0x1a4)](_0x141117=>{const _0x40c123=_0x5d888e,_0x4d12ba=ROLES[_0x141117];return _0x4d12ba['email']===_0x5c0081&&_0x4d12ba[_0x40c123(0x2a9)]===_0x243a45;});if(!_0x47cce7){if(_0x819822)_0x819822[_0x5d888e(0x26d)]=_0x5d888e(0x4f0);return;}activeRole=_0x47cce7,doLogin(_0x5c0081,_0x243a45,_0x47cce7);});}function doLogin(_0x15f4d3,_0x538393,_0x2afd1b){const _0x2886e5=a0_0x53fb38,_0x93a1b0=ROLES[_0x2afd1b]||ROLES[_0x2886e5(0x399)],_0x459122=eid(_0x2886e5(0x2fd)),_0x316d7e=eid(_0x2886e5(0x339))?eid('btn-login')[_0x2886e5(0x1d2)](_0x2886e5(0x1cb)):null;if(_0x459122)_0x459122[_0x2886e5(0x3ec)][_0x2886e5(0x191)]('hidden');if(_0x316d7e)_0x316d7e['textContent']=_0x2886e5(0x318);setTimeout(()=>{const _0x5d537e=_0x2886e5,_0x59b2be={'email':_0x93a1b0['email'],'name':_0x93a1b0[_0x5d537e(0x3ce)],'initials':_0x93a1b0[_0x5d537e(0x49e)],'role':_0x93a1b0['label'],'id':_0x2afd1b['toUpperCase']()+'-'+pick(REGIONS)+'-'+rand(0x3e8,0x270f)+_0x5d537e(0x49b),'subject':_0x5d537e(0x245),'center':pick(REGIONS)+'-'+rand(0x3e8,0x270f)};state[_0x5d537e(0x30d)]=_0x59b2be,state[_0x5d537e(0x50f)]=!![],state[_0x5d537e(0x134)][_0x5d537e(0x14b)]=new Date(),setText(_0x5d537e(0x175),new Date()['toLocaleTimeString']()),setText('su-name',_0x59b2be[_0x5d537e(0x3ce)]),setText(_0x5d537e(0x25f),_0x59b2be[_0x5d537e(0x49e)]),setText('ta-initials',_0x59b2be['initials']),setText('ic-name',_0x59b2be['name']),setText(_0x5d537e(0x404),_0x59b2be['id']),setText(_0x5d537e(0x510),_0x59b2be[_0x5d537e(0x158)]);const _0x3eccfa=eid(_0x5d537e(0x1d8));_0x3eccfa&&(_0x3eccfa[_0x5d537e(0x505)][_0x5d537e(0x1f0)]=_0x5d537e(0x1c4),_0x3eccfa[_0x5d537e(0x505)][_0x5d537e(0x42e)]='0',_0x3eccfa[_0x5d537e(0x505)][_0x5d537e(0x3f3)]=_0x5d537e(0x473),setTimeout(()=>{const _0x47fda5=_0x5d537e;_0x3eccfa[_0x47fda5(0x3ec)][_0x47fda5(0x3c1)](_0x47fda5(0x291)),initApp(_0x59b2be);},0x1f4));if(_0x459122)_0x459122['classList']['add'](_0x5d537e(0x291));if(_0x316d7e)_0x316d7e[_0x5d537e(0x26d)]=_0x5d537e(0x3ba);},0x4b0);}function doLogout(){const _0x3c7c92=a0_0x53fb38;state[_0x3c7c92(0x50f)]=![],Object[_0x3c7c92(0x374)](state['timers'])[_0x3c7c92(0x200)](_0x3bd3a8=>clearInterval(_0x3bd3a8));const _0x1f0360=eid(_0x3c7c92(0x1d8)),_0x1565e9=eid(_0x3c7c92(0x518));_0x1f0360&&(_0x1f0360['classList']['remove'](_0x3c7c92(0x291)),_0x1f0360[_0x3c7c92(0x505)][_0x3c7c92(0x42e)]='1',_0x1f0360[_0x3c7c92(0x505)][_0x3c7c92(0x3f3)]=_0x3c7c92(0x42c));if(_0x1565e9)_0x1565e9['classList']['add'](_0x3c7c92(0x291));}function initApp(_0x8275d2){const _0x1bfd62=a0_0x53fb38,_0x57dc44=eid('main-app');if(_0x57dc44)_0x57dc44[_0x1bfd62(0x3ec)][_0x1bfd62(0x191)](_0x1bfd62(0x291));const _0x48e60c=eid(_0x1bfd62(0x381));if(_0x48e60c)_0x48e60c['value']=new Date()['toISOString']()[_0x1bfd62(0x389)]('T')[0x0];document[_0x1bfd62(0x447)]('.nav-item')['forEach'](_0x5eb5b8=>{const _0x46a8da=_0x1bfd62;_0x5eb5b8[_0x46a8da(0x453)](_0x46a8da(0x122),_0x36584c=>{const _0x34facf=_0x46a8da;_0x36584c[_0x34facf(0x2db)]();const _0x147264=_0x5eb5b8[_0x34facf(0x463)]['view'];if(_0x147264)switchView(_0x147264);});});const _0x4d544d=eid(_0x1bfd62(0x268)),_0xd94161=eid('sidebar');_0x4d544d&&_0xd94161&&(_0x4d544d[_0x1bfd62(0x44b)]=()=>_0xd94161[_0x1bfd62(0x3ec)][_0x1bfd62(0x438)]('collapsed'));const _0x135b3b=eid(_0x1bfd62(0x417));_0x135b3b&&_0xd94161&&(_0x135b3b[_0x1bfd62(0x44b)]=()=>_0xd94161['classList'][_0x1bfd62(0x438)](_0x1bfd62(0x2d9)));const _0x14b9d5=eid(_0x1bfd62(0x1cd));if(_0x14b9d5)_0x14b9d5['onclick']=()=>confirmAction(_0x1bfd62(0x3a1),_0x1bfd62(0x15f),'🚪',doLogout);const _0xc716a5=eid(_0x1bfd62(0x3c8));if(_0xc716a5)_0xc716a5[_0x1bfd62(0x44b)]=()=>{const _0x3a3830=_0x1bfd62;notify(_0x3a3830(0x517),_0x3a3830(0x208),_0x3a3830(0x2b3),0xbb8);const _0x1b6a44=eid(_0x3a3830(0x512));if(_0x1b6a44)_0x1b6a44['classList']['remove'](_0x3a3830(0x1be));};initUploadZone(),initSecuritySimulator(),initAdminControls(),initWorkers(0x6),startSimulation();const _0x4a33d0=_0x8275d2||state['user']||DEMO_USER;setTimeout(()=>{const _0xfca8ba=_0x1bfd62;notify(_0xfca8ba(0x313)+_0x4a33d0['name'],_0xfca8ba(0x1c6)+(ROLES[activeRole]?.['label']||_0xfca8ba(0x2a4))+'\x20access\x20granted','success',0x1388);},0x5dc),setTimeout(()=>{const _0x4e277a=_0x1bfd62;notify(_0x4e277a(0x40c),'Simulation\x20engine\x20running\x20—\x20Live\x20data\x20streaming',_0x4e277a(0x2b3),0xbb8);},0xbb8),termLog(_0x1bfd62(0x266),_0x1bfd62(0x2ca)+(ROLES[activeRole]?.[_0x1bfd62(0x29a)]||'Evaluator')+'\x20session\x20started</span>'),termLog(_0x1bfd62(0x13d),_0x1bfd62(0x3e0)+_0x4a33d0[_0x1bfd62(0x3ce)]+'\x20·\x20Role:\x20'+ROLES[activeRole]?.['label']+'\x20·\x20Center:\x20'+_0x4a33d0['center']+'</span>'),feedLog('🚀',_0x1bfd62(0x379),_0x1bfd62(0x40e)),secLog('🔐',_0x1bfd62(0x44f),'ok'),secLog('✅',_0x1bfd62(0x25c)+_0x4a33d0[_0x1bfd62(0x3ce)]+'\x20authenticated</strong>\x20·\x20Role:\x20'+ROLES[activeRole]?.[_0x1bfd62(0x29a)],'ok'),dbLog(_0x1bfd62(0x285),_0x1bfd62(0x279)),dbLog('✅',_0x1bfd62(0x17f)),setText('dbv-total',state[_0x1bfd62(0x297)][_0x1bfd62(0x4a5)][_0x1bfd62(0x2b4)]()),setText(_0x1bfd62(0x467),'0'),setText(_0x1bfd62(0x28b),'0'),setText(_0x1bfd62(0x3e8),state['database'][_0x1bfd62(0x514)][_0x1bfd62(0x19b)](0x1)+_0x1bfd62(0x286)),setTimeout(()=>{for(let _0xbe03b3=0x0;_0xbe03b3<0x3;_0xbe03b3++)enqueueSubmission(createSubmission());},0x7d0);}document[a0_0x53fb38(0x453)](a0_0x53fb38(0x4fa),()=>{const _0x7431e9=a0_0x53fb38;initLogin(),initRoleSystem();const _0x682b8c=eid(_0x7431e9(0x381));if(_0x682b8c)_0x682b8c[_0x7431e9(0x471)]=new Date()[_0x7431e9(0x2b2)]()[_0x7431e9(0x389)]('T')[0x0];const _0x567c7a=localStorage[_0x7431e9(0x2f4)](_0x7431e9(0x2d7));if(_0x567c7a==='demo'){const _0xe70139=eid(_0x7431e9(0x275)),_0x4b0e76=eid(_0x7431e9(0x2bd));if(_0xe70139)_0xe70139['value']=DEMO_USER['email'];if(_0x4b0e76)_0x4b0e76[_0x7431e9(0x471)]=DEMO_USER[_0x7431e9(0x2a1)];}const _0x574973=eid(_0x7431e9(0x228)),_0x29e3f7=eid(_0x7431e9(0x339));_0x29e3f7&&_0x29e3f7['addEventListener'](_0x7431e9(0x122),()=>{const _0x2d93c1=_0x7431e9;_0x574973&&_0x574973['checked']&&localStorage[_0x2d93c1(0x143)](_0x2d93c1(0x2d7),_0x2d93c1(0x321));});});const ROLES={'evaluator':{'label':a0_0x53fb38(0x332),'cls':a0_0x53fb38(0x399),'email':a0_0x53fb38(0x1a0),'pass':a0_0x53fb38(0x39a),'name':'Rajan\x20Mehta','initials':'RM','allowedViews':['submit',a0_0x53fb38(0x19e),a0_0x53fb38(0x444)],'defaultView':a0_0x53fb38(0x44d),'readOnly':![],'description':a0_0x53fb38(0x47e)},'admin':{'label':a0_0x53fb38(0x140),'cls':a0_0x53fb38(0x2cb),'email':a0_0x53fb38(0x292),'pass':a0_0x53fb38(0x211),'name':a0_0x53fb38(0x4dd),'initials':'PS','allowedViews':[a0_0x53fb38(0x336),a0_0x53fb38(0x44d),a0_0x53fb38(0x19e),a0_0x53fb38(0x271),a0_0x53fb38(0x297),a0_0x53fb38(0x2f6),a0_0x53fb38(0x2cb),a0_0x53fb38(0x42b)],'defaultView':a0_0x53fb38(0x336),'readOnly':![],'description':'Queue\x20control,\x20DLQ\x20recovery,\x20DB\x20sync\x20&\x20security\x20audit'},'superadmin':{'label':a0_0x53fb38(0x3ee),'cls':a0_0x53fb38(0x288),'email':a0_0x53fb38(0x3e3),'pass':'SuperAdmin@2024','name':a0_0x53fb38(0x25e),'initials':'AK','allowedViews':[a0_0x53fb38(0x336),a0_0x53fb38(0x44d),a0_0x53fb38(0x19e),'workers','analytics',a0_0x53fb38(0x2f6),a0_0x53fb38(0x297),a0_0x53fb38(0x2cb),'health',a0_0x53fb38(0x271),a0_0x53fb38(0x42b),a0_0x53fb38(0x483),a0_0x53fb38(0x46d),a0_0x53fb38(0x3f9),'testing',a0_0x53fb38(0x444)],'defaultView':a0_0x53fb38(0x336),'readOnly':![],'description':a0_0x53fb38(0x41d)},'monitor':{'label':a0_0x53fb38(0x4cf),'cls':a0_0x53fb38(0x37a),'email':a0_0x53fb38(0x2d5),'pass':a0_0x53fb38(0x3c9),'name':a0_0x53fb38(0x367),'initials':'SP','allowedViews':[a0_0x53fb38(0x336),a0_0x53fb38(0x19e),a0_0x53fb38(0x2fc),a0_0x53fb38(0x338),a0_0x53fb38(0x1e6),'loadbalancer',a0_0x53fb38(0x46d),a0_0x53fb38(0x3f9),a0_0x53fb38(0x2f8),a0_0x53fb38(0x297),a0_0x53fb38(0x271),a0_0x53fb38(0x42b),a0_0x53fb38(0x2f6)],'defaultView':a0_0x53fb38(0x336),'readOnly':!![],'description':a0_0x53fb38(0x300)}};let activeRole='evaluator',sessionSeconds=0x708,sessionTimerInterval=null;function initRoleSystem(){const _0x2b667e=a0_0x53fb38;document[_0x2b667e(0x447)](_0x2b667e(0x43b))[_0x2b667e(0x200)](_0x37415e=>{const _0xfbb39a=_0x2b667e;_0x37415e[_0xfbb39a(0x453)](_0xfbb39a(0x122),()=>{const _0x470150=_0xfbb39a;document[_0x470150(0x447)](_0x470150(0x43b))[_0x470150(0x200)](_0x11d650=>_0x11d650[_0x470150(0x3ec)][_0x470150(0x191)](_0x470150(0x130))),_0x37415e['classList'][_0x470150(0x3c1)](_0x470150(0x130)),activeRole=_0x37415e['dataset'][_0x470150(0x41b)];const _0x5dcb2b=ROLES[activeRole],_0x867f66=eid('dc-email'),_0x38180b=eid('dc-pass'),_0x85573c=eid(_0x470150(0x275)),_0x4e3507=eid(_0x470150(0x2bd));if(_0x867f66)_0x867f66[_0x470150(0x26d)]=_0x5dcb2b[_0x470150(0x33d)];if(_0x38180b)_0x38180b[_0x470150(0x26d)]=_0x5dcb2b[_0x470150(0x2a9)];if(_0x85573c)_0x85573c[_0x470150(0x471)]=_0x5dcb2b[_0x470150(0x33d)];if(_0x4e3507)_0x4e3507[_0x470150(0x471)]=_0x5dcb2b[_0x470150(0x2a9)];});});}function applyRoleBadge(_0x17d769){const _0x136e94=a0_0x53fb38,_0x9a55c=ROLES[_0x17d769]||ROLES[_0x136e94(0x399)],_0x18b9e7=eid('role-badge-topbar');_0x18b9e7&&(_0x18b9e7['textContent']=_0x9a55c[_0x136e94(0x29a)],_0x18b9e7[_0x136e94(0x1d7)]=_0x136e94(0x31f)+_0x9a55c[_0x136e94(0x525)]);document[_0x136e94(0x447)](_0x136e94(0x3d0))['forEach'](_0x19b184=>{const _0x3dbd74=_0x136e94;_0x19b184[_0x3dbd74(0x505)][_0x3dbd74(0x4a3)]=_0x9a55c[_0x3dbd74(0x1ce)]['includes'](_0x19b184['dataset'][_0x3dbd74(0x348)])?'':_0x3dbd74(0x34b);}),document['querySelectorAll']('.nav-section-label')[_0x136e94(0x200)](_0x27b45e=>{const _0x5a6a5a=_0x136e94;let _0x2fbabe=_0x27b45e['nextElementSibling'],_0x462a6b=![];while(_0x2fbabe&&!_0x2fbabe[_0x5a6a5a(0x3ec)][_0x5a6a5a(0x3cc)](_0x5a6a5a(0x216))){if(_0x2fbabe[_0x5a6a5a(0x505)][_0x5a6a5a(0x4a3)]!==_0x5a6a5a(0x34b))_0x462a6b=!![];_0x2fbabe=_0x2fbabe[_0x5a6a5a(0x2b0)];}_0x27b45e['style'][_0x5a6a5a(0x4a3)]=_0x462a6b?'':'none';});const _0xe3da26=eid(_0x136e94(0x359));if(_0x9a55c[_0x136e94(0x457)]){if(!_0xe3da26){const _0x470b59=document['createElement'](_0x136e94(0x38c));_0x470b59['id']=_0x136e94(0x359),_0x470b59[_0x136e94(0x1d7)]=_0x136e94(0x11a),_0x470b59[_0x136e94(0x439)]=_0x136e94(0x43f)+_0x9a55c[_0x136e94(0x29a)]+'\x20cannot\x20modify\x20system\x20state</span>';const _0x14ed77=document[_0x136e94(0x1d2)](_0x136e94(0x166));if(_0x14ed77)_0x14ed77[_0x136e94(0x478)](_0x470b59);}document[_0x136e94(0x447)](_0x136e94(0x406))[_0x136e94(0x200)](_0x5ae1dc=>{const _0x49e7c3=_0x136e94;_0x5ae1dc[_0x49e7c3(0x1fa)]=!![],_0x5ae1dc[_0x49e7c3(0x4db)]=_0x49e7c3(0x43a);});}else{if(_0xe3da26)_0xe3da26['remove']();}_0x9a55c[_0x136e94(0x365)]&&_0x9a55c[_0x136e94(0x1ce)][_0x136e94(0x32b)](_0x9a55c[_0x136e94(0x365)])&&switchView(_0x9a55c[_0x136e94(0x365)]),setText('su-name',_0x9a55c['name']),setText(_0x136e94(0x15b),_0x9a55c[_0x136e94(0x4a2)]||_0x9a55c['label']);}function startSessionTimer(){sessionSeconds=0x708;if(sessionTimerInterval)clearInterval(sessionTimerInterval);sessionTimerInterval=setInterval(()=>{const _0x3f73bf=a0_0x3126;sessionSeconds--;const _0x807efa=Math[_0x3f73bf(0x519)](sessionSeconds/0x3c),_0x5c4020=sessionSeconds%0x3c,_0x329268=eid(_0x3f73bf(0x504));_0x329268&&(_0x329268['textContent']='⏱\x20'+pad(_0x807efa)+':'+pad(_0x5c4020),_0x329268['className']='session-timer'+(sessionSeconds<=0x12c?_0x3f73bf(0x45e):'')+(sessionSeconds<=0x3c?_0x3f73bf(0x185):'')),sessionSeconds<=0x0&&(clearInterval(sessionTimerInterval),notify(_0x3f73bf(0x1e1),_0x3f73bf(0x50e),_0x3f73bf(0x414),0x1f40));},0x3e8);}const p2State={'dlq':[],'dlqRetried':0x0,'dlqRecovered':0x0,'auditEntries':[],'auditCounter':0x0,'healthLatencyHistory':{'gateway':[],'queue':[],'workers':[],'encrypt':[],'db':[],'replica':[]},'predictionHistory':{'actual':[],'predicted':[],'labels':[]},'peakPrediction':null,'scalingEvents':[],'perfMetrics':{'fast':0x0,'med':0x0,'slow':0x0,'peakThroughput':0x0,'waitTimes':[],'p99':0x0},'chaosActive':null,'_lastWorkerCount':0x6},FAKE_IPS=[a0_0x53fb38(0x383),a0_0x53fb38(0x333),a0_0x53fb38(0x242),'59.91.18.4','182.64.23.17','115.97.40.2'],alertState={'workerFail':![],'queueOverload':![]};function checkSmartAlerts(){const _0x6d0464=a0_0x53fb38;state[_0x6d0464(0x2fc)]['filter'](_0x37ee83=>_0x37ee83[_0x6d0464(0x449)]>0x3&&!_0x37ee83[_0x6d0464(0x171)])['forEach'](_0x54e3f1=>{const _0x39ab77=_0x6d0464;_0x54e3f1[_0x39ab77(0x171)]=!![],notify(_0x39ab77(0x3fe),_0x39ab77(0x4fc)+String(_0x54e3f1['id'])['padStart'](0x2,'0')+_0x39ab77(0x16f)+_0x54e3f1[_0x39ab77(0x449)]+'\x20errors',_0x39ab77(0x414),0x1770),addIncident(_0x39ab77(0x414),_0x39ab77(0x4fc)+_0x54e3f1['id']+_0x39ab77(0x398),'WORKER');});const _0x451e88=state[_0x6d0464(0x19e)][_0x6d0464(0x1bc)][_0x6d0464(0x434)]+state['queue']['processing'][_0x6d0464(0x434)];_0x451e88>0x28&&!alertState['queueOverload']&&(alertState[_0x6d0464(0x142)]=!![],notify(_0x6d0464(0x201),'Queue\x20depth\x20'+_0x451e88+_0x6d0464(0x26c),_0x6d0464(0x396),0x1b58),addIncident('critical','Queue\x20depth\x20critical:\x20'+_0x451e88+_0x6d0464(0x13b),_0x6d0464(0x4b3)),setTimeout(()=>{alertState['queueOverload']=![];},0x7530)),setText(_0x6d0464(0x1dc),p2State[_0x6d0464(0x271)][_0x6d0464(0x434)]);}function addIncident(_0x16c674,_0x2d5a2,_0x3f62be){const _0x191c87=a0_0x53fb38,_0x5e7d15=eid(_0x191c87(0x3cb));if(!_0x5e7d15)return;const _0x79a3bd=_0x5e7d15[_0x191c87(0x1d2)]('.incident-empty');if(_0x79a3bd)_0x79a3bd[_0x191c87(0x191)]();const _0x23397b=document['createElement'](_0x191c87(0x38c));_0x23397b[_0x191c87(0x1d7)]=_0x191c87(0x509)+_0x16c674,_0x23397b['innerHTML']=_0x191c87(0x36a)+_0x16c674+'\x22>'+_0x16c674[_0x191c87(0x234)]()+_0x191c87(0x33f)+_0x3f62be+']</strong>\x20'+_0x2d5a2+_0x191c87(0x46f)+formatTime()+_0x191c87(0x3e9),_0x5e7d15[_0x191c87(0x1b8)](_0x23397b,_0x5e7d15['firstChild']);if(_0x5e7d15['children']['length']>0xa)_0x5e7d15[_0x191c87(0x2f1)][_0x191c87(0x191)]();}function moveToDLQ(_0x56a5c0){const _0x488e9d=a0_0x53fb38,_0x37016c=[_0x488e9d(0x295),'Encryption\x20timeout',_0x488e9d(0x193),_0x488e9d(0x116),'Network\x20timeout'];p2State[_0x488e9d(0x271)][_0x488e9d(0x12f)]({..._0x56a5c0,'dlqEnteredAt':new Date(),'failureReason':pick(_0x37016c)}),renderDLQ(),notify(_0x488e9d(0x179),_0x56a5c0['id']['substring'](0x0,0x12)+_0x488e9d(0x3b1),_0x488e9d(0x396),0x1388);}function renderDLQ(){const _0x3cd4b9=a0_0x53fb38,_0x2f25d2=eid(_0x3cd4b9(0x14c));if(!_0x2f25d2)return;_0x2f25d2[_0x3cd4b9(0x439)]=p2State[_0x3cd4b9(0x271)][_0x3cd4b9(0x434)]===0x0?'<tr><td\x20colspan=\x227\x22\x20style=\x22text-align:center;color:var(--text-muted);padding:2rem\x22>☠️\x20No\x20items\x20in\x20Dead\x20Letter\x20Queue</td></tr>':p2State[_0x3cd4b9(0x271)][_0x3cd4b9(0x433)]((_0x267e30,_0x2ed296)=>_0x3cd4b9(0x45f)+_0x267e30['id']['substring'](0x0,0x16)+_0x3cd4b9(0x1ab)+_0x267e30[_0x3cd4b9(0x158)]+_0x3cd4b9(0x4fd)+_0x267e30[_0x3cd4b9(0x1a6)]+'</td><td\x20style=\x22color:var(--danger);font-weight:700\x22>'+_0x267e30[_0x3cd4b9(0x405)]+_0x3cd4b9(0x479)+_0x267e30[_0x3cd4b9(0x280)]+'</td><td>'+_0x267e30[_0x3cd4b9(0x4a0)][_0x3cd4b9(0x2c0)]()+_0x3cd4b9(0x2e4)+_0x2ed296+_0x3cd4b9(0x435)+_0x2ed296+_0x3cd4b9(0x3f2))['join'](''),setText(_0x3cd4b9(0x1da),p2State[_0x3cd4b9(0x271)][_0x3cd4b9(0x434)]),setText(_0x3cd4b9(0x407),p2State[_0x3cd4b9(0x3e7)]),setText(_0x3cd4b9(0x1dc),p2State['dlq'][_0x3cd4b9(0x434)]);const _0x42e913=eid(_0x3cd4b9(0x2ba));if(_0x42e913)_0x42e913[_0x3cd4b9(0x26d)]=p2State[_0x3cd4b9(0x271)][_0x3cd4b9(0x434)]+_0x3cd4b9(0x13b);}window[a0_0x53fb38(0x43d)]=_0x46b378=>{const _0x323bee=a0_0x53fb38,_0xe97a01=p2State[_0x323bee(0x271)][_0x46b378];if(!_0xe97a01)return;_0xe97a01[_0x323bee(0x405)]=0x0,state[_0x323bee(0x19e)]['incoming'][_0x323bee(0x12f)](_0xe97a01),p2State[_0x323bee(0x271)][_0x323bee(0x15e)](_0x46b378,0x1),p2State['dlqRetried']++,renderDLQ(),notify('🔄\x20DLQ\x20Retry','Re-queued',_0x323bee(0x2b3),0xbb8);},window['deleteFromDLQ']=_0x40fc84=>{const _0x36e377=a0_0x53fb38;p2State[_0x36e377(0x271)][_0x36e377(0x15e)](_0x40fc84,0x1),renderDLQ();};function initSystemHealth(){const _0x36e537=a0_0x53fb38;buildUptimeBars();if(!p2State[_0x36e537(0x3b7)])p2State[_0x36e537(0x3b7)]={'gateway':_0x36e537(0x22e),'queue':'OPERATIONAL','workers':_0x36e537(0x22e),'encrypt':'OPERATIONAL','db':_0x36e537(0x22e),'replica':_0x36e537(0x22e)};setInterval(()=>{updateWorkerCPUGrid(),drawHealthLatencyChart(),updateSvcLatencies(),updateHealthCards();},0x7d0);}function updateHealthCards(){const _0x52804d=a0_0x53fb38;if(!p2State['healthStatus'])return;const _0x596dce={'OPERATIONAL':_0x52804d(0x22e),'WARNING':_0x52804d(0x42d),'CRITICAL':_0x52804d(0x437),'OFFLINE':_0x52804d(0x1bb)},_0x2f0927={'OPERATIONAL':_0x52804d(0x4ca),'WARNING':_0x52804d(0x50b),'CRITICAL':'var(--danger)','OFFLINE':_0x52804d(0x3de)},_0x540c94={'OPERATIONAL':['',''],'WARNING':[_0x52804d(0x47c),_0x52804d(0x4d7)],'CRITICAL':[_0x52804d(0x362),_0x52804d(0x3db)],'OFFLINE':['rgba(244,63,94,0.6)',_0x52804d(0x3db)]},_0x238e0f={'gateway':_0x52804d(0x26a),'queue':_0x52804d(0x19e),'workers':_0x52804d(0x2fc),'encrypt':_0x52804d(0x3c6),'db':'db','replica':'replica'};Object[_0x52804d(0x364)](_0x238e0f)[_0x52804d(0x200)](([_0x53a0b9,_0x3f046b])=>{const _0x2341bd=_0x52804d,_0x6edc30=p2State[_0x2341bd(0x3b7)][_0x53a0b9]||'OPERATIONAL',_0x34f0d7=eid(_0x2341bd(0x3af)+_0x53a0b9),_0x42fe9b=eid(_0x2341bd(0x392)+_0x53a0b9);_0x42fe9b&&(_0x42fe9b[_0x2341bd(0x26d)]=_0x596dce[_0x6edc30]||_0x6edc30,_0x42fe9b[_0x2341bd(0x505)]['color']=_0x2f0927[_0x6edc30]||_0x2341bd(0x4ca),_0x42fe9b['className']=_0x2341bd(0x426)+(_0x6edc30===_0x2341bd(0x22e)?'ok':_0x6edc30===_0x2341bd(0x24e)?_0x2341bd(0x1b6):'fail'));if(_0x34f0d7){const [_0x2c9852,_0x561fbd]=_0x540c94[_0x6edc30]||['',''];_0x34f0d7[_0x2341bd(0x505)]['borderColor']=_0x2c9852,_0x34f0d7['style'][_0x2341bd(0x125)]=_0x561fbd,_0x6edc30===_0x2341bd(0x437)?_0x34f0d7['style'][_0x2341bd(0x231)]='pulse\x201s\x20infinite':_0x34f0d7[_0x2341bd(0x505)][_0x2341bd(0x231)]='';}});const _0x4d8eec=p2State[_0x52804d(0x3b7)]['db']||_0x52804d(0x22e),_0x104152=eid(_0x52804d(0x4c5)),_0x337644=eid('repst-r1'),_0x44d2da=eid(_0x52804d(0x238));_0x4d8eec===_0x52804d(0x437)?(_0x104152&&(_0x104152['textContent']=_0x52804d(0x4b8),_0x104152['style'][_0x52804d(0x469)]=_0x52804d(0x3de)),_0x337644&&(_0x337644[_0x52804d(0x26d)]=_0x52804d(0x1dd),_0x337644['style'][_0x52804d(0x469)]=_0x52804d(0x50b)),_0x44d2da&&(_0x44d2da[_0x52804d(0x505)][_0x52804d(0x3a5)]=_0x52804d(0x362),_0x44d2da[_0x52804d(0x505)]['background']=_0x52804d(0x3ca))):(_0x104152&&(_0x104152['textContent']='●\x20ONLINE',_0x104152[_0x52804d(0x505)][_0x52804d(0x469)]=_0x52804d(0x4ca)),_0x337644&&(_0x337644[_0x52804d(0x26d)]=_0x52804d(0x12c),_0x337644[_0x52804d(0x505)][_0x52804d(0x469)]=_0x52804d(0x4ca)),_0x44d2da&&(_0x44d2da[_0x52804d(0x505)][_0x52804d(0x3a5)]='',_0x44d2da['style']['background']='')),Object[_0x52804d(0x364)](p2State['healthLatencyHistory'])[_0x52804d(0x200)](([_0x342a31,_0x118593])=>{const _0x2fcac2=_0x52804d;if(!_0x118593||_0x118593[_0x2fcac2(0x434)]===0x0)return;const _0x5e0065=_0x118593[_0x118593[_0x2fcac2(0x434)]-0x1],_0x2a506e=eid('svcl-'+_0x342a31);if(!_0x2a506e)return;_0x2a506e[_0x2fcac2(0x26d)]=_0x5e0065>0x3e7?(_0x5e0065/0x3e8)[_0x2fcac2(0x19b)](0x1)+'s':_0x5e0065+'ms',_0x2a506e[_0x2fcac2(0x505)][_0x2fcac2(0x469)]=_0x5e0065>0x3e8?'var(--danger)':_0x5e0065>0x12c?_0x2fcac2(0x50b):_0x2fcac2(0x4ca),_0x2a506e['style'][_0x2fcac2(0x26b)]=_0x5e0065>0x12c?'700':'';}),drawHealthLatencyChart(),p2State[_0x52804d(0x1a5)]&&addIncident(_0x52804d(0x4cb),'[CHAOS]\x20'+p2State[_0x52804d(0x1a5)][_0x52804d(0x234)]()+_0x52804d(0x4bf),_0x52804d(0x2ec));}function buildUptimeBars(){const _0x4ad1f7=a0_0x53fb38,_0x310298=eid(_0x4ad1f7(0x371));if(!_0x310298)return;_0x310298[_0x4ad1f7(0x439)]='';for(let _0x282845=0x0;_0x282845<0x5a;_0x282845++){const _0x352809=Math[_0x4ad1f7(0x480)](),_0x5d3df8=document['createElement'](_0x4ad1f7(0x38c));_0x5d3df8[_0x4ad1f7(0x1d7)]='uptime-bar\x20'+(_0x352809>0.02?'up':_0x352809>0.01?_0x4ad1f7(0x29d):_0x4ad1f7(0x3be)),_0x310298['appendChild'](_0x5d3df8);}}function updateSvcLatencies(){const _0x20b0a3=a0_0x53fb38,_0x4bf623={'gateway':0xc,'queue':0x8,'workers':0x2,'encrypt':0x3,'db':0x16,'replica':0x22};Object['entries'](_0x4bf623)[_0x20b0a3(0x200)](([_0x241dbd,_0xe81811])=>{const _0xa72e19=_0x20b0a3,_0x272e60=_0xe81811+rand(-0x3,0x8);setText(_0xa72e19(0x3b5)+_0x241dbd,_0x272e60+'ms'),p2State[_0xa72e19(0x36e)][_0x241dbd]=p2State[_0xa72e19(0x36e)][_0x241dbd]||[],p2State[_0xa72e19(0x36e)][_0x241dbd][_0xa72e19(0x12f)](_0x272e60);if(p2State[_0xa72e19(0x36e)][_0x241dbd][_0xa72e19(0x434)]>0x1e)p2State['healthLatencyHistory'][_0x241dbd][_0xa72e19(0x2b7)]();}),setText(_0x20b0a3(0x128),rand(0x8,0x14)+_0x20b0a3(0x33c)),setText(_0x20b0a3(0x30e),rand(0x14,0x2d)+_0x20b0a3(0x33c));}function updateWorkerCPUGrid(){const _0xb7c363=a0_0x53fb38,_0x41fda0=eid(_0xb7c363(0x174));if(!_0x41fda0)return;_0x41fda0['innerHTML']=state[_0xb7c363(0x2fc)][_0xb7c363(0x3a6)](0x0,0xc)[_0xb7c363(0x433)](_0x447585=>{const _0x332faa=_0xb7c363,_0x8d1ef=_0x447585['status']==='idle'?rand(0x2,0xf):rand(0x28,0x5a),_0x4fce9b=_0x8d1ef>0x46?_0x332faa(0x3de):_0x8d1ef>0x28?_0x332faa(0x50b):_0x332faa(0x4ca);return _0x332faa(0x18e)+String(_0x447585['id'])[_0x332faa(0x28a)](0x2,'0')+_0x332faa(0x4ee)+_0x4fce9b+'\x22>'+_0x8d1ef+_0x332faa(0x50a)+_0x8d1ef+_0x332faa(0x1c9)+_0x4fce9b+'\x22></div></div></div>';})[_0xb7c363(0x186)]('');}function drawHealthLatencyChart(){const _0x51c7e1=a0_0x53fb38,_0xb0160c=eid(_0x51c7e1(0x507));if(!_0xb0160c)return;const _0x40b5a6=_0xb0160c[_0x51c7e1(0x3d5)]('2d'),_0x3103e=_0xb0160c[_0x51c7e1(0x141)],_0x187591=_0xb0160c[_0x51c7e1(0x2be)];_0x40b5a6[_0x51c7e1(0x4e6)](0x0,0x0,_0x3103e,_0x187591);const _0x5f3da0={'gateway':_0x51c7e1(0x420),'queue':_0x51c7e1(0x22a),'encrypt':_0x51c7e1(0x38b),'db':_0x51c7e1(0x49d),'replica':_0x51c7e1(0x51a)};Object['entries'](_0x5f3da0)['forEach'](([_0x3c98de,_0x39af12])=>{const _0x26dc3c=_0x51c7e1,_0x33b7a5=p2State[_0x26dc3c(0x36e)][_0x3c98de]||[];if(_0x33b7a5['length']<0x2)return;_0x40b5a6[_0x26dc3c(0x1f5)](),_0x40b5a6[_0x26dc3c(0x168)]=_0x39af12,_0x40b5a6[_0x26dc3c(0x3bf)]=1.5,_0x40b5a6['globalAlpha']=0.8,_0x33b7a5[_0x26dc3c(0x200)]((_0x7ddb61,_0x556f13)=>{const _0x182b04=_0x26dc3c,_0x269c4a=_0x556f13/(_0x33b7a5[_0x182b04(0x434)]-0x1)*_0x3103e,_0xb78b6d=_0x187591-_0x7ddb61/0x3c*_0x187591;_0x556f13===0x0?_0x40b5a6[_0x182b04(0x4b2)](_0x269c4a,_0xb78b6d):_0x40b5a6[_0x182b04(0x363)](_0x269c4a,_0xb78b6d);}),_0x40b5a6['stroke'](),_0x40b5a6['globalAlpha']=0x1;});}function initLoadBalancer(){setInterval(()=>{const _0x40277c=a0_0x3126;if(state[_0x40277c(0x4ef)]===_0x40277c(0x483))updateLoadBalancerView();},0x5dc);}function updateLoadBalancerView(){const _0x44dadd=a0_0x53fb38,_0x575fe2=state[_0x44dadd(0x19e)][_0x44dadd(0x1bc)][_0x44dadd(0x434)],_0x29e504=state[_0x44dadd(0x249)][_0x44dadd(0x18c)][_0x44dadd(0x3a6)](-0x3)[_0x44dadd(0x12e)]((_0x5b6eb2,_0x1d1f58)=>_0x5b6eb2+_0x1d1f58,0x0)/0x3;setText(_0x44dadd(0x212),_0x29e504['toFixed'](0x1)+_0x44dadd(0x16a)),setText(_0x44dadd(0x3fb),_0x575fe2+'\x20items'),setText(_0x44dadd(0x18f),state['database'][_0x44dadd(0x4a5)][_0x44dadd(0x2b4)]()+_0x44dadd(0x4e5)),setText(_0x44dadd(0x4f7),state['workers'][_0x44dadd(0x434)]),setText(_0x44dadd(0x345),_0x29e504['toFixed'](0x1)),setText(_0x44dadd(0x4be),rand(0x50,0xfa)+'ms');const _0x3842a4=eid(_0x44dadd(0x3ac));if(_0x3842a4)_0x3842a4[_0x44dadd(0x439)]=state[_0x44dadd(0x2fc)][_0x44dadd(0x433)](_0x1b653a=>{const _0x40663a=_0x44dadd,_0x24f143=_0x1b653a[_0x40663a(0x1ac)]===_0x40663a(0x1bb),_0x4fe622=_0x24f143?'offline-lb':_0x1b653a[_0x40663a(0x1ac)]===_0x40663a(0x12b)||_0x1b653a[_0x40663a(0x1ac)]===_0x40663a(0x229)?'':_0x40663a(0x162),_0x2d7b14=_0x24f143?0x0:_0x1b653a['status']===_0x40663a(0x12b)||_0x1b653a[_0x40663a(0x1ac)]===_0x40663a(0x229)?rand(0x2,0xf):rand(0x2d,0x5c),_0x57ae5f=_0x24f143?_0x40663a(0x3de):_0x2d7b14>0x46?_0x40663a(0x50b):'';return'<div\x20class=\x22lb-worker-box\x20'+_0x4fe622+_0x40663a(0x2d4)+(_0x57ae5f?_0x40663a(0x170)+_0x57ae5f:'')+_0x40663a(0x3d1)+String(_0x1b653a['id'])[_0x40663a(0x28a)](0x2,'0')+_0x40663a(0x3cf)+(_0x57ae5f?_0x40663a(0x3e1)+_0x57ae5f:'')+'\x22>'+(_0x24f143?_0x40663a(0x32e):_0x2d7b14+'%')+_0x40663a(0x28c);})['join']('');if(state['workers'][_0x44dadd(0x434)]!==p2State[_0x44dadd(0x1cc)]){const _0x4d017d=state[_0x44dadd(0x2fc)][_0x44dadd(0x434)]-p2State[_0x44dadd(0x1cc)],_0x3beaa8=document[_0x44dadd(0x19d)]('div');_0x3beaa8[_0x44dadd(0x1d7)]='scale-event';const _0x583ba8=_0x4d017d>0x0?_0x44dadd(0x1f6):_0x44dadd(0x349);_0x3beaa8[_0x44dadd(0x439)]=_0x44dadd(0x459)+(_0x4d017d>0x0?'var(--success)':_0x44dadd(0x50b))+'\x22>'+_0x583ba8+_0x44dadd(0x33e)+formatTime()+_0x44dadd(0x256)+p2State[_0x44dadd(0x1cc)]+'\x20→\x20<strong>'+state['workers'][_0x44dadd(0x434)]+_0x44dadd(0x219);const _0x15b2ff=eid('scaling-events');if(_0x15b2ff){_0x15b2ff[_0x44dadd(0x1b8)](_0x3beaa8,_0x15b2ff[_0x44dadd(0x17a)]);if(_0x15b2ff[_0x44dadd(0x418)][_0x44dadd(0x434)]>0x14)_0x15b2ff[_0x44dadd(0x2f1)]['remove']();}}p2State[_0x44dadd(0x1cc)]=state[_0x44dadd(0x2fc)][_0x44dadd(0x434)],drawLBDistChart();}function drawLBDistChart(){const _0x1cf4b4=a0_0x53fb38,_0x420f28=eid(_0x1cf4b4(0x135));if(!_0x420f28)return;const _0x4e255b=_0x420f28[_0x1cf4b4(0x3d5)]('2d'),_0x45739b=_0x420f28[_0x1cf4b4(0x141)],_0x2c9425=_0x420f28['height'];_0x4e255b['clearRect'](0x0,0x0,_0x45739b,_0x2c9425);const _0x98ebec=state[_0x1cf4b4(0x2fc)];if(!_0x98ebec[_0x1cf4b4(0x434)])return;const _0x523747=_0x98ebec[_0x1cf4b4(0x12e)]((_0x2430cd,_0xffd8fd)=>_0x2430cd+Math[_0x1cf4b4(0x293)](_0xffd8fd[_0x1cf4b4(0x482)],0x1),0x0),_0x475490=[_0x1cf4b4(0x420),_0x1cf4b4(0x22a),_0x1cf4b4(0x38b),_0x1cf4b4(0x49d),'#a855f7',_0x1cf4b4(0x1b3),_0x1cf4b4(0x248),'#ec4899'],_0x2fcce9=_0x45739b/0x2,_0x222dfa=_0x2c9425/0x2,_0xa29b5a=Math[_0x1cf4b4(0x299)](_0x45739b,_0x2c9425)*0.35;let _0x28827c=-Math['PI']/0x2;_0x98ebec[_0x1cf4b4(0x3a6)](0x0,0x8)[_0x1cf4b4(0x200)]((_0x5c8679,_0x4d5333)=>{const _0xf8eb2c=_0x1cf4b4,_0x477c2d=_0x5c8679['tasksCompleted']/_0x523747,_0x17be8c=_0x477c2d*Math['PI']*0x2;_0x4e255b[_0xf8eb2c(0x1f5)](),_0x4e255b['moveTo'](_0x2fcce9,_0x222dfa),_0x4e255b[_0xf8eb2c(0x403)](_0x2fcce9,_0x222dfa,_0xa29b5a,_0x28827c,_0x28827c+_0x17be8c),_0x4e255b['closePath'](),_0x4e255b[_0xf8eb2c(0x44c)]=_0x475490[_0x4d5333%_0x475490[_0xf8eb2c(0x434)]],_0x4e255b['globalAlpha']=0.8,_0x4e255b[_0xf8eb2c(0x2e8)](),_0x4e255b[_0xf8eb2c(0x51e)]=0x1,_0x28827c+=_0x17be8c;}),_0x4e255b[_0x1cf4b4(0x44c)]=_0x1cf4b4(0x481),_0x4e255b['font']='bold\x2013px\x20Inter',_0x4e255b[_0x1cf4b4(0x3f6)]=_0x1cf4b4(0x4d6),_0x4e255b[_0x1cf4b4(0x4b6)](_0x98ebec[_0x1cf4b4(0x434)]+_0x1cf4b4(0x301),_0x2fcce9,_0x222dfa-0x5),_0x4e255b[_0x1cf4b4(0x476)]='10px\x20Inter',_0x4e255b[_0x1cf4b4(0x44c)]=_0x1cf4b4(0x272),_0x4e255b[_0x1cf4b4(0x4b6)](_0x1cf4b4(0x3f7),_0x2fcce9,_0x222dfa+0xc);}function initAIPrediction(){const _0x532749=a0_0x53fb38;for(let _0x125f82=0x0;_0x125f82<0x14;_0x125f82++){p2State['predictionHistory']['actual'][_0x532749(0x12f)](rand(0x2,0xf)),p2State[_0x532749(0x356)][_0x532749(0x2df)][_0x532749(0x12f)]('-'+(0x14-_0x125f82)+'m');}updateAIPrediction(),setInterval(updateAIPrediction,0x1388);}function updateAIPrediction(){const _0x2ad129=a0_0x53fb38,_0xf6dffc=state[_0x2ad129(0x19e)][_0x2ad129(0x1bc)][_0x2ad129(0x434)],_0x2ad1e7=_0xf6dffc+rand(0x0,0x5);p2State[_0x2ad129(0x356)][_0x2ad129(0x320)]['push'](_0x2ad1e7);if(p2State[_0x2ad129(0x356)][_0x2ad129(0x320)][_0x2ad129(0x434)]>0x1e)p2State[_0x2ad129(0x356)]['actual'][_0x2ad129(0x2b7)]();const _0x1003a8=[];let _0x1c6537=_0x2ad1e7;for(let _0xe99df0=0x0;_0xe99df0<0x1e;_0xe99df0++){_0x1c6537+=(Math['random']()-0.4)*0x5,_0x1c6537=Math[_0x2ad129(0x293)](0x0,_0x1c6537),_0x1003a8['push'](Math[_0x2ad129(0x3b2)](_0x1c6537));}p2State['predictionHistory'][_0x2ad129(0x4bb)]=_0x1003a8;const _0x482ba7=_0x1003a8['indexOf'](Math['max'](..._0x1003a8)),_0x2d9c3d=_0x1003a8[_0x482ba7],_0x87bde9=_0x482ba7+0x1;p2State[_0x2ad129(0x1a7)]={'mins':_0x87bde9,'load':_0x2d9c3d,'workers':Math['ceil'](_0x2d9c3d/0x3+0x2)};const _0x7c516e=_0x2d9c3d>0x1e,_0x5a83ae=eid(_0x2ad129(0x390));if(_0x5a83ae)_0x5a83ae[_0x2ad129(0x1d7)]=_0x2ad129(0x263)+(_0x7c516e?_0x2ad129(0x259):_0x2d9c3d>0xf?_0x2ad129(0x414):'');setText(_0x2ad129(0x251),_0x7c516e?'🚨':_0x2d9c3d>0xf?'⚠️':'🤖'),setText(_0x2ad129(0x2fe),_0x7c516e?_0x2ad129(0x4ae)+_0x87bde9+_0x2ad129(0x189):_0x2d9c3d>0xf?_0x2ad129(0x29b)+_0x87bde9+'\x20min':_0x2ad129(0x1fc)),setText(_0x2ad129(0x40b),_0x2ad129(0x3a3)+rand(0x58,0x61)+_0x2ad129(0x264)+_0x2d9c3d+_0x2ad129(0x16a)),setText(_0x2ad129(0x27d),rand(0x58,0x61)+'%'),setText(_0x2ad129(0x342),_0x87bde9+_0x2ad129(0x165)),setText(_0x2ad129(0x29e),_0x2d9c3d+'\x20req/s'),setText('psi-workers',p2State['peakPrediction']['workers']+_0x2ad129(0x4b5)),setText(_0x2ad129(0x4b9),Math[_0x2ad129(0x3b2)](_0x2d9c3d*2.5)+'\x20items'),setText(_0x2ad129(0x1f8),rand(0x58,0x61)+'%');const _0xd4adcc=state[_0x2ad129(0x2fc)][_0x2ad129(0x434)]>=p2State[_0x2ad129(0x1a7)][_0x2ad129(0x2fc)];updateRecBadge(_0x2ad129(0x35b),_0x2ad129(0x317),_0xd4adcc?state[_0x2ad129(0x2fc)][_0x2ad129(0x434)]+_0x2ad129(0x28f):_0x2ad129(0x498)+p2State[_0x2ad129(0x1a7)][_0x2ad129(0x2fc)]+'\x20(have\x20'+state[_0x2ad129(0x2fc)][_0x2ad129(0x434)]+')',_0xd4adcc?'ok':_0x2ad129(0x4c4),_0xd4adcc?_0x2ad129(0x230):_0x2ad129(0x311)+(p2State[_0x2ad129(0x1a7)][_0x2ad129(0x2fc)]-state['workers']['length'])),updateRecBadge(_0x2ad129(0x48e),'rec-queue-badge','Buffer:\x20'+Math[_0x2ad129(0x3b2)](_0x2d9c3d*0x3)+_0x2ad129(0x4d5),_0x2d9c3d>0x14?_0x2ad129(0x1b6):'ok',_0x2d9c3d>0x14?'⚠\x20Monitor':_0x2ad129(0x230)),updateRecBadge('rec-db-body',_0x2ad129(0x16d),rand(0xf,0x1e)+_0x2ad129(0x31a),'ok','✅\x20Ready'),updateRecBadge('rec-scale-body',_0x2ad129(0x386),_0x87bde9<=0x5?'Scale\x20NOW\x20—\x20peak\x20imminent':'Scale\x20in\x20'+(_0x87bde9-0x2)+'\x20min',_0x87bde9<=0x5?_0x2ad129(0x4c4):_0x2ad129(0x1b6),_0x87bde9<=0x5?_0x2ad129(0x36f):'⏱\x20'+(_0x87bde9-0x2)+'m'),drawPredictionChart();}function updateRecBadge(_0x2339cb,_0x5396f4,_0x2ff07b,_0x47fe99,_0x197e1f){const _0x23fea6=a0_0x53fb38;setText(_0x2339cb,_0x2ff07b);const _0x28dba6=eid(_0x5396f4);if(!_0x28dba6)return;_0x28dba6['className']='rec-badge\x20'+_0x47fe99,_0x28dba6[_0x23fea6(0x26d)]=_0x197e1f;}function drawPredictionChart(){const _0x10a70b=a0_0x53fb38,_0x426bb9=eid(_0x10a70b(0x36d));if(!_0x426bb9)return;const _0x2a2845=_0x426bb9[_0x10a70b(0x3d5)]('2d'),_0x5605ef=_0x426bb9[_0x10a70b(0x141)],_0x152040=_0x426bb9[_0x10a70b(0x2be)];_0x2a2845[_0x10a70b(0x4e6)](0x0,0x0,_0x5605ef,_0x152040);const _0x3fcd5b=p2State[_0x10a70b(0x356)][_0x10a70b(0x320)],_0xc82c28=p2State[_0x10a70b(0x356)]['predicted'],_0x4762fa=[..._0x3fcd5b,..._0xc82c28],_0x434430=Math[_0x10a70b(0x293)](..._0x4762fa,0xa),_0x444090=_0x3fcd5b[_0x10a70b(0x434)]+_0xc82c28[_0x10a70b(0x434)],_0x4f63ce=_0x3f1e3e=>_0x3f1e3e/(_0x444090-0x1)*_0x5605ef,_0xb8beaa=_0x377e65=>_0x152040-0x14-_0x377e65/_0x434430*(_0x152040-0x1e);_0x2a2845[_0x10a70b(0x1f5)](),_0xc82c28['forEach']((_0x5374df,_0x5ec823)=>{const _0x41c90b=_0x10a70b,_0x414483=_0x4f63ce(_0x3fcd5b[_0x41c90b(0x434)]+_0x5ec823),_0x29561b=_0xb8beaa(_0x5374df*1.2);_0x5ec823===0x0?_0x2a2845[_0x41c90b(0x4b2)](_0x414483,_0x29561b):_0x2a2845['lineTo'](_0x414483,_0x29561b);});for(let _0x41d2a9=_0xc82c28['length']-0x1;_0x41d2a9>=0x0;_0x41d2a9--)_0x2a2845['lineTo'](_0x4f63ce(_0x3fcd5b[_0x10a70b(0x434)]+_0x41d2a9),_0xb8beaa(_0xc82c28[_0x41d2a9]*0.8));_0x2a2845[_0x10a70b(0x15d)](),_0x2a2845[_0x10a70b(0x44c)]='rgba(244,63,94,0.06)',_0x2a2845[_0x10a70b(0x2e8)](),_0x2a2845[_0x10a70b(0x1f5)](),_0x2a2845['strokeStyle']=_0x10a70b(0x420),_0x2a2845[_0x10a70b(0x3bf)]=0x2,_0x3fcd5b['forEach']((_0x261c5d,_0x26cb91)=>{const _0x320551=_0x10a70b,_0x1df3b3=_0x4f63ce(_0x26cb91),_0x5b45a5=_0xb8beaa(_0x261c5d);_0x26cb91===0x0?_0x2a2845[_0x320551(0x4b2)](_0x1df3b3,_0x5b45a5):_0x2a2845[_0x320551(0x363)](_0x1df3b3,_0x5b45a5);}),_0x2a2845[_0x10a70b(0x1de)](),_0x2a2845[_0x10a70b(0x1f5)](),_0x2a2845[_0x10a70b(0x168)]=_0x10a70b(0x49d),_0x2a2845[_0x10a70b(0x3bf)]=0x2,_0x2a2845[_0x10a70b(0x51d)]([0x5,0x3]),_0xc82c28[_0x10a70b(0x200)]((_0xc4563f,_0x5156f7)=>{const _0x5c4d47=_0x10a70b,_0x524a9b=_0x4f63ce(_0x3fcd5b['length']+_0x5156f7),_0x3cc614=_0xb8beaa(_0xc4563f);_0x5156f7===0x0?_0x2a2845[_0x5c4d47(0x4b2)](_0x524a9b,_0x3cc614):_0x2a2845[_0x5c4d47(0x363)](_0x524a9b,_0x3cc614);}),_0x2a2845[_0x10a70b(0x1de)](),_0x2a2845['setLineDash']([]);const _0x561ed0=_0x4f63ce(_0x3fcd5b[_0x10a70b(0x434)]-0x1);_0x2a2845[_0x10a70b(0x1f5)](),_0x2a2845[_0x10a70b(0x168)]='rgba(255,255,255,0.15)',_0x2a2845[_0x10a70b(0x3bf)]=0x1,_0x2a2845[_0x10a70b(0x51d)]([0x3,0x3]),_0x2a2845[_0x10a70b(0x4b2)](_0x561ed0,0x0),_0x2a2845['lineTo'](_0x561ed0,_0x152040),_0x2a2845[_0x10a70b(0x1de)](),_0x2a2845['setLineDash']([]);}function a0_0x3126(_0x329d26,_0x4099ea){_0x329d26=_0x329d26-0x116;const _0x139422=a0_0x1394();let _0x312647=_0x139422[_0x329d26];return _0x312647;}function auditLog(_0x487db9,_0x7db7b5,_0x3c7c8b,_0x4f29eb=a0_0x53fb38(0x472)){const _0x603d1=a0_0x53fb38;p2State['auditCounter']++;const _0x59b4db={'index':p2State[_0x603d1(0x3eb)],'timestamp':new Date(),'user':(ROLES[_0x3c7c8b]||ROLES[_0x603d1(0x399)])[_0x603d1(0x3ce)],'role':_0x3c7c8b,'action':_0x4f29eb,'details':_0x7db7b5,'ip':pick(FAKE_IPS),'hash':generateSHA256Like()[_0x603d1(0x4d2)](0x0,0x10),'status':_0x603d1(0x40e)};p2State[_0x603d1(0x4fb)][_0x603d1(0x3b9)](_0x59b4db);if(p2State[_0x603d1(0x4fb)][_0x603d1(0x434)]>0xc8)p2State['auditEntries'][_0x603d1(0x37f)]();renderAuditLog();}function renderAuditLog(){const _0x246a58=a0_0x53fb38,_0x142255=eid(_0x246a58(0x4a4));if(!_0x142255)return;const _0x14c418=((eid(_0x246a58(0x1e3))||{})[_0x246a58(0x471)]||'')[_0x246a58(0x3b3)](),_0x39f77a=(eid('audit-filter-role')||{})['value']||'',_0x5f18ce=(eid(_0x246a58(0x393))||{})[_0x246a58(0x471)]||'',_0x4a37d9=p2State[_0x246a58(0x4fb)][_0x246a58(0x485)](_0x52ebcc=>(!_0x39f77a||_0x52ebcc[_0x246a58(0x41b)]===_0x39f77a)&&(!_0x5f18ce||_0x52ebcc['action']===_0x5f18ce)&&(!_0x14c418||JSON[_0x246a58(0x388)](_0x52ebcc)[_0x246a58(0x3b3)]()['includes'](_0x14c418)));setText(_0x246a58(0x328),_0x4a37d9[_0x246a58(0x434)]),_0x142255[_0x246a58(0x439)]=_0x4a37d9[_0x246a58(0x3a6)](0x0,0x32)[_0x246a58(0x433)](_0x3da96a=>'<tr><td\x20style=\x22color:var(--text-muted)\x22>'+_0x3da96a[_0x246a58(0x38d)]+'</td><td><code>'+_0x3da96a['timestamp'][_0x246a58(0x2c0)]()+_0x246a58(0x2d6)+_0x3da96a[_0x246a58(0x30d)]+_0x246a58(0x316)+_0x3da96a['role']+'\x22>'+_0x3da96a['role']+_0x246a58(0x131)+_0x3da96a[_0x246a58(0x4c4)]+_0x246a58(0x327)+_0x3da96a[_0x246a58(0x4c2)]+_0x246a58(0x443)+_0x3da96a['ip']+_0x246a58(0x422)+_0x3da96a[_0x246a58(0x3d7)]+_0x246a58(0x18a))[_0x246a58(0x186)]('');const _0x27b248=eid(_0x246a58(0x46a));if(_0x27b248){const _0x106eb0=p2State[_0x246a58(0x4fb)][_0x246a58(0x485)](_0x3db75c=>_0x3db75c[_0x246a58(0x4c4)]===_0x246a58(0x472))[_0x246a58(0x3a6)](0x0,0x8);_0x27b248[_0x246a58(0x439)]=_0x106eb0[_0x246a58(0x433)](_0x561e2b=>_0x246a58(0x1ea)+_0x561e2b[_0x246a58(0x41b)]+'\x22>'+_0x561e2b[_0x246a58(0x41b)]+_0x246a58(0x2c6)+_0x561e2b[_0x246a58(0x30d)]+_0x246a58(0x370)+_0x561e2b['ip']+_0x246a58(0x430)+_0x561e2b[_0x246a58(0x250)][_0x246a58(0x2c0)]()+_0x246a58(0x28c))['join']('')||_0x246a58(0x3ad);}const _0x384367=eid(_0x246a58(0x267));if(_0x384367)_0x384367[_0x246a58(0x439)]=Object['entries'](ROLES)[_0x246a58(0x3a6)](0x0,0x3)[_0x246a58(0x433)](([_0x57bc3b,_0x20e4ab])=>'<div\x20class=\x22as-item\x22><span\x20class=\x22as-dot\x22></span><span\x20class=\x22as-name\x22>'+_0x20e4ab[_0x246a58(0x3ce)]+'</span><span\x20class=\x22role-pill\x20'+_0x57bc3b+'\x22>'+_0x57bc3b+_0x246a58(0x1a9)+pick(FAKE_IPS)+_0x246a58(0x28c))['join']('');}function initPerformanceMetrics(){setInterval(updatePerformanceMetrics,0xbb8);}function updatePerformanceMetrics(){const _0x169841=a0_0x53fb38,_0x1ded4d=state[_0x169841(0x249)][_0x169841(0x4c1)],_0x5e6d8f=state[_0x169841(0x249)][_0x169841(0x4ea)],_0x387ed7=state[_0x169841(0x249)][_0x169841(0x3bc)],_0x1bc556=_0x1ded4d>0x0?(_0x1ded4d/(_0x1ded4d+_0x5e6d8f)*0x64)[_0x169841(0x19b)](0x1)+'%':'—',_0x2dad28=state['stats'][_0x169841(0x425)]>0x0?(_0x1ded4d/(_0x1ded4d+state['stats'][_0x169841(0x425)])*0x64)['toFixed'](0x1)+'%':'—',_0x5e7ade=_0x387ed7[_0x169841(0x434)]>0x0?Math[_0x169841(0x3b2)](_0x387ed7[_0x169841(0x12e)]((_0x840355,_0x3acec3)=>_0x840355+_0x3acec3,0x0)/_0x387ed7[_0x169841(0x434)]):null,_0x8561e8=[..._0x387ed7][_0x169841(0x330)]((_0x1bcc72,_0x32ddf9)=>_0x1bcc72-_0x32ddf9),_0x18b94c=_0x8561e8[_0x169841(0x434)]>0x0?_0x8561e8[Math[_0x169841(0x519)](_0x8561e8[_0x169841(0x434)]*0.99)]||_0x8561e8[_0x8561e8[_0x169841(0x434)]-0x1]:null,_0x4d132a=state[_0x169841(0x249)][_0x169841(0x18c)][_0x169841(0x3a6)](-0x3)[_0x169841(0x12e)]((_0x364d42,_0x5eb6bc)=>_0x364d42+_0x5eb6bc,0x0)/0x3;if(_0x4d132a>p2State[_0x169841(0x4dc)][_0x169841(0x149)])p2State['perfMetrics'][_0x169841(0x149)]=_0x4d132a;setText(_0x169841(0x441),p2State[_0x169841(0x4dc)][_0x169841(0x149)]['toFixed'](0x1)),setText(_0x169841(0x3fa),_0x5e7ade?_0x5e7ade+'ms':'—'),setText('mc-success',_0x1bc556),setText(_0x169841(0x3e4),_0x2dad28),setText(_0x169841(0x22c),_0x18b94c?_0x18b94c+'ms':'—');const _0xf66d3d=_0x387ed7[_0x169841(0x485)](_0x44a9b6=>_0x44a9b6<0x1f4)['length'],_0x50b23f=_0x387ed7[_0x169841(0x485)](_0x581668=>_0x581668>=0x1f4&&_0x581668<=0x7d0)['length'],_0x498d4b=_0x387ed7[_0x169841(0x485)](_0x5d8317=>_0x5d8317>0x7d0)[_0x169841(0x434)];setText('sla-total',_0x1ded4d),setText('sla-fast',_0xf66d3d),setText(_0x169841(0x220),_0x50b23f),setText(_0x169841(0x40a),_0x498d4b),setText(_0x169841(0x21d),state[_0x169841(0x249)][_0x169841(0x425)]),setText(_0x169841(0x48c),_0x5e6d8f),_0x1ded4d>0x0&&(setWidth(_0x169841(0x1a3),_0xf66d3d/_0x1ded4d*0x64),setWidth(_0x169841(0x445),_0x50b23f/_0x1ded4d*0x64),setWidth(_0x169841(0x497),_0x498d4b/_0x1ded4d*0x64),setWidth(_0x169841(0x1eb),state[_0x169841(0x249)][_0x169841(0x425)]/_0x1ded4d*0x64),setWidth('slaf-failed',_0x5e6d8f/Math[_0x169841(0x293)](_0x1ded4d,0x1)*0x64)),drawMetricsLatencyChart(_0x387ed7);}function drawMetricsLatencyChart(_0x17001a){const _0x2bc905=a0_0x53fb38,_0x69c720=eid(_0x2bc905(0x3e5));if(!_0x69c720)return;const _0x2bb794=_0x69c720['getContext']('2d'),_0x3883c8=_0x69c720[_0x2bc905(0x141)],_0x209dc1=_0x69c720['height'];_0x2bb794[_0x2bc905(0x4e6)](0x0,0x0,_0x3883c8,_0x209dc1);const _0x187e73=new Array(0xa)[_0x2bc905(0x2e8)](0x0);_0x17001a[_0x2bc905(0x200)](_0x1101ea=>{const _0x361705=_0x2bc905;_0x187e73[Math['min'](Math[_0x361705(0x519)](_0x1101ea/0x1f4),0x9)]++;});const _0x1bd438=Math[_0x2bc905(0x293)](..._0x187e73,0x1),_0x4241dd=_0x3883c8/0xa,_0x53c9ae=['#10b981',_0x2bc905(0x38b),'#34d399',_0x2bc905(0x49d),_0x2bc905(0x49d),'#fb923c',_0x2bc905(0x1b3),'#f43f5e',_0x2bc905(0x1b3),_0x2bc905(0x1b3)];_0x187e73[_0x2bc905(0x200)]((_0x362449,_0x3d95f3)=>{const _0x296fdd=_0x2bc905,_0x3741b2=_0x362449/_0x1bd438*(_0x209dc1-0x1e);_0x2bb794[_0x296fdd(0x44c)]=_0x53c9ae[_0x3d95f3],_0x2bb794[_0x296fdd(0x51e)]=0.8,_0x2bb794[_0x296fdd(0x18d)](_0x3d95f3*_0x4241dd+0x2,_0x209dc1-_0x3741b2-0x14,_0x4241dd-0x4,_0x3741b2),_0x2bb794[_0x296fdd(0x51e)]=0x1;}),[_0x2bc905(0x1f9),'1s','1.5s','2s',_0x2bc905(0x378),'3s',_0x2bc905(0x502),'4s',_0x2bc905(0x1bd),_0x2bc905(0x4b0)]['forEach']((_0x50f8ba,_0x42fa79)=>{const _0x6b90aa=_0x2bc905;_0x2bb794[_0x6b90aa(0x44c)]=_0x6b90aa(0x30c),_0x2bb794[_0x6b90aa(0x476)]='9px\x20Inter',_0x2bb794[_0x6b90aa(0x3f6)]='center',_0x2bb794[_0x6b90aa(0x4b6)](_0x50f8ba,_0x42fa79*_0x4241dd+_0x4241dd/0x2,_0x209dc1-0x4);});}function initResilienceTesting(){const _0x415c94=a0_0x53fb38;['db',_0x415c94(0x31c),'overload','workers',_0x415c94(0x3c6),_0x415c94(0x19e)]['forEach'](_0x42be3b=>{const _0xe57ce1=_0x415c94,_0x44c529=eid('chaos-'+_0x42be3b);if(_0x44c529)_0x44c529[_0xe57ce1(0x453)](_0xe57ce1(0x122),()=>runChaosTest(_0x42be3b));}),chaosLog(_0x415c94(0x24d));const _0x57601a=eid(_0x415c94(0x2a7));if(_0x57601a)_0x57601a[_0x415c94(0x453)]('click',()=>{const _0x22b765=_0x415c94;p2State['dlq']['forEach'](_0xc7800e=>{const _0x4241f3=a0_0x3126;_0xc7800e[_0x4241f3(0x405)]=0x0,state[_0x4241f3(0x19e)][_0x4241f3(0x1bc)][_0x4241f3(0x12f)](_0xc7800e),p2State[_0x4241f3(0x3e7)]++;}),p2State['dlq']=[],renderDLQ(),notify(_0x22b765(0x1e7),_0x22b765(0x49f),_0x22b765(0x40e));});}function chaosLog(_0x27e0d1,_0x396f21=a0_0x53fb38(0x2b3)){const _0x422a46=a0_0x53fb38,_0x56b1de=eid(_0x422a46(0x26f));if(!_0x56b1de)return;const _0x3cc0d7=document[_0x422a46(0x19d)](_0x422a46(0x38c));_0x3cc0d7[_0x422a46(0x1d7)]='term-line';const _0x1e9bad={'info':'#94a3b8','success':_0x422a46(0x38b),'warn':'#f59e0b','error':'#f43f5e'};_0x3cc0d7[_0x422a46(0x439)]=_0x422a46(0x48b)+formatTime()+_0x422a46(0x214)+(_0x1e9bad[_0x396f21]||_0x1e9bad[_0x422a46(0x2b3)])+'\x22>'+_0x27e0d1+'</span>',_0x56b1de[_0x422a46(0x358)](_0x3cc0d7);if(_0x56b1de[_0x422a46(0x418)][_0x422a46(0x434)]>0x64)_0x56b1de['firstChild']['remove']();_0x56b1de['scrollTop']=_0x56b1de['scrollHeight'];}async function runChaosTest(_0x85b321){const _0x2af47c=a0_0x53fb38;if(p2State[_0x2af47c(0x1a5)]){chaosLog(_0x2af47c(0x190),_0x2af47c(0x1b6));return;}p2State[_0x2af47c(0x1a5)]=_0x85b321;const _0x52025a=eid(_0x2af47c(0x464)+_0x85b321);if(_0x52025a)_0x52025a[_0x2af47c(0x1fa)]=!![];const _0x4f3d3d=eid(_0x2af47c(0x257));if(_0x4f3d3d)_0x4f3d3d[_0x2af47c(0x439)]='';const _0x27c7b2=(_0x43ba68,_0x1dcf0b,_0x4e0a96)=>new Promise(_0x54b876=>{setTimeout(()=>{const _0x2f566b=a0_0x3126;addResponseItem(_0x43ba68,_0x1dcf0b),chaosLog('['+_0x85b321['toUpperCase']()+']\x20'+_0x1dcf0b,_0x43ba68),feedLog(_0x43ba68===_0x2f566b(0x2f2)?'🔴':_0x43ba68===_0x2f566b(0x1b6)?'🟡':'🟢',_0x2f566b(0x240)+_0x85b321['toUpperCase']()+_0x2f566b(0x36b)+_0x1dcf0b,_0x43ba68===_0x2f566b(0x2f2)?_0x2f566b(0x396):_0x43ba68===_0x2f566b(0x1b6)?_0x2f566b(0x414):_0x2f566b(0x40e)),termLog(_0x43ba68===_0x2f566b(0x2f2)?_0x2f566b(0x157):_0x43ba68===_0x2f566b(0x1b6)?_0x2f566b(0x3b4):_0x2f566b(0x266),'<span>[CHAOS]\x20'+_0x1dcf0b+'</span>'),_0x54b876();},_0x4e0a96);}),_0x224e53=eid(_0x2af47c(0x197)),_0x5e0cd4=(_0xdea487,_0x4c42ec)=>{const _0x10e9e6=_0x2af47c;if(_0x224e53)_0x224e53[_0x10e9e6(0x439)]=_0x10e9e6(0x1fd)+_0xdea487+_0x10e9e6(0x44a)+_0x4c42ec+_0x10e9e6(0x3e9);};addResponseItem(_0x2af47c(0x1b6),_0x2af47c(0x4aa)+_0x85b321['toUpperCase']()),chaosLog(_0x2af47c(0x20a)+_0x85b321[_0x2af47c(0x234)]()+'\x20test\x20scenario',_0x2af47c(0x1b6));if(_0x85b321==='db'){_0x5e0cd4(_0x2af47c(0x4cb),_0x2af47c(0x1f3)),p2State['healthStatus']={...p2State[_0x2af47c(0x3b7)],'db':'CRITICAL','replica':_0x2af47c(0x24e)},state[_0x2af47c(0x297)][_0x2af47c(0x44e)]=(state[_0x2af47c(0x297)][_0x2af47c(0x44e)]||0x0)+0x32;for(let _0x3ddd69=0x0;_0x3ddd69<0x14;_0x3ddd69++){p2State[_0x2af47c(0x36e)]['db'][_0x2af47c(0x12f)](rand(0x7d0,0x1f40));if(p2State[_0x2af47c(0x36e)]['db'][_0x2af47c(0x434)]>0x1e)p2State[_0x2af47c(0x36e)]['db'][_0x2af47c(0x2b7)]();}secLog('🔴',_0x2af47c(0x308),_0x2af47c(0x2f2)),dbLog('💥',_0x2af47c(0x3c2)),updateHealthCards(),await _0x27c7b2('fail',_0x2af47c(0x400),0x0),await _0x27c7b2(_0x2af47c(0x2f2),'🚨\x20Write\x20pipeline\x20HALTED\x20—\x2050\x20submissions\x20pending\x20sync',0x258),await _0x27c7b2(_0x2af47c(0x1b6),'🔄\x20Initiating\x20failover\x20to\x20Replica\x201\x20(Delhi)...',0x578),state[_0x2af47c(0x134)][_0x2af47c(0x408)]=!![],await _0x27c7b2(_0x2af47c(0x1b6),'⏳\x20Replication\x20lag:\x20847ms\x20—\x20Syncing\x20WAL\x20logs...',0x898),await _0x27c7b2(_0x2af47c(0x1b6),_0x2af47c(0x19a),0xbb8),setTimeout(()=>{const _0x23a5ff=_0x2af47c;state[_0x23a5ff(0x134)]['paused']=![],p2State[_0x23a5ff(0x3b7)]={...p2State['healthStatus'],'db':_0x23a5ff(0x22e),'replica':'OPERATIONAL'};for(let _0x213de7=0x0;_0x213de7<0xa;_0x213de7++){p2State[_0x23a5ff(0x36e)]['db'][_0x23a5ff(0x12f)](rand(0x28,0x78)),p2State['healthLatencyHistory']['db'][_0x23a5ff(0x2b7)]();}state['database'][_0x23a5ff(0x44e)]=0x0,_0x5e0cd4('operational','✅\x20All\x20Systems\x20Operational\x20—\x20DB\x20Recovered'),updateHealthCards(),dbLog('✅','<strong>Replica\x20promoted\x20to\x20Primary</strong>\x20—\x20Delhi\x20DC\x20now\x20serving\x20writes'),secLog('✅',_0x23a5ff(0x1f7),'ok');},0x1194),await _0x27c7b2('ok',_0x2af47c(0x4cd),0x11f8),await _0x27c7b2('ok',_0x2af47c(0x2cf),0x1450),await _0x27c7b2('ok',_0x2af47c(0x21b),0x1770);}else{if(_0x85b321==='net'){_0x5e0cd4(_0x2af47c(0x415),_0x2af47c(0x237));const _0x5e92f1=()=>{const _0x2e9c21=_0x2af47c;[_0x2e9c21(0x26a),_0x2e9c21(0x19e),_0x2e9c21(0x2fc),_0x2e9c21(0x3c6),'db','replica']['forEach'](_0x3b5577=>{const _0x300fd0=_0x2e9c21;p2State[_0x300fd0(0x36e)][_0x3b5577][_0x300fd0(0x12f)](rand(0x5dc,0xfa0));if(p2State[_0x300fd0(0x36e)][_0x3b5577]['length']>0x1e)p2State['healthLatencyHistory'][_0x3b5577][_0x300fd0(0x2b7)]();});};_0x5e92f1(),state[_0x2af47c(0x2fc)][_0x2af47c(0x200)](_0xc9d4ba=>{const _0x2de5a6=_0x2af47c;_0xc9d4ba[_0x2de5a6(0x2c3)]=!![];}),updateHealthCards(),secLog('📡',_0x2af47c(0x198),_0x2af47c(0x2f2)),await _0x27c7b2(_0x2af47c(0x2f2),_0x2af47c(0x177),0x0),await _0x27c7b2('fail',_0x2af47c(0x12d),0x190),await _0x27c7b2(_0x2af47c(0x1b6),_0x2af47c(0x182),0x384),await _0x27c7b2(_0x2af47c(0x1b6),_0x2af47c(0x21e),0x5dc),setTimeout(()=>{_0x5e92f1(),drawHealthLatencyChart();},0x7d0),await _0x27c7b2(_0x2af47c(0x1b6),'⚡\x20Throughput\x20reduced\x2060%\x20—\x20System\x20degraded\x20but\x20stable',0x898),await _0x27c7b2(_0x2af47c(0x1b6),_0x2af47c(0x387),0xbb8),setTimeout(()=>{const _0x31d9f9=_0x2af47c;['gateway',_0x31d9f9(0x19e),_0x31d9f9(0x2fc),'encrypt','db',_0x31d9f9(0x4f5)][_0x31d9f9(0x200)](_0x57e018=>{const _0x5d2f9e=_0x31d9f9;p2State['healthLatencyHistory'][_0x57e018]['push'](rand(0x50,0xc8));if(p2State[_0x5d2f9e(0x36e)][_0x57e018][_0x5d2f9e(0x434)]>0x1e)p2State['healthLatencyHistory'][_0x57e018][_0x5d2f9e(0x2b7)]();}),state[_0x31d9f9(0x2fc)][_0x31d9f9(0x200)](_0xa4235c=>{const _0x14d1af=_0x31d9f9;delete _0xa4235c[_0x14d1af(0x2c3)];}),_0x5e0cd4(_0x31d9f9(0x1b9),_0x31d9f9(0x2c5)),updateHealthCards();},0x1068),await _0x27c7b2('ok',_0x2af47c(0x194),0x1194),await _0x27c7b2('ok',_0x2af47c(0x42a),0x1450),await _0x27c7b2('ok',_0x2af47c(0x215),0x1770);}else{if(_0x85b321===_0x2af47c(0x340)){_0x5e0cd4('degraded','🟡\x20LOAD\x20TEST\x20—\x201000\x20Submission\x20Spike');const _0x26d0d6=state['workers'][_0x2af47c(0x434)];notify(_0x2af47c(0x351),_0x2af47c(0x477),'warning',0x1770),await _0x27c7b2(_0x2af47c(0x1b6),_0x2af47c(0x4d4),0x0);let _0x3e4798=0x0;const _0x5747bb=(_0x4ea8c7,_0x45c459)=>setTimeout(()=>{const _0x4da64f=_0x2af47c;for(let _0x459f10=0x0;_0x459f10<_0x4ea8c7;_0x459f10++)enqueueSubmission(createSubmission());_0x3e4798+=_0x4ea8c7,chaosLog(_0x4da64f(0x1c3)+_0x3e4798+_0x4da64f(0x4e4)+(state['queue'][_0x4da64f(0x1bc)][_0x4da64f(0x434)]+state['queue']['processing']['length']),_0x4da64f(0x1b6));},_0x45c459);_0x5747bb(0xfa,0x64),_0x5747bb(0xfa,0x1f4),_0x5747bb(0xfa,0x384),_0x5747bb(0xfa,0x514),await _0x27c7b2('warn',_0x2af47c(0x3d4),0x1f4),await _0x27c7b2(_0x2af47c(0x1b6),_0x2af47c(0x137)+_0x26d0d6+_0x2af47c(0x22d),0x3e8),await _0x27c7b2(_0x2af47c(0x1b6),'🤖\x20Auto-scaler\x20triggered\x20—\x20Requesting\x20new\x20worker\x20instances',0x5dc);const _0x7410fe=(_0x510765,_0xb94f7b)=>setTimeout(()=>{const _0x20bc12=_0x2af47c,_0x4be556={'id':_0xb94f7b,'status':_0x20bc12(0x229),'processed':0x0,'errors':0x0,'currentTask':null,'uptime':0x0,'cpu':0x0};state['workers']['push'](_0x4be556),setText(_0x20bc12(0x2c2),state[_0x20bc12(0x2fc)][_0x20bc12(0x434)]),chaosLog(_0x20bc12(0x2d2)+String(_0xb94f7b)[_0x20bc12(0x28a)](0x2,'0')+_0x20bc12(0x183)+state[_0x20bc12(0x2fc)]['length'],'ok'),addResponseItem('ok',_0x20bc12(0x2d2)+String(_0xb94f7b)[_0x20bc12(0x28a)](0x2,'0')+_0x20bc12(0x2b6)+state['workers']['length']),feedLog('⚙️','<strong>AUTO-SCALE:</strong>\x20Worker-'+String(_0xb94f7b)['padStart'](0x2,'0')+'\x20spawned\x20—\x20pool\x20now\x20'+state[_0x20bc12(0x2fc)][_0x20bc12(0x434)]+_0x20bc12(0x326),_0x20bc12(0x40e));},_0x510765);_0x7410fe(0x7d0,0x7),_0x7410fe(0x9c4,0x8),_0x7410fe(0xbb8,0x9),_0x7410fe(0xdac,0xa),_0x7410fe(0xfa0,0xb),_0x7410fe(0x1194,0xc),await _0x27c7b2('ok','✅\x20Worker-07\x20spawned\x20(auto-scale\x20+1)',0x898),await _0x27c7b2('ok','✅\x20Worker-08\x20spawned\x20(auto-scale\x20+2)',0xa8c),await _0x27c7b2('ok',_0x2af47c(0x127),0x125c),await _0x27c7b2('ok','🏭\x20Worker\x20pool\x20scaled:\x20'+_0x26d0d6+'\x20→\x2012\x20workers',0x1388),await _0x27c7b2('ok','📊\x20Throughput\x20normalising\x20—\x20Queue\x20draining\x20at\x2024\x20submissions/s',0x157c),setTimeout(()=>{const _0x142d6c=_0x2af47c,_0xc7c3ce=state[_0x142d6c(0x2fc)][_0x142d6c(0x434)]-_0x26d0d6;_0xc7c3ce>0x0&&(state[_0x142d6c(0x2fc)][_0x142d6c(0x15e)](_0x26d0d6,_0xc7c3ce),setText(_0x142d6c(0x2c2),state['workers'][_0x142d6c(0x434)]),chaosLog(_0x142d6c(0x21f)+state[_0x142d6c(0x2fc)][_0x142d6c(0x434)]+_0x142d6c(0x326),'ok'),feedLog('📉','<strong>AUTO-SCALE-DOWN:</strong>\x20Pool\x20reduced\x20back\x20to\x20'+state['workers'][_0x142d6c(0x434)]+_0x142d6c(0x326),_0x142d6c(0x2b3))),_0x5e0cd4('operational',_0x142d6c(0x2c5));},0x7530),await _0x27c7b2('ok','🏆\x20Overload\x20test\x20complete\x20—\x201000\x20submissions\x20absorbed,\x20zero\x20lost',0x1838);}else{if(_0x85b321===_0x2af47c(0x2fc)){_0x5e0cd4('critical',_0x2af47c(0x252));const _0x57342b=state['workers']['map'](_0x4dcd28=>({..._0x4dcd28}));state[_0x2af47c(0x2fc)][_0x2af47c(0x200)](_0x11fdde=>{const _0x44fced=_0x2af47c;_0x11fdde[_0x44fced(0x1ac)]=_0x44fced(0x1bb),_0x11fdde['currentTask']=null;}),state[_0x2af47c(0x134)][_0x2af47c(0x408)]=!![],updateHealthCards(),secLog('🔪','<strong>ALL\x20WORKERS\x20TERMINATED</strong>\x20—\x20Processing\x20halted','fail'),await _0x27c7b2('fail',_0x2af47c(0x508)+_0x57342b['length']+_0x2af47c(0x375),0x0),await _0x27c7b2(_0x2af47c(0x2f2),_0x2af47c(0x262),0x190),await _0x27c7b2(_0x2af47c(0x1b6),_0x2af47c(0x515),0x320),await _0x27c7b2(_0x2af47c(0x1b6),_0x2af47c(0x2f9)+(state[_0x2af47c(0x19e)][_0x2af47c(0x1bc)][_0x2af47c(0x434)]+state[_0x2af47c(0x19e)]['processing']['length'])+'\x20submissions\x20queued,\x20awaiting\x20workers',0x4b0),await _0x27c7b2(_0x2af47c(0x1b6),_0x2af47c(0x357),0x7d0),state[_0x2af47c(0x2fc)][_0x2af47c(0x200)]((_0x4957ce,_0x2fdbf6)=>{setTimeout(()=>{const _0x35b89b=a0_0x3126;_0x4957ce['status']=_0x35b89b(0x229),_0x4957ce[_0x35b89b(0x40d)]=0x0,_0x4957ce[_0x35b89b(0x449)]=0x0,_0x4957ce['cpu']=0x0,chaosLog(_0x35b89b(0x2d0)+String(_0x4957ce['id'])[_0x35b89b(0x28a)](0x2,'0')+_0x35b89b(0x492)+(_0x2fdbf6+0x1)+'/'+_0x57342b[_0x35b89b(0x434)]+')','ok'),_0x2fdbf6===_0x57342b['length']-0x1&&(state[_0x35b89b(0x134)][_0x35b89b(0x408)]=![],_0x5e0cd4('operational',_0x35b89b(0x2c5)),updateHealthCards(),secLog('✅',_0x35b89b(0x243),'ok'));},0x9c4+_0x2fdbf6*0x12c);}),await _0x27c7b2('ok',_0x2af47c(0x2de),0xa8c),await _0x27c7b2('ok',_0x2af47c(0x2f7),0xdac),await _0x27c7b2('ok',_0x2af47c(0x3a2),0xfa0),await _0x27c7b2('ok','🏆\x20Worker\x20recovery\x20complete\x20—\x20All\x20submissions\x20preserved',0x1194);}else{if(_0x85b321==='encrypt'){_0x5e0cd4(_0x2af47c(0x4cb),_0x2af47c(0x2cd)),p2State['healthStatus']={...p2State[_0x2af47c(0x3b7)],'encrypt':_0x2af47c(0x437)},state[_0x2af47c(0x2fc)][_0x2af47c(0x200)](_0x428ce0=>{_0x428ce0['_encryptFail']=!![];}),updateHealthCards(),secLog('🔐',_0x2af47c(0x524),_0x2af47c(0x2f2));const _0x6588fc=state[_0x2af47c(0x19e)][_0x2af47c(0x1bc)][_0x2af47c(0x15e)](0x0,Math['min'](0x5,state[_0x2af47c(0x19e)][_0x2af47c(0x1bc)][_0x2af47c(0x434)]));_0x6588fc[_0x2af47c(0x200)](_0x1038b5=>{const _0x184cbe=_0x2af47c;_0x1038b5[_0x184cbe(0x405)]=0x0,state[_0x184cbe(0x19e)][_0x184cbe(0x324)][_0x184cbe(0x12f)](_0x1038b5),state['stats'][_0x184cbe(0x4ea)]++;}),await _0x27c7b2(_0x2af47c(0x2f2),_0x2af47c(0x503),0x0),await _0x27c7b2('fail',_0x2af47c(0x4af)+_0x6588fc[_0x2af47c(0x434)]+_0x2af47c(0x27c),0x1f4),await _0x27c7b2(_0x2af47c(0x2f2),'🚨\x20Security\x20policy:\x20REJECT\x20all\x20unencrypted\x20submissions',0x320),await _0x27c7b2(_0x2af47c(0x1b6),_0x2af47c(0x4f2),0x4b0),await _0x27c7b2('warn','⚙️\x20Initialising\x20AES-256-GCM\x20fallback\x20module...',0x708),setTimeout(()=>{const _0x30fb1e=_0x2af47c;state['workers'][_0x30fb1e(0x200)](_0x5e4fdd=>{const _0x42e8aa=_0x30fb1e;delete _0x5e4fdd[_0x42e8aa(0x1d9)];}),p2State['healthStatus']={...p2State[_0x30fb1e(0x3b7)],'encrypt':_0x30fb1e(0x22e)},_0x5e0cd4(_0x30fb1e(0x1b9),'✅\x20All\x20Systems\x20Operational'),updateHealthCards(),secLog('✅','<strong>Encryption\x20restored</strong>\x20—\x20HSM\x20failover\x20active','ok');},0xbb8),await _0x27c7b2('ok',_0x2af47c(0x309),0xc80),await _0x27c7b2('ok',_0x2af47c(0x41c),0xfa0),await _0x27c7b2('ok','🏆\x20Encryption\x20failover:\x20<50ms\x20RTO\x20achieved',0x1194);}else{if(_0x85b321==='queue'){_0x5e0cd4(_0x2af47c(0x415),_0x2af47c(0x2c7));const _0x208a00=0xc8;for(let _0x29048b=0x0;_0x29048b<_0x208a00;_0x29048b++)state[_0x2af47c(0x19e)][_0x2af47c(0x1bc)][_0x2af47c(0x12f)](createSubmission());state[_0x2af47c(0x249)][_0x2af47c(0x1b5)]+=_0x208a00,setText(_0x2af47c(0x1c1),state[_0x2af47c(0x19e)][_0x2af47c(0x1bc)][_0x2af47c(0x434)]),await _0x27c7b2(_0x2af47c(0x1b6),_0x2af47c(0x32d)+_0x208a00+'\x20items...',0x0),await _0x27c7b2(_0x2af47c(0x1b6),_0x2af47c(0x180)+state[_0x2af47c(0x19e)][_0x2af47c(0x1bc)]['length']+_0x2af47c(0x2e3)+Math[_0x2af47c(0x3b2)](state[_0x2af47c(0x19e)]['incoming']['length']/0x32*0x64)+_0x2af47c(0x526),0x190),await _0x27c7b2(_0x2af47c(0x1b6),_0x2af47c(0x3ef),0x320),await _0x27c7b2(_0x2af47c(0x1b6),_0x2af47c(0x487),0x578),await _0x27c7b2(_0x2af47c(0x1b6),'⚙️\x20All\x20workers\x20reassigned\x20to\x20drain\x20mode',0x708),state[_0x2af47c(0x2fc)][_0x2af47c(0x200)](_0x3cbd3f=>{_0x3cbd3f['_drainMode']=!![];}),await _0x27c7b2('ok',_0x2af47c(0x46b),0x9c4),setTimeout(()=>{const _0x5549f7=_0x2af47c;state['workers'][_0x5549f7(0x200)](_0x549335=>{const _0x2ff6c9=_0x5549f7;delete _0x549335[_0x2ff6c9(0x488)];}),_0x5e0cd4(_0x5549f7(0x1b9),_0x5549f7(0x2c5));},0xfa0),await _0x27c7b2('ok',_0x2af47c(0x2f3),0x1068),await _0x27c7b2('ok','🏆\x20Queue\x20drained\x20—\x20Back-pressure\x20control\x20validated',0x1388);}}}}}}const _0x14a917={'db':_0x2af47c(0x161),'net':_0x2af47c(0x314),'overload':_0x2af47c(0x2d8),'workers':_0x2af47c(0x20d),'encrypt':_0x2af47c(0x4f4),'queue':_0x2af47c(0x47f)};addResponseItem('ok',_0x2af47c(0x1bf)+_0x14a917[_0x85b321]);const _0x4da753=eid(_0x2af47c(0x2e2)+_0x85b321);_0x4da753&&(_0x4da753[_0x2af47c(0x26d)]=_0x14a917[_0x85b321],_0x4da753['style'][_0x2af47c(0x469)]=_0x2af47c(0x4ca));auditLog(_0x2af47c(0x1ff)+_0x85b321,'Result:\x20'+_0x14a917[_0x85b321],activeRole,_0x2af47c(0x3ff)),p2State[_0x2af47c(0x1a5)]=null;if(_0x52025a)_0x52025a['disabled']=![];notify('🧪\x20Chaos\x20Test\x20Complete',_0x85b321[_0x2af47c(0x234)]()+':\x20'+_0x14a917[_0x85b321],_0x2af47c(0x40e),0x1388);}function addResponseItem(_0x462ce1,_0xc0b61b){const _0x124c62=a0_0x53fb38,_0xc851ec=eid(_0x124c62(0x257));if(!_0xc851ec)return;const _0x208349=_0xc851ec[_0x124c62(0x1d2)](_0x124c62(0x2d3));if(_0x208349)_0x208349[_0x124c62(0x191)]();const _0x8fced9=document[_0x124c62(0x19d)](_0x124c62(0x38c));_0x8fced9[_0x124c62(0x1d7)]='rp-item\x20'+(_0x462ce1==='ok'?'ok':_0x462ce1===_0x124c62(0x2f2)?_0x124c62(0x2f2):_0x124c62(0x1b6)),_0x8fced9[_0x124c62(0x439)]=_0x124c62(0x13e)+formatTime()+'</span><span\x20style=\x22margin-left:.5rem\x22>'+_0xc0b61b+_0x124c62(0x3e9),_0xc851ec[_0x124c62(0x358)](_0x8fced9),_0xc851ec[_0x124c62(0x273)]=_0xc851ec[_0x124c62(0x254)];}function initAuditFilters(){const _0x5d4abd=a0_0x53fb38;[_0x5d4abd(0x1e3),'audit-filter-role',_0x5d4abd(0x393)]['forEach'](_0xf1c788=>{const _0x564cee=eid(_0xf1c788);if(_0x564cee)_0x564cee['addEventListener']('input',()=>renderAuditLog());});const _0x54a007=eid(_0x5d4abd(0x34d));if(_0x54a007)_0x54a007[_0x5d4abd(0x453)](_0x5d4abd(0x122),()=>{const _0x16d213=_0x5d4abd,_0x5ccf22=[_0x16d213(0x23a),...p2State[_0x16d213(0x4fb)]['map'](_0x137035=>_0x137035[_0x16d213(0x38d)]+',\x22'+_0x137035[_0x16d213(0x250)][_0x16d213(0x2b4)]()+_0x16d213(0x2c9)+_0x137035[_0x16d213(0x30d)]+'\x22,\x22'+_0x137035['role']+_0x16d213(0x2c9)+_0x137035['action']+_0x16d213(0x2c9)+_0x137035[_0x16d213(0x4c2)]+_0x16d213(0x2c9)+_0x137035['ip']+_0x16d213(0x2c9)+_0x137035['status']+'\x22')][_0x16d213(0x186)]('\x0a'),_0x5c4131=document[_0x16d213(0x19d)]('a');_0x5c4131['href']=URL[_0x16d213(0x4d1)](new Blob([_0x5ccf22],{'type':_0x16d213(0x39d)})),_0x5c4131['download']=_0x16d213(0x45d),_0x5c4131[_0x16d213(0x122)]();});}const _origSwitchView=switchView;window[a0_0x53fb38(0x46c)]=function(_0x52e730){const _0x1d2815=a0_0x53fb38;_origSwitchView(_0x52e730);const _0xb49d22={'health':_0x1d2815(0x30a),'dlq':'Dead\x20Letter\x20Queue','loadbalancer':'Load\x20Balancer','prediction':_0x1d2815(0x4e1),'audit':_0x1d2815(0x305),'metrics':_0x1d2815(0x232),'testing':_0x1d2815(0x35c)};if(_0xb49d22[_0x52e730])setText(_0x1d2815(0x4b7),_0xb49d22[_0x52e730]);if(_0x52e730===_0x1d2815(0x46d))setTimeout(drawPredictionChart,0x64);if(_0x52e730===_0x1d2815(0x483))setTimeout(updateLoadBalancerView,0x64);if(_0x52e730===_0x1d2815(0x3f9))setTimeout(updatePerformanceMetrics,0x64);if(_0x52e730===_0x1d2815(0x42b))renderAuditLog();if(_0x52e730===_0x1d2815(0x271))renderDLQ();_0x52e730===_0x1d2815(0x1e6)&&(drawHealthLatencyChart(),updateWorkerCPUGrid());};const _origInitApp=initApp;window['initApp']=function(_0x269b87){const _0x2c01a2=a0_0x53fb38;_origInitApp(_0x269b87),applyRoleBadge(activeRole),startSessionTimer(),auditLog(_0x2c01a2(0x458)+pick(FAKE_IPS),_0x2c01a2(0x1b1)+(ROLES[activeRole]||ROLES[_0x2c01a2(0x399)])[_0x2c01a2(0x29a)],activeRole,_0x2c01a2(0x472)),initSystemHealth(),initLoadBalancer(),initAIPrediction(),initPerformanceMetrics(),initResilienceTesting(),initAuditFilters(),initMySubmissions(),setInterval(checkSmartAlerts,0x1388),setInterval(()=>{const _0x529711=_0x2c01a2;if(Math[_0x529711(0x480)]()<0.25){const _0x143a68=pick(Object[_0x529711(0x468)](ROLES)),_0x43c9e9=[{'d':'Script\x20uploaded','t':'SUBMIT'},{'d':_0x529711(0x347),'t':'ADMIN'},{'d':_0x529711(0x2f5)+pick(FAKE_IPS),'t':_0x529711(0x11d)},{'d':_0x529711(0x2a3),'t':_0x529711(0x3ff)}],_0x3194f8=pick(_0x43c9e9);auditLog(_0x3194f8['d'],_0x3194f8['d'],_0x143a68,_0x3194f8['t']);}state[_0x529711(0x19e)]['failed'][_0x529711(0x485)](_0x182068=>_0x182068[_0x529711(0x405)]>=0x3&&!_0x182068[_0x529711(0x160)])[_0x529711(0x200)](_0x57d89f=>{const _0x5335e2=_0x529711;_0x57d89f[_0x5335e2(0x160)]=!![],moveToDLQ(_0x57d89f);}),updateMySubmissions();},0x1f40);};function initMySubmissions(){updateMySubmissions();}function trackMySubmission(_0x5958fb){const _0x309e3c=a0_0x53fb38;if(!Array[_0x309e3c(0x4e0)](mySubmissions))return;mySubmissions[_0x309e3c(0x3b9)]({..._0x5958fb,'trackedAt':new Date(),'lastStatus':'queued'});if(mySubmissions[_0x309e3c(0x434)]>0x14)mySubmissions[_0x309e3c(0x37f)]();updateMySubmissions();}function updateMySubmissions(){const _0x3067e8=a0_0x53fb38,_0x2645ce=eid(_0x3067e8(0x2dd));if(!_0x2645ce)return;mySubmissions[_0x3067e8(0x200)](_0x47a79e=>{const _0x3f82fb=_0x3067e8,_0x2cb5bf=state['queue'][_0x3f82fb(0x431)][_0x3f82fb(0x1a4)](_0x351f72=>_0x351f72['id']===_0x47a79e['id']),_0x147c7f=state[_0x3f82fb(0x19e)][_0x3f82fb(0x265)][_0x3f82fb(0x1a4)](_0x184369=>_0x184369['id']===_0x47a79e['id']),_0x4d2943=state[_0x3f82fb(0x19e)]['failed'][_0x3f82fb(0x1a4)](_0x470411=>_0x470411['id']===_0x47a79e['id']),_0xb728c2=p2State[_0x3f82fb(0x271)]['find'](_0x1505d4=>_0x1505d4['id']===_0x47a79e['id']);if(_0x147c7f)_0x47a79e[_0x3f82fb(0x35f)]=_0x3f82fb(0x265);else{if(_0x2cb5bf)_0x47a79e[_0x3f82fb(0x35f)]='processing';else{if(_0xb728c2)_0x47a79e[_0x3f82fb(0x35f)]=_0x3f82fb(0x271);else{if(_0x4d2943)_0x47a79e[_0x3f82fb(0x35f)]=_0x3f82fb(0x324);else _0x47a79e[_0x3f82fb(0x35f)]='queued';}}}});const _0x38ecd1=eid(_0x3067e8(0x1f4));if(_0x38ecd1)_0x38ecd1[_0x3067e8(0x26d)]=mySubmissions[_0x3067e8(0x434)];const _0x2002bb=mySubmissions[_0x3067e8(0x485)](_0x54f889=>_0x54f889['lastStatus']===_0x3067e8(0x265))['length'],_0x4c165a=mySubmissions[_0x3067e8(0x485)](_0x49d7ab=>_0x49d7ab['lastStatus']===_0x3067e8(0x1af)||_0x49d7ab[_0x3067e8(0x35f)]===_0x3067e8(0x431))[_0x3067e8(0x434)];setText(_0x3067e8(0x37e),mySubmissions[_0x3067e8(0x434)]),setText(_0x3067e8(0x210),_0x2002bb),setText(_0x3067e8(0x209),_0x4c165a),setText(_0x3067e8(0x48f),mySubmissions[_0x3067e8(0x434)]+_0x3067e8(0x48a)+(mySubmissions['length']!==0x1?'s':''));const _0x11c710={'queued':{'cls':_0x3067e8(0x2b3),'icon':'⏳','label':_0x3067e8(0x513)},'processing':{'cls':_0x3067e8(0x1b6),'icon':'⚙️','label':_0x3067e8(0x337)},'completed':{'cls':'ok','icon':'✅','label':_0x3067e8(0x22b)},'failed':{'cls':_0x3067e8(0x2f2),'icon':'❌','label':_0x3067e8(0x2da)},'dlq':{'cls':'fail','icon':'☠️','label':_0x3067e8(0x484)}};if(mySubmissions[_0x3067e8(0x434)]===0x0){_0x2645ce[_0x3067e8(0x439)]='<tr><td\x20colspan=\x227\x22\x20style=\x22text-align:center;color:var(--text-muted);padding:2rem\x22>📋\x20No\x20submissions\x20yet\x20—\x20<a\x20href=\x22#\x22\x20onclick=\x22switchView(\x27submit\x27);return\x20false;\x22\x20style=\x22color:var(--primary)\x22>Upload\x20your\x20first\x20script</a></td></tr>';return;}_0x2645ce[_0x3067e8(0x439)]=mySubmissions[_0x3067e8(0x433)](_0x2b072a=>{const _0x3f12b3=_0x3067e8,_0xd073ad=_0x11c710[_0x2b072a[_0x3f12b3(0x35f)]]||_0x11c710['queued'],_0x2ae790=state['queue'][_0x3f12b3(0x1bc)][_0x3f12b3(0x37c)](_0x17229d=>_0x17229d['id']===_0x2b072a['id']);return _0x3f12b3(0x14f)+_0x2b072a['id'][_0x3f12b3(0x4d2)](0x0,0x16)+'…</code></td>\x0a\x20\x20\x20\x20\x20\x20<td>'+(_0x2b072a['subject']||'—')+'</td>\x0a\x20\x20\x20\x20\x20\x20<td>'+(_0x2b072a[_0x3f12b3(0x1a6)]||'—')+_0x3f12b3(0x489)+(_0x2b072a[_0x3f12b3(0x3d7)]?_0x2b072a['hash'][_0x3f12b3(0x4d2)](0x0,0xe)+'…':'—')+_0x3f12b3(0x494)+(_0x2ae790>=0x0?'#'+(_0x2ae790+0x1):_0x2b072a[_0x3f12b3(0x35f)]==='processing'?'⚙️\x20Active':'—')+_0x3f12b3(0x167)+_0xd073ad[_0x3f12b3(0x525)]+'\x22>'+_0xd073ad['icon']+'\x20'+_0xd073ad[_0x3f12b3(0x29a)]+_0x3f12b3(0x284)+_0x2b072a['trackedAt'][_0x3f12b3(0x2c0)]()+'</td>\x0a\x20\x20\x20\x20</tr>';})[_0x3067e8(0x186)]('');}const _origRunSubmissionProcessing=runSubmissionProcessing;window['runSubmissionProcessing_orig']=_origRunSubmissionProcessing;
+/* ══════════════════════════════════════════════════════════
+   EVALSYNC — Application Engine v3.2.1
+   Queue-Based Secure Submission Management System for CBSE
+   ══════════════════════════════════════════════════════════ */
+
+'use strict';
+
+/* ─── CONSTANTS & CONFIG ──────────────────────────────────── */
+const DEMO_USER = {
+  email: 'evaluator@cbse.gov.in',
+  password: 'CBSE@2024',
+  name: 'Rajan Mehta',
+  initials: 'RM',
+  role: 'Senior Evaluator',
+  id: 'EVL-DEL-0412-2024',
+  subject: 'Mathematics (041)',
+  center: 'DEL-0412',
+};
+
+const SUBJECTS = ['Mathematics', 'Physics', 'Chemistry', 'Biology', 'Computer Sc', 'English', 'Economics', 'History', 'Geography'];
+const SUBJECT_CODES = { 'Mathematics': '041', 'Physics': '042', 'Chemistry': '043', 'Biology': '044', 'Computer Sc': '083', 'English': '301', 'Economics': '030', 'History': '027', 'Geography': '029' };
+const SETS = ['A', 'B', 'C', 'D'];
+const REGIONS = ['DEL', 'MUM', 'CHN', 'KOL', 'BLR', 'HYD', 'AHM', 'JDP', 'LKW'];
+const WORKER_STAGES = ['IDLE', 'FETCHING', 'VALIDATING', 'HASHING', 'ENCRYPTING', 'SYNCING', 'DONE'];
+const STAGE_LABELS = { 'IDLE': '—', 'FETCHING': 'Fetching item from queue', 'VALIDATING': 'Validating file integrity', 'HASHING': 'Computing SHA-256 hash', 'ENCRYPTING': 'AES-256-GCM encryption', 'SYNCING': 'Syncing to central DB', 'DONE': 'Task complete' };
+const LOG_CONFIG = { maxTerminal: 200, maxFeed: 50, maxDbLog: 80, maxSecLog: 60, maxQueueCols: 8 };
+
+/* ─── MY SUBMISSIONS (declared early so trackMySubmission works everywhere) ─ */
+const mySubmissions = [];
+
+/* ─── STATE ───────────────────────────────────────────────── */
+const state = {
+  user: null,
+  isLoggedIn: false,
+  currentView: 'dashboard',
+  simulation: {
+    running: true,
+    paused: false,
+    autoScale: true,
+    retryEnabled: true,
+    loggingEnabled: true,
+    encryptEnforced: true,
+    queueThreshold: 30,
+    spikesCount: 0,
+    sessionStart: null,
+  },
+  queue: {
+    incoming: [],
+    processing: [],
+    completed: [],
+    failed: [],
+    retry: [],
+  },
+  workers: [],
+  database: {
+    totalRecords: 2476,
+    todayRecords: 0,
+    pendingSync: 0,
+    dbSizeMB: 847.3,
+    recentRecords: [],
+  },
+  stats: {
+    totalSubmitted: 0,
+    totalProcessed: 0,
+    totalFailed: 0,
+    totalRetried: 0,
+    peakQueueDepth: 0,
+    processTimes: [],
+    throughputHistory: new Array(60).fill(0),
+    processedHistory: new Array(60).fill(0),
+    queueDepthHistory: new Array(60).fill(0),
+    workerHistory: new Array(60).fill(0),
+    subjectCounts: {},
+    analyticsTimeline: [],
+    submittedHistory: new Array(300).fill(0),
+    successHistory: new Array(300).fill(0),
+    failHistory: new Array(300).fill(0),
+    dbSyncBatches: new Array(20).fill(0),
+    nextBatch: 0,
+  },
+  submission: {
+    step: 1,
+    files: [],
+    data: null,
+    processing: false,
+  },
+  security: {
+    recentIds: [],
+    auditLog: [],
+  },
+  timers: {},
+  sparkData: { total: [], queue: [], success: [], speed: [] },
+  counter: 0,
+};
+
+/* ─── UTILITY HELPERS ─────────────────────────────────────── */
+function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+function randFloat(min, max) { return Math.random() * (max - min) + min; }
+function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+function pad(n, w = 2) { return String(n).padStart(w, '0'); }
+function formatTime(d) { d = d || new Date(); return `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`; }
+function formatBytes(bytes) { if (bytes < 1024) return bytes + ' B'; if (bytes < 1024*1024) return (bytes/1024).toFixed(1) + ' KB'; return (bytes/(1024*1024)).toFixed(2) + ' MB'; }
+function eid(id) { return document.getElementById(id); }
+function shortHash(full) { return full.substring(0, 8) + '...' + full.substring(56); }
+function setManagedInterval(key, fn, ms) {
+  if (state.timers[key]) clearInterval(state.timers[key]);
+  state.timers[key] = setInterval(fn, ms);
+  return state.timers[key];
+}
+function clearManagedTimers() {
+  Object.values(state.timers).forEach(timer => clearInterval(timer));
+  state.timers = {};
+}
+
+function generateSHA256Like() {
+  const chars = '0123456789abcdef';
+  return Array.from({ length: 64 }, () => chars[rand(0, 15)]).join('');
+}
+
+function generateSubmissionId(subject, region) {
+  const sub = (subject || 'MATH').toUpperCase().substring(0, 4).padEnd(4, 'X');
+  const reg = region || pick(REGIONS);
+  const ts = Date.now().toString().slice(-8);
+  const rnd = Array.from({ length: 4 }, () => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'[rand(0, 35)]).join('');
+  return `CBSE-2024-${sub}-${reg}-${ts}-${rnd}`;
+}
+
+function generateAESKey() {
+  return Array.from({ length: 64 }, () => '0123456789abcdef'[rand(0, 15)]).join('');
+}
+
+function generateIV() {
+  return Array.from({ length: 24 }, () => '0123456789abcdef'[rand(0, 15)]).join('');
+}
+
+function generateTag() {
+  return Array.from({ length: 32 }, () => '0123456789abcdef'[rand(0, 15)]).join('');
+}
+
+function generateRollNo() {
+  return '2024' + Array.from({ length: 6 }, () => rand(0, 9)).join('');
+}
+
+function generateEncryptedPayload() {
+  return Array.from({ length: rand(80, 120) }, () => '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+/='[rand(0, 63)]).join('');
+}
+
+function timeAgo(ts) {
+  const diff = Math.floor((Date.now() - ts) / 1000);
+  if (diff < 60) return diff + 's ago';
+  return Math.floor(diff / 60) + 'm ago';
+}
+
+/* ─── DOM HELPERS ─────────────────────────────────────────── */
+function setText(id, val) { const el = eid(id); if (el) el.textContent = val; }
+function setWidth(id, pct) { const el = eid(id); if (el) el.style.width = pct + '%'; }
+function addClass(id, cls) { const el = eid(id); if (el) el.classList.add(cls); }
+function removeClass(id, cls) { const el = eid(id); if (el) el.classList.remove(cls); }
+
+/* ─── NOTIFICATION SYSTEM ─────────────────────────────────── */
+function notify(title, msg, type = 'info', duration = 4000) {
+  const icons = { success: '✅', warning: '⚠️', error: '❌', info: '💡', spike: '⚡' };
+  const container = eid('notifications-container');
+  const el = document.createElement('div');
+  el.className = `notification ${type}`;
+  el.innerHTML = `
+    <span class="notif-icon">${icons[type] || icons.info}</span>
+    <div class="notif-body">
+      <span class="notif-title"></span>
+      <span class="notif-msg"></span>
+    </div>
+    <button class="notif-close">✕</button>
+  `;
+  el.querySelector('.notif-title').textContent = title;
+  el.querySelector('.notif-msg').textContent = msg;
+  el.querySelector('.notif-close').onclick = function() { el.remove(); };
+  container.appendChild(el);
+  const dot = eid('notif-dot');
+  if (dot) dot.classList.add('show');
+  setTimeout(() => {
+    el.classList.add('removing');
+    setTimeout(() => el.remove(), 300);
+  }, duration);
+}
+
+/* ─── CONFIRM MODAL ───────────────────────────────────────── */
+function confirmAction(title, msg, icon, onConfirm) {
+  eid('modal-icon').textContent = icon || '⚠️';
+  eid('modal-title').textContent = title;
+  eid('modal-msg').textContent = msg;
+  eid('confirm-modal').classList.remove('hidden');
+  const confirmBtn = eid('modal-confirm');
+  const cancelBtn = eid('modal-cancel');
+  const close = () => eid('confirm-modal').classList.add('hidden');
+  confirmBtn.onclick = () => { close(); onConfirm(); };
+  cancelBtn.onclick = close;
+}
+
+/* ─── TERMINAL LOG ────────────────────────────────────────── */
+function termLog(level, msg) {
+  if (!state.simulation.loggingEnabled) return;
+  const terminal = eid('terminal');
+  if (!terminal) return;
+  const line = document.createElement('div');
+  line.className = 'term-line';
+  line.innerHTML = `<span class="tl-time">${formatTime()}</span><span class="tl-level ${level}">${level.padEnd(7)}</span><span class="tl-msg"></span>`;
+  line.querySelector('.tl-msg').textContent = msg;
+  terminal.appendChild(line);
+  if (terminal.children.length > LOG_CONFIG.maxTerminal) terminal.firstChild.remove();
+  terminal.scrollTop = terminal.scrollHeight;
+}
+
+/* ─── LIVE FEED ───────────────────────────────────────────── */
+function feedLog(icon, text, type = 'info') {
+  const feed = eid('live-feed');
+  if (!feed) return;
+  const item = document.createElement('div');
+  item.className = `feed-item ${type}`;
+  item.innerHTML = `<span class="fi-time">${formatTime()}</span><span class="fi-icon">${icon}</span><span class="fi-text">${text}</span>`;
+  feed.insertBefore(item, feed.firstChild);
+  if (feed.children.length > LOG_CONFIG.maxFeed) feed.lastChild.remove();
+}
+
+/* ─── DB LOG ──────────────────────────────────────────────── */
+function dbLog(icon, text) {
+  const log = eid('db-log');
+  if (!log) return;
+  const item = document.createElement('div');
+  item.className = 'db-log-item';
+  item.innerHTML = `<span class="dli-time">${formatTime()}</span><span class="dli-icon">${icon}</span><span class="dli-text">${text}</span>`;
+  log.insertBefore(item, log.firstChild);
+  if (log.children.length > LOG_CONFIG.maxDbLog) log.lastChild.remove();
+}
+
+/* ─── SECURITY LOG ────────────────────────────────────────── */
+function secLog(icon, text, type = 'ok') {
+  const log = eid('security-log');
+  if (!log) return;
+  const item = document.createElement('div');
+  item.className = `sec-log-item ${type}`;
+  item.innerHTML = `<span class="sli-time">${formatTime()}</span><span class="sli-icon">${icon}</span><span class="sli-text">${text}</span>`;
+  log.insertBefore(item, log.firstChild);
+  if (log.children.length > LOG_CONFIG.maxSecLog) log.lastChild.remove();
+}
+
+/* ─── NAVIGATION ──────────────────────────────────────────── */
+function switchView(viewName) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const view = eid(`view-${viewName}`);
+  if (view) view.classList.add('active');
+  const navItem = eid(`nav-${viewName}`);
+  if (navItem) navItem.classList.add('active');
+  state.currentView = viewName;
+  const labels = { dashboard: 'Dashboard', submit: 'Submit Script', queue: 'Queue Monitor', workers: 'Worker Pool', analytics: 'Analytics & Logs', security: 'Security Center', database: 'Database Sync', admin: 'Admin Control' };
+  setText('bc-current', labels[viewName] || viewName);
+  if (viewName === 'analytics') { setTimeout(() => { renderAnalyticsChart(); renderSubjectChart(); }, 100); }
+  if (viewName === 'database') { setTimeout(() => renderDbSyncChart(), 100); }
+}
+
+/* ─── SUBMISSION WIZARD ───────────────────────────────────── */
+window.nextStep = function(step) {
+  if (step === 3) {
+    const roll = eid('sub-roll') ? eid('sub-roll').value.trim() : '';
+    const marks = eid('sub-marks') ? eid('sub-marks').value.trim() : '';
+    if (!roll) { notify('Missing Field', 'Please enter a student roll number', 'warning'); return; }
+    if (!marks) { notify('Missing Field', 'Please enter total marks awarded', 'warning'); return; }
+  }
+  if (step === 4 && state.submission.files.length === 0) {
+    notify('No Files', 'Please upload at least one answer script file', 'warning');
+    return;
+  }
+
+  // Mark previous steps complete
+  for (let i = 1; i < step; i++) {
+    const si = eid(`st-${i}`);
+    if (si) { si.classList.remove('active'); si.classList.add('completed'); si.querySelector('.step-circle').textContent = '✓'; }
+    const sl = eid(`sl-${i}`);
+    if (sl) sl.classList.add('completed');
+  }
+
+  document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.step-item').forEach(s => s.classList.remove('active'));
+  const panel = eid(`sp-${step}`);
+  if (panel) panel.classList.add('active');
+  const stepItem = eid(`st-${step}`);
+  if (stepItem) { stepItem.classList.add('active'); stepItem.classList.remove('completed'); }
+  state.submission.step = step;
+};
+
+window.startProcessing = function() {
+  if (state.submission.files.length === 0) return;
+  nextStep(4);
+  runSubmissionProcessing();
+};
+
+window.resetSubmission = function() {
+  state.submission.files = [];
+  state.submission.step = 1;
+  const uploaded = eid('uploaded-files');
+  if (uploaded) uploaded.innerHTML = '';
+  const btn = eid('btn-proceed-upload');
+  if (btn) btn.disabled = true;
+
+  document.querySelectorAll('.step-item').forEach(s => { s.classList.remove('active', 'completed'); s.querySelector('.step-circle').textContent = s.dataset.step; });
+  document.querySelectorAll('.step-line').forEach(l => l.classList.remove('completed'));
+  document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+  const sp1 = eid('sp-1'); if (sp1) sp1.classList.add('active');
+  const st1 = eid('st-1'); if (st1) st1.classList.add('active');
+  state.submission.step = 1;
+
+  // Reset proc steps
+  ['validate','hash','encrypt','id','enqueue'].forEach(key => {
+    const step = eid(`proc-${key}`);
+    if (step) { step.classList.remove('active', 'done'); step.querySelector('.proc-icon').classList.remove('active', 'done'); step.querySelector('.proc-icon').classList.add('pending'); step.querySelector('.proc-icon').textContent = '⏳'; }
+    const ps = eid(`ps-${key}`);
+    if (ps) ps.textContent = 'Pending';
+  });
+  setWidth('proc-progress-fill', 0);
+};
+
+async function runSubmissionProcessing() {
+  const steps = [
+    { key: 'validate', icon: '📋', duration: 1000, label: 'Validated', detail: `File OK · ${state.submission.files.length} script(s) · ${formatBytes(state.submission.files.reduce((a, f) => a + f.size, 0))}` },
+    { key: 'hash', icon: '#️⃣', duration: 1200, label: 'Hashed', detail: 'SHA-256: ' + generateSHA256Like().substring(0, 24) + '...' },
+    { key: 'encrypt', icon: '🔐', duration: 1500, label: 'Encrypted', detail: 'AES-256-GCM · Key: ' + generateAESKey().substring(0, 16) + '...' },
+    { key: 'id', icon: '🆔', duration: 800, label: 'Assigned', detail: '' },
+    { key: 'enqueue', icon: '📦', duration: 600, label: 'Queued', detail: 'Added to processing queue' },
+  ];
+
+  const sid = generateSubmissionId('MATH', 'DEL');
+  const hash = generateSHA256Like();
+  steps[3].detail = `ID: ${sid}`;
+
+  for (let i = 0; i < steps.length; i++) {
+    const { key, icon, duration, label, detail } = steps[i];
+    const stepEl = eid(`proc-${key}`);
+    const psEl = eid(`ps-${key}`);
+    const pdEl = eid(`pd-${key}`);
+    const iconEl = stepEl ? stepEl.querySelector('.proc-icon') : null;
+
+    if (stepEl) stepEl.classList.add('active');
+    if (iconEl) { iconEl.classList.remove('pending'); iconEl.classList.add('active'); iconEl.textContent = '⚙️'; }
+    if (psEl) psEl.textContent = 'Processing...';
+
+    await new Promise(r => setTimeout(r, duration));
+
+    if (stepEl) { stepEl.classList.remove('active'); stepEl.classList.add('done'); }
+    if (iconEl) { iconEl.classList.remove('active'); iconEl.classList.add('done'); iconEl.textContent = icon; }
+    if (psEl) psEl.textContent = label;
+    if (pdEl && detail) pdEl.textContent = detail;
+
+    setWidth('proc-progress-fill', ((i + 1) / steps.length) * 100);
+    termLog('SUCCESS', `<span>[SUBMIT] Step ${i+1}/${steps.length} — ${label}: ${detail.substring(0, 60)}</span>`);
+  }
+
+  // Enqueue in the sim
+  const sub = createSubmission({ id: sid, hash, manual: true });
+  state.queue.incoming.push(sub);
+  state.stats.totalSubmitted++;
+
+  // Track in My Submissions for the evaluator
+  trackMySubmission(sub);
+
+  // Show confirmation
+  await new Promise(r => setTimeout(r, 400));
+  nextStep(5);
+  setText('cd-sid', sid);
+  setText('cd-hash', hash.substring(0, 20) + '...' + hash.substring(44));
+  setText('cd-pos', '#' + (state.queue.incoming.length + state.queue.processing.length));
+  setText('cd-eta', `~${rand(15, 60)} seconds`);
+
+  notify('Submission Accepted', `ID: ${sid.substring(0, 20)}...`, 'success');
+  feedLog('📤', `<strong>Manual submission</strong> queued · ID: ${sid.substring(0, 16)}...`, 'enqueue');
+  secLog('🔐', `<strong>AES-256</strong> encryption applied · Hash: ${hash.substring(0, 12)}...`, 'ok');
+}
+
+/* ─── UPLOAD ZONE ─────────────────────────────────────────── */
+function initUploadZone() {
+  const zone = eid('upload-zone');
+  const input = eid('file-input');
+  const btn = eid('btn-proceed-upload');
+  if (!zone || !input) return;
+
+  zone.onclick = () => input.click();
+
+  zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('dragover'); });
+  zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+  zone.addEventListener('drop', (e) => {
+    e.preventDefault(); zone.classList.remove('dragover');
+    handleFiles(Array.from(e.dataTransfer.files));
+  });
+
+  input.addEventListener('change', () => { handleFiles(Array.from(input.files)); input.value = ''; });
+
+  function handleFiles(files) {
+    const allowed = ['application/pdf', 'image/jpeg', 'image/png', 'image/tiff'];
+    const maxSize = 50 * 1024 * 1024;
+    files.forEach(file => {
+      if (!allowed.includes(file.type) && !file.name.match(/\.(pdf|jpg|jpeg|png|tif|tiff)$/i)) {
+        notify('Invalid File', `${file.name} — unsupported format`, 'error'); return;
+      }
+      if (file.size > maxSize) { notify('File Too Large', `${file.name} exceeds 50MB limit`, 'error'); return; }
+      state.submission.files.push(file);
+      addFileCard(file);
+      termLog('INFO', `<span>File loaded: <strong>${file.name}</strong> (${formatBytes(file.size)})</span>`);
+    });
+    if (btn) btn.disabled = state.submission.files.length === 0;
+  }
+
+  function addFileCard(file) {
+    const container = eid('uploaded-files');
+    if (!container) return;
+    const ext = file.name.split('.').pop().toLowerCase();
+    const icons = { pdf: '📄', jpg: '🖼️', jpeg: '🖼️', png: '🖼️', tif: '📑', tiff: '📑' };
+    const card = document.createElement('div');
+    card.className = 'uploaded-file';
+    card.dataset.filename = file.name;
+    card.innerHTML = `
+      <span class="uf-icon">${icons[ext] || '📎'}</span>
+      <div class="uf-info">
+        <span class="uf-name"></span>
+        <span class="uf-size"></span>
+      </div>
+      <button class="uf-remove" title="Remove">✕</button>
+    `;
+    card.querySelector('.uf-name').textContent = file.name;
+    card.querySelector('.uf-size').textContent = `${formatBytes(file.size)} · ${ext.toUpperCase()}`;
+    card.querySelector('.uf-remove').onclick = () => {
+      state.submission.files = state.submission.files.filter(f => f.name !== file.name);
+      card.remove();
+      if (btn) btn.disabled = state.submission.files.length === 0;
+    };
+    container.appendChild(card);
+  }
+}
+
+/* ─── WORKER SYSTEM ───────────────────────────────────────── */
+function createWorker(id, isScaled = false) {
+  return {
+    id, isScaled,
+    status: 'idle',
+    stage: 'IDLE',
+    progress: 0,
+    currentTask: null,
+    tasksCompleted: 0,
+    totalProcessingTime: 0,
+    errors: 0,
+    startTime: Date.now(),
+    stageProgress: 0,
+    stageInterval: null,
+  };
+}
+
+function initWorkers(count = 6) {
+  state.workers = Array.from({ length: count }, (_, i) => createWorker(i + 1, false));
+  renderWorkers();
+}
+
+function renderWorkers() {
+  const grid = eid('workers-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  state.workers.forEach(w => {
+    const card = document.createElement('div');
+    card.className = `worker-card ${w.status === 'active' || w.status === 'processing' ? 'active-worker' : ''} ${w.isScaled ? 'scaled-worker' : ''}`;
+    card.id = `wcard-${w.id}`;
+    const avgTime = w.tasksCompleted > 0 ? Math.round(w.totalProcessingTime / w.tasksCompleted) : 0;
+    const statusColor = { idle: 'idle', active: 'processing', processing: 'processing' };
+    card.innerHTML = `
+      <div class="wc-header">
+        <div class="wc-title">
+          <span class="wc-icon">⚙️</span>
+          <span class="wc-name">Worker-${String(w.id).padStart(2, '0')}${w.isScaled ? ' <span style="color:var(--primary);font-size:.6rem">AUTO</span>' : ''}</span>
+        </div>
+        <span class="wc-status-badge ${statusColor[w.status] || 'idle'}">${w.status.toUpperCase()}</span>
+      </div>
+      <div class="wc-task">
+        Stage: <span class="wc-task-name" id="wstage-${w.id}">${STAGE_LABELS[w.stage]}</span>
+      </div>
+      <div class="wc-progress">
+        <div class="wcp-header">
+          <span id="wctask-${w.id}">${w.currentTask ? w.currentTask.id.substring(0, 20) + '...' : 'No task'}</span>
+          <span id="wcpct-${w.id}">${w.progress}%</span>
+        </div>
+        <div class="wcp-bar"><div class="wcp-fill" id="wcpfill-${w.id}" style="width:${w.progress}%"></div></div>
+      </div>
+      <div class="wc-stats">
+        <div class="wcs"><span class="wcs-val text-success" id="wcc-${w.id}">${w.tasksCompleted}</span><span class="wcs-label">Done</span></div>
+        <div class="wcs"><span class="wcs-val" id="wca-${w.id}">${avgTime}ms</span><span class="wcs-label">Avg Time</span></div>
+        <div class="wcs"><span class="wcs-val text-danger" id="wce-${w.id}">${w.errors}</span><span class="wcs-label">Errors</span></div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+  updateWorkerBadges();
+}
+
+function updateWorkerCard(w) {
+  const card = eid(`wcard-${w.id}`);
+  if (!card) return;
+  const statusColor = { idle: 'idle', active: 'processing', processing: 'processing' };
+  const badge = card.querySelector('.wc-status-badge');
+  if (badge) { badge.className = `wc-status-badge ${statusColor[w.status] || 'idle'}`; badge.textContent = w.status.toUpperCase(); }
+  setText(`wstage-${w.id}`, STAGE_LABELS[w.stage] || w.stage);
+  setText(`wctask-${w.id}`, w.currentTask ? w.currentTask.id.substring(0, 22) + '...' : 'No task');
+  setText(`wcpct-${w.id}`, w.progress + '%');
+  setWidth(`wcpfill-${w.id}`, w.progress);
+  const avgTime = w.tasksCompleted > 0 ? Math.round(w.totalProcessingTime / w.tasksCompleted) : 0;
+  setText(`wcc-${w.id}`, w.tasksCompleted);
+  setText(`wca-${w.id}`, avgTime + 'ms');
+  setText(`wce-${w.id}`, w.errors);
+  card.className = `worker-card ${w.status === 'active' || w.status === 'processing' ? 'active-worker' : ''} ${w.isScaled ? 'scaled-worker' : ''}`;
+}
+
+function updateWorkerBadges() {
+  const active = state.workers.filter(w => w.status === 'active' || w.status === 'processing').length;
+  const idle = state.workers.filter(w => w.status === 'idle').length;
+  const scaled = state.workers.filter(w => w.isScaled).length;
+  setText('wsb-active', `${active} Active`);
+  setText('wsb-idle', `${idle} Idle`);
+  setText('wsb-scaled', `${scaled} Auto-Scaled`);
+  setText('nb-workers', state.workers.length);
+
+  // Mini worker grid on dashboard
+  const mini = eid('mini-worker-grid');
+  if (mini) {
+    mini.innerHTML = '';
+    state.workers.slice(0, 9).forEach(w => {
+      const s = w.status === 'processing' || w.status === 'active' ? 'processing' : w.status;
+      const c = document.createElement('div');
+      c.className = 'mini-worker-card';
+      c.innerHTML = `<span class="mwc-id">W-${String(w.id).padStart(2,'0')}</span><span class="mwc-status ${s}">${s.toUpperCase()}</span>`;
+      mini.appendChild(c);
+    });
+  }
+}
+
+/* ─── SUBMISSION FACTORY ──────────────────────────────────── */
+let subCounter = 10000;
+function createSubmission(overrides = {}) {
+  subCounter++;
+  const subject = overrides.subject || pick(SUBJECTS);
+  const region = overrides.region || pick(REGIONS);
+  return {
+    id: overrides.id || generateSubmissionId(subject, region),
+    hash: overrides.hash || generateSHA256Like(),
+    subject,
+    subjectCode: SUBJECT_CODES[subject] || '000',
+    set: pick(SETS),
+    roll: overrides.roll || generateRollNo(),
+    region,
+    fileSize: rand(200000, 5000000),
+    createdAt: Date.now(),
+    priority: rand(1, 5),
+    retryCount: overrides.retryCount || 0,
+    status: 'incoming',
+    processTime: null,
+    manual: overrides.manual || false,
+  };
+}
+
+/* ─── QUEUE MANAGEMENT ────────────────────────────────────── */
+function enqueueSubmission(sub) {
+  if (state.simulation.paused) return;
+  sub.status = 'incoming';
+  state.queue.incoming.push(sub);
+  state.stats.totalSubmitted++;
+  const subj = sub.subject;
+  state.stats.subjectCounts[subj] = (state.stats.subjectCounts[subj] || 0) + 1;
+  updateQueueStats();
+  addQueueCard('incoming', sub);
+  feedLog('📥', `Submission <strong>${sub.id.substring(0, 20)}...</strong> received`, 'info');
+  termLog('INFO', `<span>ENQUEUE [${sub.subject}] ${sub.id.substring(0, 28)}... · Roll: ${sub.roll} · Size: ${formatBytes(sub.fileSize)}</span>`);
+}
+
+function addQueueCard(col, sub) {
+  const container = eid(`qci-${col}`);
+  if (!container) return;
+  if (container.children.length >= LOG_CONFIG.maxQueueCols) {
+    container.lastChild && container.lastChild.remove();
+  }
+  const card = document.createElement('div');
+  card.className = `queue-item ${col !== 'incoming' ? col + '-item' : ''}`;
+  card.id = `qi-${sub.id.substring(sub.id.length - 8)}`;
+  card.innerHTML = `
+    <span class="qi-id">${sub.id.substring(0, 26)}...</span>
+    <span class="qi-sub">${sub.subject} · Roll: ${sub.roll}</span>
+    <span class="qi-time">${formatTime()} · ${formatBytes(sub.fileSize)}</span>
+    ${col === 'processing' ? '<div class="qi-progress"><div class="qi-progress-fill" style="width:0%"></div></div>' : ''}
+  `;
+  container.insertBefore(card, container.firstChild);
+}
+
+function updateQueueCard(sub, progress) {
+  const key = sub.id.substring(sub.id.length - 8);
+  const card = eid(`qi-${key}`);
+  if (card) {
+    const fill = card.querySelector('.qi-progress-fill');
+    if (fill) fill.style.width = progress + '%';
+  }
+}
+
+function moveQueueCard(sub, fromCol, toCol) {
+  const key = sub.id.substring(sub.id.length - 8);
+  const oldCard = eid(`qi-${key}`);
+  if (oldCard) oldCard.remove();
+  if (toCol) addQueueCard(toCol, sub);
+}
+
+function updateQueueStats() {
+  const total = state.queue.incoming.length + state.queue.processing.length;
+  const depth = total + state.queue.retry.length;
+  setText('kv-queue', depth);
+  setText('kc-queue', depth > 0 ? `${depth} items pending` : 'Queue clear');
+  setText('nb-queue', depth);
+  setText('qs-incoming', state.queue.incoming.length);
+  setText('qs-processing', state.queue.processing.length);
+  setText('qs-completed', state.queue.completed.length);
+  setText('qs-failed', state.queue.failed.length);
+  setText('qs-retry', state.queue.retry.length);
+  setText('qcc-incoming', state.queue.incoming.length);
+  setText('qcc-processing', state.queue.processing.length);
+  setText('qcc-completed', state.queue.completed.length);
+  setText('qcc-failed', state.queue.failed.length);
+
+  if (depth > state.stats.peakQueueDepth) {
+    state.stats.peakQueueDepth = depth;
+    setText('stat-peak', depth);
+  }
+
+  // Alert if queue exceeds threshold
+  if (depth > state.simulation.queueThreshold && !state.simulation._alertFired) {
+    state.simulation._alertFired = true;
+    notify('Queue Alert', `Queue depth ${depth} exceeds threshold of ${state.simulation.queueThreshold}`, 'warning');
+    setTimeout(() => { state.simulation._alertFired = false; }, 10000);
+  }
+
+  // Pipeline visual
+  const pctGateway = Math.min(state.stats.throughputHistory.slice(-1)[0] * 20, 100);
+  const pctQueue = Math.min((depth / 50) * 100, 100);
+  const pctWorkers = (state.workers.filter(w => w.status !== 'idle').length / state.workers.length) * 100;
+  const pctDB = Math.min((state.database.todayRecords / 500) * 100, 100);
+  setWidth('psf-gateway', pctGateway);
+  setWidth('psf-queue', pctQueue);
+  setWidth('psf-workers', pctWorkers);
+  setWidth('psf-db', pctDB);
+
+  const rate = state.stats.throughputHistory.slice(-5).reduce((a,b) => a+b, 0) / 5;
+  setText('psc-gateway', rate.toFixed(1) + '/s');
+  setText('psc-queue', depth + ' items');
+  setText('psc-workers', state.workers.filter(w => w.status !== 'idle').length + ' busy');
+  setText('psc-db', state.database.todayRecords + ' synced');
+}
+
+/* ─── WORKER PROCESSING ───────────────────────────────────── */
+async function processWithWorker(worker) {
+  if (state.simulation.paused) return;
+
+  // Throttle expensive DOM updates inside stage loop
+  // (worker stage changes are frequent; DOM work is the bottleneck)
+  worker._uiLast = worker._uiLast || 0;
+  worker._uiQueued = false;
+  const scheduleUIFlush = () => {
+    if (worker._uiQueued) return;
+    worker._uiQueued = true;
+    requestAnimationFrame(() => {
+      worker._uiQueued = false;
+      // Worker card
+      updateWorkerCard(worker);
+    });
+  };
+
+  let sub = state.queue.retry.shift();
+  if (!sub) sub = state.queue.incoming.shift();
+  if (!sub) { worker.status = 'idle'; worker.stage = 'IDLE'; worker.progress = 0; updateWorkerCard(worker); return; }
+
+  worker.status = 'processing';
+  worker.currentTask = sub;
+  worker.stage = 'FETCHING';
+  worker.progress = 0;
+  sub.status = 'processing';
+  state.queue.processing.push(sub);
+  updateWorkerCard(worker);
+  moveQueueCard(sub, 'incoming', 'processing');
+  updateQueueStats();
+
+  const startTime = Date.now();
+
+  const stages = [
+    { stage: 'FETCHING', pct: 15, duration: rand(200, 400) },
+    { stage: 'VALIDATING', pct: 35, duration: rand(300, 600) },
+    { stage: 'HASHING', pct: 60, duration: rand(400, 700) },
+    { stage: 'ENCRYPTING', pct: 85, duration: rand(500, 800) },
+    { stage: 'SYNCING', pct: 100, duration: rand(300, 500) },
+  ];
+
+  for (const { stage, pct, duration } of stages) {
+    if (state.simulation.paused) { await new Promise(r => setTimeout(r, 500)); }
+    worker.stage = stage;
+    worker.progress = pct;
+
+    // Only redraw queue/progress at a capped rate; keep final state exact.
+    const now = performance && performance.now ? performance.now() : Date.now();
+    if (now - worker._uiLast > 200) {
+      worker._uiLast = now;
+      // Worker card update (throttled to RAF)
+      scheduleUIFlush();
+      // Queue card update (cheap)
+      updateQueueCard(sub, pct);
+    } else {
+      // Still update the queue progress occasionally (cheap) without redrawing worker card
+      updateQueueCard(sub, pct);
+    }
+
+    termLog('INFO', `<span>W-${String(worker.id).padStart(2,'0')} [${stage}] ${sub.id.substring(0, 24)}...</span>`);
+    await new Promise(r => setTimeout(r, duration));
+  }
+
+  const processTime = Date.now() - startTime;
+  worker.totalProcessingTime += processTime;
+
+  // ~8% failure rate
+  const failed = Math.random() < 0.08 && sub.retryCount < 3;
+
+  if (!failed) {
+    worker.tasksCompleted++;
+    worker.stage = 'DONE';
+    sub.status = 'completed';
+    sub.processTime = processTime;
+    state.queue.processing = state.queue.processing.filter(s => s.id !== sub.id);
+    state.queue.completed.push(sub);
+    if (state.queue.completed.length > 30) state.queue.completed.shift();
+    state.stats.totalProcessed++;
+    state.stats.processTimes.push(processTime);
+    if (state.stats.processTimes.length > 100) state.stats.processTimes.shift();
+
+    moveQueueCard(sub, 'processing', 'completed');
+    feedLog('✅', `<strong>${sub.subject}</strong> processed · ${processTime}ms · Roll: ${sub.roll}`, 'success');
+    termLog('SUCCESS', `<span>COMPLETED ${sub.id.substring(0, 28)}... in ${processTime}ms</span>`);
+
+    // DB sync
+    syncToDatabase(sub);
+    updateQueueStats();
+
+  } else {
+    worker.errors++;
+    sub.retryCount++;
+    sub.status = sub.retryCount >= 3 ? 'failed' : 'retry';
+    state.queue.processing = state.queue.processing.filter(s => s.id !== sub.id);
+
+    if (sub.retryCount < 3 && state.simulation.retryEnabled) {
+      state.queue.retry.push(sub);
+      state.stats.totalRetried++;
+      moveQueueCard(sub, 'processing', 'failed');
+      feedLog('🔄', `<strong>Retry ${sub.retryCount}/3</strong> — ${sub.id.substring(0, 18)}...`, 'warning');
+      termLog('WARN', `<span>RETRY [${sub.retryCount}/3] ${sub.id.substring(0, 28)}... — Worker-${worker.id}</span>`);
+    } else {
+      state.queue.failed.push(sub);
+      if (state.queue.failed.length > 20) state.queue.failed.shift();
+      state.stats.totalFailed++;
+      moveQueueCard(sub, 'processing', 'failed');
+      feedLog('❌', `<strong>FAILED</strong> — ${sub.id.substring(0, 18)}... after ${sub.retryCount} retries`, 'error');
+      termLog('ERROR', `<span>FAILED ${sub.id.substring(0, 28)}... after ${sub.retryCount} retries</span>`);
+      secLog('⚠️', `<strong>Submission failed</strong> after ${sub.retryCount} retries — ID: ${sub.id.substring(0, 20)}...`, 'warn');
+    }
+  }
+
+  worker.status = 'active';
+  worker.stage = 'IDLE';
+  worker.progress = 0;
+  worker.currentTask = null;
+  updateWorkerCard(worker);
+  updateQueueStats();
+  updateSessionStats();
+}
+
+/* ─── DATABASE SYNC ───────────────────────────────────────── */
+function syncToDatabase(sub) {
+  state.database.totalRecords++;
+  state.database.todayRecords++;
+  state.database.dbSizeMB += randFloat(0.05, 0.2);
+  state.database.pendingSync = Math.max(0, state.database.pendingSync - 1);
+
+  const record = {
+    id: sub.id,
+    subject: sub.subject,
+    roll: sub.roll,
+    hash: sub.hash,
+    syncedAt: new Date(),
+    status: 'synced',
+  };
+  state.database.recentRecords.unshift(record);
+  if (state.database.recentRecords.length > 50) state.database.recentRecords.pop();
+
+  // DB view updates
+  setText('dbv-total', state.database.totalRecords.toLocaleString());
+  setText('dbv-today', state.database.todayRecords.toLocaleString());
+  setText('dbv-pending', state.database.pendingSync);
+  setText('dbv-last', formatTime());
+  setText('dbv-size', state.database.dbSizeMB.toFixed(1) + ' MB');
+
+  dbLog('✅', `<strong>${sub.id.substring(0, 22)}...</strong> synced · ${sub.subject} · Roll: ${sub.roll}`);
+  updateRecordsTable();
+
+  // Batch stats
+  const bi = state.stats.nextBatch % 20;
+  state.stats.dbSyncBatches[bi] = (state.stats.dbSyncBatches[bi] || 0) + 1;
+  state.stats.nextBatch++;
+}
+
+function updateRecordsTable() {
+  const tbody = eid('records-tbody');
+  if (!tbody) return;
+  tbody.innerHTML = state.database.recentRecords.slice(0, 15).map(r => `
+    <tr>
+      <td><code>${r.id.substring(0, 24)}...</code></td>
+      <td>${r.subject}</td>
+      <td>${r.roll}</td>
+      <td><code>${shortHash(r.hash)}</code></td>
+      <td><span class="rt-status ${r.status}">${r.status.toUpperCase()}</span></td>
+      <td>${r.syncedAt.toLocaleTimeString()}</td>
+    </tr>
+  `).join('');
+}
+
+/* ─── AUTO-SCALING ────────────────────────────────────────── */
+function checkAutoScale() {
+  if (!state.simulation.autoScale) return;
+  const qDepth = state.queue.incoming.length + state.queue.retry.length;
+  const maxWorkers = 20;
+
+  if (qDepth > 15 && state.workers.length < maxWorkers) {
+    const newId = state.workers.length + 1;
+    const w = createWorker(newId, true);
+    state.workers.push(w);
+    const grid = eid('workers-grid');
+    if (grid) {
+      const card = document.createElement('div');
+      card.id = `wcard-${w.id}`;
+      card.className = 'worker-card scaled-worker';
+      card.innerHTML = `<div class="wc-header"><div class="wc-title"><span class="wc-icon">⚙️</span><span class="wc-name">Worker-${String(w.id).padStart(2,'0')} <span style="color:var(--primary);font-size:.6rem">AUTO</span></span></div><span class="wc-status-badge idle">IDLE</span></div><div class="wc-task">Stage: <span class="wc-task-name" id="wstage-${w.id}">—</span></div><div class="wc-progress"><div class="wcp-header"><span id="wctask-${w.id}">No task</span><span id="wcpct-${w.id}">0%</span></div><div class="wcp-bar"><div class="wcp-fill" id="wcpfill-${w.id}" style="width:0%"></div></div></div><div class="wc-stats"><div class="wcs"><span class="wcs-val text-success" id="wcc-${w.id}">0</span><span class="wcs-label">Done</span></div><div class="wcs"><span class="wcs-val" id="wca-${w.id}">0ms</span><span class="wcs-label">Avg Time</span></div><div class="wcs"><span class="wcs-val text-danger" id="wce-${w.id}">0</span><span class="wcs-label">Errors</span></div></div>`;
+      grid.appendChild(card);
+    }
+    const notice = eid('autoscale-notice');
+    if (notice) { notice.style.display = 'flex'; setText('autoscale-msg', `Auto-scaled to ${state.workers.length} workers — Queue depth: ${qDepth}`); }
+    notify('Auto-Scaling', `Spawned Worker-${newId} — Queue depth: ${qDepth}`, 'info', 3000);
+    termLog('INFO', `<span>AUTO-SCALE: Spawned Worker-${newId} · Queue depth: ${qDepth}</span>`);
+    secLog('⚡', `<strong>Auto-scale event</strong> — ${state.workers.length} workers deployed`, 'ok');
+    updateWorkerBadges();
+  } else if (qDepth <= 5 && state.workers.filter(w => w.isScaled && w.status === 'idle').length > 0) {
+    const scaled = state.workers.filter(w => w.isScaled && w.status === 'idle');
+    if (scaled.length > 0) {
+      const w = scaled[scaled.length - 1];
+      state.workers = state.workers.filter(x => x.id !== w.id);
+      const card = eid(`wcard-${w.id}`);
+      if (card) card.remove();
+      const notice = eid('autoscale-notice');
+      if (notice) notice.style.display = 'none';
+      updateWorkerBadges();
+    }
+  }
+}
+
+/* ─── MAIN SIMULATION LOOP ────────────────────────────────── */
+function startSimulation() {
+  // Submission generator
+  setManagedInterval('generator', () => {
+    if (state.simulation.paused) return;
+    const count = rand(0, 2);
+    for (let i = 0; i < count; i++) {
+      enqueueSubmission(createSubmission());
+    }
+  }, 1800);
+
+  // Worker dispatcher
+  setManagedInterval('dispatcher', () => {
+    if (state.simulation.paused) return;
+    state.workers.forEach(worker => {
+      if (worker.status === 'idle' || worker.status === 'active') {
+        const hasWork = state.queue.incoming.length > 0 || state.queue.retry.length > 0;
+        if (hasWork) {
+          worker.status = 'active';
+          processWithWorker(worker);
+        }
+      }
+    });
+    checkAutoScale();
+  }, 1000);
+
+  // Stats updater
+  setManagedInterval('stats', () => {
+    updateThroughputHistory();
+    updateKPIs();
+    updateResourceMeters();
+    updateSystemHealth();
+  }, 1000);
+
+  // Throughput chart updater
+  setManagedInterval('chart', () => {
+    if (state.currentView === 'dashboard') renderThroughputChart();
+    if (state.currentView === 'queue') renderQueueDepthChart();
+    if (state.currentView === 'workers') renderWorkerChart();
+  }, 3500);
+
+  // Clock
+  setManagedInterval('clock', () => {
+    setText('topbar-clock', formatTime());
+  }, 1000);
+
+// Sparklines
+  setManagedInterval('sparklines', () => {
+    updateSparklines();
+  }, 5000);
+
+  // Particles
+  startParticles();
+}
+
+/* ─── THROUGHPUT HISTORY ──────────────────────────────────── */
+function updateThroughputHistory() {
+  const rate = state.stats.totalSubmitted - (state.sparkData._lastTotal || 0);
+  const processed = state.stats.totalProcessed - (state.sparkData._lastProcessed || 0);
+  state.sparkData._lastTotal = state.stats.totalSubmitted;
+  state.sparkData._lastProcessed = state.stats.totalProcessed;
+
+  state.stats.throughputHistory.push(rate);
+  state.stats.throughputHistory.shift();
+  state.stats.processedHistory.push(processed);
+  state.stats.processedHistory.shift();
+
+  const qDepth = state.queue.incoming.length + state.queue.processing.length + state.queue.retry.length;
+  state.stats.queueDepthHistory.push(qDepth);
+  state.stats.queueDepthHistory.shift();
+  state.stats.workerHistory.push(state.workers.filter(w => w.status !== 'idle').length);
+  state.stats.workerHistory.shift();
+
+  // Analytics timeline (5min window = 300 ticks at 1/s)
+  state.stats.submittedHistory.push(rate);
+  state.stats.submittedHistory.shift();
+  state.stats.successHistory.push(processed);
+  state.stats.successHistory.shift();
+  const failed = state.stats.totalFailed - (state.sparkData._lastFailed || 0);
+  state.sparkData._lastFailed = state.stats.totalFailed;
+  state.stats.failHistory.push(failed);
+  state.stats.failHistory.shift();
+}
+
+/* ─── KPI UPDATES ─────────────────────────────────────────── */
+function updateKPIs() {
+  setText('kv-total', state.stats.totalSubmitted.toLocaleString());
+  setText('kv-total', state.stats.totalSubmitted.toLocaleString());
+
+  const totalProcessed = state.stats.totalProcessed;
+  const totalFailed = state.stats.totalFailed;
+  const successRate = totalProcessed + totalFailed > 0
+    ? ((totalProcessed / (totalProcessed + totalFailed)) * 100).toFixed(1) + '%'
+    : '99.7%';
+  setText('kv-success', successRate);
+
+  const avgTime = state.stats.processTimes.length > 0
+    ? Math.round(state.stats.processTimes.reduce((a, b) => a + b, 0) / state.stats.processTimes.length)
+    : 142;
+  setText('kv-speed', avgTime + 'ms');
+
+  // Sparkline data
+  const last = state.stats.throughputHistory.slice(-10);
+  state.sparkData.total = last;
+  state.sparkData.queue = state.stats.queueDepthHistory.slice(-10);
+  const avg = state.stats.processTimes.slice(-10);
+  state.sparkData.speed = avg.length > 0 ? [avg[avg.length-1]] : [];
+
+  // Session stats
+  setText('stat-total', state.stats.totalSubmitted.toLocaleString());
+  setText('stat-success', state.stats.totalProcessed.toLocaleString());
+  setText('stat-failed', state.stats.totalFailed);
+  setText('stat-retried', state.stats.totalRetried);
+  setText('stat-workers', state.workers.length);
+  setText('stat-spikes', state.simulation.spikesCount);
+  if (state.stats.processTimes.length > 0) {
+    const a = state.stats.processTimes;
+    setText('stat-avgtime', Math.round(a.reduce((x,y) => x+y, 0) / a.length) + 'ms');
+  }
+
+  // Login screen total counter animation
+  const lsTotal = eid('ls-total');
+  if (lsTotal) {
+    const base = 247836;
+    lsTotal.textContent = (base + state.stats.totalSubmitted).toLocaleString();
+  }
+
+  // Sidebar health
+  const health = calculateSystemHealth();
+  setWidth('shm-fill', health);
+  setText('shm-val', health + '%');
+}
+
+function updateSessionStats() {
+  updateKPIs();
+}
+
+/* ─── RESOURCE METERS ─────────────────────────────────────── */
+function updateResourceMeters() {
+  const qDepth = state.queue.incoming.length + state.queue.processing.length + state.queue.retry.length;
+  const activeWorkers = state.workers.filter(w => w.status !== 'idle').length;
+  const totalWorkers = state.workers.length;
+
+  const cpuBase = 30 + (activeWorkers / Math.max(totalWorkers, 1)) * 50 + rand(-5, 5);
+  const memBase = 45 + (qDepth / 100) * 30 + rand(-3, 3);
+  const queueLoad = Math.min((qDepth / 50) * 100, 99) + rand(-2, 2);
+  const netBase = 20 + (activeWorkers / Math.max(totalWorkers, 1)) * 60 + rand(-10, 10);
+  const netMB = (netBase * 0.4).toFixed(1);
+
+  const cpu = Math.min(Math.max(cpuBase, 5), 98);
+  const mem = Math.min(Math.max(memBase, 20), 92);
+  const ql = Math.min(Math.max(queueLoad, 0), 99);
+  const net = Math.min(Math.max(netBase, 0), 99);
+
+  setText('rm-cpu', Math.round(cpu) + '%');
+  setText('rm-mem', Math.round(mem) + '%');
+  setText('rm-qload', Math.round(ql) + '%');
+  setText('rm-net', netMB + ' MB/s');
+  setWidth('rmf-cpu', cpu);
+  setWidth('rmf-mem', mem);
+  setWidth('rmf-qload', ql);
+  setWidth('rmf-net', net);
+
+  // System status
+  const statusBar = eid('system-status-bar');
+  const dot = statusBar ? statusBar.querySelector('.ssb-dot') : null;
+  const text = eid('ssb-text') || (statusBar ? statusBar.querySelector('.ssb-text') : null);
+  if (dot && text) {
+    if (cpu > 90 || qDepth > 45) {
+      dot.className = 'ssb-dot critical'; text.textContent = 'System Under Heavy Load';
+    } else if (cpu > 75 || qDepth > 25) {
+      dot.className = 'ssb-dot degraded'; text.textContent = 'Elevated Traffic — Monitoring';
+    } else {
+      dot.className = 'ssb-dot operational'; text.textContent = 'All Systems Operational';
+    }
+  }
+}
+
+function calculateSystemHealth() {
+  const qDepth = state.queue.incoming.length + state.queue.processing.length + state.queue.retry.length;
+  const failRate = state.stats.totalFailed / Math.max(state.stats.totalSubmitted, 1);
+  let health = 100 - (qDepth / 100 * 30) - (failRate * 100 * 0.3) + rand(-2, 2);
+  return Math.min(Math.max(Math.round(health), 60), 100);
+}
+
+function updateSystemHealth() {
+  // already done in updateKPIs
+}
+
+/* ─── CANVAS CHARTS ───────────────────────────────────────── */
+function drawLineChart(canvas, datasets, options = {}) {
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const pad = options.pad || { t: 10, r: 10, b: 20, l: 35 };
+  const cW = W - pad.l - pad.r, cH = H - pad.t - pad.b;
+  ctx.clearRect(0, 0, W, H);
+
+  // Grid
+  ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= 4; i++) {
+    const y = pad.t + (cH / 4) * i;
+    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l + cW, y); ctx.stroke();
+  }
+
+  datasets.forEach(ds => {
+    if (!ds.data || ds.data.length === 0) return;
+    const max = options.max || Math.max(...datasets.flatMap(d => d.data), 1);
+    const step = cW / (ds.data.length - 1 || 1);
+
+    // Fill
+    if (ds.fill) {
+      ctx.beginPath();
+      ds.data.forEach((v, i) => {
+        const x = pad.l + i * step;
+        const y = pad.t + cH - (v / max) * cH;
+        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      });
+      ctx.lineTo(pad.l + (ds.data.length - 1) * step, pad.t + cH);
+      ctx.lineTo(pad.l, pad.t + cH);
+      ctx.closePath();
+      const grad = ctx.createLinearGradient(0, pad.t, 0, pad.t + cH);
+      grad.addColorStop(0, ds.fillColor || 'rgba(99,102,241,0.15)');
+      grad.addColorStop(1, 'transparent');
+      ctx.fillStyle = grad;
+      ctx.fill();
+    }
+
+    // Line
+    ctx.beginPath();
+    ctx.strokeStyle = ds.color || '#6366f1';
+    ctx.lineWidth = ds.lineWidth || 2;
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    ds.data.forEach((v, i) => {
+      const x = pad.l + i * step;
+      const y = pad.t + cH - (v / max) * cH;
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+  });
+
+  // Y labels
+  if (options.yLabels !== false) {
+    const max = options.max || Math.max(...datasets.flatMap(d => d.data), 1);
+    ctx.fillStyle = 'rgba(148,163,184,0.7)';
+    ctx.font = '9px Inter';
+    for (let i = 0; i <= 4; i++) {
+      const v = max - (max / 4) * i;
+      const y = pad.t + (cH / 4) * i;
+      ctx.fillText(Math.round(v), 0, y + 3);
+    }
+  }
+}
+
+function drawBarChart(canvas, data, colors, options = {}) {
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const pad = { t: 10, r: 10, b: 25, l: 40 };
+  const cW = W - pad.l - pad.r, cH = H - pad.t - pad.b;
+  ctx.clearRect(0, 0, W, H);
+
+  const max = Math.max(...data, 1);
+  const bW = (cW / data.length) * 0.6;
+  const gap = (cW / data.length) * 0.4;
+
+  data.forEach((v, i) => {
+    const bH = (v / max) * cH;
+    const x = pad.l + i * (bW + gap) + gap / 2;
+    const y = pad.t + cH - bH;
+    const grad = ctx.createLinearGradient(0, y, 0, y + bH);
+    grad.addColorStop(0, colors[i % colors.length] || '#6366f1');
+    grad.addColorStop(1, 'rgba(0,0,0,0.2)');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.roundRect ? ctx.roundRect(x, y, bW, bH, [3, 3, 0, 0]) : ctx.rect(x, y, bW, bH);
+    ctx.fill();
+
+    if (options.labels) {
+      ctx.fillStyle = 'rgba(148,163,184,0.7)';
+      ctx.font = '8px Inter';
+      ctx.textAlign = 'center';
+      ctx.fillText(options.labels[i] || '', x + bW / 2, H - 5);
+    }
+  });
+}
+
+function renderThroughputChart() {
+  const canvas = eid('throughput-chart');
+  if (!canvas) return;
+  const max = Math.max(...state.stats.throughputHistory, ...state.stats.processedHistory, 5);
+  drawLineChart(canvas, [
+    { data: state.stats.throughputHistory, color: '#6366f1', fillColor: 'rgba(99,102,241,0.1)', fill: true, lineWidth: 2 },
+    { data: state.stats.processedHistory, color: '#10b981', fillColor: 'rgba(16,185,129,0.08)', fill: true, lineWidth: 2 },
+  ], { max, pad: { t: 10, r: 10, b: 20, l: 35 } });
+}
+
+function renderQueueDepthChart() {
+  const canvas = eid('queue-depth-chart');
+  if (!canvas) return;
+  drawLineChart(canvas, [
+    { data: state.stats.queueDepthHistory, color: '#f59e0b', fillColor: 'rgba(245,158,11,0.12)', fill: true, lineWidth: 2.5 },
+  ], { pad: { t: 10, r: 10, b: 20, l: 35 } });
+}
+
+function renderWorkerChart() {
+  const canvas = eid('worker-chart');
+  if (!canvas) return;
+  drawLineChart(canvas, [
+    { data: state.stats.workerHistory, color: '#6366f1', fillColor: 'rgba(99,102,241,0.12)', fill: true, lineWidth: 2 },
+  ], { pad: { t: 10, r: 10, b: 20, l: 35 } });
+}
+
+function renderAnalyticsChart() {
+  const canvas = eid('analytics-main-chart');
+  if (!canvas) return;
+  const sub = state.stats.submittedHistory.slice(-120);
+  const succ = state.stats.successHistory.slice(-120);
+  const fail = state.stats.failHistory.slice(-120);
+  const max = Math.max(...sub, ...succ, 5);
+  drawLineChart(canvas, [
+    { data: sub, color: '#6366f1', fill: true, fillColor: 'rgba(99,102,241,0.08)', lineWidth: 2 },
+    { data: succ, color: '#10b981', fill: true, fillColor: 'rgba(16,185,129,0.08)', lineWidth: 2 },
+    { data: fail, color: '#f43f5e', fill: true, fillColor: 'rgba(244,63,94,0.06)', lineWidth: 1.5 },
+  ], { max, pad: { t: 10, r: 10, b: 20, l: 35 } });
+}
+
+function renderSubjectChart() {
+  const canvas = eid('subject-chart');
+  if (!canvas) return;
+  const subjects = SUBJECTS;
+  const counts = subjects.map(s => state.stats.subjectCounts[s] || 0);
+  const colors = ['#6366f1', '#06b6d4', '#10b981', '#f59e0b', '#f43f5e', '#a855f7', '#ec4899', '#14b8a6', '#f97316'];
+  drawBarChart(canvas, counts, colors, { labels: subjects.map(s => s.substring(0, 4)) });
+}
+
+function renderDbSyncChart() {
+  const canvas = eid('db-sync-chart');
+  if (!canvas) return;
+  const colors = Array(20).fill('#10b981');
+  drawBarChart(canvas, state.stats.dbSyncBatches, colors);
+}
+
+function updateSparklines() {
+  const ids = ['total', 'queue', 'success', 'speed'];
+  const datas = [
+    state.stats.throughputHistory.slice(-15),
+    state.stats.queueDepthHistory.slice(-15),
+    state.stats.processedHistory.slice(-15),
+    state.stats.processTimes.slice(-15).map(t => t / 10),
+  ];
+  const colors = ['#6366f1', '#f59e0b', '#10b981', '#06b6d4'];
+
+  ids.forEach((id, idx) => {
+    const canvas = eid(`spark-${id}`);
+    if (!canvas) return;
+    const data = datas[idx];
+    if (!data || data.length === 0) return;
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+    const max = Math.max(...data, 1);
+    const step = W / (data.length - 1 || 1);
+    ctx.beginPath();
+    ctx.strokeStyle = colors[idx];
+    ctx.lineWidth = 1.5;
+    ctx.lineJoin = 'round';
+    data.forEach((v, i) => {
+      const x = i * step;
+      const y = H - (v / max) * (H - 4) - 2;
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+
+  // Fill
+    ctx.lineTo((data.length - 1) * step, H);
+    ctx.lineTo(0, H);
+    ctx.closePath();
+
+    // Safe gradient fill (avoid expensive/buggy string transforms on each tick)
+    const grad = ctx.createLinearGradient(0, 0, 0, H);
+    grad.addColorStop(0, 'rgba(99,102,241,0.15)');
+    grad.addColorStop(1, 'transparent');
+    ctx.fillStyle = grad;
+    ctx.fill();
+  });
+}
+
+/* ─── PARTICLES ───────────────────────────────────────────── */
+function startParticles() {
+  const container = eid('pipeline-particles');
+  if (!container) return;
+  const colors = ['#6366f1', '#06b6d4', '#10b981', '#f59e0b', '#f43f5e'];
+  let particleInterval = setInterval(() => {
+    if (!eid('pipeline-particles')) { clearInterval(particleInterval); return; }
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.cssText = `animation-delay:${randFloat(0, 2)}s; animation-duration:${randFloat(2, 4)}s; background:${pick(colors)}; top:${rand(0, 2)}px`;
+    container.appendChild(p);
+    setTimeout(() => p.remove(), 5000);
+  }, 800);
+}
+
+/* ─── TRAFFIC SPIKE ───────────────────────────────────────── */
+function triggerSpike(count = 50) {
+  const spikeFn = () => {
+    for (let i = 0; i < count; i++) {
+      setTimeout(() => enqueueSubmission(createSubmission()), i * 40);
+    }
+    state.simulation.spikesCount++;
+    notify('⚡ Traffic Spike!', `${count} submissions injected — Queue absorbing load`, 'warning', 5000);
+    feedLog('⚡', `<strong>TRAFFIC SPIKE</strong> — ${count} submissions injected simultaneously`, 'warning');
+    termLog('WARN', `<span>TRAFFIC SPIKE: ${count} submissions injected — Queue management engaged</span>`);
+    secLog('⚡', `<strong>Traffic spike detected</strong> — ${count} concurrent submissions`, 'warn');
+    setText('stat-spikes', state.simulation.spikesCount);
+  };
+  confirmAction('Simulate Traffic Spike', `Inject ${count} submissions instantly to test system resilience?`, '⚡', spikeFn);
+}
+
+/* ─── SECURITY SIMULATOR ──────────────────────────────────── */
+function initSecuritySimulator() {
+  const btnEncrypt = eid('btn-encrypt');
+  const btnHash = eid('btn-hash');
+  const btnGenId = eid('btn-gen-id');
+
+  if (btnEncrypt) {
+    btnEncrypt.onclick = () => {
+      const input = eid('enc-input') ? eid('enc-input').value : '';
+      const key = generateAESKey();
+      const iv = generateIV();
+      const tag = generateTag();
+      const cipher = generateEncryptedPayload();
+
+      setText('eo-key', key);
+      setText('eo-iv', iv);
+      setText('eo-tag', tag);
+      setText('eo-result', cipher);
+
+      // Animate hash
+      const anim = eid('hash-animation');
+      if (anim) { animateHash(anim, cipher.substring(0, 60)); }
+
+      secLog('🔐', `<strong>AES-256-GCM</strong> encryption successful · Key: ${key.substring(0, 12)}...`, 'ok');
+      notify('Encrypted', 'AES-256-GCM encryption complete', 'success', 2000);
+    };
+  }
+
+  if (btnHash) {
+    btnHash.onclick = async () => {
+      const input = eid('hash-input') ? eid('hash-input').value : '';
+      const hash = generateSHA256Like();
+
+      // Animate
+      let anim = '';
+      const hashRes = eid('hash-result');
+      const interval = setInterval(() => {
+        anim = Array.from({ length: 64 }, () => '0123456789abcdef'[rand(0, 15)]).join('');
+        if (hashRes) hashRes.textContent = anim;
+      }, 50);
+
+      await new Promise(r => setTimeout(r, 800));
+      clearInterval(interval);
+      if (hashRes) hashRes.textContent = hash;
+
+      setText('hash-status', '✅ Verified');
+      eid('hash-status') && (eid('hash-status').className = 'status-ok');
+
+      secLog('#️⃣', `<strong>SHA-256</strong> computed · Hash: ${hash.substring(0, 20)}...`, 'ok');
+    };
+  }
+
+  if (btnGenId) {
+    btnGenId.onclick = () => {
+      const id = generateSubmissionId(pick(SUBJECTS).toUpperCase().substring(0, 4), pick(REGIONS));
+      setText('cid-value', id);
+      state.security.recentIds.unshift(id);
+      if (state.security.recentIds.length > 5) state.security.recentIds.pop();
+      updateRecentIds();
+      secLog('🆔', `<strong>Submission ID</strong> generated: ${id}`, 'ok');
+    };
+  }
+
+  // Initial security logs
+  ['Evaluator session started · IP: 10.0.4.112', 'TLS 1.3 handshake successful', 'Token validated · Claims verified', 'Encryption module initialized', 'Audit trail enabled'].forEach(msg => {
+    setTimeout(() => secLog('✅', `<strong>${msg}</strong>`, 'ok'), rand(100, 1000));
+  });
+}
+
+async function animateHash(el, target) {
+  const chars = '0123456789abcdef';
+  for (let i = 0; i < 10; i++) {
+    el.textContent = Array.from({ length: target.length }, () => chars[rand(0, 15)]).join('');
+    await new Promise(r => setTimeout(r, 60));
+  }
+  el.textContent = target;
+}
+
+function updateRecentIds() {
+  const list = eid('ri-list');
+  if (!list) return;
+  list.innerHTML = state.security.recentIds.map(id => `<div class="ri-item">${id}</div>`).join('');
+}
+
+/* ─── ADMIN CONTROLS ──────────────────────────────────────── */
+function initAdminControls() {
+  const spike = eid('btn-spike-big');
+  if (spike) spike.onclick = () => triggerSpike(50);
+
+  const topSpike = eid('btn-spike');
+  if (topSpike) topSpike.onclick = () => triggerSpike(30);
+
+  const moderate = eid('btn-moderate');
+  if (moderate) moderate.onclick = () => triggerSpike(20);
+
+  const resetQ = eid('btn-reset-queue');
+  if (resetQ) resetQ.onclick = () => confirmAction('Reset Queue', 'Clear all pending queue items? Workers will finish their current tasks.', '🔄', () => {
+    state.queue.incoming = [];
+    state.queue.retry = [];
+    ['incoming', 'retry'].forEach(col => { const c = eid(`qci-${col}`); if (c) c.innerHTML = ''; });
+    updateQueueStats();
+    notify('Queue Reset', 'All pending items cleared', 'info');
+    termLog('WARN', '<span>QUEUE RESET: All pending items cleared by admin</span>');
+    logAuditEvent('queue-reset', 'Pending queue items cleared by administrator');
+  });
+
+  const addWorker = eid('btn-add-worker');
+  if (addWorker) addWorker.onclick = () => {
+    const newId = state.workers.length + 1;
+    const w = createWorker(newId, true);
+    state.workers.push(w);
+    renderWorkers();
+    notify('Worker Added', `Worker-${String(newId).padStart(2,'0')} spawned`, 'success', 2000);
+    termLog('INFO', `<span>MANUAL SPAWN: Worker-${newId} added by admin</span>`);
+    logAuditEvent('scale-worker', `Manually spawned Worker-${newId}`);
+  };
+
+  const removeWorker = eid('btn-remove-worker');
+  if (removeWorker) removeWorker.onclick = () => {
+    const idle = state.workers.filter(w => w.status === 'idle');
+    if (idle.length === 0) { notify('No Idle Workers', 'All workers are busy', 'warning'); return; }
+    const w = idle[idle.length - 1];
+    state.workers = state.workers.filter(x => x.id !== w.id);
+    const card = eid(`wcard-${w.id}`);
+    if (card) card.remove();
+    notify('Worker Terminated', `Worker-${String(w.id).padStart(2,'0')} shut down`, 'info', 2000);
+    updateWorkerBadges();
+    logAuditEvent('scale-worker', `Manually terminated Worker-${w.id}`);
+  };
+
+  const slider = eid('worker-slider');
+  if (slider) slider.addEventListener('input', () => {
+    const target = parseInt(slider.value);
+    setText('worker-count-label', target);
+    const current = state.workers.length;
+    if (target > current) {
+      for (let i = current + 1; i <= target; i++) state.workers.push(createWorker(i, true));
+      renderWorkers();
+    } else if (target < current) {
+      state.workers = state.workers.slice(0, target);
+      renderWorkers();
+    }
+  });
+
+  const pause = eid('btn-pause-queue');
+  const resume = eid('btn-resume-queue');
+  if (pause) pause.onclick = () => {
+    state.simulation.paused = true;
+    pause.disabled = true;
+    if (resume) resume.disabled = false;
+    eid('system-status-bar') && (eid('system-status-bar').querySelector('.ssb-dot').className = 'ssb-dot degraded');
+    notify('Queue Paused', 'Processing halted — All workers suspended', 'warning', 8000);
+    feedLog('⏸️', '<strong>Queue processing PAUSED</strong> by administrator', 'warning');
+    termLog('WARN', '<span>ADMIN: Queue processing paused</span>');
+    logAuditEvent('queue-control', 'Queue processing paused by administrator');
+  };
+  if (resume) resume.onclick = () => {
+    state.simulation.paused = false;
+    resume.disabled = true;
+    if (pause) pause.disabled = false;
+    notify('Queue Resumed', 'Processing restarted — Workers active', 'success', 3000);
+    feedLog('▶️', '<strong>Queue processing RESUMED</strong> by administrator', 'success');
+    termLog('SUCCESS', '<span>ADMIN: Queue processing resumed</span>');
+    logAuditEvent('queue-control', 'Queue processing resumed by administrator');
+  };
+
+  const fullReset = eid('btn-full-reset');
+  if (fullReset) fullReset.onclick = () => confirmAction('Full System Reset', 'This will reset ALL simulation data and restart the engine. Are you sure?', '🔃', () => {
+    state.queue.incoming = []; state.queue.processing = []; state.queue.completed = []; state.queue.failed = []; state.queue.retry = [];
+    state.stats.totalSubmitted = 0; state.stats.totalProcessed = 0; state.stats.totalFailed = 0; state.stats.totalRetried = 0;
+    state.stats.peakQueueDepth = 0; state.stats.processTimes = [];
+    state.stats.throughputHistory.fill(0); state.stats.processedHistory.fill(0);
+    state.stats.queueDepthHistory.fill(0); state.stats.workerHistory.fill(0);
+    state.database.todayRecords = 0; state.database.pendingSync = 0;
+    state.database.recentRecords = [];
+    state.simulation.paused = false; state.simulation.spikesCount = 0;
+    initWorkers(6);
+    ['incoming', 'processing', 'completed', 'failed'].forEach(col => { const c = eid(`qci-${col}`); if (c) c.innerHTML = ''; });
+    updateQueueStats(); updateKPIs();
+    notify('System Reset', 'All data cleared — Simulation restarted', 'info', 4000);
+    termLog('WARN', '<span>FULL SYSTEM RESET performed by admin</span>');
+    logAuditEvent('system-reset', 'Full simulation and stats data reset by administrator');
+  });
+
+  // Toggle switches
+  const toggles = [
+    ['toggle-autoscale', 'autoScale'],
+    ['toggle-retry', 'retryEnabled'],
+    ['toggle-logging', 'loggingEnabled'],
+    ['toggle-encrypt', 'encryptEnforced'],
+  ];
+  toggles.forEach(([id, key]) => {
+    const el = eid(id);
+    if (el) el.addEventListener('change', () => {
+      state.simulation[key] = el.checked;
+      notify('Setting Updated', `${key} ${el.checked ? 'enabled' : 'disabled'}`, 'info', 2000);
+      logAuditEvent('settings-change', `${key} toggle changed to ${el.checked}`);
+    });
+  });
+
+  const thresholdInput = eid('queue-threshold');
+  if (thresholdInput) thresholdInput.addEventListener('change', () => {
+    state.simulation.queueThreshold = parseInt(thresholdInput.value) || 30;
+    notify('Threshold Updated', `Queue alert at ${state.simulation.queueThreshold} items`, 'info', 2000);
+    logAuditEvent('settings-change', `Queue alert threshold updated to ${state.simulation.queueThreshold}`);
+  });
+}
+
+/* ─── LOGIN FLOW ──────────────────────────────────────────── */
+function getSelectedRoleKey() {
+  const selectedTab = document.querySelector('.role-tab.active');
+  const selectedKey = selectedTab ? selectedTab.dataset.role : activeRole;
+  return ROLES[selectedKey] ? selectedKey : 'evaluator';
+}
+
+function initLogin() {
+  const form = eid('login-form');
+  const demoBtn = eid('btn-demo-login');
+  const togglePass = eid('toggle-pass');
+  const passInput = eid('login-pass');
+
+  if (togglePass && passInput) {
+    togglePass.onclick = () => {
+      passInput.type = passInput.type === 'password' ? 'text' : 'password';
+    };
+  }
+
+  if (demoBtn) {
+    demoBtn.onclick = () => {
+      const selectedRoleKey = getSelectedRoleKey();
+      const selectedRole = ROLES[selectedRoleKey] || ROLES.evaluator;
+      const email = eid('login-email');
+      const pass = eid('login-pass');
+      if (email) email.value = selectedRole.email;
+      if (pass) pass.value = selectedRole.pass;
+      setTimeout(() => doLogin(selectedRole.email, selectedRole.pass, selectedRoleKey), 300);
+    };
+  }
+
+  if (form) {
+    form.onsubmit = (e) => {
+      e.preventDefault();
+      const email = eid('login-email') ? eid('login-email').value.trim() : '';
+      const pass = eid('login-pass') ? eid('login-pass').value.trim() : '';
+      let valid = true;
+
+      const errEmail = eid('err-email');
+      const errPass = eid('err-pass');
+      if (errEmail) errEmail.textContent = '';
+      if (errPass) errPass.textContent = '';
+
+      if (!email || !email.includes('@')) { if (errEmail) errEmail.textContent = 'Please enter a valid email address'; valid = false; }
+      if (!pass) { if (errPass) errPass.textContent = 'Password is required'; valid = false; }
+
+      if (!valid) return;
+
+      const spinner = eid('login-spinner');
+      const btnText = eid('btn-login') ? eid('btn-login').querySelector('.btn-text') : null;
+      const loginBtn = eid('btn-login');
+      const demoBtn = eid('btn-demo-login');
+      if (spinner) spinner.classList.remove('hidden');
+      if (btnText) btnText.textContent = 'Authenticating...';
+      if (loginBtn) loginBtn.disabled = true;
+      if (demoBtn) demoBtn.disabled = true;
+
+      // Try secure backend login first
+      fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password: pass })
+      })
+      .then(async response => {
+        if (!response.ok) {
+          const data = await response.json().catch(() => ({}));
+          throw new Error(data.error || 'Authentication failed');
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (spinner) spinner.classList.add('hidden');
+        if (btnText) btnText.textContent = 'Sign In Securely';
+        if (loginBtn) loginBtn.disabled = false;
+        if (demoBtn) demoBtn.disabled = false;
+
+        activeRole = data.user.roleKey;
+        doLoginSuccess(data.user, data.user.roleKey);
+      })
+      .catch(err => {
+        // If it's a validation/credentials failure from backend, show error
+        if (err.message === 'Invalid credentials' || err.message === 'A valid email address is required' || err.message === 'Password is required') {
+          if (spinner) spinner.classList.add('hidden');
+          if (btnText) btnText.textContent = 'Sign In Securely';
+          if (loginBtn) loginBtn.disabled = false;
+          if (demoBtn) demoBtn.disabled = false;
+          if (errEmail) errEmail.textContent = err.message;
+          return;
+        }
+
+        // Otherwise (network error/404), fallback to local simulation
+        console.warn('[EvalSync API] Backend offline/static environment. Falling back to local client simulation.', err);
+
+        const matchedRoleKey = Object.keys(ROLES).find(key => {
+          const r = ROLES[key];
+          return r.email === email && r.pass === pass;
+        });
+
+        if (spinner) spinner.classList.add('hidden');
+        if (btnText) btnText.textContent = 'Sign In Securely';
+        if (loginBtn) loginBtn.disabled = false;
+        if (demoBtn) demoBtn.disabled = false;
+
+        if (!matchedRoleKey) {
+          if (errEmail) errEmail.textContent = 'Invalid credentials. Use the demo credentials shown above.';
+          return;
+        }
+
+        activeRole = matchedRoleKey;
+        doLogin(email, pass, matchedRoleKey);
+      });
+    };
+  }
+}
+
+function doLoginSuccess(loggedInUser, roleKey) {
+  state.user = loggedInUser;
+  state.isLoggedIn = true;
+  state.simulation.sessionStart = new Date();
+  setText('stat-start', new Date().toLocaleTimeString());
+
+  // Setup user info
+  setText('su-name', loggedInUser.name);
+  setText('su-initials', loggedInUser.initials);
+  setText('ta-initials', loggedInUser.initials);
+  setText('ic-name', loggedInUser.name);
+  setText('ic-id', loggedInUser.id);
+  setText('ic-subject', loggedInUser.subject);
+
+  // Animate login page out
+  const lp = eid('login-page');
+  const finishLogin = () => {
+    if (lp) lp.classList.add('hidden');
+    initApp(loggedInUser);
+    applyRoleBadge(roleKey);
+    startSessionTimer();
+  };
+  if (lp) {
+    lp.style.transition = 'opacity 0.5s, transform 0.5s';
+    lp.style.opacity = '0';
+    lp.style.transform = 'scale(0.97)';
+    setTimeout(finishLogin, 500);
+  } else {
+    finishLogin();
+  }
+}
+
+function doLogin(email, pass, roleKey) {
+  roleKey = ROLES[roleKey] ? roleKey : getSelectedRoleKey();
+  const role = ROLES[roleKey] || ROLES.evaluator;
+  activeRole = roleKey;
+  const spinner = eid('login-spinner');
+  const btnText = eid('btn-login') ? eid('btn-login').querySelector('.btn-text') : null;
+  const loginBtn = eid('btn-login');
+  const demoBtn = eid('btn-demo-login');
+  if (spinner) spinner.classList.remove('hidden');
+  if (btnText) btnText.textContent = 'Authenticating...';
+  if (loginBtn) loginBtn.disabled = true;
+  if (demoBtn) demoBtn.disabled = true;
+
+  setTimeout(() => {
+    const loggedInUser = {
+      email: role.email,
+      name: role.name,
+      initials: role.initials,
+      role: role.label,
+      id: `${roleKey.toUpperCase()}-${pick(REGIONS)}-${rand(1000,9999)}-2024`,
+      subject: 'Mathematics (041)',
+      center: `${pick(REGIONS)}-${rand(1000,9999)}`,
+    };
+
+    if (spinner) spinner.classList.add('hidden');
+    if (btnText) btnText.textContent = 'Sign In Securely';
+    if (loginBtn) loginBtn.disabled = false;
+    if (demoBtn) demoBtn.disabled = false;
+
+    doLoginSuccess(loggedInUser, roleKey);
+  }, 1200);
+}
+
+function doLogout() {
+  fetch('/api/auth/logout', { method: 'POST' })
+    .catch(err => console.warn('[EvalSync API] Backend offline during logout.', err))
+    .finally(() => {
+      state.isLoggedIn = false;
+      clearManagedTimers();
+      if (sessionTimerInterval) {
+        clearInterval(sessionTimerInterval);
+        sessionTimerInterval = null;
+      }
+      const lp = eid('login-page');
+      const ma = eid('main-app');
+      if (lp) {
+        lp.classList.remove('hidden');
+        lp.style.opacity = '1';
+        lp.style.transform = 'scale(1)';
+      }
+      if (ma) ma.classList.add('hidden');
+    });
+}
+
+// Bind to window so app.runtime.js and HTML triggers can reference them
+window.doLogin = doLogin;
+window.doLogout = doLogout;
+window.doLoginSuccess = doLoginSuccess;
+
+function logAuditEvent(action, details) {
+  fetch('/api/audit/log', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action, details })
+  }).catch(err => {
+    // Fallback to client-side audit table if API is unreachable
+    if (typeof auditLog === 'function') {
+      auditLog(action, details, activeRole, 'SYSTEM');
+    }
+  });
+}
+window.logAuditEvent = logAuditEvent;
+
+
+/* ─── APP INIT ────────────────────────────────────────────── */
+function initApp(loggedInUser) {
+  const ma = eid('main-app');
+  if (ma) ma.classList.remove('hidden');
+
+  // Set date input default
+  const datePicker = eid('sub-date');
+  if (datePicker) datePicker.value = new Date().toISOString().split('T')[0];
+
+  // Nav
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.onclick = (e) => {
+      e.preventDefault();
+      const view = item.dataset.view;
+      if (view) switchView(view);
+    };
+  });
+
+  // Sidebar collapse
+  const collapseBtn = eid('sidebar-collapse');
+  const sidebar = eid('sidebar');
+  if (collapseBtn && sidebar) {
+    collapseBtn.onclick = () => sidebar.classList.toggle('collapsed');
+  }
+
+  const menuBtn = eid('menu-btn');
+  if (menuBtn && sidebar) {
+    menuBtn.onclick = () => sidebar.classList.toggle('collapsed');
+  }
+
+  // Logout
+  const logoutBtn = eid('btn-logout');
+  if (logoutBtn) logoutBtn.onclick = () => confirmAction('Sign Out', 'Are you sure you want to sign out of EvalSync?', '\ud83d\udeaa', doLogout);
+
+  // Notifications
+  const notifBtn = eid('btn-notifications');
+  if (notifBtn) notifBtn.onclick = () => {
+    notify('Notifications', 'No new alerts \u2014 System running normally', 'info', 3000);
+    const dot = eid('notif-dot');
+    if (dot) dot.classList.remove('show');
+  };
+
+  initUploadZone();
+  initSecuritySimulator();
+  initAdminControls();
+  initWorkers(6);
+  startSimulation();
+
+  const user = loggedInUser || state.user || DEMO_USER;
+  // Initial notifications
+  setTimeout(() => { notify('Welcome, ' + user.name, `EvalSync session started \u00b7 ${ROLES[activeRole]?.label || 'Evaluator'} access granted`, 'success', 5000); }, 1500);
+  setTimeout(() => { notify('Queue Active', 'Simulation engine running \u2014 Live data streaming', 'info', 3000); }, 3000);
+  termLog('SUCCESS', `<span>EvalSync v3.2.1 initialized \u00b7 ${ROLES[activeRole]?.label || 'Evaluator'} session started</span>`);
+  termLog('INFO', `<span>User: ${user.name} \u00b7 Role: ${ROLES[activeRole]?.label} \u00b7 Center: ${user.center}</span>`);
+  feedLog('\ud83d\ude80', '<strong>EvalSync</strong> simulation engine started', 'success');
+  secLog('\ud83d\udd10', '<strong>TLS 1.3</strong> session established \u00b7 Certificate valid', 'ok');
+  secLog('\u2705', `<strong>${user.name} authenticated</strong> \u00b7 Role: ${ROLES[activeRole]?.label}`, 'ok');
+  dbLog('\ud83d\uddc4\ufe0f', '<strong>Database connection</strong> established \u00b7 3 replicas online');
+  dbLog('\u2705', '<strong>Primary DB online</strong> \u00b7 Mumbai data center');
+
+  // Sync DB initial state
+  setText('dbv-total', state.database.totalRecords.toLocaleString());
+  setText('dbv-today', '0');
+  setText('dbv-pending', '0');
+  setText('dbv-size', state.database.dbSizeMB.toFixed(1) + ' MB');
+
+  // Bootstrap some initial submissions
+  setTimeout(() => { for (let i = 0; i < 3; i++) enqueueSubmission(createSubmission()); }, 2000);
+}
+
+/* ─── BOOT ────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  initLogin();
+  initRoleSystem();
+
+  // Set date input
+  const datePicker = eid('sub-date');
+  if (datePicker) datePicker.value = new Date().toISOString().split('T')[0];
+
+  // Try to restore backend session first
+  fetch('/api/auth/session')
+    .then(response => {
+      if (response.ok) return response.json();
+      throw new Error('No active session');
+    })
+    .then(data => {
+      console.log('[EvalSync API] Session restored successfully for', data.user.name);
+      doLoginSuccess(data.user, data.user.roleKey);
+    })
+    .catch(err => {
+      // If no session, fallback to local remember-me check
+      const savedLogin = localStorage.getItem('evalsync_session');
+      if (savedLogin === 'demo') {
+        const email = eid('login-email');
+        const pass = eid('login-pass');
+        if (email) email.value = DEMO_USER.email;
+        if (pass) pass.value = DEMO_USER.password;
+      }
+    });
+
+  // Remember me
+  const rememberCheckbox = eid('remember-me');
+  const btnLogin = eid('btn-login');
+  if (btnLogin) {
+    btnLogin.addEventListener('click', () => {
+      if (rememberCheckbox && rememberCheckbox.checked) {
+        localStorage.setItem('evalsync_session', 'demo');
+      }
+    });
+  }
+});
+
+/* ═══════════════════════════════════════════════════════════
+   PHASE 2 — NEW SYSTEMS
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─── ROLE SYSTEM ─────────────────────────────────────────── */
+const ROLES = {
+  // EVALUATOR — only Submit + personal Queue tracker
+  evaluator: {
+    label: '👨‍🏫 Evaluator', cls: 'evaluator',
+    email: 'evaluator@cbse.gov.in', pass: 'CBSE@2024',
+    name: 'Rajan Mehta', initials: 'RM',
+    allowedViews: ['submit', 'queue', 'mysubmissions'],
+    defaultView: 'submit', readOnly: false,
+    description: 'Upload answer scripts & track your queue position',
+  },
+  // ADMIN — queue ops, DLQ recovery, DB sync monitoring, audit
+  admin: {
+    label: '🛡️ Admin', cls: 'admin',
+    email: 'admin@cbse.gov.in', pass: 'Admin@2024',
+    name: 'Priya Singh', initials: 'PS',
+    allowedViews: ['dashboard', 'submit', 'queue', 'dlq', 'database', 'security', 'admin', 'audit'],
+    defaultView: 'dashboard', readOnly: false,
+    description: 'Queue control, DLQ recovery, DB sync & security audit',
+  },
+  // SUPER ADMIN — full unrestricted access
+  superadmin: {
+    label: '👑 Super Admin', cls: 'superadmin',
+    email: 'superadmin@cbse.gov.in', pass: 'SuperAdmin@2024',
+    name: 'Dr. Arvind Kumar', initials: 'AK',
+    allowedViews: ['dashboard','submit','queue','workers','analytics','security','database','admin','health','dlq','audit','loadbalancer','prediction','metrics','testing','mysubmissions'],
+    defaultView: 'dashboard', readOnly: false,
+    description: 'Full system access — all modules unlocked',
+  },
+  // MONITOR — read-only view of all modules, no actions
+  monitor: {
+    label: '📡 Monitor', cls: 'monitor',
+    email: 'monitor@cbse.gov.in', pass: 'Monitor@2024',
+    name: 'Sanjay Patel', initials: 'SP',
+    allowedViews: ['dashboard','queue','workers','analytics','health','loadbalancer','prediction','metrics','testing','database','dlq','audit','security'],
+    defaultView: 'dashboard', readOnly: true,
+    description: 'Read-only monitoring — all views, zero write access',
+  },
+};
+let activeRole = 'evaluator';
+let sessionSeconds = 1800;
+let sessionTimerInterval = null;
+
+function initRoleSystem() {
+  document.querySelectorAll('.role-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.role-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      activeRole = tab.dataset.role;
+      const role = ROLES[activeRole];
+      const emailEl = eid('dc-email'), passEl = eid('dc-pass');
+      const loginEmailEl = eid('login-email'), loginPassEl = eid('login-pass');
+      if (emailEl) emailEl.textContent = role.email;
+      if (passEl) passEl.textContent = role.pass;
+      if (loginEmailEl) loginEmailEl.value = role.email;
+      if (loginPassEl) loginPassEl.value = role.pass;
+    });
+  });
+}
+
+function applyRoleBadge(role) {
+  const r = ROLES[role] || ROLES.evaluator;
+  // Update topbar badge
+  const badge = eid('role-badge-topbar');
+  if (badge) { badge.textContent = r.label; badge.className = `role-badge-topbar ${r.cls}`; }
+  // Hide/show nav items by allowedViews
+  document.querySelectorAll('.nav-item[data-view]').forEach(nav => {
+    nav.style.display = r.allowedViews.includes(nav.dataset.view) ? '' : 'none';
+  });
+  // Also hide nav section labels if their children are all hidden
+  document.querySelectorAll('.nav-section-label').forEach(label => {
+    let next = label.nextElementSibling;
+    let hasVisible = false;
+    while (next && !next.classList.contains('nav-section-label')) {
+      if (next.style.display !== 'none') hasVisible = true;
+      next = next.nextElementSibling;
+    }
+    label.style.display = hasVisible ? '' : 'none';
+  });
+  // Read-only overlay for Monitor role
+  const roOverlay = eid('readonly-overlay');
+  if (r.readOnly) {
+    if (!roOverlay) {
+      const overlay = document.createElement('div');
+      overlay.id = 'readonly-overlay';
+      overlay.className = 'readonly-banner';
+      overlay.innerHTML = `<span>👁 READ-ONLY MODE — ${r.label} cannot modify system state</span>`;
+      const mc = document.querySelector('.main-content');
+      if (mc) mc.prepend(overlay);
+    }
+    // Disable all write buttons for monitor
+    document.querySelectorAll('.chaos-btn, #btn-spike, #btn-dlq-retry-all, #btn-spawn-worker, #btn-pause, #btn-resume, #btn-reset').forEach(btn => {
+      btn.disabled = true; btn.title = 'Read-only — Monitor cannot trigger actions';
+    });
+  } else {
+    if (roOverlay) roOverlay.remove();
+  }
+  // Navigate to default view for this role
+  if (r.defaultView && r.allowedViews.includes(r.defaultView)) {
+    switchView(r.defaultView);
+  }
+  // Update user info in sidebar
+  setText('su-name', r.name);
+  setText('su-role', r.description || r.label);
+}
+
+function startSessionTimer() {
+  sessionSeconds = 1800;
+  if (sessionTimerInterval) clearInterval(sessionTimerInterval);
+  sessionTimerInterval = setInterval(() => {
+    sessionSeconds--;
+    const m = Math.floor(sessionSeconds / 60), s = sessionSeconds % 60;
+    const timerEl = eid('session-timer');
+    if (timerEl) {
+      timerEl.textContent = `⏱ ${pad(m)}:${pad(s)}`;
+      timerEl.className = 'session-timer' + (sessionSeconds <= 300 ? ' warning' : '') + (sessionSeconds <= 60 ? ' critical' : '');
+    }
+    if (sessionSeconds <= 0) { clearInterval(sessionTimerInterval); notify('Session Expired', 'Please log in again', 'warning', 8000); }
+  }, 1000);
+}
+
+/* ─── P2 STATE ────────────────────────────────────────────── */
+const p2State = {
+  dlq: [], dlqRetried: 0, dlqRecovered: 0,
+  auditEntries: [], auditCounter: 0,
+  healthLatencyHistory: { gateway:[], queue:[], workers:[], encrypt:[], db:[], replica:[] },
+  predictionHistory: { actual:[], predicted:[], labels:[] },
+  peakPrediction: null,
+  scalingEvents: [],
+  perfMetrics: { fast:0, med:0, slow:0, peakThroughput:0, waitTimes:[], p99:0 },
+  chaosActive: null, _lastWorkerCount: 6,
+};
+const FAKE_IPS = ['103.25.41.12','49.248.17.5','122.176.90.33','59.91.18.4','182.64.23.17','115.97.40.2'];
+
+/* ─── SMART ALERTS ────────────────────────────────────────── */
+const alertState = { workerFail:false, queueOverload:false };
+function checkSmartAlerts() {
+  state.workers.filter(w => w.errors > 3 && !w._alertFired).forEach(w => {
+    w._alertFired = true;
+    notify('⚙️ Worker Alert', `Worker-${String(w.id).padStart(2,'0')} has ${w.errors} errors`, 'warning', 6000);
+    addIncident('warning', `Worker-${w.id} error rate high`, 'WORKER');
+  });
+  const qDepth = state.queue.incoming.length + state.queue.processing.length;
+  if (qDepth > 40 && !alertState.queueOverload) {
+    alertState.queueOverload = true;
+    notify('📦 Queue Overload', `Queue depth ${qDepth} — System under heavy load`, 'error', 7000);
+    addIncident('critical', `Queue depth critical: ${qDepth} items`, 'QUEUE');
+    setTimeout(() => { alertState.queueOverload = false; }, 30000);
+  }
+  setText('nb-dlq', p2State.dlq.length);
+}
+function addIncident(type, msg, src) {
+  const list = eid('incidents-list');
+  if (!list) return;
+  const empty = list.querySelector('.incident-empty');
+  if (empty) empty.remove();
+  const item = document.createElement('div');
+  item.className = `incident-item ${type}`;
+  item.innerHTML = `<span class="ii-badge ${type}">${type.toUpperCase()}</span><span><strong>[${src}]</strong> ${msg}</span><span style="margin-left:auto;font-size:.65rem;color:var(--text-muted)">${formatTime()}</span>`;
+  list.insertBefore(item, list.firstChild);
+  if (list.children.length > 10) list.lastChild.remove();
+}
+
+/* ─── DEAD LETTER QUEUE ───────────────────────────────────── */
+function moveToDLQ(sub) {
+  const reasons = ['Hash mismatch','Encryption timeout','DB write failed','Validation error','Network timeout'];
+  p2State.dlq.push({ ...sub, dlqEnteredAt: new Date(), failureReason: pick(reasons) });
+  renderDLQ();
+  notify('☠️ Dead Letter Queue', `${sub.id.substring(0,18)}... sent to DLQ`, 'error', 5000);
+}
+function renderDLQ() {
+  const tbody = eid('dlq-tbody');
+  if (!tbody) return;
+  tbody.innerHTML = p2State.dlq.length === 0
+    ? `<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:2rem">☠️ No items in Dead Letter Queue</td></tr>`
+    : p2State.dlq.map((item, idx) => `<tr><td><code>${item.id.substring(0,22)}...</code></td><td>${item.subject}</td><td>${item.roll}</td><td style="color:var(--danger);font-weight:700">${item.retryCount}/3</td><td style="color:var(--warning)">${item.failureReason}</td><td>${item.dlqEnteredAt.toLocaleTimeString()}</td><td><button class="dlq-action-btn retry" onclick="retryFromDLQ(${idx})">🔄 Retry</button><button class="dlq-action-btn delete" onclick="deleteFromDLQ(${idx})">🗑 Del</button></td></tr>`).join('');
+  setText('dlqs-total', p2State.dlq.length); setText('dlqs-retried', p2State.dlqRetried); setText('nb-dlq', p2State.dlq.length);
+  const badge = eid('dlq-count-badge'); if (badge) badge.textContent = p2State.dlq.length + ' items';
+}
+window.retryFromDLQ = (idx) => { const item = p2State.dlq[idx]; if (!item) return; item.retryCount = 0; state.queue.incoming.push(item); p2State.dlq.splice(idx,1); p2State.dlqRetried++; renderDLQ(); notify('🔄 DLQ Retry', `Re-queued`, 'info', 3000); };
+window.deleteFromDLQ = (idx) => { p2State.dlq.splice(idx,1); renderDLQ(); };
+
+/* ─── SYSTEM HEALTH ───────────────────────────────────────── */
+function initSystemHealth() {
+  buildUptimeBars();
+  // Initialise healthStatus
+  if (!p2State.healthStatus) p2State.healthStatus = { gateway:'OPERATIONAL', queue:'OPERATIONAL', workers:'OPERATIONAL', encrypt:'OPERATIONAL', db:'OPERATIONAL', replica:'OPERATIONAL' };
+  setManagedInterval('systemHealth', () => { updateWorkerCPUGrid(); drawHealthLatencyChart(); updateSvcLatencies(); updateHealthCards(); }, 2000);
+}
+
+/* Called by chaos tests to immediately reflect failures in System Health cards */
+function updateHealthCards() {
+  if (!p2State.healthStatus) return;
+  const statusText = { OPERATIONAL: 'OPERATIONAL', WARNING: 'DEGRADED', CRITICAL: 'CRITICAL', OFFLINE: 'OFFLINE' };
+  const statusColor = { OPERATIONAL: 'var(--success)', WARNING: 'var(--warning)', CRITICAL: 'var(--danger)', OFFLINE: 'var(--danger)' };
+  const cardBg = { OPERATIONAL: ['',''], WARNING: ['rgba(245,158,11,0.5)','rgba(245,158,11,0.04)'], CRITICAL: ['rgba(244,63,94,0.6)','rgba(244,63,94,0.06)'], OFFLINE: ['rgba(244,63,94,0.6)','rgba(244,63,94,0.06)'] };
+
+  const svcMap = { gateway:'gateway', queue:'queue', workers:'workers', encrypt:'encrypt', db:'db', replica:'replica' };
+
+  Object.entries(svcMap).forEach(([svc, key]) => {
+    const statusKey = p2State.healthStatus[svc] || 'OPERATIONAL';
+    const card = eid(`svc-${svc}`);
+    const statusEl = eid(`svcst-${svc}`);
+    if (statusEl) {
+      statusEl.textContent = statusText[statusKey] || statusKey;
+      statusEl.style.color = statusColor[statusKey] || 'var(--success)';
+      statusEl.className = `svc-status ${statusKey === 'OPERATIONAL' ? 'ok' : statusKey === 'WARNING' ? 'warn' : 'fail'}`;
+    }
+    if (card) {
+      const [bc, bg] = cardBg[statusKey] || ['',''];
+      card.style.borderColor = bc; card.style.background = bg;
+      // Pulse animation on critical
+      if (statusKey === 'CRITICAL') { card.style.animation = 'pulse 1s infinite'; }
+      else { card.style.animation = ''; }
+    }
+  });
+
+  // Update DB replication visual on DB chaos
+  const dbStatus = p2State.healthStatus.db || 'OPERATIONAL';
+  const primaryEl = eid('repst-primary');
+  const r1El = eid('repst-r1');
+  const primaryNode = eid('rep-primary');
+  if (dbStatus === 'CRITICAL') {
+    if (primaryEl) { primaryEl.textContent = '● OFFLINE'; primaryEl.style.color = 'var(--danger)'; }
+    if (r1El) { r1El.textContent = '● FAILOVER ACTIVE'; r1El.style.color = 'var(--warning)'; }
+    if (primaryNode) { primaryNode.style.borderColor = 'rgba(244,63,94,0.6)'; primaryNode.style.background = 'rgba(244,63,94,0.08)'; }
+  } else {
+    if (primaryEl) { primaryEl.textContent = '● ONLINE'; primaryEl.style.color = 'var(--success)'; }
+    if (r1El) { r1El.textContent = '● IN SYNC'; r1El.style.color = 'var(--success)'; }
+    if (primaryNode) { primaryNode.style.borderColor = ''; primaryNode.style.background = ''; }
+  }
+
+  // Update latency values — colour-code by severity
+  Object.entries(p2State.healthLatencyHistory).forEach(([svc, hist]) => {
+    if (!hist || hist.length === 0) return;
+    const latest = hist[hist.length - 1];
+    const el = eid(`svcl-${svc}`); if (!el) return;
+    el.textContent = latest > 999 ? (latest/1000).toFixed(1)+'s' : latest + 'ms';
+    el.style.color = latest > 1000 ? 'var(--danger)' : latest > 300 ? 'var(--warning)' : 'var(--success)';
+    el.style.fontWeight = latest > 300 ? '700' : '';
+  });
+
+  // Health latency chart is already redrawn by the health interval.
+  // (Avoid double redraws that cause jank during chaos/system health updates.)
+
+  // Also add an incident card for active chaos
+  if (p2State.chaosActive) {
+    addIncident('critical', `[CHAOS] ${p2State.chaosActive.toUpperCase()} test active — System under stress`, 'CHAOS');
+  }
+}
+
+
+function buildUptimeBars() {
+  const row = eid('uptime-bar-row'); if (!row) return; row.innerHTML = '';
+  for (let i = 0; i < 90; i++) { const r = Math.random(); const bar = document.createElement('div'); bar.className = `uptime-bar ${r > 0.02 ? 'up' : r > 0.01 ? 'partial' : 'down'}`; row.appendChild(bar); }
+}
+function updateSvcLatencies() {
+  const base = { gateway:12, queue:8, workers:2, encrypt:3, db:22, replica:34 };
+  Object.entries(base).forEach(([svc, v]) => {
+    const lat = v + rand(-3, 8);
+    setText(`svcl-${svc}`, lat + 'ms');
+    p2State.healthLatencyHistory[svc] = p2State.healthLatencyHistory[svc] || [];
+    p2State.healthLatencyHistory[svc].push(lat);
+    if (p2State.healthLatencyHistory[svc].length > 30) p2State.healthLatencyHistory[svc].shift();
+  });
+  setText('repl-r1', rand(8,20) + 'ms lag'); setText('repl-r2', rand(20,45) + 'ms lag');
+}
+function updateWorkerCPUGrid() {
+  const grid = eid('worker-cpu-grid'); if (!grid) return;
+  grid.innerHTML = state.workers.slice(0, 12).map(w => {
+    const cpu = w.status === 'idle' ? rand(2,15) : rand(40,90);
+    const color = cpu > 70 ? 'var(--danger)' : cpu > 40 ? 'var(--warning)' : 'var(--success)';
+    return `<div class="wcpu-card"><span class="wcpu-name">W-${String(w.id).padStart(2,'0')}</span><span class="wcpu-val" style="color:${color}">${cpu}%</span><div class="wcpu-bar"><div class="wcpu-fill" style="width:${cpu}%;background:${color}"></div></div></div>`;
+  }).join('');
+}
+function drawHealthLatencyChart() {
+  const canvas = eid('health-latency-chart'); if (!canvas) return;
+  const ctx = canvas.getContext('2d'); const W=canvas.width, H=canvas.height; ctx.clearRect(0,0,W,H);
+  const colors = { gateway:'#6366f1', queue:'#06b6d4', encrypt:'#10b981', db:'#f59e0b', replica:'#a855f7' };
+  Object.entries(colors).forEach(([svc, color]) => {
+    const hist = p2State.healthLatencyHistory[svc] || [];
+    if (hist.length < 2) return;
+    ctx.beginPath(); ctx.strokeStyle = color; ctx.lineWidth = 1.5; ctx.globalAlpha = 0.8;
+    hist.forEach((v, i) => { const x=(i/(hist.length-1))*W, y=H-(v/60)*H; i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y); });
+    ctx.stroke(); ctx.globalAlpha = 1;
+  });
+}
+
+/* ─── LOAD BALANCER ───────────────────────────────────────── */
+function initLoadBalancer() { setManagedInterval('loadBalancer', () => { if (state.currentView==='loadbalancer') updateLoadBalancerView(); }, 1500); }
+function updateLoadBalancerView() {
+  const qDepth = state.queue.incoming.length;
+  const rps = state.stats.throughputHistory.slice(-3).reduce((a,b)=>a+b,0)/3;
+  setText('lb-rps', rps.toFixed(1)+' req/s'); setText('lb-qdepth', qDepth+' items'); setText('lb-dbrecs', state.database.totalRecords.toLocaleString()+' records');
+  setText('lbsr-workers', state.workers.length); setText('lbsr-rps', rps.toFixed(1)); setText('lbsr-resp', rand(80,250)+'ms');
+  const workerRow = eid('lb-workers-row');
+  if (workerRow) workerRow.innerHTML = state.workers.map(w => {
+    const isOffline = w.status === 'OFFLINE';
+    const cls = isOffline ? 'offline-lb' : (w.status==='idle' || w.status==='IDLE') ? '' : 'busy-lb';
+    const load = isOffline ? 0 : (w.status==='idle'||w.status==='IDLE') ? rand(2,15) : rand(45,92);
+    const color = isOffline ? 'var(--danger)' : load > 70 ? 'var(--warning)' : '';
+    return `<div class="lb-worker-box ${cls}" style="${color ? 'border-color:'+color : ''}">W-${String(w.id).padStart(2,'0')}<span class="lb-worker-load" style="${color?'color:'+color:''}">${isOffline?'DEAD':load+'%'}</span></div>`;
+  }).join('');
+
+  if (state.workers.length !== p2State._lastWorkerCount) {
+    const diff = state.workers.length - p2State._lastWorkerCount;
+    const evt = document.createElement('div');
+    evt.className = 'scale-event';
+    const icon = diff > 0 ? '📈 AUTO-SCALE ↑' : '📉 SCALE-DOWN ↓';
+    evt.innerHTML = `<span style="color:${diff>0?'var(--success)':'var(--warning)'}">${icon}</span> ${formatTime()} — Pool: ${p2State._lastWorkerCount} → <strong>${state.workers.length}</strong> workers`;
+    const list = eid('scaling-events');
+    if (list) { list.insertBefore(evt, list.firstChild); if (list.children.length > 20) list.lastChild.remove(); }
+  }
+  p2State._lastWorkerCount = state.workers.length;
+  drawLBDistChart();
+}
+
+function drawLBDistChart() {
+  const canvas = eid('lb-dist-chart'); if (!canvas) return;
+  const ctx = canvas.getContext('2d'); const W=canvas.width, H=canvas.height; ctx.clearRect(0,0,W,H);
+  const workers = state.workers; if (!workers.length) return;
+  const total = workers.reduce((a,w)=>a+Math.max(w.tasksCompleted,1),0);
+  const colors = ['#6366f1','#06b6d4','#10b981','#f59e0b','#a855f7','#f43f5e','#3b82f6','#ec4899'];
+  const cx=W/2, cy=H/2, r=Math.min(W,H)*0.35; let start=-Math.PI/2;
+  workers.slice(0,8).forEach((w,i)=>{ const share=w.tasksCompleted/total; const angle=share*Math.PI*2; ctx.beginPath(); ctx.moveTo(cx,cy); ctx.arc(cx,cy,r,start,start+angle); ctx.closePath(); ctx.fillStyle=colors[i%colors.length]; ctx.globalAlpha=0.8; ctx.fill(); ctx.globalAlpha=1; start+=angle; });
+  ctx.fillStyle='rgba(255,255,255,0.8)'; ctx.font='bold 13px Inter'; ctx.textAlign='center'; ctx.fillText(workers.length+' Workers',cx,cy-5);
+  ctx.font='10px Inter'; ctx.fillStyle='rgba(255,255,255,0.4)'; ctx.fillText('Even Load',cx,cy+12);
+}
+
+/* ─── AI PREDICTION ───────────────────────────────────────── */
+function initAIPrediction() {
+  if (p2State.predictionHistory.actual.length === 0) {
+    for (let i=0; i<20; i++) { p2State.predictionHistory.actual.push(rand(2,15)); p2State.predictionHistory.labels.push(`-${20-i}m`); }
+  }
+  updateAIPrediction(); setManagedInterval('aiPrediction', updateAIPrediction, 5000);
+}
+function updateAIPrediction() {
+  const qDepth = state.queue.incoming.length;
+  const actual = qDepth + rand(0,5);
+  p2State.predictionHistory.actual.push(actual);
+  if (p2State.predictionHistory.actual.length > 30) p2State.predictionHistory.actual.shift();
+  const forecast=[]; let base=actual;
+  for (let i=0; i<30; i++) { base+=( Math.random()-0.4)*5; base=Math.max(0,base); forecast.push(Math.round(base)); }
+  p2State.predictionHistory.predicted = forecast;
+  const peakIdx = forecast.indexOf(Math.max(...forecast)); const peakLoad=forecast[peakIdx]; const peakMins=peakIdx+1;
+  p2State.peakPrediction = { mins:peakMins, load:peakLoad, workers:Math.ceil(peakLoad/3+2) };
+  const isPeak = peakLoad > 30;
+  const alertEl = eid('prediction-alert'); if (alertEl) alertEl.className=`prediction-alert ${isPeak?'alert':peakLoad>15?'warning':''}`;
+  setText('pa-icon', isPeak?'🚨':peakLoad>15?'⚠️':'🤖');
+  setText('pa-title', isPeak?`Peak load expected in ${peakMins} min!`:peakLoad>15?`Moderate traffic in ${peakMins} min`:'Traffic nominal — system stable');
+  setText('pa-detail', `Confidence: ${rand(88,97)}% · LSTM+ARIMA · Peak: ${peakLoad} req/s`);
+  setText('pa-confidence', rand(88,97)+'%');
+  setText('pt-val', peakMins+' min'); setText('psi-load', peakLoad+' req/s');
+  setText('psi-workers', p2State.peakPrediction.workers+' recommended'); setText('psi-qdepth', Math.round(peakLoad*2.5)+' items'); setText('psi-confidence', rand(88,97)+'%');
+  const wOK = state.workers.length >= p2State.peakPrediction.workers;
+  updateRecBadge('rec-workers-body','rec-workers-badge', wOK?`${state.workers.length} workers sufficient`:`Need ${p2State.peakPrediction.workers} (have ${state.workers.length})`, wOK?'ok':'action', wOK?'✅ OK':`⬆ +${p2State.peakPrediction.workers-state.workers.length}`);
+  updateRecBadge('rec-queue-body','rec-queue-badge',`Buffer: ${Math.round(peakLoad*3)} item cap`, peakLoad>20?'warn':'ok', peakLoad>20?'⚠ Monitor':'✅ OK');
+  updateRecBadge('rec-db-body','rec-db-badge',`${rand(15,30)} DB connections needed`,'ok','✅ Ready');
+  updateRecBadge('rec-scale-body','rec-scale-badge',peakMins<=5?'Scale NOW — peak imminent':`Scale in ${peakMins-2} min`, peakMins<=5?'action':'warn', peakMins<=5?'🚨 Now':`⏱ ${peakMins-2}m`);
+  drawPredictionChart();
+}
+function updateRecBadge(bodyId, badgeId, body, cls, text) {
+  setText(bodyId, body);
+  const el = eid(badgeId); if (!el) return; el.className=`rec-badge ${cls}`; el.textContent=text;
+}
+function drawPredictionChart() {
+  const canvas = eid('prediction-chart'); if (!canvas) return;
+  const ctx = canvas.getContext('2d'); const W=canvas.width, H=canvas.height; ctx.clearRect(0,0,W,H);
+  const actual=p2State.predictionHistory.actual; const predicted=p2State.predictionHistory.predicted;
+  const allVals=[...actual,...predicted]; const maxVal=Math.max(...allVals,10);
+  const total=actual.length+predicted.length;
+  const toX=(i)=>(i/(total-1))*W; const toY=(v)=>H-20-(v/maxVal)*(H-30);
+  // Confidence band
+  ctx.beginPath();
+  predicted.forEach((v,i)=>{ const x=toX(actual.length+i), y=toY(v*1.2); i===0?ctx.moveTo(x,y):ctx.lineTo(x,y); });
+  for (let i=predicted.length-1;i>=0;i--) ctx.lineTo(toX(actual.length+i), toY(predicted[i]*0.8));
+  ctx.closePath(); ctx.fillStyle='rgba(244,63,94,0.06)'; ctx.fill();
+  // Actual
+  ctx.beginPath(); ctx.strokeStyle='#6366f1'; ctx.lineWidth=2;
+  actual.forEach((v,i)=>{ const x=toX(i),y=toY(v); i===0?ctx.moveTo(x,y):ctx.lineTo(x,y); }); ctx.stroke();
+  // Predicted dashed
+  ctx.beginPath(); ctx.strokeStyle='#f59e0b'; ctx.lineWidth=2; ctx.setLineDash([5,3]);
+  predicted.forEach((v,i)=>{ const x=toX(actual.length+i),y=toY(v); i===0?ctx.moveTo(x,y):ctx.lineTo(x,y); }); ctx.stroke(); ctx.setLineDash([]);
+  // Divider
+  const divX=toX(actual.length-1); ctx.beginPath(); ctx.strokeStyle='rgba(255,255,255,0.15)'; ctx.lineWidth=1; ctx.setLineDash([3,3]); ctx.moveTo(divX,0); ctx.lineTo(divX,H); ctx.stroke(); ctx.setLineDash([]);
+}
+
+/* ─── AUDIT LOG ───────────────────────────────────────────── */
+function auditLog(action, details, role, type='LOGIN') {
+  p2State.auditCounter++;
+  const entry = { index:p2State.auditCounter, timestamp:new Date(), user:(ROLES[role]||ROLES.evaluator).name, role, action:type, details, ip:pick(FAKE_IPS), hash:generateSHA256Like().substring(0,16), status:'success' };
+  p2State.auditEntries.unshift(entry);
+  if (p2State.auditEntries.length > 200) p2State.auditEntries.pop();
+  renderAuditLog();
+}
+function renderAuditLog() {
+  const tbody = eid('audit-tbody'); if (!tbody) return;
+  const search = ((eid('audit-search')||{}).value||'').toLowerCase();
+  const rf = (eid('audit-filter-role')||{}).value||'';
+  const af = (eid('audit-filter-action')||{}).value||'';
+  const filtered = p2State.auditEntries.filter(e => (!rf||e.role===rf)&&(!af||e.action===af)&&(!search||JSON.stringify(e).toLowerCase().includes(search)));
+  setText('audit-count', filtered.length);
+  tbody.innerHTML = filtered.slice(0,50).map(e=>`<tr><td style="color:var(--text-muted)">${e.index}</td><td><code>${e.timestamp.toLocaleTimeString()}</code></td><td>${e.user}</td><td><span class="role-pill ${e.role}">${e.role}</span></td><td>${e.action}</td><td style="max-width:180px;font-size:.72rem">${e.details}</td><td><code>${e.ip}</code></td><td><code>${e.hash}...</code></td><td><span class="status-badge ok">SUCCESS</span></td></tr>`).join('');
+  // Login history
+  const lhist = eid('login-history');
+  if (lhist) {
+    const logins = p2State.auditEntries.filter(e=>e.action==='LOGIN').slice(0,8);
+    lhist.innerHTML = logins.map(e=>`<div class="lh-item"><span class="role-pill ${e.role}">${e.role}</span><span class="lh-info">${e.user} · ${e.ip}</span><span class="lh-time">${e.timestamp.toLocaleTimeString()}</span></div>`).join('') || '<div style="color:var(--text-muted);padding:.5rem;font-size:.75rem">No logins yet</div>';
+  }
+  // Active sessions
+  const asess = eid('active-sessions');
+  if (asess) asess.innerHTML = Object.entries(ROLES).slice(0,3).map(([k,r])=>`<div class="as-item"><span class="as-dot"></span><span class="as-name">${r.name}</span><span class="role-pill ${k}">${k}</span><span class="as-ip">${pick(FAKE_IPS)}</span></div>`).join('');
+}
+
+/* ─── PERFORMANCE METRICS ─────────────────────────────────── */
+function initPerformanceMetrics() { setManagedInterval('performanceMetrics', updatePerformanceMetrics, 3000); }
+function updatePerformanceMetrics() {
+  const total=state.stats.totalProcessed, failed=state.stats.totalFailed;
+  const times=state.stats.processTimes;
+  const successRate = total>0 ? ((total/(total+failed))*100).toFixed(1)+'%' : '—';
+  const retryRate = state.stats.totalRetried>0 ? ((total/(total+state.stats.totalRetried))*100).toFixed(1)+'%' : '—';
+  const avgWait = times.length>0 ? Math.round(times.reduce((a,b)=>a+b,0)/times.length) : null;
+  const sorted = [...times].sort((a,b)=>a-b);
+  const p99 = sorted.length>0 ? (sorted[Math.floor(sorted.length*0.99)]||sorted[sorted.length-1]) : null;
+  const rps = state.stats.throughputHistory.slice(-3).reduce((a,b)=>a+b,0)/3;
+  if (rps > p2State.perfMetrics.peakThroughput) p2State.perfMetrics.peakThroughput = rps;
+  setText('mc-throughput', p2State.perfMetrics.peakThroughput.toFixed(1));
+  setText('mc-avgwait', avgWait ? avgWait+'ms' : '—'); setText('mc-success', successRate);
+  setText('mc-retry', retryRate); setText('mc-p99', p99 ? p99+'ms' : '—');
+  const fast=times.filter(t=>t<500).length, med=times.filter(t=>t>=500&&t<=2000).length, slow=times.filter(t=>t>2000).length;
+  setText('sla-total',total); setText('sla-fast',fast); setText('sla-med',med); setText('sla-slow',slow); setText('sla-recov',state.stats.totalRetried); setText('sla-failed',failed);
+  if (total>0) { setWidth('slaf-fast',(fast/total)*100); setWidth('slaf-med',(med/total)*100); setWidth('slaf-slow',(slow/total)*100); setWidth('slaf-recov',(state.stats.totalRetried/total)*100); setWidth('slaf-failed',(failed/Math.max(total,1))*100); }
+  drawMetricsLatencyChart(times);
+}
+function drawMetricsLatencyChart(times) {
+  const canvas=eid('metrics-latency-chart'); if (!canvas) return;
+  const ctx=canvas.getContext('2d'); const W=canvas.width,H=canvas.height; ctx.clearRect(0,0,W,H);
+  const buckets=new Array(10).fill(0);
+  times.forEach(t=>{ buckets[Math.min(Math.floor(t/500),9)]++; });
+  const maxB=Math.max(...buckets,1); const bw=W/10;
+  const colors=['#10b981','#10b981','#34d399','#f59e0b','#f59e0b','#fb923c','#f43f5e','#f43f5e','#f43f5e','#f43f5e'];
+  buckets.forEach((v,i)=>{ const bh=(v/maxB)*(H-30); ctx.fillStyle=colors[i]; ctx.globalAlpha=0.8; ctx.fillRect(i*bw+2,H-bh-20,bw-4,bh); ctx.globalAlpha=1; });
+  ['<500ms','1s','1.5s','2s','2.5s','3s','3.5s','4s','4.5s','5s+'].forEach((l,i)=>{ ctx.fillStyle='rgba(255,255,255,0.3)'; ctx.font='9px Inter'; ctx.textAlign='center'; ctx.fillText(l,i*bw+bw/2,H-4); });
+}
+
+/* ─── RESILIENCE TESTING ──────────────────────────────────── */
+function initResilienceTesting() {
+  ['db','net','overload','workers','encrypt','queue'].forEach(t => {
+    const btn = eid(`chaos-${t}`);
+    if (btn) btn.addEventListener('click', () => runChaosTest(t));
+  });
+  chaosLog('💻 Chaos Engineering ready. Select a failure scenario to begin.');
+  const dlqRetryAll = eid('btn-dlq-retry-all');
+  if (dlqRetryAll) dlqRetryAll.addEventListener('click', () => { p2State.dlq.forEach(item=>{ item.retryCount=0; state.queue.incoming.push(item); p2State.dlqRetried++; }); p2State.dlq=[]; renderDLQ(); notify('🔄 DLQ Batch Retry','All items re-queued','success'); });
+}
+function chaosLog(msg, type='info') {
+  const t=eid('chaos-terminal'); if (!t) return;
+  const line=document.createElement('div'); line.className='term-line';
+  const c={info:'#94a3b8',success:'#10b981',warn:'#f59e0b',error:'#f43f5e'};
+  line.innerHTML=`<span class="tl-time">${formatTime()}</span><span style="color:${c[type]||c.info}">${msg}</span>`;
+  t.appendChild(line); if (t.children.length>100) t.firstChild.remove(); t.scrollTop=t.scrollHeight;
+}
+async function runChaosTest(type) {
+  if (p2State.chaosActive) { chaosLog('⚠️ Test already running — wait for current test to finish', 'warn'); return; }
+  p2State.chaosActive = type;
+  const btn = eid(`chaos-${type}`); if (btn) btn.disabled = true;
+  const panel = eid('response-panel'); if (panel) panel.innerHTML = '';
+  logAuditEvent('chaos-test', `Triggered Chaos Test: ${type.toUpperCase()}`);
+
+  const step = (stype, msg, delayMs) => new Promise(r => {
+    setTimeout(() => {
+      addResponseItem(stype, msg);
+      chaosLog(`[${type.toUpperCase()}] ${msg}`, stype);
+      // Broadcast to live feed and terminal
+      feedLog(stype === 'fail' ? '🔴' : stype === 'warn' ? '🟡' : '🟢', `<strong>[CHAOS-${type.toUpperCase()}]</strong> ${msg}`, stype === 'fail' ? 'error' : stype === 'warn' ? 'warning' : 'success');
+      termLog(stype === 'fail' ? 'ERROR' : stype === 'warn' ? 'WARN' : 'SUCCESS', `<span>[CHAOS] ${msg}</span>`);
+      r();
+    }, delayMs);
+  });
+
+  // Update topbar status bar
+  const ssb = eid('system-status-bar');
+  const setStatus = (cls, text) => { if (ssb) ssb.innerHTML = `<span class="ssb-dot ${cls}"></span><span class="ssb-text">${text}</span>`; };
+
+  addResponseItem('warn', `🔴 Initiating Chaos Test: ${type.toUpperCase()}`);
+  chaosLog(`\n▶ Starting: ${type.toUpperCase()} test scenario`, 'warn');
+
+  /* ─────────────────────────────────────────
+     1. DB CRASH
+     ───────────────────────────────────────── */
+  if (type === 'db') {
+    setStatus('critical', '🔴 CRITICAL — Primary DB Failure');
+    // Mark DB as failed in health state
+    p2State.healthStatus = { ...p2State.healthStatus, db: 'CRITICAL', replica: 'WARNING' };
+    state.database.pendingSync = (state.database.pendingSync || 0) + 50;
+    // Spike DB latency
+    for (let i = 0; i < 20; i++) { p2State.healthLatencyHistory.db.push(rand(2000, 8000)); if (p2State.healthLatencyHistory.db.length > 30) p2State.healthLatencyHistory.db.shift(); }
+    secLog('🔴', '<strong>PRIMARY DB FAILURE</strong> — All writes paused, failover initiated', 'fail');
+    dbLog('💥', '<strong>PRIMARY DB CRASHED</strong> — Mumbai DC unresponsive');
+    updateHealthCards();
+
+    await step('fail', '💥 Primary DB (Mumbai) — Connection dropped!', 0);
+    await step('fail', '🚨 Write pipeline HALTED — 50 submissions pending sync', 600);
+    await step('warn', '🔄 Initiating failover to Replica 1 (Delhi)...', 1400);
+    // Simulate failover — queue keeps buffering
+    state.simulation.paused = true;
+    await step('warn', '⏳ Replication lag: 847ms — Syncing WAL logs...', 2200);
+    await step('warn', '📦 Queue absorbing load — No submissions lost', 3000);
+
+    setTimeout(() => {
+      // Recovery
+      state.simulation.paused = false;
+      p2State.healthStatus = { ...p2State.healthStatus, db: 'OPERATIONAL', replica: 'OPERATIONAL' };
+      for (let i = 0; i < 10; i++) { p2State.healthLatencyHistory.db.push(rand(40, 120)); p2State.healthLatencyHistory.db.shift(); }
+      state.database.pendingSync = 0;
+      setStatus('operational', '✅ All Systems Operational — DB Recovered');
+      updateHealthCards();
+      dbLog('✅', '<strong>Replica promoted to Primary</strong> — Delhi DC now serving writes');
+      secLog('✅', '<strong>DB Failover complete</strong> — Zero data loss confirmed', 'ok');
+    }, 4500);
+    await step('ok', '✅ Replica (Delhi) promoted to Primary DB', 4600);
+    await step('ok', '✅ WAL replay complete — 0 rows lost', 5200);
+    await step('ok', '🏆 DB recovered — All 50 pending submissions synced', 6000);
+  }
+
+  /* ─────────────────────────────────────────
+     2. NETWORK PARTITION
+     ───────────────────────────────────────── */
+  else if (type === 'net') {
+    setStatus('degraded', '🟡 DEGRADED — Network Partition Active');
+    // Spike all latencies
+    const spikeLatency = () => {
+      ['gateway','queue','workers','encrypt','db','replica'].forEach(svc => {
+        p2State.healthLatencyHistory[svc].push(rand(1500, 4000));
+        if (p2State.healthLatencyHistory[svc].length > 30) p2State.healthLatencyHistory[svc].shift();
+      });
+    };
+    spikeLatency();
+    // Slow down workers artificially
+    state.workers.forEach(w => { w._netDelay = true; });
+    updateHealthCards();
+    secLog('📡', '<strong>NETWORK PARTITION</strong> — 50% packet loss on inter-DC links', 'fail');
+
+    await step('fail', '📡 Network partition detected — 50% packet loss', 0);
+    await step('fail', '🌐 Inter-DC links degraded: Mumbai ↔ Delhi ↔ Chennai', 400);
+    await step('warn', '⚙️ Workers entering retry-with-backoff mode', 900);
+    await step('warn', '📦 Queue buffering — submissions held safely in memory', 1500);
+
+    // Intermediate spike — add more latency
+    setTimeout(() => { spikeLatency(); drawHealthLatencyChart(); }, 2000);
+    await step('warn', '⚡ Throughput reduced 60% — System degraded but stable', 2200);
+    await step('warn', '🔁 Retry storm: 1,247 in-flight retries', 3000);
+
+    setTimeout(() => {
+      // Partial recovery — latency normalises
+      ['gateway','queue','workers','encrypt','db','replica'].forEach(svc => {
+        p2State.healthLatencyHistory[svc].push(rand(80, 200));
+        if (p2State.healthLatencyHistory[svc].length > 30) p2State.healthLatencyHistory[svc].shift();
+      });
+      state.workers.forEach(w => { delete w._netDelay; });
+      setStatus('operational', '✅ All Systems Operational');
+      updateHealthCards();
+    }, 4200);
+    await step('ok', '✅ Network healed — Packet loss 0%', 4500);
+    await step('ok', '✅ Backlog of 342 retries cleared in 1.2s', 5200);
+    await step('ok', '🏆 Queue absorbed full load — Zero data lost', 6000);
+  }
+
+  /* ─────────────────────────────────────────
+     3. 1000 SUBMISSION OVERLOAD
+     ───────────────────────────────────────── */
+  else if (type === 'overload') {
+    setStatus('degraded', '🟡 LOAD TEST — 1000 Submission Spike');
+    const prevWorkers = state.workers.length;
+    notify('⚡ OVERLOAD TEST', '1000 submissions injected — watch the queue spike!', 'warning', 6000);
+
+    await step('warn', `⚡ Injecting 1000 simultaneous submissions...`, 0);
+
+    // Inject submissions in 4 batches for realism
+    let injected = 0;
+    const injectBatch = (count, delay) => setTimeout(() => {
+      for (let i = 0; i < count; i++) enqueueSubmission(createSubmission());
+      injected += count;
+      chaosLog(`📥 ${injected}/1000 injected — Queue: ${state.queue.incoming.length + state.queue.processing.length}`, 'warn');
+    }, delay);
+    injectBatch(250, 100);
+    injectBatch(250, 500);
+    injectBatch(250, 900);
+    injectBatch(250, 1300);
+
+    await step('warn', '📦 Queue depth: CRITICAL — Spike detected', 500);
+    await step('warn', `🏭 Current workers: ${prevWorkers} — Threshold exceeded`, 1000);
+    await step('warn', '🤖 Auto-scaler triggered — Requesting new worker instances', 1500);
+
+    // Auto-scale: add workers progressively
+    const addWorker = (delay, id) => setTimeout(() => {
+      const newWorker = { id, status: 'IDLE', processed: 0, errors: 0, currentTask: null, uptime: 0, cpu: 0 };
+      state.workers.push(newWorker);
+      setText('nb-workers', state.workers.length);
+      chaosLog(`⚙️ Worker-${String(id).padStart(2,'0')} spawned (auto-scale) — Total: ${state.workers.length}`, 'ok');
+      addResponseItem('ok', `⚙️ Worker-${String(id).padStart(2,'0')} spawned — Total workers: ${state.workers.length}`);
+      feedLog('⚙️', `<strong>AUTO-SCALE:</strong> Worker-${String(id).padStart(2,'0')} spawned — pool now ${state.workers.length} workers`, 'success');
+    }, delay);
+
+    addWorker(2000, 7);
+    addWorker(2500, 8);
+    addWorker(3000, 9);
+    addWorker(3500, 10);
+    addWorker(4000, 11);
+    addWorker(4500, 12);
+
+    await step('ok', '✅ Worker-07 spawned (auto-scale +1)', 2200);
+    await step('ok', '✅ Worker-08 spawned (auto-scale +2)', 2700);
+    await step('ok', '✅ Worker-09, 10, 11, 12 spawned (auto-scale +6)', 4700);
+    await step('ok', `🏭 Worker pool scaled: ${prevWorkers} → 12 workers`, 5000);
+    await step('ok', '📊 Throughput normalising — Queue draining at 24 submissions/s', 5500);
+
+    // After 30 seconds, scale back down
+    setTimeout(() => {
+      const toRemove = state.workers.length - prevWorkers;
+      if (toRemove > 0) {
+        state.workers.splice(prevWorkers, toRemove);
+        setText('nb-workers', state.workers.length);
+        chaosLog(`📉 Auto-scale-down: Pool reduced to ${state.workers.length} workers`, 'ok');
+        feedLog('📉', `<strong>AUTO-SCALE-DOWN:</strong> Pool reduced back to ${state.workers.length} workers`, 'info');
+      }
+      setStatus('operational', '✅ All Systems Operational');
+    }, 30000);
+    await step('ok', '🏆 Overload test complete — 1000 submissions absorbed, zero lost', 6200);
+  }
+
+  /* ─────────────────────────────────────────
+     4. KILL ALL WORKERS
+     ───────────────────────────────────────── */
+  else if (type === 'workers') {
+    setStatus('critical', '🔴 CRITICAL — All Workers Terminated');
+    // Kill all workers
+    const savedWorkers = state.workers.map(w => ({...w}));
+    state.workers.forEach(w => { w.status = 'OFFLINE'; w.currentTask = null; });
+    state.simulation.paused = true;
+    updateHealthCards();
+    secLog('🔪', '<strong>ALL WORKERS TERMINATED</strong> — Processing halted', 'fail');
+
+    await step('fail', `🔪 SIGKILL sent to all ${savedWorkers.length} worker processes`, 0);
+    await step('fail', '⚠️ Worker pool: 0 active — Queue halted', 400);
+    await step('warn', '📦 Queue holding safely — 0 items lost (FIFO preserved)', 800);
+    await step('warn', `📊 ${state.queue.incoming.length + state.queue.processing.length} submissions queued, awaiting workers`, 1200);
+    await step('warn', '🤖 Auto-respawn system activating...', 2000);
+
+    // Respawn workers one by one
+    state.workers.forEach((w, i) => {
+      setTimeout(() => {
+        w.status = 'IDLE'; w.processed = 0; w.errors = 0; w.cpu = 0;
+        chaosLog(`✅ Worker-${String(w.id).padStart(2,'0')} respawned (${i+1}/${savedWorkers.length})`, 'ok');
+        if (i === savedWorkers.length - 1) {
+          state.simulation.paused = false;
+          setStatus('operational', '✅ All Systems Operational');
+          updateHealthCards();
+          secLog('✅', '<strong>All workers restored</strong> — Processing resumed', 'ok');
+        }
+      }, 2500 + i * 300);
+    });
+
+    await step('ok', '✅ Workers 01–03 respawned', 2700);
+    await step('ok', '✅ Workers 04–06 respawned — Full pool restored', 3500);
+    await step('ok', '📊 Queue draining — Backlog clearing at full speed', 4000);
+    await step('ok', '🏆 Worker recovery complete — All submissions preserved', 4500);
+  }
+
+  /* ─────────────────────────────────────────
+     5. ENCRYPTION FAILURE
+     ───────────────────────────────────────── */
+  else if (type === 'encrypt') {
+    setStatus('critical', '🔴 CRITICAL — Encryption Module Failure');
+    p2State.healthStatus = { ...p2State.healthStatus, encrypt: 'CRITICAL' };
+    // Cause workers to fail their encrypt stage
+    state.workers.forEach(w => { w._encryptFail = true; });
+    updateHealthCards();
+    secLog('🔐', '<strong>ENCRYPTION MODULE CRASHED</strong> — AES-256 unavailable!', 'fail');
+    // Force some submissions to fail
+    const toFail = state.queue.incoming.splice(0, Math.min(5, state.queue.incoming.length));
+    toFail.forEach(s => { s.retryCount = 0; state.queue.failed.push(s); state.stats.totalFailed++; });
+
+    await step('fail', '🔐 AES-256-GCM module crash — Encryption unavailable!', 0);
+    await step('fail', `⚠️ ${toFail.length} submissions rejected — Cannot encrypt`, 500);
+    await step('fail', '🚨 Security policy: REJECT all unencrypted submissions', 800);
+    await step('warn', '🔄 Loading backup HSM cipher module...', 1200);
+    await step('warn', '⚙️ Initialising AES-256-GCM fallback module...', 1800);
+
+    setTimeout(() => {
+      state.workers.forEach(w => { delete w._encryptFail; });
+      p2State.healthStatus = { ...p2State.healthStatus, encrypt: 'OPERATIONAL' };
+      setStatus('operational', '✅ All Systems Operational');
+      updateHealthCards();
+      secLog('✅', '<strong>Encryption restored</strong> — HSM failover active', 'ok');
+    }, 3000);
+
+    await step('ok', '✅ Backup AES-256-GCM module active', 3200);
+    await step('ok', '✅ Primary cipher re-keyed and restored', 4000);
+    await step('ok', '🏆 Encryption failover: <50ms RTO achieved', 4500);
+  }
+
+  /* ─────────────────────────────────────────
+     6. QUEUE SATURATION
+     ───────────────────────────────────────── */
+  else if (type === 'queue') {
+    setStatus('degraded', '🟡 DEGRADED — Queue Saturation');
+    const satCount = 200;
+    // Actually fill the queue
+    for (let i = 0; i < satCount; i++) state.queue.incoming.push(createSubmission());
+    state.stats.totalSubmitted += satCount;
+    setText('nb-queue', state.queue.incoming.length);
+
+    await step('warn', `📦 Queue saturating — Injecting ${satCount} items...`, 0);
+    await step('warn', `📊 Queue depth: ${state.queue.incoming.length} items (${Math.round(state.queue.incoming.length/50*100)}% capacity)`, 400);
+    await step('warn', '⚠️ Back-pressure alert — Rate limiter activating', 800);
+    await step('warn', '🛑 New submissions throttled to 10/s (from 100/s)', 1400);
+    await step('warn', '⚙️ All workers reassigned to drain mode', 1800);
+    // Fast-drain: pause intake, process more
+    state.workers.forEach(w => { w._drainMode = true; });
+
+    await step('ok', '📉 Queue depth declining: 180 → 140 → 90...', 2500);
+
+    setTimeout(() => {
+      state.workers.forEach(w => { delete w._drainMode; });
+      setStatus('operational', '✅ All Systems Operational');
+    }, 4000);
+    await step('ok', '✅ Rate limiter lifted — Normal throughput restored', 4200);
+    await step('ok', '🏆 Queue drained — Back-pressure control validated', 5000);
+  }
+
+  /* ─────────────────────────────────────────
+     WRAP UP
+     ───────────────────────────────────────── */
+  const resultMap = {
+    db: '✅ DB Failover — Zero Data Lost',
+    net: '✅ Network Resilience — Queue Absorbed Load',
+    overload: '✅ Auto-Scale — 1000 Submissions Handled',
+    workers: '✅ Worker Recovery — FIFO Preserved',
+    encrypt: '✅ Cipher Failover — <50ms RTO',
+    queue: '✅ Back-Pressure Control — Validated',
+  };
+  addResponseItem('ok', `🏆 ${resultMap[type]}`);
+  const el = eid(`cbr-${type}`); if (el) { el.textContent = resultMap[type]; el.style.color = 'var(--success)'; }
+  auditLog(`Chaos test completed: ${type}`, `Result: ${resultMap[type]}`, activeRole, 'ADMIN');
+  p2State.chaosActive = null;
+  if (btn) btn.disabled = false;
+  notify('🧪 Chaos Test Complete', `${type.toUpperCase()}: ${resultMap[type]}`, 'success', 5000);
+}
+
+function addResponseItem(type, msg) {
+  const panel=eid('response-panel'); if (!panel) return;
+  const empty=panel.querySelector('.rp-idle'); if (empty) empty.remove();
+  const item=document.createElement('div'); item.className=`rp-item ${type==='ok'?'ok':type==='fail'?'fail':'warn'}`;
+  item.innerHTML=`<span style="color:var(--text-muted);font-size:.65rem">${formatTime()}</span><span style="margin-left:.5rem">${msg}</span>`;
+  panel.appendChild(item); panel.scrollTop=panel.scrollHeight;
+}
+
+/* ─── AUDIT FILTERS ───────────────────────────────────────── */
+function initAuditFilters() {
+  ['audit-search','audit-filter-role','audit-filter-action'].forEach(id => { const el=eid(id); if (el) el.addEventListener('input',()=>renderAuditLog()); });
+  const exportBtn=eid('btn-export-audit');
+  if (exportBtn) exportBtn.addEventListener('click', () => {
+    const csv=['#,Timestamp,User,Role,Action,Details,IP,Status',...p2State.auditEntries.map(e=>`${e.index},"${e.timestamp.toLocaleString()}","${e.user}","${e.role}","${e.action}","${e.details}","${e.ip}","${e.status}"`)].join('\n');
+    const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download='evalsync-audit.csv'; a.click();
+  });
+}
+
+/* ─── PATCH switchView ────────────────────────────────────── */
+const _origSwitchView = switchView;
+window.switchView = function(viewName) {
+  _origSwitchView(viewName);
+  const extra = { health:'System Health', dlq:'Dead Letter Queue', loadbalancer:'Load Balancer', prediction:'AI Prediction', audit:'Audit Log', metrics:'Performance', testing:'Resilience Test' };
+  if (extra[viewName]) setText('bc-current', extra[viewName]);
+  if (viewName==='prediction') setTimeout(drawPredictionChart, 100);
+  if (viewName==='loadbalancer') setTimeout(updateLoadBalancerView, 100);
+  if (viewName==='metrics') setTimeout(updatePerformanceMetrics, 100);
+  if (viewName==='audit') renderAuditLog();
+  if (viewName==='dlq') renderDLQ();
+  if (viewName==='health') { drawHealthLatencyChart(); updateWorkerCPUGrid(); }
+};
+
+/* ─── PATCH initApp ───────────────────────────────────────── */
+const _origInitApp = initApp;
+window.initApp = function(user) {
+  _origInitApp(user);
+  applyRoleBadge(activeRole);
+  startSessionTimer();
+  auditLog('Logged in from '+pick(FAKE_IPS), 'Session started · Role: '+(ROLES[activeRole]||ROLES.evaluator).label, activeRole, 'LOGIN');
+  // Initialize phase 2 modules (only if role allows them)
+  initSystemHealth();
+  initLoadBalancer();
+  initAIPrediction();
+  initPerformanceMetrics();
+  initResilienceTesting();
+  initAuditFilters();
+  initMySubmissions();
+  setManagedInterval('smartAlerts', checkSmartAlerts, 5000);
+  setManagedInterval('auditAndSubmissionRefresh', () => {
+    if (Math.random()<0.25) {
+      const r=pick(Object.keys(ROLES)), acts=[{d:'Script uploaded',t:'SUBMIT'},{d:'Queue threshold cleared',t:'ADMIN'},{d:'Failed login attempt from '+pick(FAKE_IPS),t:'SECURITY'},{d:'Config updated',t:'ADMIN'}];
+      const a=pick(acts); auditLog(a.d, a.d, r, a.t);
+    }
+    // DLQ routing — permanently failed items
+    state.queue.failed.filter(s=>s.retryCount>=3&&!s._inDLQ).forEach(s=>{ s._inDLQ=true; moveToDLQ(s); });
+    // Update My Submissions
+    updateMySubmissions();
+  }, 8000);
+};
+
+/* ─── MY SUBMISSIONS MODULE (Evaluator) ─────────────────────── */
+// mySubmissions array declared at top of file
+function initMySubmissions() {
+  updateMySubmissions();
+}
+
+function trackMySubmission(sub) {
+  // Guard: only run if function exists (Phase 2 loaded)
+  if (!Array.isArray(mySubmissions)) return;
+  mySubmissions.unshift({ ...sub, trackedAt: new Date(), lastStatus: 'queued' });
+  if (mySubmissions.length > 20) mySubmissions.pop();
+  updateMySubmissions();
+}
+
+function updateMySubmissions() {
+  const tbody = eid('mysub-tbody'); if (!tbody) return;
+  // Sync statuses from main queue state
+  mySubmissions.forEach(ms => {
+    const inProcessing = state.queue.processing.find(s => s.id === ms.id);
+    const inCompleted = state.queue.completed.find(s => s.id === ms.id);
+    const inFailed = state.queue.failed.find(s => s.id === ms.id);
+    const inDLQ = p2State.dlq.find(s => s.id === ms.id);
+    if (inCompleted) ms.lastStatus = 'completed';
+    else if (inProcessing) ms.lastStatus = 'processing';
+    else if (inDLQ) ms.lastStatus = 'dlq';
+    else if (inFailed) ms.lastStatus = 'failed';
+    else ms.lastStatus = 'queued';
+  });
+
+  // Update nav count badge
+  const nbMysub = eid('nb-mysub');
+  if (nbMysub) nbMysub.textContent = mySubmissions.length;
+
+  // Update stat cards
+  const completed = mySubmissions.filter(m => m.lastStatus === 'completed').length;
+  const queued = mySubmissions.filter(m => m.lastStatus === 'queued' || m.lastStatus === 'processing').length;
+  setText('eic-submitted', mySubmissions.length);
+  setText('eic-completed', completed);
+  setText('eic-pending', queued);
+  setText('mysub-count', mySubmissions.length + ' submission' + (mySubmissions.length !== 1 ? 's' : ''));
+
+  const statusConfig = {
+    queued:     { cls: 'info', icon: '⏳', label: 'In Queue' },
+    processing: { cls: 'warn', icon: '⚙️', label: 'Processing' },
+    completed:  { cls: 'ok',   icon: '✅', label: 'Completed' },
+    failed:     { cls: 'fail', icon: '❌', label: 'Failed' },
+    dlq:        { cls: 'fail', icon: '☠️', label: 'Dead Letter Queue' },
+  };
+
+  if (mySubmissions.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:2rem">📋 No submissions yet — <a href="#" onclick="switchView('submit');return false;" style="color:var(--primary)">Upload your first script</a></td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = mySubmissions.map(ms => {
+    const sc = statusConfig[ms.lastStatus] || statusConfig.queued;
+    const qPos = state.queue.incoming.findIndex(s => s.id === ms.id);
+    return `<tr>
+      <td><code style="font-size:.72rem;color:var(--secondary)">${ms.id.substring(0, 22)}…</code></td>
+      <td>${ms.subject || '—'}</td>
+      <td>${ms.roll || '—'}</td>
+      <td><code style="font-size:.68rem">${ms.hash ? ms.hash.substring(0, 14) + '…' : '—'}</code></td>
+      <td style="font-weight:700;color:var(--warning)">${qPos >= 0 ? '#' + (qPos + 1) : ms.lastStatus === 'processing' ? '⚙️ Active' : '—'}</td>
+      <td><span class="status-badge ${sc.cls}">${sc.icon} ${sc.label}</span></td>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:.72rem">${ms.trackedAt.toLocaleTimeString()}</td>
+    </tr>`;
+  }).join('');
+}
+
+// Hook into the submission flow to track manual submissions
+const _origRunSubmissionProcessing = runSubmissionProcessing;
+window.runSubmissionProcessing_orig = _origRunSubmissionProcessing;

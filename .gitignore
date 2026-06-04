@@ -2,3 +2,5 @@
 app.dev.js
 protection.json
 node_modules/
+.env
+coverage/

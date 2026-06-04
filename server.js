@@ -4,6 +4,7 @@ const session = require('express-session');
 const rateLimit = require('express-rate-limit');
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
+const lusca = require('lusca');
 const path = require('path');
 const fs = require('fs');
 require('dotenv').config();
@@ -75,6 +76,16 @@ app.use(helmet({
   crossOriginEmbedderPolicy: false
 }));
 
+// 1. Security Hardening: Global Rate Limiting for all routes
+const globalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 200, // Limit each IP to 200 requests per 15 minutes
+  message: { error: 'Too many requests from this IP. Please try again later.' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+app.use(globalLimiter);
+
 // Parsers
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -94,6 +105,12 @@ app.use(session({
   }
 }));
 
+// 1. Security Hardening: CSRF Protection
+// Active in all environments except testing
+if (process.env.NODE_ENV !== 'test') {
+  app.use(lusca.csrf());
+}
+
 // 1. Security Hardening: Rate Limiting for auth routes
 const authLimiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
@@ -106,6 +123,11 @@ const authLimiter = rateLimit({
 app.use('/api/auth/login', authLimiter);
 
 // --- API Endpoints ---
+
+// CSRF Token endpoint for Single Page Application client integration
+app.get('/api/csrf-token', (req, res) => {
+  return res.status(200).json({ csrfToken: res.locals._csrf || '' });
+});
 
 // Verify current session
 app.get('/api/auth/session', (req, res) => {

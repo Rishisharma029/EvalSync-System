@@ -28,6 +28,20 @@ const LOG_CONFIG = { maxTerminal: 200, maxFeed: 50, maxDbLog: 80, maxSecLog: 60,
 /* ─── MY SUBMISSIONS (declared early so trackMySubmission works everywhere) ─ */
 const mySubmissions = [];
 
+let csrfToken = '';
+
+async function fetchCsrfToken() {
+  try {
+    const response = await fetch('/api/csrf-token');
+    if (response.ok) {
+      const data = await response.json();
+      csrfToken = data.csrfToken;
+    }
+  } catch (err) {
+    console.warn('[EvalSync API] Could not fetch CSRF token.', err);
+  }
+}
+
 /* ─── STATE ───────────────────────────────────────────────── */
 const state = {
   user: null,
@@ -1551,7 +1565,10 @@ function initLogin() {
       // Try secure backend login first
       fetch('/api/auth/login', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'x-csrf-token': csrfToken
+        },
         body: JSON.stringify({ email, password: pass })
       })
       .then(async response => {
@@ -1672,7 +1689,10 @@ function doLogin(email, pass, roleKey) {
 }
 
 function doLogout() {
-  fetch('/api/auth/logout', { method: 'POST' })
+  fetch('/api/auth/logout', { 
+    method: 'POST',
+    headers: { 'x-csrf-token': csrfToken }
+  })
     .catch(err => console.warn('[EvalSync API] Backend offline during logout.', err))
     .finally(() => {
       state.isLoggedIn = false;
@@ -1700,7 +1720,10 @@ window.doLoginSuccess = doLoginSuccess;
 function logAuditEvent(action, details) {
   fetch('/api/audit/log', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 
+      'Content-Type': 'application/json',
+      'x-csrf-token': csrfToken
+    },
     body: JSON.stringify({ action, details })
   }).catch(err => {
     // Fallback to client-side audit table if API is unreachable
@@ -1791,26 +1814,28 @@ document.addEventListener('DOMContentLoaded', () => {
   const datePicker = eid('sub-date');
   if (datePicker) datePicker.value = new Date().toISOString().split('T')[0];
 
-  // Try to restore backend session first
-  fetch('/api/auth/session')
-    .then(response => {
-      if (response.ok) return response.json();
-      throw new Error('No active session');
-    })
-    .then(data => {
-      console.log('[EvalSync API] Session restored successfully for', data.user.name);
-      doLoginSuccess(data.user, data.user.roleKey);
-    })
-    .catch(err => {
-      // If no session, fallback to local remember-me check
-      const savedLogin = localStorage.getItem('evalsync_session');
-      if (savedLogin === 'demo') {
-        const email = eid('login-email');
-        const pass = eid('login-pass');
-        if (email) email.value = DEMO_USER.email;
-        if (pass) pass.value = DEMO_USER.password;
-      }
-    });
+  // Fetch CSRF token first, then restore session
+  fetchCsrfToken().then(() => {
+    fetch('/api/auth/session')
+      .then(response => {
+        if (response.ok) return response.json();
+        throw new Error('No active session');
+      })
+      .then(data => {
+        console.log('[EvalSync API] Session restored successfully for', data.user.name);
+        doLoginSuccess(data.user, data.user.roleKey);
+      })
+      .catch(err => {
+        // If no session, fallback to local remember-me check
+        const savedLogin = localStorage.getItem('evalsync_session');
+        if (savedLogin === 'demo') {
+          const email = eid('login-email');
+          const pass = eid('login-pass');
+          if (email) email.value = DEMO_USER.email;
+          if (pass) pass.value = DEMO_USER.password;
+        }
+      });
+  });
 
   // Remember me
   const rememberCheckbox = eid('remember-me');

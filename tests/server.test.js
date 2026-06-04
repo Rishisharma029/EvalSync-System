@@ -133,4 +133,10 @@ describe('EvalSync Express Backend API & Security Tests', () => {
     }
     expect(hit429).toBe(true);
   });
+
+  test('10. CSRF Token retrieval check (GET /api/csrf-token)', async () => {
+    const response = await request(app).get('/api/csrf-token');
+    expect(response.status).toBe(200);
+    expect(response.body.csrfToken).toBeDefined();
+  });
 });

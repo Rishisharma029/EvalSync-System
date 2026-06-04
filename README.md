@@ -218,6 +218,7 @@ docker compose down
 
 EvalSync includes a comprehensive Jest integration test suite targeting authentication middleware, Helmet defenses, rate limiting, and persistent log writing.
 
+### Run Tests
 ```bash
 # Run tests
 npm test
@@ -230,26 +231,27 @@ npm run test:coverage
 ```bash
 PASS tests/server.test.js
   EvalSync Express Backend API & Security Tests
-    √ 1. Security Headers check (Helmet) (320 ms)
-    √ 2. Unauthenticated Session check (GET /api/auth/session) (38 ms)
-    √ 3. Invalid Login validation (POST /api/auth/login - Malformed Email) (112 ms)
-    √ 4. Invalid Login credentials check (POST /api/auth/login - Wrong Password) (205 ms)
-    √ 5. Successful Login workflow (POST /api/auth/login) (205 ms)
-    √ 6. Session persistence after login (242 ms)
-    √ 7. Logout workflow (POST /api/auth/logout) (260 ms)
-    √ 8. Client-side Settings Audit Log (POST /api/audit/log) (230 ms)
-    √ 9. Rate Limiter checking on login attempts (824 ms)
+    √ 1. Security Headers check (Helmet) (294 ms)
+    √ 2. Unauthenticated Session check (GET /api/auth/session) (34 ms)
+    √ 3. Invalid Login validation (POST /api/auth/login - Malformed Email) (105 ms)
+    √ 4. Invalid Login credentials check (POST /api/auth/login - Wrong Password) (235 ms)
+    √ 5. Successful Login workflow (POST /api/auth/login) (227 ms)
+    √ 6. Session persistence after login (251 ms)
+    √ 7. Logout workflow (POST /api/auth/logout) (259 ms)
+    √ 8. Client-side Settings Audit Log (POST /api/audit/log) (221 ms)
+    √ 9. Rate Limiter checking on login attempts (808 ms)
+    √ 10. CSRF Token retrieval check (GET /api/csrf-token) (35 ms)
 
 Test Suites: 1 passed, 1 total
-Tests:       9 passed, 9 total
-Time:        5.68 s
+Tests:       10 passed, 10 total
+Time:        6.061 s
 ```
 
 ### Latest Code Coverage Metrics
-* **Statements Coverage**: `80.89%`
-* **Lines Coverage**: `80.68%`
-* **Functions Coverage**: `81.81%`
-* **Branch Coverage**: `59.61%`
+* **Statements Coverage**: `81.25%`
+* **Lines Coverage**: `81.05%`
+* **Functions Coverage**: `83.33%`
+* **Branch Coverage**: `60.71%`
 
 ---
 
@@ -289,8 +291,9 @@ Here is a visual walk-through of the portal interface components:
 
 ## 📊 Security & Vulnerability Audit Results
 
-* **Vulnerabilities**: **`0` vulnerabilities** detected across 367 dependencies.
-* **Session Validation**: Secure session cookies successfully mitigate XSS-based hijacking and CSRF injections.
+* **Vulnerabilities**: **`0` vulnerabilities** detected across 369 dependencies.
+* **Session Validation**: Secure session cookies successfully mitigate XSS-based hijacking.
+* **CSRF Protection**: Native `lusca` CSRF token verification middleware intercepts unauthorized cross-site actions on all state-changing endpoints.
 * **Headers Assessment**: Helmet scores A+ rating on security headers validations.
 
 ---

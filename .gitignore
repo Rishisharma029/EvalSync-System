@@ -4,3 +4,4 @@ protection.json
 node_modules/
 .env
 coverage/
+audit.log

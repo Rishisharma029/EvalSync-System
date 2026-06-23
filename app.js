@@ -113,7 +113,7 @@ function randFloat(min, max) { return Math.random() * (max - min) + min; }
 function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 function pad(n, w = 2) { return String(n).padStart(w, '0'); }
 function formatTime(d) { d = d || new Date(); return `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`; }
-function formatBytes(bytes) { if (bytes < 1024) return bytes + ' B'; if (bytes < 1024*1024) return (bytes/1024).toFixed(1) + ' KB'; return (bytes/(1024*1024)).toFixed(2) + ' MB'; }
+function formatBytes(bytes) { if (bytes < 1024) return bytes + ' B'; if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB'; return (bytes / (1024 * 1024)).toFixed(2) + ' MB'; }
 function eid(id) { return document.getElementById(id); }
 function shortHash(full) { return full.substring(0, 8) + '...' + full.substring(56); }
 function setManagedInterval(key, fn, ms) {
@@ -187,7 +187,7 @@ function notify(title, msg, type = 'info', duration = 4000) {
   `;
   el.querySelector('.notif-title').textContent = title;
   el.querySelector('.notif-msg').textContent = msg;
-  el.querySelector('.notif-close').onclick = function() { el.remove(); };
+  el.querySelector('.notif-close').onclick = function () { el.remove(); };
   container.appendChild(el);
   const dot = eid('notif-dot');
   if (dot) dot.classList.add('show');
@@ -273,7 +273,7 @@ function switchView(viewName) {
 }
 
 /* ─── SUBMISSION WIZARD ───────────────────────────────────── */
-window.nextStep = function(step) {
+window.nextStep = function (step) {
   if (step === 3) {
     const roll = eid('sub-roll') ? eid('sub-roll').value.trim() : '';
     const marks = eid('sub-marks') ? eid('sub-marks').value.trim() : '';
@@ -302,13 +302,13 @@ window.nextStep = function(step) {
   state.submission.step = step;
 };
 
-window.startProcessing = function() {
+window.startProcessing = function () {
   if (state.submission.files.length === 0) return;
   nextStep(4);
   runSubmissionProcessing();
 };
 
-window.resetSubmission = function() {
+window.resetSubmission = function () {
   state.submission.files = [];
   state.submission.step = 1;
   const uploaded = eid('uploaded-files');
@@ -324,7 +324,7 @@ window.resetSubmission = function() {
   state.submission.step = 1;
 
   // Reset proc steps
-  ['validate','hash','encrypt','id','enqueue'].forEach(key => {
+  ['validate', 'hash', 'encrypt', 'id', 'enqueue'].forEach(key => {
     const step = eid(`proc-${key}`);
     if (step) { step.classList.remove('active', 'done'); step.querySelector('.proc-icon').classList.remove('active', 'done'); step.querySelector('.proc-icon').classList.add('pending'); step.querySelector('.proc-icon').textContent = '⏳'; }
     const ps = eid(`ps-${key}`);
@@ -365,7 +365,7 @@ async function runSubmissionProcessing() {
     if (pdEl && detail) pdEl.textContent = detail;
 
     setWidth('proc-progress-fill', ((i + 1) / steps.length) * 100);
-    termLog('SUCCESS', `<span>[SUBMIT] Step ${i+1}/${steps.length} — ${label}: ${detail.substring(0, 60)}</span>`);
+    termLog('SUCCESS', `<span>[SUBMIT] Step ${i + 1}/${steps.length} — ${label}: ${detail.substring(0, 60)}</span>`);
   }
 
   // Enqueue in the sim
@@ -544,7 +544,7 @@ function updateWorkerBadges() {
       const s = w.status === 'processing' || w.status === 'active' ? 'processing' : w.status;
       const c = document.createElement('div');
       c.className = 'mini-worker-card';
-      c.innerHTML = `<span class="mwc-id">W-${String(w.id).padStart(2,'0')}</span><span class="mwc-status ${s}">${s.toUpperCase()}</span>`;
+      c.innerHTML = `<span class="mwc-id">W-${String(w.id).padStart(2, '0')}</span><span class="mwc-status ${s}">${s.toUpperCase()}</span>`;
       mini.appendChild(c);
     });
   }
@@ -660,7 +660,7 @@ function updateQueueStats() {
   setWidth('psf-workers', pctWorkers);
   setWidth('psf-db', pctDB);
 
-  const rate = state.stats.throughputHistory.slice(-5).reduce((a,b) => a+b, 0) / 5;
+  const rate = state.stats.throughputHistory.slice(-5).reduce((a, b) => a + b, 0) / 5;
   setText('psc-gateway', rate.toFixed(1) + '/s');
   setText('psc-queue', depth + ' items');
   setText('psc-workers', state.workers.filter(w => w.status !== 'idle').length + ' busy');
@@ -727,7 +727,7 @@ async function processWithWorker(worker) {
       updateQueueCard(sub, pct);
     }
 
-    termLog('INFO', `<span>W-${String(worker.id).padStart(2,'0')} [${stage}] ${sub.id.substring(0, 24)}...</span>`);
+    termLog('INFO', `<span>W-${String(worker.id).padStart(2, '0')} [${stage}] ${sub.id.substring(0, 24)}...</span>`);
     await new Promise(r => setTimeout(r, duration));
   }
 
@@ -853,7 +853,7 @@ function checkAutoScale() {
       const card = document.createElement('div');
       card.id = `wcard-${w.id}`;
       card.className = 'worker-card scaled-worker';
-      card.innerHTML = `<div class="wc-header"><div class="wc-title"><span class="wc-icon">⚙️</span><span class="wc-name">Worker-${String(w.id).padStart(2,'0')} <span style="color:var(--primary);font-size:.6rem">AUTO</span></span></div><span class="wc-status-badge idle">IDLE</span></div><div class="wc-task">Stage: <span class="wc-task-name" id="wstage-${w.id}">—</span></div><div class="wc-progress"><div class="wcp-header"><span id="wctask-${w.id}">No task</span><span id="wcpct-${w.id}">0%</span></div><div class="wcp-bar"><div class="wcp-fill" id="wcpfill-${w.id}" style="width:0%"></div></div></div><div class="wc-stats"><div class="wcs"><span class="wcs-val text-success" id="wcc-${w.id}">0</span><span class="wcs-label">Done</span></div><div class="wcs"><span class="wcs-val" id="wca-${w.id}">0ms</span><span class="wcs-label">Avg Time</span></div><div class="wcs"><span class="wcs-val text-danger" id="wce-${w.id}">0</span><span class="wcs-label">Errors</span></div></div>`;
+      card.innerHTML = `<div class="wc-header"><div class="wc-title"><span class="wc-icon">⚙️</span><span class="wc-name">Worker-${String(w.id).padStart(2, '0')} <span style="color:var(--primary);font-size:.6rem">AUTO</span></span></div><span class="wc-status-badge idle">IDLE</span></div><div class="wc-task">Stage: <span class="wc-task-name" id="wstage-${w.id}">—</span></div><div class="wc-progress"><div class="wcp-header"><span id="wctask-${w.id}">No task</span><span id="wcpct-${w.id}">0%</span></div><div class="wcp-bar"><div class="wcp-fill" id="wcpfill-${w.id}" style="width:0%"></div></div></div><div class="wc-stats"><div class="wcs"><span class="wcs-val text-success" id="wcc-${w.id}">0</span><span class="wcs-label">Done</span></div><div class="wcs"><span class="wcs-val" id="wca-${w.id}">0ms</span><span class="wcs-label">Avg Time</span></div><div class="wcs"><span class="wcs-val text-danger" id="wce-${w.id}">0</span><span class="wcs-label">Errors</span></div></div>`;
       grid.appendChild(card);
     }
     const notice = eid('autoscale-notice');
@@ -922,7 +922,7 @@ function startSimulation() {
     setText('topbar-clock', formatTime());
   }, 1000);
 
-// Sparklines
+  // Sparklines
   setManagedInterval('sparklines', () => {
     updateSparklines();
   }, 5000);
@@ -982,7 +982,7 @@ function updateKPIs() {
   state.sparkData.total = last;
   state.sparkData.queue = state.stats.queueDepthHistory.slice(-10);
   const avg = state.stats.processTimes.slice(-10);
-  state.sparkData.speed = avg.length > 0 ? [avg[avg.length-1]] : [];
+  state.sparkData.speed = avg.length > 0 ? [avg[avg.length - 1]] : [];
 
   // Session stats
   setText('stat-total', state.stats.totalSubmitted.toLocaleString());
@@ -993,7 +993,7 @@ function updateKPIs() {
   setText('stat-spikes', state.simulation.spikesCount);
   if (state.stats.processTimes.length > 0) {
     const a = state.stats.processTimes;
-    setText('stat-avgtime', Math.round(a.reduce((x,y) => x+y, 0) / a.length) + 'ms');
+    setText('stat-avgtime', Math.round(a.reduce((x, y) => x + y, 0) / a.length) + 'ms');
   }
 
   // Login screen total counter animation
@@ -1252,7 +1252,7 @@ function updateSparklines() {
     });
     ctx.stroke();
 
-  // Fill
+    // Fill
     ctx.lineTo((data.length - 1) * step, H);
     ctx.lineTo(0, H);
     ctx.closePath();
@@ -1409,7 +1409,7 @@ function initAdminControls() {
     const w = createWorker(newId, true);
     state.workers.push(w);
     renderWorkers();
-    notify('Worker Added', `Worker-${String(newId).padStart(2,'0')} spawned`, 'success', 2000);
+    notify('Worker Added', `Worker-${String(newId).padStart(2, '0')} spawned`, 'success', 2000);
     termLog('INFO', `<span>MANUAL SPAWN: Worker-${newId} added by admin</span>`);
     logAuditEvent('scale-worker', `Manually spawned Worker-${newId}`);
   };
@@ -1422,7 +1422,7 @@ function initAdminControls() {
     state.workers = state.workers.filter(x => x.id !== w.id);
     const card = eid(`wcard-${w.id}`);
     if (card) card.remove();
-    notify('Worker Terminated', `Worker-${String(w.id).padStart(2,'0')} shut down`, 'info', 2000);
+    notify('Worker Terminated', `Worker-${String(w.id).padStart(2, '0')} shut down`, 'info', 2000);
     updateWorkerBadges();
     logAuditEvent('scale-worker', `Manually terminated Worker-${w.id}`);
   };
@@ -1565,60 +1565,60 @@ function initLogin() {
       // Try secure backend login first
       fetch('/api/auth/login', {
         method: 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'x-csrf-token': csrfToken
         },
         body: JSON.stringify({ email, password: pass })
       })
-      .then(async response => {
-        if (!response.ok) {
-          const data = await response.json().catch(() => ({}));
-          throw new Error(data.error || 'Authentication failed');
-        }
-        return response.json();
-      })
-      .then(data => {
-        if (spinner) spinner.classList.add('hidden');
-        if (btnText) btnText.textContent = 'Sign In Securely';
-        if (loginBtn) loginBtn.disabled = false;
-        if (demoBtn) demoBtn.disabled = false;
-
-        activeRole = data.user.roleKey;
-        doLoginSuccess(data.user, data.user.roleKey);
-      })
-      .catch(err => {
-        // If it's a validation/credentials failure from backend, show error
-        if (err.message === 'Invalid credentials' || err.message === 'A valid email address is required' || err.message === 'Password is required') {
+        .then(async response => {
+          if (!response.ok) {
+            const data = await response.json().catch(() => ({}));
+            throw new Error(data.error || 'Authentication failed');
+          }
+          return response.json();
+        })
+        .then(data => {
           if (spinner) spinner.classList.add('hidden');
           if (btnText) btnText.textContent = 'Sign In Securely';
           if (loginBtn) loginBtn.disabled = false;
           if (demoBtn) demoBtn.disabled = false;
-          if (errEmail) errEmail.textContent = err.message;
-          return;
-        }
 
-        // Otherwise (network error/404), fallback to local simulation
-        console.warn('[EvalSync API] Backend offline/static environment. Falling back to local client simulation.', err);
+          activeRole = data.user.roleKey;
+          doLoginSuccess(data.user, data.user.roleKey);
+        })
+        .catch(err => {
+          // If it's a validation/credentials failure from backend, show error
+          if (err.message === 'Invalid credentials' || err.message === 'A valid email address is required' || err.message === 'Password is required') {
+            if (spinner) spinner.classList.add('hidden');
+            if (btnText) btnText.textContent = 'Sign In Securely';
+            if (loginBtn) loginBtn.disabled = false;
+            if (demoBtn) demoBtn.disabled = false;
+            if (errEmail) errEmail.textContent = err.message;
+            return;
+          }
 
-        const matchedRoleKey = Object.keys(ROLES).find(key => {
-          const r = ROLES[key];
-          return r.email === email && r.pass === pass;
+          // Otherwise (network error/404), fallback to local simulation
+          console.warn('[EvalSync API] Backend offline/static environment. Falling back to local client simulation.', err);
+
+          const matchedRoleKey = Object.keys(ROLES).find(key => {
+            const r = ROLES[key];
+            return r.email === email && r.pass === pass;
+          });
+
+          if (spinner) spinner.classList.add('hidden');
+          if (btnText) btnText.textContent = 'Sign In Securely';
+          if (loginBtn) loginBtn.disabled = false;
+          if (demoBtn) demoBtn.disabled = false;
+
+          if (!matchedRoleKey) {
+            if (errEmail) errEmail.textContent = 'Invalid credentials. Use the demo credentials shown above.';
+            return;
+          }
+
+          activeRole = matchedRoleKey;
+          doLogin(email, pass, matchedRoleKey);
         });
-
-        if (spinner) spinner.classList.add('hidden');
-        if (btnText) btnText.textContent = 'Sign In Securely';
-        if (loginBtn) loginBtn.disabled = false;
-        if (demoBtn) demoBtn.disabled = false;
-
-        if (!matchedRoleKey) {
-          if (errEmail) errEmail.textContent = 'Invalid credentials. Use the demo credentials shown above.';
-          return;
-        }
-
-        activeRole = matchedRoleKey;
-        doLogin(email, pass, matchedRoleKey);
-      });
     };
   }
 }
@@ -1674,9 +1674,9 @@ function doLogin(email, pass, roleKey) {
       name: role.name,
       initials: role.initials,
       role: role.label,
-      id: `${roleKey.toUpperCase()}-${pick(REGIONS)}-${rand(1000,9999)}-2024`,
+      id: `${roleKey.toUpperCase()}-${pick(REGIONS)}-${rand(1000, 9999)}-2024`,
       subject: 'Mathematics (041)',
-      center: `${pick(REGIONS)}-${rand(1000,9999)}`,
+      center: `${pick(REGIONS)}-${rand(1000, 9999)}`,
     };
 
     if (spinner) spinner.classList.add('hidden');
@@ -1689,7 +1689,7 @@ function doLogin(email, pass, roleKey) {
 }
 
 function doLogout() {
-  fetch('/api/auth/logout', { 
+  fetch('/api/auth/logout', {
     method: 'POST',
     headers: { 'x-csrf-token': csrfToken }
   })
@@ -1720,7 +1720,7 @@ window.doLoginSuccess = doLoginSuccess;
 function logAuditEvent(action, details) {
   fetch('/api/audit/log', {
     method: 'POST',
-    headers: { 
+    headers: {
       'Content-Type': 'application/json',
       'x-csrf-token': csrfToken
     },
@@ -1878,7 +1878,7 @@ const ROLES = {
     label: '👑 Super Admin', cls: 'superadmin',
     email: 'superadmin@cbse.gov.in', pass: 'SuperAdmin@2024',
     name: 'Dr. Arvind Kumar', initials: 'AK',
-    allowedViews: ['dashboard','submit','queue','workers','analytics','security','database','admin','health','dlq','audit','loadbalancer','prediction','metrics','testing','mysubmissions'],
+    allowedViews: ['dashboard', 'submit', 'queue', 'workers', 'analytics', 'security', 'database', 'admin', 'health', 'dlq', 'audit', 'loadbalancer', 'prediction', 'metrics', 'testing', 'mysubmissions'],
     defaultView: 'dashboard', readOnly: false,
     description: 'Full system access — all modules unlocked',
   },
@@ -1887,7 +1887,7 @@ const ROLES = {
     label: '📡 Monitor', cls: 'monitor',
     email: 'monitor@cbse.gov.in', pass: 'Monitor@2024',
     name: 'Sanjay Patel', initials: 'SP',
-    allowedViews: ['dashboard','queue','workers','analytics','health','loadbalancer','prediction','metrics','testing','database','dlq','audit','security'],
+    allowedViews: ['dashboard', 'queue', 'workers', 'analytics', 'health', 'loadbalancer', 'prediction', 'metrics', 'testing', 'database', 'dlq', 'audit', 'security'],
     defaultView: 'dashboard', readOnly: true,
     description: 'Read-only monitoring — all views, zero write access',
   },
@@ -1978,21 +1978,21 @@ function startSessionTimer() {
 const p2State = {
   dlq: [], dlqRetried: 0, dlqRecovered: 0,
   auditEntries: [], auditCounter: 0,
-  healthLatencyHistory: { gateway:[], queue:[], workers:[], encrypt:[], db:[], replica:[] },
-  predictionHistory: { actual:[], predicted:[], labels:[] },
+  healthLatencyHistory: { gateway: [], queue: [], workers: [], encrypt: [], db: [], replica: [] },
+  predictionHistory: { actual: [], predicted: [], labels: [] },
   peakPrediction: null,
   scalingEvents: [],
-  perfMetrics: { fast:0, med:0, slow:0, peakThroughput:0, waitTimes:[], p99:0 },
+  perfMetrics: { fast: 0, med: 0, slow: 0, peakThroughput: 0, waitTimes: [], p99: 0 },
   chaosActive: null, _lastWorkerCount: 6,
 };
-const FAKE_IPS = ['103.25.41.12','49.248.17.5','122.176.90.33','59.91.18.4','182.64.23.17','115.97.40.2'];
+const FAKE_IPS = ['103.25.41.12', '49.248.17.5', '122.176.90.33', '59.91.18.4', '182.64.23.17', '115.97.40.2'];
 
 /* ─── SMART ALERTS ────────────────────────────────────────── */
-const alertState = { workerFail:false, queueOverload:false };
+const alertState = { workerFail: false, queueOverload: false };
 function checkSmartAlerts() {
   state.workers.filter(w => w.errors > 3 && !w._alertFired).forEach(w => {
     w._alertFired = true;
-    notify('⚙️ Worker Alert', `Worker-${String(w.id).padStart(2,'0')} has ${w.errors} errors`, 'warning', 6000);
+    notify('⚙️ Worker Alert', `Worker-${String(w.id).padStart(2, '0')} has ${w.errors} errors`, 'warning', 6000);
     addIncident('warning', `Worker-${w.id} error rate high`, 'WORKER');
   });
   const qDepth = state.queue.incoming.length + state.queue.processing.length;
@@ -2018,28 +2018,28 @@ function addIncident(type, msg, src) {
 
 /* ─── DEAD LETTER QUEUE ───────────────────────────────────── */
 function moveToDLQ(sub) {
-  const reasons = ['Hash mismatch','Encryption timeout','DB write failed','Validation error','Network timeout'];
+  const reasons = ['Hash mismatch', 'Encryption timeout', 'DB write failed', 'Validation error', 'Network timeout'];
   p2State.dlq.push({ ...sub, dlqEnteredAt: new Date(), failureReason: pick(reasons) });
   renderDLQ();
-  notify('☠️ Dead Letter Queue', `${sub.id.substring(0,18)}... sent to DLQ`, 'error', 5000);
+  notify('☠️ Dead Letter Queue', `${sub.id.substring(0, 18)}... sent to DLQ`, 'error', 5000);
 }
 function renderDLQ() {
   const tbody = eid('dlq-tbody');
   if (!tbody) return;
   tbody.innerHTML = p2State.dlq.length === 0
     ? `<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:2rem">☠️ No items in Dead Letter Queue</td></tr>`
-    : p2State.dlq.map((item, idx) => `<tr><td><code>${item.id.substring(0,22)}...</code></td><td>${item.subject}</td><td>${item.roll}</td><td style="color:var(--danger);font-weight:700">${item.retryCount}/3</td><td style="color:var(--warning)">${item.failureReason}</td><td>${item.dlqEnteredAt.toLocaleTimeString()}</td><td><button class="dlq-action-btn retry" onclick="retryFromDLQ(${idx})">🔄 Retry</button><button class="dlq-action-btn delete" onclick="deleteFromDLQ(${idx})">🗑 Del</button></td></tr>`).join('');
+    : p2State.dlq.map((item, idx) => `<tr><td><code>${item.id.substring(0, 22)}...</code></td><td>${item.subject}</td><td>${item.roll}</td><td style="color:var(--danger);font-weight:700">${item.retryCount}/3</td><td style="color:var(--warning)">${item.failureReason}</td><td>${item.dlqEnteredAt.toLocaleTimeString()}</td><td><button class="dlq-action-btn retry" onclick="retryFromDLQ(${idx})">🔄 Retry</button><button class="dlq-action-btn delete" onclick="deleteFromDLQ(${idx})">🗑 Del</button></td></tr>`).join('');
   setText('dlqs-total', p2State.dlq.length); setText('dlqs-retried', p2State.dlqRetried); setText('nb-dlq', p2State.dlq.length);
   const badge = eid('dlq-count-badge'); if (badge) badge.textContent = p2State.dlq.length + ' items';
 }
-window.retryFromDLQ = (idx) => { const item = p2State.dlq[idx]; if (!item) return; item.retryCount = 0; state.queue.incoming.push(item); p2State.dlq.splice(idx,1); p2State.dlqRetried++; renderDLQ(); notify('🔄 DLQ Retry', `Re-queued`, 'info', 3000); };
-window.deleteFromDLQ = (idx) => { p2State.dlq.splice(idx,1); renderDLQ(); };
+window.retryFromDLQ = (idx) => { const item = p2State.dlq[idx]; if (!item) return; item.retryCount = 0; state.queue.incoming.push(item); p2State.dlq.splice(idx, 1); p2State.dlqRetried++; renderDLQ(); notify('🔄 DLQ Retry', `Re-queued`, 'info', 3000); };
+window.deleteFromDLQ = (idx) => { p2State.dlq.splice(idx, 1); renderDLQ(); };
 
 /* ─── SYSTEM HEALTH ───────────────────────────────────────── */
 function initSystemHealth() {
   buildUptimeBars();
   // Initialise healthStatus
-  if (!p2State.healthStatus) p2State.healthStatus = { gateway:'OPERATIONAL', queue:'OPERATIONAL', workers:'OPERATIONAL', encrypt:'OPERATIONAL', db:'OPERATIONAL', replica:'OPERATIONAL' };
+  if (!p2State.healthStatus) p2State.healthStatus = { gateway: 'OPERATIONAL', queue: 'OPERATIONAL', workers: 'OPERATIONAL', encrypt: 'OPERATIONAL', db: 'OPERATIONAL', replica: 'OPERATIONAL' };
   setManagedInterval('systemHealth', () => { updateWorkerCPUGrid(); drawHealthLatencyChart(); updateSvcLatencies(); updateHealthCards(); }, 2000);
 }
 
@@ -2048,9 +2048,9 @@ function updateHealthCards() {
   if (!p2State.healthStatus) return;
   const statusText = { OPERATIONAL: 'OPERATIONAL', WARNING: 'DEGRADED', CRITICAL: 'CRITICAL', OFFLINE: 'OFFLINE' };
   const statusColor = { OPERATIONAL: 'var(--success)', WARNING: 'var(--warning)', CRITICAL: 'var(--danger)', OFFLINE: 'var(--danger)' };
-  const cardBg = { OPERATIONAL: ['',''], WARNING: ['rgba(245,158,11,0.5)','rgba(245,158,11,0.04)'], CRITICAL: ['rgba(244,63,94,0.6)','rgba(244,63,94,0.06)'], OFFLINE: ['rgba(244,63,94,0.6)','rgba(244,63,94,0.06)'] };
+  const cardBg = { OPERATIONAL: ['', ''], WARNING: ['rgba(245,158,11,0.5)', 'rgba(245,158,11,0.04)'], CRITICAL: ['rgba(244,63,94,0.6)', 'rgba(244,63,94,0.06)'], OFFLINE: ['rgba(244,63,94,0.6)', 'rgba(244,63,94,0.06)'] };
 
-  const svcMap = { gateway:'gateway', queue:'queue', workers:'workers', encrypt:'encrypt', db:'db', replica:'replica' };
+  const svcMap = { gateway: 'gateway', queue: 'queue', workers: 'workers', encrypt: 'encrypt', db: 'db', replica: 'replica' };
 
   Object.entries(svcMap).forEach(([svc, key]) => {
     const statusKey = p2State.healthStatus[svc] || 'OPERATIONAL';
@@ -2062,7 +2062,7 @@ function updateHealthCards() {
       statusEl.className = `svc-status ${statusKey === 'OPERATIONAL' ? 'ok' : statusKey === 'WARNING' ? 'warn' : 'fail'}`;
     }
     if (card) {
-      const [bc, bg] = cardBg[statusKey] || ['',''];
+      const [bc, bg] = cardBg[statusKey] || ['', ''];
       card.style.borderColor = bc; card.style.background = bg;
       // Pulse animation on critical
       if (statusKey === 'CRITICAL') { card.style.animation = 'pulse 1s infinite'; }
@@ -2090,7 +2090,7 @@ function updateHealthCards() {
     if (!hist || hist.length === 0) return;
     const latest = hist[hist.length - 1];
     const el = eid(`svcl-${svc}`); if (!el) return;
-    el.textContent = latest > 999 ? (latest/1000).toFixed(1)+'s' : latest + 'ms';
+    el.textContent = latest > 999 ? (latest / 1000).toFixed(1) + 's' : latest + 'ms';
     el.style.color = latest > 1000 ? 'var(--danger)' : latest > 300 ? 'var(--warning)' : 'var(--success)';
     el.style.fontWeight = latest > 300 ? '700' : '';
   });
@@ -2110,7 +2110,7 @@ function buildUptimeBars() {
   for (let i = 0; i < 90; i++) { const r = Math.random(); const bar = document.createElement('div'); bar.className = `uptime-bar ${r > 0.02 ? 'up' : r > 0.01 ? 'partial' : 'down'}`; row.appendChild(bar); }
 }
 function updateSvcLatencies() {
-  const base = { gateway:12, queue:8, workers:2, encrypt:3, db:22, replica:34 };
+  const base = { gateway: 12, queue: 8, workers: 2, encrypt: 3, db: 22, replica: 34 };
   Object.entries(base).forEach(([svc, v]) => {
     const lat = v + rand(-3, 8);
     setText(`svcl-${svc}`, lat + 'ms');
@@ -2118,43 +2118,43 @@ function updateSvcLatencies() {
     p2State.healthLatencyHistory[svc].push(lat);
     if (p2State.healthLatencyHistory[svc].length > 30) p2State.healthLatencyHistory[svc].shift();
   });
-  setText('repl-r1', rand(8,20) + 'ms lag'); setText('repl-r2', rand(20,45) + 'ms lag');
+  setText('repl-r1', rand(8, 20) + 'ms lag'); setText('repl-r2', rand(20, 45) + 'ms lag');
 }
 function updateWorkerCPUGrid() {
   const grid = eid('worker-cpu-grid'); if (!grid) return;
   grid.innerHTML = state.workers.slice(0, 12).map(w => {
-    const cpu = w.status === 'idle' ? rand(2,15) : rand(40,90);
+    const cpu = w.status === 'idle' ? rand(2, 15) : rand(40, 90);
     const color = cpu > 70 ? 'var(--danger)' : cpu > 40 ? 'var(--warning)' : 'var(--success)';
-    return `<div class="wcpu-card"><span class="wcpu-name">W-${String(w.id).padStart(2,'0')}</span><span class="wcpu-val" style="color:${color}">${cpu}%</span><div class="wcpu-bar"><div class="wcpu-fill" style="width:${cpu}%;background:${color}"></div></div></div>`;
+    return `<div class="wcpu-card"><span class="wcpu-name">W-${String(w.id).padStart(2, '0')}</span><span class="wcpu-val" style="color:${color}">${cpu}%</span><div class="wcpu-bar"><div class="wcpu-fill" style="width:${cpu}%;background:${color}"></div></div></div>`;
   }).join('');
 }
 function drawHealthLatencyChart() {
   const canvas = eid('health-latency-chart'); if (!canvas) return;
-  const ctx = canvas.getContext('2d'); const W=canvas.width, H=canvas.height; ctx.clearRect(0,0,W,H);
-  const colors = { gateway:'#6366f1', queue:'#06b6d4', encrypt:'#10b981', db:'#f59e0b', replica:'#a855f7' };
+  const ctx = canvas.getContext('2d'); const W = canvas.width, H = canvas.height; ctx.clearRect(0, 0, W, H);
+  const colors = { gateway: '#6366f1', queue: '#06b6d4', encrypt: '#10b981', db: '#f59e0b', replica: '#a855f7' };
   Object.entries(colors).forEach(([svc, color]) => {
     const hist = p2State.healthLatencyHistory[svc] || [];
     if (hist.length < 2) return;
     ctx.beginPath(); ctx.strokeStyle = color; ctx.lineWidth = 1.5; ctx.globalAlpha = 0.8;
-    hist.forEach((v, i) => { const x=(i/(hist.length-1))*W, y=H-(v/60)*H; i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y); });
+    hist.forEach((v, i) => { const x = (i / (hist.length - 1)) * W, y = H - (v / 60) * H; i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y); });
     ctx.stroke(); ctx.globalAlpha = 1;
   });
 }
 
 /* ─── LOAD BALANCER ───────────────────────────────────────── */
-function initLoadBalancer() { setManagedInterval('loadBalancer', () => { if (state.currentView==='loadbalancer') updateLoadBalancerView(); }, 1500); }
+function initLoadBalancer() { setManagedInterval('loadBalancer', () => { if (state.currentView === 'loadbalancer') updateLoadBalancerView(); }, 1500); }
 function updateLoadBalancerView() {
   const qDepth = state.queue.incoming.length;
-  const rps = state.stats.throughputHistory.slice(-3).reduce((a,b)=>a+b,0)/3;
-  setText('lb-rps', rps.toFixed(1)+' req/s'); setText('lb-qdepth', qDepth+' items'); setText('lb-dbrecs', state.database.totalRecords.toLocaleString()+' records');
-  setText('lbsr-workers', state.workers.length); setText('lbsr-rps', rps.toFixed(1)); setText('lbsr-resp', rand(80,250)+'ms');
+  const rps = state.stats.throughputHistory.slice(-3).reduce((a, b) => a + b, 0) / 3;
+  setText('lb-rps', rps.toFixed(1) + ' req/s'); setText('lb-qdepth', qDepth + ' items'); setText('lb-dbrecs', state.database.totalRecords.toLocaleString() + ' records');
+  setText('lbsr-workers', state.workers.length); setText('lbsr-rps', rps.toFixed(1)); setText('lbsr-resp', rand(80, 250) + 'ms');
   const workerRow = eid('lb-workers-row');
   if (workerRow) workerRow.innerHTML = state.workers.map(w => {
     const isOffline = w.status === 'OFFLINE';
-    const cls = isOffline ? 'offline-lb' : (w.status==='idle' || w.status==='IDLE') ? '' : 'busy-lb';
-    const load = isOffline ? 0 : (w.status==='idle'||w.status==='IDLE') ? rand(2,15) : rand(45,92);
+    const cls = isOffline ? 'offline-lb' : (w.status === 'idle' || w.status === 'IDLE') ? '' : 'busy-lb';
+    const load = isOffline ? 0 : (w.status === 'idle' || w.status === 'IDLE') ? rand(2, 15) : rand(45, 92);
     const color = isOffline ? 'var(--danger)' : load > 70 ? 'var(--warning)' : '';
-    return `<div class="lb-worker-box ${cls}" style="${color ? 'border-color:'+color : ''}">W-${String(w.id).padStart(2,'0')}<span class="lb-worker-load" style="${color?'color:'+color:''}">${isOffline?'DEAD':load+'%'}</span></div>`;
+    return `<div class="lb-worker-box ${cls}" style="${color ? 'border-color:' + color : ''}">W-${String(w.id).padStart(2, '0')}<span class="lb-worker-load" style="${color ? 'color:' + color : ''}">${isOffline ? 'DEAD' : load + '%'}</span></div>`;
   }).join('');
 
   if (state.workers.length !== p2State._lastWorkerCount) {
@@ -2162,7 +2162,7 @@ function updateLoadBalancerView() {
     const evt = document.createElement('div');
     evt.className = 'scale-event';
     const icon = diff > 0 ? '📈 AUTO-SCALE ↑' : '📉 SCALE-DOWN ↓';
-    evt.innerHTML = `<span style="color:${diff>0?'var(--success)':'var(--warning)'}">${icon}</span> ${formatTime()} — Pool: ${p2State._lastWorkerCount} → <strong>${state.workers.length}</strong> workers`;
+    evt.innerHTML = `<span style="color:${diff > 0 ? 'var(--success)' : 'var(--warning)'}">${icon}</span> ${formatTime()} — Pool: ${p2State._lastWorkerCount} → <strong>${state.workers.length}</strong> workers`;
     const list = eid('scaling-events');
     if (list) { list.insertBefore(evt, list.firstChild); if (list.children.length > 20) list.lastChild.remove(); }
   }
@@ -2172,148 +2172,148 @@ function updateLoadBalancerView() {
 
 function drawLBDistChart() {
   const canvas = eid('lb-dist-chart'); if (!canvas) return;
-  const ctx = canvas.getContext('2d'); const W=canvas.width, H=canvas.height; ctx.clearRect(0,0,W,H);
+  const ctx = canvas.getContext('2d'); const W = canvas.width, H = canvas.height; ctx.clearRect(0, 0, W, H);
   const workers = state.workers; if (!workers.length) return;
-  const total = workers.reduce((a,w)=>a+Math.max(w.tasksCompleted,1),0);
-  const colors = ['#6366f1','#06b6d4','#10b981','#f59e0b','#a855f7','#f43f5e','#3b82f6','#ec4899'];
-  const cx=W/2, cy=H/2, r=Math.min(W,H)*0.35; let start=-Math.PI/2;
-  workers.slice(0,8).forEach((w,i)=>{ const share=w.tasksCompleted/total; const angle=share*Math.PI*2; ctx.beginPath(); ctx.moveTo(cx,cy); ctx.arc(cx,cy,r,start,start+angle); ctx.closePath(); ctx.fillStyle=colors[i%colors.length]; ctx.globalAlpha=0.8; ctx.fill(); ctx.globalAlpha=1; start+=angle; });
-  ctx.fillStyle='rgba(255,255,255,0.8)'; ctx.font='bold 13px Inter'; ctx.textAlign='center'; ctx.fillText(workers.length+' Workers',cx,cy-5);
-  ctx.font='10px Inter'; ctx.fillStyle='rgba(255,255,255,0.4)'; ctx.fillText('Even Load',cx,cy+12);
+  const total = workers.reduce((a, w) => a + Math.max(w.tasksCompleted, 1), 0);
+  const colors = ['#6366f1', '#06b6d4', '#10b981', '#f59e0b', '#a855f7', '#f43f5e', '#3b82f6', '#ec4899'];
+  const cx = W / 2, cy = H / 2, r = Math.min(W, H) * 0.35; let start = -Math.PI / 2;
+  workers.slice(0, 8).forEach((w, i) => { const share = w.tasksCompleted / total; const angle = share * Math.PI * 2; ctx.beginPath(); ctx.moveTo(cx, cy); ctx.arc(cx, cy, r, start, start + angle); ctx.closePath(); ctx.fillStyle = colors[i % colors.length]; ctx.globalAlpha = 0.8; ctx.fill(); ctx.globalAlpha = 1; start += angle; });
+  ctx.fillStyle = 'rgba(255,255,255,0.8)'; ctx.font = 'bold 13px Inter'; ctx.textAlign = 'center'; ctx.fillText(workers.length + ' Workers', cx, cy - 5);
+  ctx.font = '10px Inter'; ctx.fillStyle = 'rgba(255,255,255,0.4)'; ctx.fillText('Even Load', cx, cy + 12);
 }
 
 /* ─── AI PREDICTION ───────────────────────────────────────── */
 function initAIPrediction() {
   if (p2State.predictionHistory.actual.length === 0) {
-    for (let i=0; i<20; i++) { p2State.predictionHistory.actual.push(rand(2,15)); p2State.predictionHistory.labels.push(`-${20-i}m`); }
+    for (let i = 0; i < 20; i++) { p2State.predictionHistory.actual.push(rand(2, 15)); p2State.predictionHistory.labels.push(`-${20 - i}m`); }
   }
   updateAIPrediction(); setManagedInterval('aiPrediction', updateAIPrediction, 5000);
 }
 function updateAIPrediction() {
   const qDepth = state.queue.incoming.length;
-  const actual = qDepth + rand(0,5);
+  const actual = qDepth + rand(0, 5);
   p2State.predictionHistory.actual.push(actual);
   if (p2State.predictionHistory.actual.length > 30) p2State.predictionHistory.actual.shift();
-  const forecast=[]; let base=actual;
-  for (let i=0; i<30; i++) { base+=( Math.random()-0.4)*5; base=Math.max(0,base); forecast.push(Math.round(base)); }
+  const forecast = []; let base = actual;
+  for (let i = 0; i < 30; i++) { base += (Math.random() - 0.4) * 5; base = Math.max(0, base); forecast.push(Math.round(base)); }
   p2State.predictionHistory.predicted = forecast;
-  const peakIdx = forecast.indexOf(Math.max(...forecast)); const peakLoad=forecast[peakIdx]; const peakMins=peakIdx+1;
-  p2State.peakPrediction = { mins:peakMins, load:peakLoad, workers:Math.ceil(peakLoad/3+2) };
+  const peakIdx = forecast.indexOf(Math.max(...forecast)); const peakLoad = forecast[peakIdx]; const peakMins = peakIdx + 1;
+  p2State.peakPrediction = { mins: peakMins, load: peakLoad, workers: Math.ceil(peakLoad / 3 + 2) };
   const isPeak = peakLoad > 30;
-  const alertEl = eid('prediction-alert'); if (alertEl) alertEl.className=`prediction-alert ${isPeak?'alert':peakLoad>15?'warning':''}`;
-  setText('pa-icon', isPeak?'🚨':peakLoad>15?'⚠️':'🤖');
-  setText('pa-title', isPeak?`Peak load expected in ${peakMins} min!`:peakLoad>15?`Moderate traffic in ${peakMins} min`:'Traffic nominal — system stable');
-  setText('pa-detail', `Confidence: ${rand(88,97)}% · LSTM+ARIMA · Peak: ${peakLoad} req/s`);
-  setText('pa-confidence', rand(88,97)+'%');
-  setText('pt-val', peakMins+' min'); setText('psi-load', peakLoad+' req/s');
-  setText('psi-workers', p2State.peakPrediction.workers+' recommended'); setText('psi-qdepth', Math.round(peakLoad*2.5)+' items'); setText('psi-confidence', rand(88,97)+'%');
+  const alertEl = eid('prediction-alert'); if (alertEl) alertEl.className = `prediction-alert ${isPeak ? 'alert' : peakLoad > 15 ? 'warning' : ''}`;
+  setText('pa-icon', isPeak ? '🚨' : peakLoad > 15 ? '⚠️' : '🤖');
+  setText('pa-title', isPeak ? `Peak load expected in ${peakMins} min!` : peakLoad > 15 ? `Moderate traffic in ${peakMins} min` : 'Traffic nominal — system stable');
+  setText('pa-detail', `Confidence: ${rand(88, 97)}% · LSTM+ARIMA · Peak: ${peakLoad} req/s`);
+  setText('pa-confidence', rand(88, 97) + '%');
+  setText('pt-val', peakMins + ' min'); setText('psi-load', peakLoad + ' req/s');
+  setText('psi-workers', p2State.peakPrediction.workers + ' recommended'); setText('psi-qdepth', Math.round(peakLoad * 2.5) + ' items'); setText('psi-confidence', rand(88, 97) + '%');
   const wOK = state.workers.length >= p2State.peakPrediction.workers;
-  updateRecBadge('rec-workers-body','rec-workers-badge', wOK?`${state.workers.length} workers sufficient`:`Need ${p2State.peakPrediction.workers} (have ${state.workers.length})`, wOK?'ok':'action', wOK?'✅ OK':`⬆ +${p2State.peakPrediction.workers-state.workers.length}`);
-  updateRecBadge('rec-queue-body','rec-queue-badge',`Buffer: ${Math.round(peakLoad*3)} item cap`, peakLoad>20?'warn':'ok', peakLoad>20?'⚠ Monitor':'✅ OK');
-  updateRecBadge('rec-db-body','rec-db-badge',`${rand(15,30)} DB connections needed`,'ok','✅ Ready');
-  updateRecBadge('rec-scale-body','rec-scale-badge',peakMins<=5?'Scale NOW — peak imminent':`Scale in ${peakMins-2} min`, peakMins<=5?'action':'warn', peakMins<=5?'🚨 Now':`⏱ ${peakMins-2}m`);
+  updateRecBadge('rec-workers-body', 'rec-workers-badge', wOK ? `${state.workers.length} workers sufficient` : `Need ${p2State.peakPrediction.workers} (have ${state.workers.length})`, wOK ? 'ok' : 'action', wOK ? '✅ OK' : `⬆ +${p2State.peakPrediction.workers - state.workers.length}`);
+  updateRecBadge('rec-queue-body', 'rec-queue-badge', `Buffer: ${Math.round(peakLoad * 3)} item cap`, peakLoad > 20 ? 'warn' : 'ok', peakLoad > 20 ? '⚠ Monitor' : '✅ OK');
+  updateRecBadge('rec-db-body', 'rec-db-badge', `${rand(15, 30)} DB connections needed`, 'ok', '✅ Ready');
+  updateRecBadge('rec-scale-body', 'rec-scale-badge', peakMins <= 5 ? 'Scale NOW — peak imminent' : `Scale in ${peakMins - 2} min`, peakMins <= 5 ? 'action' : 'warn', peakMins <= 5 ? '🚨 Now' : `⏱ ${peakMins - 2}m`);
   drawPredictionChart();
 }
 function updateRecBadge(bodyId, badgeId, body, cls, text) {
   setText(bodyId, body);
-  const el = eid(badgeId); if (!el) return; el.className=`rec-badge ${cls}`; el.textContent=text;
+  const el = eid(badgeId); if (!el) return; el.className = `rec-badge ${cls}`; el.textContent = text;
 }
 function drawPredictionChart() {
   const canvas = eid('prediction-chart'); if (!canvas) return;
-  const ctx = canvas.getContext('2d'); const W=canvas.width, H=canvas.height; ctx.clearRect(0,0,W,H);
-  const actual=p2State.predictionHistory.actual; const predicted=p2State.predictionHistory.predicted;
-  const allVals=[...actual,...predicted]; const maxVal=Math.max(...allVals,10);
-  const total=actual.length+predicted.length;
-  const toX=(i)=>(i/(total-1))*W; const toY=(v)=>H-20-(v/maxVal)*(H-30);
+  const ctx = canvas.getContext('2d'); const W = canvas.width, H = canvas.height; ctx.clearRect(0, 0, W, H);
+  const actual = p2State.predictionHistory.actual; const predicted = p2State.predictionHistory.predicted;
+  const allVals = [...actual, ...predicted]; const maxVal = Math.max(...allVals, 10);
+  const total = actual.length + predicted.length;
+  const toX = (i) => (i / (total - 1)) * W; const toY = (v) => H - 20 - (v / maxVal) * (H - 30);
   // Confidence band
   ctx.beginPath();
-  predicted.forEach((v,i)=>{ const x=toX(actual.length+i), y=toY(v*1.2); i===0?ctx.moveTo(x,y):ctx.lineTo(x,y); });
-  for (let i=predicted.length-1;i>=0;i--) ctx.lineTo(toX(actual.length+i), toY(predicted[i]*0.8));
-  ctx.closePath(); ctx.fillStyle='rgba(244,63,94,0.06)'; ctx.fill();
+  predicted.forEach((v, i) => { const x = toX(actual.length + i), y = toY(v * 1.2); i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y); });
+  for (let i = predicted.length - 1; i >= 0; i--) ctx.lineTo(toX(actual.length + i), toY(predicted[i] * 0.8));
+  ctx.closePath(); ctx.fillStyle = 'rgba(244,63,94,0.06)'; ctx.fill();
   // Actual
-  ctx.beginPath(); ctx.strokeStyle='#6366f1'; ctx.lineWidth=2;
-  actual.forEach((v,i)=>{ const x=toX(i),y=toY(v); i===0?ctx.moveTo(x,y):ctx.lineTo(x,y); }); ctx.stroke();
+  ctx.beginPath(); ctx.strokeStyle = '#6366f1'; ctx.lineWidth = 2;
+  actual.forEach((v, i) => { const x = toX(i), y = toY(v); i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y); }); ctx.stroke();
   // Predicted dashed
-  ctx.beginPath(); ctx.strokeStyle='#f59e0b'; ctx.lineWidth=2; ctx.setLineDash([5,3]);
-  predicted.forEach((v,i)=>{ const x=toX(actual.length+i),y=toY(v); i===0?ctx.moveTo(x,y):ctx.lineTo(x,y); }); ctx.stroke(); ctx.setLineDash([]);
+  ctx.beginPath(); ctx.strokeStyle = '#f59e0b'; ctx.lineWidth = 2; ctx.setLineDash([5, 3]);
+  predicted.forEach((v, i) => { const x = toX(actual.length + i), y = toY(v); i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y); }); ctx.stroke(); ctx.setLineDash([]);
   // Divider
-  const divX=toX(actual.length-1); ctx.beginPath(); ctx.strokeStyle='rgba(255,255,255,0.15)'; ctx.lineWidth=1; ctx.setLineDash([3,3]); ctx.moveTo(divX,0); ctx.lineTo(divX,H); ctx.stroke(); ctx.setLineDash([]);
+  const divX = toX(actual.length - 1); ctx.beginPath(); ctx.strokeStyle = 'rgba(255,255,255,0.15)'; ctx.lineWidth = 1; ctx.setLineDash([3, 3]); ctx.moveTo(divX, 0); ctx.lineTo(divX, H); ctx.stroke(); ctx.setLineDash([]);
 }
 
 /* ─── AUDIT LOG ───────────────────────────────────────────── */
-function auditLog(action, details, role, type='LOGIN') {
+function auditLog(action, details, role, type = 'LOGIN') {
   p2State.auditCounter++;
-  const entry = { index:p2State.auditCounter, timestamp:new Date(), user:(ROLES[role]||ROLES.evaluator).name, role, action:type, details, ip:pick(FAKE_IPS), hash:generateSHA256Like().substring(0,16), status:'success' };
+  const entry = { index: p2State.auditCounter, timestamp: new Date(), user: (ROLES[role] || ROLES.evaluator).name, role, action: type, details, ip: pick(FAKE_IPS), hash: generateSHA256Like().substring(0, 16), status: 'success' };
   p2State.auditEntries.unshift(entry);
   if (p2State.auditEntries.length > 200) p2State.auditEntries.pop();
   renderAuditLog();
 }
 function renderAuditLog() {
   const tbody = eid('audit-tbody'); if (!tbody) return;
-  const search = ((eid('audit-search')||{}).value||'').toLowerCase();
-  const rf = (eid('audit-filter-role')||{}).value||'';
-  const af = (eid('audit-filter-action')||{}).value||'';
-  const filtered = p2State.auditEntries.filter(e => (!rf||e.role===rf)&&(!af||e.action===af)&&(!search||JSON.stringify(e).toLowerCase().includes(search)));
+  const search = ((eid('audit-search') || {}).value || '').toLowerCase();
+  const rf = (eid('audit-filter-role') || {}).value || '';
+  const af = (eid('audit-filter-action') || {}).value || '';
+  const filtered = p2State.auditEntries.filter(e => (!rf || e.role === rf) && (!af || e.action === af) && (!search || JSON.stringify(e).toLowerCase().includes(search)));
   setText('audit-count', filtered.length);
-  tbody.innerHTML = filtered.slice(0,50).map(e=>`<tr><td style="color:var(--text-muted)">${e.index}</td><td><code>${e.timestamp.toLocaleTimeString()}</code></td><td>${e.user}</td><td><span class="role-pill ${e.role}">${e.role}</span></td><td>${e.action}</td><td style="max-width:180px;font-size:.72rem">${e.details}</td><td><code>${e.ip}</code></td><td><code>${e.hash}...</code></td><td><span class="status-badge ok">SUCCESS</span></td></tr>`).join('');
+  tbody.innerHTML = filtered.slice(0, 50).map(e => `<tr><td style="color:var(--text-muted)">${e.index}</td><td><code>${e.timestamp.toLocaleTimeString()}</code></td><td>${e.user}</td><td><span class="role-pill ${e.role}">${e.role}</span></td><td>${e.action}</td><td style="max-width:180px;font-size:.72rem">${e.details}</td><td><code>${e.ip}</code></td><td><code>${e.hash}...</code></td><td><span class="status-badge ok">SUCCESS</span></td></tr>`).join('');
   // Login history
   const lhist = eid('login-history');
   if (lhist) {
-    const logins = p2State.auditEntries.filter(e=>e.action==='LOGIN').slice(0,8);
-    lhist.innerHTML = logins.map(e=>`<div class="lh-item"><span class="role-pill ${e.role}">${e.role}</span><span class="lh-info">${e.user} · ${e.ip}</span><span class="lh-time">${e.timestamp.toLocaleTimeString()}</span></div>`).join('') || '<div style="color:var(--text-muted);padding:.5rem;font-size:.75rem">No logins yet</div>';
+    const logins = p2State.auditEntries.filter(e => e.action === 'LOGIN').slice(0, 8);
+    lhist.innerHTML = logins.map(e => `<div class="lh-item"><span class="role-pill ${e.role}">${e.role}</span><span class="lh-info">${e.user} · ${e.ip}</span><span class="lh-time">${e.timestamp.toLocaleTimeString()}</span></div>`).join('') || '<div style="color:var(--text-muted);padding:.5rem;font-size:.75rem">No logins yet</div>';
   }
   // Active sessions
   const asess = eid('active-sessions');
-  if (asess) asess.innerHTML = Object.entries(ROLES).slice(0,3).map(([k,r])=>`<div class="as-item"><span class="as-dot"></span><span class="as-name">${r.name}</span><span class="role-pill ${k}">${k}</span><span class="as-ip">${pick(FAKE_IPS)}</span></div>`).join('');
+  if (asess) asess.innerHTML = Object.entries(ROLES).slice(0, 3).map(([k, r]) => `<div class="as-item"><span class="as-dot"></span><span class="as-name">${r.name}</span><span class="role-pill ${k}">${k}</span><span class="as-ip">${pick(FAKE_IPS)}</span></div>`).join('');
 }
 
 /* ─── PERFORMANCE METRICS ─────────────────────────────────── */
 function initPerformanceMetrics() { setManagedInterval('performanceMetrics', updatePerformanceMetrics, 3000); }
 function updatePerformanceMetrics() {
-  const total=state.stats.totalProcessed, failed=state.stats.totalFailed;
-  const times=state.stats.processTimes;
-  const successRate = total>0 ? ((total/(total+failed))*100).toFixed(1)+'%' : '—';
-  const retryRate = state.stats.totalRetried>0 ? ((total/(total+state.stats.totalRetried))*100).toFixed(1)+'%' : '—';
-  const avgWait = times.length>0 ? Math.round(times.reduce((a,b)=>a+b,0)/times.length) : null;
-  const sorted = [...times].sort((a,b)=>a-b);
-  const p99 = sorted.length>0 ? (sorted[Math.floor(sorted.length*0.99)]||sorted[sorted.length-1]) : null;
-  const rps = state.stats.throughputHistory.slice(-3).reduce((a,b)=>a+b,0)/3;
+  const total = state.stats.totalProcessed, failed = state.stats.totalFailed;
+  const times = state.stats.processTimes;
+  const successRate = total > 0 ? ((total / (total + failed)) * 100).toFixed(1) + '%' : '—';
+  const retryRate = state.stats.totalRetried > 0 ? ((total / (total + state.stats.totalRetried)) * 100).toFixed(1) + '%' : '—';
+  const avgWait = times.length > 0 ? Math.round(times.reduce((a, b) => a + b, 0) / times.length) : null;
+  const sorted = [...times].sort((a, b) => a - b);
+  const p99 = sorted.length > 0 ? (sorted[Math.floor(sorted.length * 0.99)] || sorted[sorted.length - 1]) : null;
+  const rps = state.stats.throughputHistory.slice(-3).reduce((a, b) => a + b, 0) / 3;
   if (rps > p2State.perfMetrics.peakThroughput) p2State.perfMetrics.peakThroughput = rps;
   setText('mc-throughput', p2State.perfMetrics.peakThroughput.toFixed(1));
-  setText('mc-avgwait', avgWait ? avgWait+'ms' : '—'); setText('mc-success', successRate);
-  setText('mc-retry', retryRate); setText('mc-p99', p99 ? p99+'ms' : '—');
-  const fast=times.filter(t=>t<500).length, med=times.filter(t=>t>=500&&t<=2000).length, slow=times.filter(t=>t>2000).length;
-  setText('sla-total',total); setText('sla-fast',fast); setText('sla-med',med); setText('sla-slow',slow); setText('sla-recov',state.stats.totalRetried); setText('sla-failed',failed);
-  if (total>0) { setWidth('slaf-fast',(fast/total)*100); setWidth('slaf-med',(med/total)*100); setWidth('slaf-slow',(slow/total)*100); setWidth('slaf-recov',(state.stats.totalRetried/total)*100); setWidth('slaf-failed',(failed/Math.max(total,1))*100); }
+  setText('mc-avgwait', avgWait ? avgWait + 'ms' : '—'); setText('mc-success', successRate);
+  setText('mc-retry', retryRate); setText('mc-p99', p99 ? p99 + 'ms' : '—');
+  const fast = times.filter(t => t < 500).length, med = times.filter(t => t >= 500 && t <= 2000).length, slow = times.filter(t => t > 2000).length;
+  setText('sla-total', total); setText('sla-fast', fast); setText('sla-med', med); setText('sla-slow', slow); setText('sla-recov', state.stats.totalRetried); setText('sla-failed', failed);
+  if (total > 0) { setWidth('slaf-fast', (fast / total) * 100); setWidth('slaf-med', (med / total) * 100); setWidth('slaf-slow', (slow / total) * 100); setWidth('slaf-recov', (state.stats.totalRetried / total) * 100); setWidth('slaf-failed', (failed / Math.max(total, 1)) * 100); }
   drawMetricsLatencyChart(times);
 }
 function drawMetricsLatencyChart(times) {
-  const canvas=eid('metrics-latency-chart'); if (!canvas) return;
-  const ctx=canvas.getContext('2d'); const W=canvas.width,H=canvas.height; ctx.clearRect(0,0,W,H);
-  const buckets=new Array(10).fill(0);
-  times.forEach(t=>{ buckets[Math.min(Math.floor(t/500),9)]++; });
-  const maxB=Math.max(...buckets,1); const bw=W/10;
-  const colors=['#10b981','#10b981','#34d399','#f59e0b','#f59e0b','#fb923c','#f43f5e','#f43f5e','#f43f5e','#f43f5e'];
-  buckets.forEach((v,i)=>{ const bh=(v/maxB)*(H-30); ctx.fillStyle=colors[i]; ctx.globalAlpha=0.8; ctx.fillRect(i*bw+2,H-bh-20,bw-4,bh); ctx.globalAlpha=1; });
-  ['<500ms','1s','1.5s','2s','2.5s','3s','3.5s','4s','4.5s','5s+'].forEach((l,i)=>{ ctx.fillStyle='rgba(255,255,255,0.3)'; ctx.font='9px Inter'; ctx.textAlign='center'; ctx.fillText(l,i*bw+bw/2,H-4); });
+  const canvas = eid('metrics-latency-chart'); if (!canvas) return;
+  const ctx = canvas.getContext('2d'); const W = canvas.width, H = canvas.height; ctx.clearRect(0, 0, W, H);
+  const buckets = new Array(10).fill(0);
+  times.forEach(t => { buckets[Math.min(Math.floor(t / 500), 9)]++; });
+  const maxB = Math.max(...buckets, 1); const bw = W / 10;
+  const colors = ['#10b981', '#10b981', '#34d399', '#f59e0b', '#f59e0b', '#fb923c', '#f43f5e', '#f43f5e', '#f43f5e', '#f43f5e'];
+  buckets.forEach((v, i) => { const bh = (v / maxB) * (H - 30); ctx.fillStyle = colors[i]; ctx.globalAlpha = 0.8; ctx.fillRect(i * bw + 2, H - bh - 20, bw - 4, bh); ctx.globalAlpha = 1; });
+  ['<500ms', '1s', '1.5s', '2s', '2.5s', '3s', '3.5s', '4s', '4.5s', '5s+'].forEach((l, i) => { ctx.fillStyle = 'rgba(255,255,255,0.3)'; ctx.font = '9px Inter'; ctx.textAlign = 'center'; ctx.fillText(l, i * bw + bw / 2, H - 4); });
 }
 
 /* ─── RESILIENCE TESTING ──────────────────────────────────── */
 function initResilienceTesting() {
-  ['db','net','overload','workers','encrypt','queue'].forEach(t => {
+  ['db', 'net', 'overload', 'workers', 'encrypt', 'queue'].forEach(t => {
     const btn = eid(`chaos-${t}`);
     if (btn) btn.addEventListener('click', () => runChaosTest(t));
   });
   chaosLog('💻 Chaos Engineering ready. Select a failure scenario to begin.');
   const dlqRetryAll = eid('btn-dlq-retry-all');
-  if (dlqRetryAll) dlqRetryAll.addEventListener('click', () => { p2State.dlq.forEach(item=>{ item.retryCount=0; state.queue.incoming.push(item); p2State.dlqRetried++; }); p2State.dlq=[]; renderDLQ(); notify('🔄 DLQ Batch Retry','All items re-queued','success'); });
+  if (dlqRetryAll) dlqRetryAll.addEventListener('click', () => { p2State.dlq.forEach(item => { item.retryCount = 0; state.queue.incoming.push(item); p2State.dlqRetried++; }); p2State.dlq = []; renderDLQ(); notify('🔄 DLQ Batch Retry', 'All items re-queued', 'success'); });
 }
-function chaosLog(msg, type='info') {
-  const t=eid('chaos-terminal'); if (!t) return;
-  const line=document.createElement('div'); line.className='term-line';
-  const c={info:'#94a3b8',success:'#10b981',warn:'#f59e0b',error:'#f43f5e'};
-  line.innerHTML=`<span class="tl-time">${formatTime()}</span><span style="color:${c[type]||c.info}">${msg}</span>`;
-  t.appendChild(line); if (t.children.length>100) t.firstChild.remove(); t.scrollTop=t.scrollHeight;
+function chaosLog(msg, type = 'info') {
+  const t = eid('chaos-terminal'); if (!t) return;
+  const line = document.createElement('div'); line.className = 'term-line';
+  const c = { info: '#94a3b8', success: '#10b981', warn: '#f59e0b', error: '#f43f5e' };
+  line.innerHTML = `<span class="tl-time">${formatTime()}</span><span style="color:${c[type] || c.info}">${msg}</span>`;
+  t.appendChild(line); if (t.children.length > 100) t.firstChild.remove(); t.scrollTop = t.scrollHeight;
 }
 async function runChaosTest(type) {
   if (p2State.chaosActive) { chaosLog('⚠️ Test already running — wait for current test to finish', 'warn'); return; }
@@ -2385,7 +2385,7 @@ async function runChaosTest(type) {
     setStatus('degraded', '🟡 DEGRADED — Network Partition Active');
     // Spike all latencies
     const spikeLatency = () => {
-      ['gateway','queue','workers','encrypt','db','replica'].forEach(svc => {
+      ['gateway', 'queue', 'workers', 'encrypt', 'db', 'replica'].forEach(svc => {
         p2State.healthLatencyHistory[svc].push(rand(1500, 4000));
         if (p2State.healthLatencyHistory[svc].length > 30) p2State.healthLatencyHistory[svc].shift();
       });
@@ -2408,7 +2408,7 @@ async function runChaosTest(type) {
 
     setTimeout(() => {
       // Partial recovery — latency normalises
-      ['gateway','queue','workers','encrypt','db','replica'].forEach(svc => {
+      ['gateway', 'queue', 'workers', 'encrypt', 'db', 'replica'].forEach(svc => {
         p2State.healthLatencyHistory[svc].push(rand(80, 200));
         if (p2State.healthLatencyHistory[svc].length > 30) p2State.healthLatencyHistory[svc].shift();
       });
@@ -2452,9 +2452,9 @@ async function runChaosTest(type) {
       const newWorker = { id, status: 'IDLE', processed: 0, errors: 0, currentTask: null, uptime: 0, cpu: 0 };
       state.workers.push(newWorker);
       setText('nb-workers', state.workers.length);
-      chaosLog(`⚙️ Worker-${String(id).padStart(2,'0')} spawned (auto-scale) — Total: ${state.workers.length}`, 'ok');
-      addResponseItem('ok', `⚙️ Worker-${String(id).padStart(2,'0')} spawned — Total workers: ${state.workers.length}`);
-      feedLog('⚙️', `<strong>AUTO-SCALE:</strong> Worker-${String(id).padStart(2,'0')} spawned — pool now ${state.workers.length} workers`, 'success');
+      chaosLog(`⚙️ Worker-${String(id).padStart(2, '0')} spawned (auto-scale) — Total: ${state.workers.length}`, 'ok');
+      addResponseItem('ok', `⚙️ Worker-${String(id).padStart(2, '0')} spawned — Total workers: ${state.workers.length}`);
+      feedLog('⚙️', `<strong>AUTO-SCALE:</strong> Worker-${String(id).padStart(2, '0')} spawned — pool now ${state.workers.length} workers`, 'success');
     }, delay);
 
     addWorker(2000, 7);
@@ -2490,7 +2490,7 @@ async function runChaosTest(type) {
   else if (type === 'workers') {
     setStatus('critical', '🔴 CRITICAL — All Workers Terminated');
     // Kill all workers
-    const savedWorkers = state.workers.map(w => ({...w}));
+    const savedWorkers = state.workers.map(w => ({ ...w }));
     state.workers.forEach(w => { w.status = 'OFFLINE'; w.currentTask = null; });
     state.simulation.paused = true;
     updateHealthCards();
@@ -2506,7 +2506,7 @@ async function runChaosTest(type) {
     state.workers.forEach((w, i) => {
       setTimeout(() => {
         w.status = 'IDLE'; w.processed = 0; w.errors = 0; w.cpu = 0;
-        chaosLog(`✅ Worker-${String(w.id).padStart(2,'0')} respawned (${i+1}/${savedWorkers.length})`, 'ok');
+        chaosLog(`✅ Worker-${String(w.id).padStart(2, '0')} respawned (${i + 1}/${savedWorkers.length})`, 'ok');
         if (i === savedWorkers.length - 1) {
           state.simulation.paused = false;
           setStatus('operational', '✅ All Systems Operational');
@@ -2567,7 +2567,7 @@ async function runChaosTest(type) {
     setText('nb-queue', state.queue.incoming.length);
 
     await step('warn', `📦 Queue saturating — Injecting ${satCount} items...`, 0);
-    await step('warn', `📊 Queue depth: ${state.queue.incoming.length} items (${Math.round(state.queue.incoming.length/50*100)}% capacity)`, 400);
+    await step('warn', `📊 Queue depth: ${state.queue.incoming.length} items (${Math.round(state.queue.incoming.length / 50 * 100)}% capacity)`, 400);
     await step('warn', '⚠️ Back-pressure alert — Rate limiter activating', 800);
     await step('warn', '🛑 New submissions throttled to 10/s (from 100/s)', 1400);
     await step('warn', '⚙️ All workers reassigned to drain mode', 1800);
@@ -2604,44 +2604,44 @@ async function runChaosTest(type) {
 }
 
 function addResponseItem(type, msg) {
-  const panel=eid('response-panel'); if (!panel) return;
-  const empty=panel.querySelector('.rp-idle'); if (empty) empty.remove();
-  const item=document.createElement('div'); item.className=`rp-item ${type==='ok'?'ok':type==='fail'?'fail':'warn'}`;
-  item.innerHTML=`<span style="color:var(--text-muted);font-size:.65rem">${formatTime()}</span><span style="margin-left:.5rem">${msg}</span>`;
-  panel.appendChild(item); panel.scrollTop=panel.scrollHeight;
+  const panel = eid('response-panel'); if (!panel) return;
+  const empty = panel.querySelector('.rp-idle'); if (empty) empty.remove();
+  const item = document.createElement('div'); item.className = `rp-item ${type === 'ok' ? 'ok' : type === 'fail' ? 'fail' : 'warn'}`;
+  item.innerHTML = `<span style="color:var(--text-muted);font-size:.65rem">${formatTime()}</span><span style="margin-left:.5rem">${msg}</span>`;
+  panel.appendChild(item); panel.scrollTop = panel.scrollHeight;
 }
 
 /* ─── AUDIT FILTERS ───────────────────────────────────────── */
 function initAuditFilters() {
-  ['audit-search','audit-filter-role','audit-filter-action'].forEach(id => { const el=eid(id); if (el) el.addEventListener('input',()=>renderAuditLog()); });
-  const exportBtn=eid('btn-export-audit');
+  ['audit-search', 'audit-filter-role', 'audit-filter-action'].forEach(id => { const el = eid(id); if (el) el.addEventListener('input', () => renderAuditLog()); });
+  const exportBtn = eid('btn-export-audit');
   if (exportBtn) exportBtn.addEventListener('click', () => {
-    const csv=['#,Timestamp,User,Role,Action,Details,IP,Status',...p2State.auditEntries.map(e=>`${e.index},"${e.timestamp.toLocaleString()}","${e.user}","${e.role}","${e.action}","${e.details}","${e.ip}","${e.status}"`)].join('\n');
-    const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download='evalsync-audit.csv'; a.click();
+    const csv = ['#,Timestamp,User,Role,Action,Details,IP,Status', ...p2State.auditEntries.map(e => `${e.index},"${e.timestamp.toLocaleString()}","${e.user}","${e.role}","${e.action}","${e.details}","${e.ip}","${e.status}"`)].join('\n');
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' })); a.download = 'evalsync-audit.csv'; a.click();
   });
 }
 
 /* ─── PATCH switchView ────────────────────────────────────── */
 const _origSwitchView = switchView;
-window.switchView = function(viewName) {
+window.switchView = function (viewName) {
   _origSwitchView(viewName);
-  const extra = { health:'System Health', dlq:'Dead Letter Queue', loadbalancer:'Load Balancer', prediction:'AI Prediction', audit:'Audit Log', metrics:'Performance', testing:'Resilience Test' };
+  const extra = { health: 'System Health', dlq: 'Dead Letter Queue', loadbalancer: 'Load Balancer', prediction: 'AI Prediction', audit: 'Audit Log', metrics: 'Performance', testing: 'Resilience Test' };
   if (extra[viewName]) setText('bc-current', extra[viewName]);
-  if (viewName==='prediction') setTimeout(drawPredictionChart, 100);
-  if (viewName==='loadbalancer') setTimeout(updateLoadBalancerView, 100);
-  if (viewName==='metrics') setTimeout(updatePerformanceMetrics, 100);
-  if (viewName==='audit') renderAuditLog();
-  if (viewName==='dlq') renderDLQ();
-  if (viewName==='health') { drawHealthLatencyChart(); updateWorkerCPUGrid(); }
+  if (viewName === 'prediction') setTimeout(drawPredictionChart, 100);
+  if (viewName === 'loadbalancer') setTimeout(updateLoadBalancerView, 100);
+  if (viewName === 'metrics') setTimeout(updatePerformanceMetrics, 100);
+  if (viewName === 'audit') renderAuditLog();
+  if (viewName === 'dlq') renderDLQ();
+  if (viewName === 'health') { drawHealthLatencyChart(); updateWorkerCPUGrid(); }
 };
 
 /* ─── PATCH initApp ───────────────────────────────────────── */
 const _origInitApp = initApp;
-window.initApp = function(user) {
+window.initApp = function (user) {
   _origInitApp(user);
   applyRoleBadge(activeRole);
   startSessionTimer();
-  auditLog('Logged in from '+pick(FAKE_IPS), 'Session started · Role: '+(ROLES[activeRole]||ROLES.evaluator).label, activeRole, 'LOGIN');
+  auditLog('Logged in from ' + pick(FAKE_IPS), 'Session started · Role: ' + (ROLES[activeRole] || ROLES.evaluator).label, activeRole, 'LOGIN');
   // Initialize phase 2 modules (only if role allows them)
   initSystemHealth();
   initLoadBalancer();
@@ -2652,12 +2652,12 @@ window.initApp = function(user) {
   initMySubmissions();
   setManagedInterval('smartAlerts', checkSmartAlerts, 5000);
   setManagedInterval('auditAndSubmissionRefresh', () => {
-    if (Math.random()<0.25) {
-      const r=pick(Object.keys(ROLES)), acts=[{d:'Script uploaded',t:'SUBMIT'},{d:'Queue threshold cleared',t:'ADMIN'},{d:'Failed login attempt from '+pick(FAKE_IPS),t:'SECURITY'},{d:'Config updated',t:'ADMIN'}];
-      const a=pick(acts); auditLog(a.d, a.d, r, a.t);
+    if (Math.random() < 0.25) {
+      const r = pick(Object.keys(ROLES)), acts = [{ d: 'Script uploaded', t: 'SUBMIT' }, { d: 'Queue threshold cleared', t: 'ADMIN' }, { d: 'Failed login attempt from ' + pick(FAKE_IPS), t: 'SECURITY' }, { d: 'Config updated', t: 'ADMIN' }];
+      const a = pick(acts); auditLog(a.d, a.d, r, a.t);
     }
     // DLQ routing — permanently failed items
-    state.queue.failed.filter(s=>s.retryCount>=3&&!s._inDLQ).forEach(s=>{ s._inDLQ=true; moveToDLQ(s); });
+    state.queue.failed.filter(s => s.retryCount >= 3 && !s._inDLQ).forEach(s => { s._inDLQ = true; moveToDLQ(s); });
     // Update My Submissions
     updateMySubmissions();
   }, 8000);
@@ -2705,11 +2705,11 @@ function updateMySubmissions() {
   setText('mysub-count', mySubmissions.length + ' submission' + (mySubmissions.length !== 1 ? 's' : ''));
 
   const statusConfig = {
-    queued:     { cls: 'info', icon: '⏳', label: 'In Queue' },
+    queued: { cls: 'info', icon: '⏳', label: 'In Queue' },
     processing: { cls: 'warn', icon: '⚙️', label: 'Processing' },
-    completed:  { cls: 'ok',   icon: '✅', label: 'Completed' },
-    failed:     { cls: 'fail', icon: '❌', label: 'Failed' },
-    dlq:        { cls: 'fail', icon: '☠️', label: 'Dead Letter Queue' },
+    completed: { cls: 'ok', icon: '✅', label: 'Completed' },
+    failed: { cls: 'fail', icon: '❌', label: 'Failed' },
+    dlq: { cls: 'fail', icon: '☠️', label: 'Dead Letter Queue' },
   };
 
   if (mySubmissions.length === 0) {

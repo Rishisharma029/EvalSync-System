@@ -1,1892 +1,2157 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EvalSync — CBSE Secure Submission Management System</title>
-  <meta name="description" content="EvalSync is a queue-based, AES-256 encrypted, secure answer-script submission system for CBSE examinations. Prevents server overload with intelligent queue management and background workers." />
+  <meta name="description"
+    content="EvalSync is a queue-based, AES-256 encrypted, secure answer-script submission system for CBSE examinations. Prevents server overload with intelligent queue management and background workers." />
   <meta name="keywords" content="CBSE, EvalSync, submission system, queue, secure, answer script, evaluation" />
   <meta name="author" content="EvalSync CBSE Tech Division" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
-<!-- ════════════════════════════════════════════════════════════════ -->
-<!--  LOGIN PAGE                                                      -->
-<!-- ════════════════════════════════════════════════════════════════ -->
-<div id="login-page" class="login-page">
-  <div class="login-bg-grid"></div>
-  <div class="login-orbs">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
+  <!-- ════════════════════════════════════════════════════════════════ -->
+  <!--  LOGIN PAGE                                                      -->
+  <!-- ════════════════════════════════════════════════════════════════ -->
+  <div id="login-page" class="login-page">
+    <div class="login-bg-grid"></div>
+    <div class="login-orbs">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+
+    <div class="login-container">
+      <!-- Left Branding Panel -->
+      <div class="login-brand">
+        <div class="brand-logo">
+          <div class="logo-icon">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="4" width="18" height="18" rx="4" fill="url(#g1)" />
+              <rect x="26" y="4" width="18" height="18" rx="4" fill="url(#g2)" opacity="0.7" />
+              <rect x="4" y="26" width="18" height="18" rx="4" fill="url(#g2)" opacity="0.7" />
+              <rect x="26" y="26" width="18" height="18" rx="4" fill="url(#g1)" />
+              <path d="M15 24 L24 15 L33 24 L24 33 Z" fill="white" opacity="0.9" />
+              <defs>
+                <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#6366f1" />
+                  <stop offset="100%" stop-color="#06b6d4" />
+                </linearGradient>
+                <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#06b6d4" />
+                  <stop offset="100%" stop-color="#6366f1" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <span class="brand-name">EvalSync</span>
+            <span class="brand-sub">CBSE Secure Submission System</span>
+          </div>
+        </div>
+
+        <div class="brand-features">
+          <div class="brand-feature">
+            <span class="bf-icon">🔐</span>
+            <div>
+              <strong>AES-256 Encrypted</strong>
+              <p>Military-grade encryption for every submission</p>
+            </div>
+          </div>
+          <div class="brand-feature">
+            <span class="bf-icon">⚡</span>
+            <div>
+              <strong>Queue-Based Processing</strong>
+              <p>Handles millions of concurrent submissions</p>
+            </div>
+          </div>
+          <div class="brand-feature">
+            <span class="bf-icon">🛡️</span>
+            <div>
+              <strong>Zero Data Loss</strong>
+              <p>Retry mechanism with 99.99% reliability</p>
+            </div>
+          </div>
+          <div class="brand-feature">
+            <span class="bf-icon">📊</span>
+            <div>
+              <strong>Real-Time Monitoring</strong>
+              <p>Live dashboard with full system visibility</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="brand-stats-row">
+          <div class="brand-stat"><span class="bs-num" id="ls-total">2,47,836</span><span class="bs-label">Total
+              Submissions</span></div>
+          <div class="brand-stat"><span class="bs-num">99.99%</span><span class="bs-label">Uptime SLA</span></div>
+          <div class="brand-stat"><span class="bs-num">&lt;200ms</span><span class="bs-label">Avg Queue Time</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Login Form -->
+      <div class="login-form-panel">
+        <div class="login-form-card">
+          <div class="lfc-header">
+            <h1>Evaluator Sign In</h1>
+            <p>Access the CBSE EvalSync Portal</p>
+          </div>
+
+          <!-- Role Selector -->
+          <div class="role-selector">
+            <label class="rs-label">Sign in as</label>
+            <div class="role-tabs" id="role-tabs">
+              <button class="role-tab active" data-role="evaluator" id="rt-evaluator">👨‍🏫 Evaluator</button>
+              <button class="role-tab" data-role="admin" id="rt-admin">🛡️ Admin</button>
+              <button class="role-tab" data-role="superadmin" id="rt-superadmin">👑 Super Admin</button>
+              <button class="role-tab" data-role="monitor" id="rt-monitor">📡 Monitor</button>
+            </div>
+          </div>
+
+          <div class="demo-credentials" id="demo-creds-box">
+            <span class="dc-label">🔑 Demo Credentials</span>
+            <code id="dc-email">evaluator@cbse.gov.in</code>
+            <code id="dc-pass">CBSE@2024</code>
+          </div>
+
+          <form id="login-form" novalidate>
+            <div class="form-group">
+              <label for="login-email">Evaluator ID / Email</label>
+              <div class="input-wrapper">
+                <span class="input-icon">✉️</span>
+                <input type="email" id="login-email" placeholder="evaluator@cbse.gov.in" autocomplete="email" />
+              </div>
+              <span class="field-error" id="err-email"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="login-pass">Password</label>
+              <div class="input-wrapper">
+                <span class="input-icon">🔒</span>
+                <input type="password" id="login-pass" placeholder="Enter your password"
+                  autocomplete="current-password" />
+                <button type="button" class="toggle-pass" id="toggle-pass"
+                  aria-label="Toggle password visibility">👁</button>
+              </div>
+              <span class="field-error" id="err-pass"></span>
+            </div>
+
+            <div class="form-row">
+              <label class="checkbox-label">
+                <input type="checkbox" id="remember-me" />
+                <span class="checkmark"></span>
+                Remember me
+              </label>
+              <a href="#" class="forgot-link">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="btn-login" id="btn-login">
+              <span class="btn-text">Sign In Securely</span>
+              <span class="btn-spinner hidden" id="login-spinner"></span>
+            </button>
+
+            <div class="login-divider"><span>or</span></div>
+
+            <button type="button" class="btn-demo" id="btn-demo-login">
+              ⚡ Quick Demo Login
+            </button>
+          </form>
+
+          <div class="lfc-footer">
+            <span>🔒 256-bit SSL Encrypted · CBSE Government Portal</span>
+            <span>v3.2.1 · Ministry of Education, India</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="login-container">
-    <!-- Left Branding Panel -->
-    <div class="login-brand">
-      <div class="brand-logo">
-        <div class="logo-icon">
-          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="4" y="4" width="18" height="18" rx="4" fill="url(#g1)"/>
-            <rect x="26" y="4" width="18" height="18" rx="4" fill="url(#g2)" opacity="0.7"/>
-            <rect x="4" y="26" width="18" height="18" rx="4" fill="url(#g2)" opacity="0.7"/>
-            <rect x="26" y="26" width="18" height="18" rx="4" fill="url(#g1)"/>
-            <path d="M15 24 L24 15 L33 24 L24 33 Z" fill="white" opacity="0.9"/>
-            <defs>
-              <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#6366f1"/>
-                <stop offset="100%" stop-color="#06b6d4"/>
-              </linearGradient>
-              <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#06b6d4"/>
-                <stop offset="100%" stop-color="#6366f1"/>
-              </linearGradient>
-            </defs>
+  <!-- ════════════════════════════════════════════════════════════════ -->
+  <!--  MAIN APPLICATION                                                -->
+  <!-- ════════════════════════════════════════════════════════════════ -->
+  <div id="main-app" class="main-app hidden">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <div class="sl-icon">
+            <svg viewBox="0 0 32 32" fill="none">
+              <rect x="2" y="2" width="12" height="12" rx="3" fill="url(#sg1)" />
+              <rect x="18" y="2" width="12" height="12" rx="3" fill="url(#sg2)" opacity="0.7" />
+              <rect x="2" y="18" width="12" height="12" rx="3" fill="url(#sg2)" opacity="0.7" />
+              <rect x="18" y="18" width="12" height="12" rx="3" fill="url(#sg1)" />
+              <path d="M10 16 L16 10 L22 16 L16 22 Z" fill="white" opacity="0.9" />
+              <defs>
+                <linearGradient id="sg1" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#6366f1" />
+                  <stop offset="100%" stop-color="#06b6d4" />
+                </linearGradient>
+                <linearGradient id="sg2" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#06b6d4" />
+                  <stop offset="100%" stop-color="#6366f1" />
+                </linearGradient>
+
+              </defs>
+            </svg>
+          </div>
+          <div class="sl-text">
+            <span class="sl-name">EvalSync</span>
+            <span class="sl-version">v3.2.1 CBSE</span>
+          </div>
+        </div>
+        <button class="sidebar-collapse-btn" id="sidebar-collapse" aria-label="Collapse sidebar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15 18l-6-6 6-6" />
           </svg>
+        </button>
+      </div>
+
+      <div class="sidebar-user">
+        <div class="su-avatar">
+          <span id="su-initials">RM</span>
+          <span class="su-status-dot"></span>
         </div>
-        <div class="brand-text">
-          <span class="brand-name">EvalSync</span>
-          <span class="brand-sub">CBSE Secure Submission System</span>
+        <div class="su-info">
+          <span class="su-name" id="su-name">Rajan Mehta</span>
+          <span class="su-role">Senior Evaluator</span>
         </div>
       </div>
 
-      <div class="brand-features">
-        <div class="brand-feature">
-          <span class="bf-icon">🔐</span>
-          <div>
-            <strong>AES-256 Encrypted</strong>
-            <p>Military-grade encryption for every submission</p>
+      <nav class="sidebar-nav">
+        <div class="nav-section-label">Main</div>
+        <a href="#" class="nav-item active" data-view="dashboard" id="nav-dashboard">
+          <span class="nav-icon">📊</span>
+          <span class="nav-label">Dashboard</span>
+          <span class="nav-badge live" id="nb-live">LIVE</span>
+        </a>
+        <a href="#" class="nav-item" data-view="submit" id="nav-submit">
+          <span class="nav-icon">📤</span>
+          <span class="nav-label">Submit Script</span>
+        </a>
+
+        <div class="nav-section-label">Monitoring</div>
+        <a href="#" class="nav-item" data-view="mysubmissions" id="nav-mysubmissions">
+          <span class="nav-icon">📊</span>
+          <span class="nav-label">My Submissions</span>
+          <span class="nav-count" id="nb-mysub">0</span>
+        </a>
+
+        <div class="nav-section-label">Monitoring</div>
+        <a href="#" class="nav-item" data-view="queue" id="nav-queue">
+          <span class="nav-icon">📦</span>
+          <span class="nav-label">Queue Monitor</span>
+          <span class="nav-count" id="nb-queue">0</span>
+        </a>
+        <a href="#" class="nav-item" data-view="workers" id="nav-workers">
+          <span class="nav-icon">⚙️</span>
+          <span class="nav-label">Worker Pool</span>
+          <span class="nav-count worker" id="nb-workers">6</span>
+        </a>
+        <a href="#" class="nav-item" data-view="analytics" id="nav-analytics">
+          <span class="nav-icon">📈</span>
+          <span class="nav-label">Analytics</span>
+        </a>
+
+        <div class="nav-section-label">Security & Data</div>
+        <a href="#" class="nav-item" data-view="security" id="nav-security">
+          <span class="nav-icon">🔐</span>
+          <span class="nav-label">Security Center</span>
+        </a>
+        <a href="#" class="nav-item" data-view="database" id="nav-database">
+          <span class="nav-icon">🗄️</span>
+          <span class="nav-label">Database Sync</span>
+        </a>
+
+        <div class="nav-section-label">Intelligence</div>
+        <a href="#" class="nav-item" data-view="health" id="nav-health">
+          <span class="nav-icon">🌐</span>
+          <span class="nav-label">System Health</span>
+          <span class="nav-badge live" id="nb-health">LIVE</span>
+        </a>
+        <a href="#" class="nav-item" data-view="loadbalancer" id="nav-loadbalancer">
+          <span class="nav-icon">⚖️</span>
+          <span class="nav-label">Load Balancer</span>
+        </a>
+        <a href="#" class="nav-item" data-view="prediction" id="nav-prediction">
+          <span class="nav-icon">🤖</span>
+          <span class="nav-label">AI Prediction</span>
+        </a>
+        <a href="#" class="nav-item" data-view="dlq" id="nav-dlq">
+          <span class="nav-icon">☠️</span>
+          <span class="nav-label">Dead Letter Queue</span>
+          <span class="nav-count" style="background:rgba(244,63,94,0.2);color:#f43f5e" id="nb-dlq">0</span>
+        </a>
+
+        <div class="nav-section-label">Compliance</div>
+        <a href="#" class="nav-item" data-view="audit" id="nav-audit">
+          <span class="nav-icon">📋</span>
+          <span class="nav-label">Audit Log</span>
+        </a>
+        <a href="#" class="nav-item" data-view="metrics" id="nav-metrics">
+          <span class="nav-icon">📉</span>
+          <span class="nav-label">Performance</span>
+        </a>
+        <a href="#" class="nav-item" data-view="testing" id="nav-testing">
+          <span class="nav-icon">🧪</span>
+          <span class="nav-label">Resilience Test</span>
+        </a>
+
+        <div class="nav-section-label">Administration</div>
+        <a href="#" class="nav-item" data-view="admin" id="nav-admin">
+          <span class="nav-icon">🛡️</span>
+          <span class="nav-label">Admin Control</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="system-health-mini">
+          <span class="shm-label">System Health</span>
+          <div class="shm-bar">
+            <div class="shm-fill" id="shm-fill" style="width:94%"></div>
           </div>
+          <span class="shm-val" id="shm-val">94%</span>
         </div>
-        <div class="brand-feature">
-          <span class="bf-icon">⚡</span>
-          <div>
-            <strong>Queue-Based Processing</strong>
-            <p>Handles millions of concurrent submissions</p>
-          </div>
-        </div>
-        <div class="brand-feature">
-          <span class="bf-icon">🛡️</span>
-          <div>
-            <strong>Zero Data Loss</strong>
-            <p>Retry mechanism with 99.99% reliability</p>
-          </div>
-        </div>
-        <div class="brand-feature">
-          <span class="bf-icon">📊</span>
-          <div>
-            <strong>Real-Time Monitoring</strong>
-            <p>Live dashboard with full system visibility</p>
-          </div>
-        </div>
+        <button class="btn-logout" id="btn-logout">
+          <span>🚪</span> <span class="nav-label">Sign Out</span>
+        </button>
       </div>
+    </aside>
 
-      <div class="brand-stats-row">
-        <div class="brand-stat"><span class="bs-num" id="ls-total">2,47,836</span><span class="bs-label">Total Submissions</span></div>
-        <div class="brand-stat"><span class="bs-num">99.99%</span><span class="bs-label">Uptime SLA</span></div>
-        <div class="brand-stat"><span class="bs-num">&lt;200ms</span><span class="bs-label">Avg Queue Time</span></div>
-      </div>
-    </div>
+    <!-- MAIN CONTENT -->
+    <div class="main-content" id="main-content">
 
-    <!-- Right Login Form -->
-    <div class="login-form-panel">
-      <div class="login-form-card">
-        <div class="lfc-header">
-          <h1>Evaluator Sign In</h1>
-          <p>Access the CBSE EvalSync Portal</p>
-        </div>
-
-        <!-- Role Selector -->
-        <div class="role-selector">
-          <label class="rs-label">Sign in as</label>
-          <div class="role-tabs" id="role-tabs">
-            <button class="role-tab active" data-role="evaluator" id="rt-evaluator">👨‍🏫 Evaluator</button>
-            <button class="role-tab" data-role="admin" id="rt-admin">🛡️ Admin</button>
-            <button class="role-tab" data-role="superadmin" id="rt-superadmin">👑 Super Admin</button>
-            <button class="role-tab" data-role="monitor" id="rt-monitor">📡 Monitor</button>
-          </div>
-        </div>
-
-        <div class="demo-credentials" id="demo-creds-box">
-          <span class="dc-label">🔑 Demo Credentials</span>
-          <code id="dc-email">evaluator@cbse.gov.in</code>
-          <code id="dc-pass">CBSE@2024</code>
-        </div>
-
-        <form id="login-form" novalidate>
-          <div class="form-group">
-            <label for="login-email">Evaluator ID / Email</label>
-            <div class="input-wrapper">
-              <span class="input-icon">✉️</span>
-              <input type="email" id="login-email" placeholder="evaluator@cbse.gov.in" autocomplete="email" />
-            </div>
-            <span class="field-error" id="err-email"></span>
-          </div>
-
-          <div class="form-group">
-            <label for="login-pass">Password</label>
-            <div class="input-wrapper">
-              <span class="input-icon">🔒</span>
-              <input type="password" id="login-pass" placeholder="Enter your password" autocomplete="current-password" />
-              <button type="button" class="toggle-pass" id="toggle-pass" aria-label="Toggle password visibility">👁</button>
-            </div>
-            <span class="field-error" id="err-pass"></span>
-          </div>
-
-          <div class="form-row">
-            <label class="checkbox-label">
-              <input type="checkbox" id="remember-me" />
-              <span class="checkmark"></span>
-              Remember me
-            </label>
-            <a href="#" class="forgot-link">Forgot Password?</a>
-          </div>
-
-          <button type="submit" class="btn-login" id="btn-login">
-            <span class="btn-text">Sign In Securely</span>
-            <span class="btn-spinner hidden" id="login-spinner"></span>
+      <!-- TOP BAR -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-btn" id="menu-btn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
           </button>
-
-          <div class="login-divider"><span>or</span></div>
-
-          <button type="button" class="btn-demo" id="btn-demo-login">
-            ⚡ Quick Demo Login
+          <div class="breadcrumb" id="breadcrumb">
+            <span>EvalSync</span>
+            <span class="bc-sep">›</span>
+            <span class="bc-current" id="bc-current">Dashboard</span>
+          </div>
+        </div>
+        <div class="topbar-center">
+          <div class="system-status-bar" id="system-status-bar">
+            <span class="ssb-dot operational"></span>
+            <span class="ssb-text">All Systems Operational</span>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <div class="role-badge-topbar" id="role-badge-topbar">👨‍🏫 Evaluator</div>
+          <div class="session-timer" id="session-timer" title="Session expires in">⏱ 30:00</div>
+          <div class="topbar-clock" id="topbar-clock">16:06:42</div>
+          <button class="topbar-btn" id="btn-spike" title="Simulate Traffic Spike">
+            <span>⚡</span>
+            <span class="tb-label">Spike</span>
           </button>
-        </form>
-
-        <div class="lfc-footer">
-          <span>🔒 256-bit SSL Encrypted · CBSE Government Portal</span>
-          <span>v3.2.1 · Ministry of Education, India</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ════════════════════════════════════════════════════════════════ -->
-<!--  MAIN APPLICATION                                                -->
-<!-- ════════════════════════════════════════════════════════════════ -->
-<div id="main-app" class="main-app hidden">
-
-  <!-- SIDEBAR -->
-  <aside class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-      <div class="sidebar-logo">
-        <div class="sl-icon">
-          <svg viewBox="0 0 32 32" fill="none">
-            <rect x="2" y="2" width="12" height="12" rx="3" fill="url(#sg1)"/>
-            <rect x="18" y="2" width="12" height="12" rx="3" fill="url(#sg2)" opacity="0.7"/>
-            <rect x="2" y="18" width="12" height="12" rx="3" fill="url(#sg2)" opacity="0.7"/>
-            <rect x="18" y="18" width="12" height="12" rx="3" fill="url(#sg1)"/>
-            <path d="M10 16 L16 10 L22 16 L16 22 Z" fill="white" opacity="0.9"/>
-            <defs>
-              <linearGradient id="sg1" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#6366f1"/>
-                <stop offset="100%" stop-color="#06b6d4"/>
-              </linearGradient>
-              <linearGradient id="sg2" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#06b6d4"/>
-                <stop offset="100%" stop-color="#6366f1"/>
-              </linearGradient>
-            </defs>
-          </svg>
-        </div>
-        <div class="sl-text">
-          <span class="sl-name">EvalSync</span>
-          <span class="sl-version">v3.2.1 CBSE</span>
-        </div>
-      </div>
-      <button class="sidebar-collapse-btn" id="sidebar-collapse" aria-label="Collapse sidebar">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M15 18l-6-6 6-6"/>
-        </svg>
-      </button>
-    </div>
-
-    <div class="sidebar-user">
-      <div class="su-avatar">
-        <span id="su-initials">RM</span>
-        <span class="su-status-dot"></span>
-      </div>
-      <div class="su-info">
-        <span class="su-name" id="su-name">Rajan Mehta</span>
-        <span class="su-role">Senior Evaluator</span>
-      </div>
-    </div>
-
-    <nav class="sidebar-nav">
-      <div class="nav-section-label">Main</div>
-      <a href="#" class="nav-item active" data-view="dashboard" id="nav-dashboard">
-        <span class="nav-icon">📊</span>
-        <span class="nav-label">Dashboard</span>
-        <span class="nav-badge live" id="nb-live">LIVE</span>
-      </a>
-      <a href="#" class="nav-item" data-view="submit" id="nav-submit">
-        <span class="nav-icon">📤</span>
-        <span class="nav-label">Submit Script</span>
-      </a>
-
-      <div class="nav-section-label">Monitoring</div>
-      <a href="#" class="nav-item" data-view="mysubmissions" id="nav-mysubmissions">
-        <span class="nav-icon">📊</span>
-        <span class="nav-label">My Submissions</span>
-        <span class="nav-count" id="nb-mysub">0</span>
-      </a>
-
-      <div class="nav-section-label">Monitoring</div>
-      <a href="#" class="nav-item" data-view="queue" id="nav-queue">
-        <span class="nav-icon">📦</span>
-        <span class="nav-label">Queue Monitor</span>
-        <span class="nav-count" id="nb-queue">0</span>
-      </a>
-      <a href="#" class="nav-item" data-view="workers" id="nav-workers">
-        <span class="nav-icon">⚙️</span>
-        <span class="nav-label">Worker Pool</span>
-        <span class="nav-count worker" id="nb-workers">6</span>
-      </a>
-      <a href="#" class="nav-item" data-view="analytics" id="nav-analytics">
-        <span class="nav-icon">📈</span>
-        <span class="nav-label">Analytics</span>
-      </a>
-
-      <div class="nav-section-label">Security & Data</div>
-      <a href="#" class="nav-item" data-view="security" id="nav-security">
-        <span class="nav-icon">🔐</span>
-        <span class="nav-label">Security Center</span>
-      </a>
-      <a href="#" class="nav-item" data-view="database" id="nav-database">
-        <span class="nav-icon">🗄️</span>
-        <span class="nav-label">Database Sync</span>
-      </a>
-
-      <div class="nav-section-label">Intelligence</div>
-      <a href="#" class="nav-item" data-view="health" id="nav-health">
-        <span class="nav-icon">🌐</span>
-        <span class="nav-label">System Health</span>
-        <span class="nav-badge live" id="nb-health">LIVE</span>
-      </a>
-      <a href="#" class="nav-item" data-view="loadbalancer" id="nav-loadbalancer">
-        <span class="nav-icon">⚖️</span>
-        <span class="nav-label">Load Balancer</span>
-      </a>
-      <a href="#" class="nav-item" data-view="prediction" id="nav-prediction">
-        <span class="nav-icon">🤖</span>
-        <span class="nav-label">AI Prediction</span>
-      </a>
-      <a href="#" class="nav-item" data-view="dlq" id="nav-dlq">
-        <span class="nav-icon">☠️</span>
-        <span class="nav-label">Dead Letter Queue</span>
-        <span class="nav-count" style="background:rgba(244,63,94,0.2);color:#f43f5e" id="nb-dlq">0</span>
-      </a>
-
-      <div class="nav-section-label">Compliance</div>
-      <a href="#" class="nav-item" data-view="audit" id="nav-audit">
-        <span class="nav-icon">📋</span>
-        <span class="nav-label">Audit Log</span>
-      </a>
-      <a href="#" class="nav-item" data-view="metrics" id="nav-metrics">
-        <span class="nav-icon">📉</span>
-        <span class="nav-label">Performance</span>
-      </a>
-      <a href="#" class="nav-item" data-view="testing" id="nav-testing">
-        <span class="nav-icon">🧪</span>
-        <span class="nav-label">Resilience Test</span>
-      </a>
-
-      <div class="nav-section-label">Administration</div>
-      <a href="#" class="nav-item" data-view="admin" id="nav-admin">
-        <span class="nav-icon">🛡️</span>
-        <span class="nav-label">Admin Control</span>
-      </a>
-    </nav>
-
-    <div class="sidebar-footer">
-      <div class="system-health-mini">
-        <span class="shm-label">System Health</span>
-        <div class="shm-bar"><div class="shm-fill" id="shm-fill" style="width:94%"></div></div>
-        <span class="shm-val" id="shm-val">94%</span>
-      </div>
-      <button class="btn-logout" id="btn-logout">
-        <span>🚪</span> <span class="nav-label">Sign Out</span>
-      </button>
-    </div>
-  </aside>
-
-  <!-- MAIN CONTENT -->
-  <div class="main-content" id="main-content">
-
-    <!-- TOP BAR -->
-    <header class="topbar">
-      <div class="topbar-left">
-        <button class="menu-btn" id="menu-btn" aria-label="Toggle menu">
-          <span></span><span></span><span></span>
-        </button>
-        <div class="breadcrumb" id="breadcrumb">
-          <span>EvalSync</span>
-          <span class="bc-sep">›</span>
-          <span class="bc-current" id="bc-current">Dashboard</span>
-        </div>
-      </div>
-      <div class="topbar-center">
-        <div class="system-status-bar" id="system-status-bar">
-          <span class="ssb-dot operational"></span>
-          <span class="ssb-text">All Systems Operational</span>
-        </div>
-      </div>
-      <div class="topbar-right">
-        <div class="role-badge-topbar" id="role-badge-topbar">👨‍🏫 Evaluator</div>
-        <div class="session-timer" id="session-timer" title="Session expires in">⏱ 30:00</div>
-        <div class="topbar-clock" id="topbar-clock">16:06:42</div>
-        <button class="topbar-btn" id="btn-spike" title="Simulate Traffic Spike">
-          <span>⚡</span>
-          <span class="tb-label">Spike</span>
-        </button>
-        <button class="topbar-btn notif-btn" id="btn-notifications" aria-label="Notifications">
-          <span>🔔</span>
-          <span class="notif-dot" id="notif-dot"></span>
-        </button>
-        <div class="topbar-avatar" id="topbar-avatar">
-          <span id="ta-initials">RM</span>
-        </div>
-      </div>
-    </header>
-
-    <!-- ── VIEWS ── -->
-    <main class="views-container" id="views-container">
-
-      <!-- ════ VIEW: DASHBOARD ════ -->
-      <section id="view-dashboard" class="view active" aria-label="Dashboard">
-        <div class="view-header">
-          <div class="vh-left">
-            <h2 class="view-title">System Dashboard</h2>
-            <p class="view-subtitle">Real-time overview of EvalSync submission pipeline</p>
-          </div>
-          <div class="vh-right">
-            <div class="live-indicator">
-              <span class="live-dot"></span>
-              <span>Live</span>
-            </div>
+          <button class="topbar-btn notif-btn" id="btn-notifications" aria-label="Notifications">
+            <span>🔔</span>
+            <span class="notif-dot" id="notif-dot"></span>
+          </button>
+          <div class="topbar-avatar" id="topbar-avatar">
+            <span id="ta-initials">RM</span>
           </div>
         </div>
+      </header>
 
-        <!-- KPI Cards -->
-        <div class="kpi-grid" id="kpi-grid">
-          <div class="kpi-card" id="kpi-total">
-            <div class="kpi-icon" style="background:linear-gradient(135deg,#6366f1,#818cf8)">📄</div>
-            <div class="kpi-info">
-              <span class="kpi-value" id="kv-total">0</span>
-              <span class="kpi-label">Total Submissions</span>
-              <span class="kpi-change up" id="kc-total">↑ +12% today</span>
-            </div>
-            <canvas class="kpi-sparkline" id="spark-total" width="80" height="40"></canvas>
-          </div>
-          <div class="kpi-card" id="kpi-queue">
-            <div class="kpi-icon" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)">📦</div>
-            <div class="kpi-info">
-              <span class="kpi-value" id="kv-queue">0</span>
-              <span class="kpi-label">Queue Depth</span>
-              <span class="kpi-change" id="kc-queue">Processing live</span>
-            </div>
-            <canvas class="kpi-sparkline" id="spark-queue" width="80" height="40"></canvas>
-          </div>
-          <div class="kpi-card" id="kpi-success">
-            <div class="kpi-icon" style="background:linear-gradient(135deg,#10b981,#34d399)">✅</div>
-            <div class="kpi-info">
-              <span class="kpi-value" id="kv-success">99.7%</span>
-              <span class="kpi-label">Success Rate</span>
-              <span class="kpi-change up" id="kc-success">↑ +0.2% vs last month</span>
-            </div>
-            <canvas class="kpi-sparkline" id="spark-success" width="80" height="40"></canvas>
-          </div>
-          <div class="kpi-card" id="kpi-speed">
-            <div class="kpi-icon" style="background:linear-gradient(135deg,#06b6d4,#22d3ee)">⚡</div>
-            <div class="kpi-info">
-              <span class="kpi-value" id="kv-speed">142ms</span>
-              <span class="kpi-label">Avg Process Time</span>
-              <span class="kpi-change up" id="kc-speed">↓ 28ms faster</span>
-            </div>
-            <canvas class="kpi-sparkline" id="spark-speed" width="80" height="40"></canvas>
-          </div>
-        </div>
+      <!-- ── VIEWS ── -->
+      <main class="views-container" id="views-container">
 
-        <!-- Dashboard Main Grid -->
-        <div class="dash-grid">
-          <!-- Pipeline Status -->
-          <div class="dash-card pipeline-card">
-            <div class="dc-header">
-              <h3>Submission Pipeline</h3>
-              <span class="dc-badge live">Live Flow</span>
+        <!-- ════ VIEW: DASHBOARD ════ -->
+        <section id="view-dashboard" class="view active" aria-label="Dashboard">
+          <div class="view-header">
+            <div class="vh-left">
+              <h2 class="view-title">System Dashboard</h2>
+              <p class="view-subtitle">Real-time overview of EvalSync submission pipeline</p>
             </div>
-            <div class="pipeline-visual" id="pipeline-visual">
-              <div class="pipeline-stage" id="ps-gateway">
-                <div class="ps-icon">🌐</div>
-                <div class="ps-info">
-                  <span class="ps-name">Gateway</span>
-                  <span class="ps-count" id="psc-gateway">0/s</span>
-                </div>
-                <div class="ps-bar"><div class="ps-fill" id="psf-gateway"></div></div>
+            <div class="vh-right">
+              <div class="live-indicator">
+                <span class="live-dot"></span>
+                <span>Live</span>
               </div>
-              <div class="pipeline-arrow">→</div>
-              <div class="pipeline-stage" id="ps-queue">
-                <div class="ps-icon">📦</div>
-                <div class="ps-info">
-                  <span class="ps-name">Queue</span>
-                  <span class="ps-count" id="psc-queue">0</span>
-                </div>
-                <div class="ps-bar"><div class="ps-fill" id="psf-queue" style="background:linear-gradient(90deg,#f59e0b,#fbbf24)"></div></div>
-              </div>
-              <div class="pipeline-arrow">→</div>
-              <div class="pipeline-stage" id="ps-workers">
-                <div class="ps-icon">⚙️</div>
-                <div class="ps-info">
-                  <span class="ps-name">Workers</span>
-                  <span class="ps-count" id="psc-workers">6 Active</span>
-                </div>
-                <div class="ps-bar"><div class="ps-fill" id="psf-workers" style="background:linear-gradient(90deg,#6366f1,#818cf8)"></div></div>
-              </div>
-              <div class="pipeline-arrow">→</div>
-              <div class="pipeline-stage" id="ps-db">
-                <div class="ps-icon">🗄️</div>
-                <div class="ps-info">
-                  <span class="ps-name">Database</span>
-                  <span class="ps-count" id="psc-db">Syncing</span>
-                </div>
-                <div class="ps-bar"><div class="ps-fill" id="psf-db" style="background:linear-gradient(90deg,#10b981,#34d399)"></div></div>
-              </div>
-            </div>
-            <!-- Flowing particles -->
-            <div class="pipeline-particles" id="pipeline-particles"></div>
-          </div>
-
-          <!-- Live Feed -->
-          <div class="dash-card live-feed-card">
-            <div class="dc-header">
-              <h3>Live Activity Feed</h3>
-              <button class="dc-action" id="btn-clear-feed">Clear</button>
-            </div>
-            <div class="live-feed" id="live-feed">
-              <!-- dynamic content -->
             </div>
           </div>
 
-          <!-- System Resources -->
-          <div class="dash-card resources-card">
-            <div class="dc-header">
-              <h3>System Resources</h3>
+          <!-- KPI Cards -->
+          <div class="kpi-grid" id="kpi-grid">
+            <div class="kpi-card" id="kpi-total">
+              <div class="kpi-icon" style="background:linear-gradient(135deg,#6366f1,#818cf8)">📄</div>
+              <div class="kpi-info">
+                <span class="kpi-value" id="kv-total">0</span>
+                <span class="kpi-label">Total Submissions</span>
+                <span class="kpi-change up" id="kc-total">↑ +12% today</span>
+              </div>
+              <canvas class="kpi-sparkline" id="spark-total" width="80" height="40"></canvas>
             </div>
-            <div class="resource-meters">
-              <div class="resource-meter">
-                <div class="rm-header">
-                  <span>CPU Usage</span>
-                  <span class="rm-val" id="rm-cpu">0%</span>
-                </div>
-                <div class="rm-bar"><div class="rm-fill cpu-fill" id="rmf-cpu"></div></div>
+            <div class="kpi-card" id="kpi-queue">
+              <div class="kpi-icon" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)">📦</div>
+              <div class="kpi-info">
+                <span class="kpi-value" id="kv-queue">0</span>
+                <span class="kpi-label">Queue Depth</span>
+                <span class="kpi-change" id="kc-queue">Processing live</span>
               </div>
-              <div class="resource-meter">
-                <div class="rm-header">
-                  <span>Memory</span>
-                  <span class="rm-val" id="rm-mem">0%</span>
-                </div>
-                <div class="rm-bar"><div class="rm-fill mem-fill" id="rmf-mem"></div></div>
-              </div>
-              <div class="resource-meter">
-                <div class="rm-header">
-                  <span>Queue Load</span>
-                  <span class="rm-val" id="rm-qload">0%</span>
-                </div>
-                <div class="rm-bar"><div class="rm-fill queue-fill" id="rmf-qload"></div></div>
-              </div>
-              <div class="resource-meter">
-                <div class="rm-header">
-                  <span>Network I/O</span>
-                  <span class="rm-val" id="rm-net">0 MB/s</span>
-                </div>
-                <div class="rm-bar"><div class="rm-fill net-fill" id="rmf-net"></div></div>
-              </div>
+              <canvas class="kpi-sparkline" id="spark-queue" width="80" height="40"></canvas>
             </div>
-
-            <div class="mini-worker-grid" id="mini-worker-grid">
-              <!-- dynamic worker mini cards -->
+            <div class="kpi-card" id="kpi-success">
+              <div class="kpi-icon" style="background:linear-gradient(135deg,#10b981,#34d399)">✅</div>
+              <div class="kpi-info">
+                <span class="kpi-value" id="kv-success">99.7%</span>
+                <span class="kpi-label">Success Rate</span>
+                <span class="kpi-change up" id="kc-success">↑ +0.2% vs last month</span>
+              </div>
+              <canvas class="kpi-sparkline" id="spark-success" width="80" height="40"></canvas>
+            </div>
+            <div class="kpi-card" id="kpi-speed">
+              <div class="kpi-icon" style="background:linear-gradient(135deg,#06b6d4,#22d3ee)">⚡</div>
+              <div class="kpi-info">
+                <span class="kpi-value" id="kv-speed">142ms</span>
+                <span class="kpi-label">Avg Process Time</span>
+                <span class="kpi-change up" id="kc-speed">↓ 28ms faster</span>
+              </div>
+              <canvas class="kpi-sparkline" id="spark-speed" width="80" height="40"></canvas>
             </div>
           </div>
 
-          <!-- Throughput Chart -->
-          <div class="dash-card chart-card">
-            <div class="dc-header">
-              <h3>Throughput (Last 60s)</h3>
-              <div class="chart-legend">
-                <span class="cl-dot" style="background:#6366f1"></span><span>Submissions/s</span>
-                <span class="cl-dot" style="background:#10b981"></span><span>Processed/s</span>
+          <!-- Dashboard Main Grid -->
+          <div class="dash-grid">
+            <!-- Pipeline Status -->
+            <div class="dash-card pipeline-card">
+              <div class="dc-header">
+                <h3>Submission Pipeline</h3>
+                <span class="dc-badge live">Live Flow</span>
               </div>
-            </div>
-            <canvas id="throughput-chart" width="600" height="160"></canvas>
-          </div>
-        </div>
-      </section>
-
-      <!-- ════ VIEW: SUBMIT ════ -->
-      <section id="view-submit" class="view" aria-label="Submit Answer Script">
-        <div class="view-header">
-          <div class="vh-left">
-            <h2 class="view-title">Submit Answer Script</h2>
-            <p class="view-subtitle">Secure, encrypted answer-script submission portal</p>
-          </div>
-        </div>
-
-        <div class="submit-layout">
-          <!-- Step Tracker -->
-          <div class="step-tracker" id="step-tracker">
-            <div class="step-item active" data-step="1" id="st-1">
-              <div class="step-circle">1</div>
-              <span>Verify Identity</span>
-            </div>
-            <div class="step-line" id="sl-1"></div>
-            <div class="step-item" data-step="2" id="st-2">
-              <div class="step-circle">2</div>
-              <span>Paper Details</span>
-            </div>
-            <div class="step-line" id="sl-2"></div>
-            <div class="step-item" data-step="3" id="st-3">
-              <div class="step-circle">3</div>
-              <span>Upload Script</span>
-            </div>
-            <div class="step-line" id="sl-3"></div>
-            <div class="step-item" data-step="4" id="st-4">
-              <div class="step-circle">4</div>
-              <span>Processing</span>
-            </div>
-            <div class="step-line" id="sl-4"></div>
-            <div class="step-item" data-step="5" id="st-5">
-              <div class="step-circle">5</div>
-              <span>Confirmation</span>
-            </div>
-          </div>
-
-          <!-- Step Panels -->
-          <div class="step-panels">
-
-            <!-- Step 1: Identity -->
-            <div class="step-panel active" id="sp-1">
-              <div class="sp-card">
-                <h3>🪪 Evaluator Identity Verification</h3>
-                <p>Confirm your details before proceeding with submission</p>
-                <div class="identity-card" id="identity-card">
-                  <div class="ic-row">
-                    <span class="ic-label">Evaluator Name</span>
-                    <span class="ic-val" id="ic-name">—</span>
+              <div class="pipeline-visual" id="pipeline-visual">
+                <div class="pipeline-stage" id="ps-gateway">
+                  <div class="ps-icon">🌐</div>
+                  <div class="ps-info">
+                    <span class="ps-name">Gateway</span>
+                    <span class="ps-count" id="psc-gateway">0/s</span>
                   </div>
-                  <div class="ic-row">
-                    <span class="ic-label">Evaluator ID</span>
-                    <span class="ic-val" id="ic-id">—</span>
-                  </div>
-                  <div class="ic-row">
-                    <span class="ic-label">Subject</span>
-                    <span class="ic-val" id="ic-subject">—</span>
-                  </div>
-                  <div class="ic-row">
-                    <span class="ic-label">Center Code</span>
-                    <span class="ic-val" id="ic-center">DEL-0412</span>
-                  </div>
-                  <div class="ic-row">
-                    <span class="ic-label">Session</span>
-                    <span class="ic-val">2024-25 · Board Exams</span>
-                  </div>
-                  <div class="ic-verified">
-                    <span class="iv-icon">✅</span>
-                    <span>Identity Verified · Biometric Auth Passed</span>
+                  <div class="ps-bar">
+                    <div class="ps-fill" id="psf-gateway"></div>
                   </div>
                 </div>
-                <div class="sp-actions">
-                  <button class="btn-primary" onclick="nextStep(2)">Confirm & Continue →</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Step 2: Paper Details -->
-            <div class="step-panel" id="sp-2">
-              <div class="sp-card">
-                <h3>📋 Paper & Student Details</h3>
-                <div class="form-grid-2">
-                  <div class="form-group">
-                    <label>Class</label>
-                    <select id="sub-class" class="styled-select">
-                      <option value="10">Class X</option>
-                      <option value="12" selected>Class XII</option>
-                    </select>
+                <div class="pipeline-arrow">→</div>
+                <div class="pipeline-stage" id="ps-queue">
+                  <div class="ps-icon">📦</div>
+                  <div class="ps-info">
+                    <span class="ps-name">Queue</span>
+                    <span class="ps-count" id="psc-queue">0</span>
                   </div>
-                  <div class="form-group">
-                    <label>Subject</label>
-                    <select id="sub-subject" class="styled-select">
-                      <option value="MATH">Mathematics (041)</option>
-                      <option value="PHY">Physics (042)</option>
-                      <option value="CHEM">Chemistry (043)</option>
-                      <option value="BIO">Biology (044)</option>
-                      <option value="CS">Computer Science (083)</option>
-                      <option value="ENG">English Core (301)</option>
-                      <option value="ECON">Economics (030)</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>Set Code</label>
-                    <select id="sub-set" class="styled-select">
-                      <option>Set A</option>
-                      <option>Set B</option>
-                      <option>Set C</option>
-                      <option>Set D</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>Student Roll Number</label>
-                    <input type="text" id="sub-roll" class="styled-input" placeholder="e.g. 2024123456" maxlength="12" />
-                  </div>
-                  <div class="form-group">
-                    <label>Exam Date</label>
-                    <input type="date" id="sub-date" class="styled-input" />
-                  </div>
-                  <div class="form-group">
-                    <label>Total Marks</label>
-                    <input type="number" id="sub-marks" class="styled-input" placeholder="e.g. 100" min="0" max="100" />
+                  <div class="ps-bar">
+                    <div class="ps-fill" id="psf-queue" style="background:linear-gradient(90deg,#f59e0b,#fbbf24)"></div>
                   </div>
                 </div>
-                <div class="sp-actions">
-                  <button class="btn-secondary" onclick="nextStep(1)">← Back</button>
-                  <button class="btn-primary" onclick="nextStep(3)">Continue →</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Step 3: Upload -->
-            <div class="step-panel" id="sp-3">
-              <div class="sp-card">
-                <h3>📤 Upload Answer Script</h3>
-                <div class="upload-zone" id="upload-zone">
-                  <input type="file" id="file-input" accept=".pdf,.jpg,.jpeg,.png,.tif,.tiff" multiple style="display:none" />
-                  <div class="uz-icon">📁</div>
-                  <div class="uz-text">
-                    <strong>Drag & Drop Answer Script here</strong>
-                    <span>or click to browse files</span>
-                    <span class="uz-formats">Accepted: PDF, JPG, PNG, TIFF · Max: 50MB per file</span>
+                <div class="pipeline-arrow">→</div>
+                <div class="pipeline-stage" id="ps-workers">
+                  <div class="ps-icon">⚙️</div>
+                  <div class="ps-info">
+                    <span class="ps-name">Workers</span>
+                    <span class="ps-count" id="psc-workers">6 Active</span>
                   </div>
-                </div>
-
-                <div class="uploaded-files" id="uploaded-files"></div>
-
-                <div class="upload-security-info">
-                  <div class="usi-item"><span>🔐</span> AES-256 encrypted in transit</div>
-                  <div class="usi-item"><span>#️⃣</span> SHA-256 hash generated per file</div>
-                  <div class="usi-item"><span>🆔</span> Unique submission ID assigned</div>
-                  <div class="usi-item"><span>📋</span> Audit trail recorded</div>
-                </div>
-
-                <div class="sp-actions">
-                  <button class="btn-secondary" onclick="nextStep(2)">← Back</button>
-                  <button class="btn-primary" id="btn-proceed-upload" onclick="startProcessing()" disabled>
-                    🔐 Encrypt & Submit
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Step 4: Processing -->
-            <div class="step-panel" id="sp-4">
-              <div class="sp-card processing-card">
-                <h3>⚙️ Processing Submission</h3>
-                <p>Please wait while your submission is securely processed</p>
-                <div class="processing-steps" id="processing-steps">
-                  <div class="proc-step" id="proc-validate">
-                    <div class="proc-icon pending">⏳</div>
-                    <div class="proc-info">
-                      <span class="proc-name">File Validation</span>
-                      <span class="proc-detail" id="pd-validate">Checking file integrity...</span>
+                  <div class="ps-bar">
+                    <div class="ps-fill" id="psf-workers" style="background:linear-gradient(90deg,#6366f1,#818cf8)">
                     </div>
-                    <div class="proc-status" id="ps-validate">Pending</div>
-                  </div>
-                  <div class="proc-step" id="proc-hash">
-                    <div class="proc-icon pending">⏳</div>
-                    <div class="proc-info">
-                      <span class="proc-name">SHA-256 Hash Generation</span>
-                      <span class="proc-detail" id="pd-hash">Computing cryptographic hash...</span>
-                    </div>
-                    <div class="proc-status" id="ps-hash">Pending</div>
-                  </div>
-                  <div class="proc-step" id="proc-encrypt">
-                    <div class="proc-icon pending">⏳</div>
-                    <div class="proc-info">
-                      <span class="proc-name">AES-256 Encryption</span>
-                      <span class="proc-detail" id="pd-encrypt">Encrypting with government-grade cipher...</span>
-                    </div>
-                    <div class="proc-status" id="ps-encrypt">Pending</div>
-                  </div>
-                  <div class="proc-step" id="proc-id">
-                    <div class="proc-icon pending">⏳</div>
-                    <div class="proc-info">
-                      <span class="proc-name">Submission ID Assignment</span>
-                      <span class="proc-detail" id="pd-id">Generating unique identifier...</span>
-                    </div>
-                    <div class="proc-status" id="ps-id">Pending</div>
-                  </div>
-                  <div class="proc-step" id="proc-enqueue">
-                    <div class="proc-icon pending">⏳</div>
-                    <div class="proc-info">
-                      <span class="proc-name">Queue Placement</span>
-                      <span class="proc-detail" id="pd-enqueue">Placing in processing queue...</span>
-                    </div>
-                    <div class="proc-status" id="ps-enqueue">Pending</div>
                   </div>
                 </div>
-                <div class="proc-progress-bar">
-                  <div class="proc-progress-fill" id="proc-progress-fill" style="width:0%"></div>
+                <div class="pipeline-arrow">→</div>
+                <div class="pipeline-stage" id="ps-db">
+                  <div class="ps-icon">🗄️</div>
+                  <div class="ps-info">
+                    <span class="ps-name">Database</span>
+                    <span class="ps-count" id="psc-db">Syncing</span>
+                  </div>
+                  <div class="ps-bar">
+                    <div class="ps-fill" id="psf-db" style="background:linear-gradient(90deg,#10b981,#34d399)"></div>
+                  </div>
                 </div>
+              </div>
+              <!-- Flowing particles -->
+              <div class="pipeline-particles" id="pipeline-particles"></div>
+            </div>
+
+            <!-- Live Feed -->
+            <div class="dash-card live-feed-card">
+              <div class="dc-header">
+                <h3>Live Activity Feed</h3>
+                <button class="dc-action" id="btn-clear-feed">Clear</button>
+              </div>
+              <div class="live-feed" id="live-feed">
+                <!-- dynamic content -->
               </div>
             </div>
 
-            <!-- Step 5: Confirmation -->
-            <div class="step-panel" id="sp-5">
-              <div class="sp-card confirmation-card">
-                <div class="confirm-icon">✅</div>
-                <h3>Submission Successful!</h3>
-                <p>Your answer script has been securely submitted and queued for processing</p>
-                <div class="confirm-details" id="confirm-details">
-                  <div class="cd-row">
-                    <span>Submission ID</span>
-                    <code id="cd-sid">—</code>
+            <!-- System Resources -->
+            <div class="dash-card resources-card">
+              <div class="dc-header">
+                <h3>System Resources</h3>
+              </div>
+              <div class="resource-meters">
+                <div class="resource-meter">
+                  <div class="rm-header">
+                    <span>CPU Usage</span>
+                    <span class="rm-val" id="rm-cpu">0%</span>
                   </div>
-                  <div class="cd-row">
-                    <span>SHA-256 Hash</span>
-                    <code id="cd-hash" class="hash-code">—</code>
-                  </div>
-                  <div class="cd-row">
-                    <span>Queue Position</span>
-                    <code id="cd-pos">—</code>
-                  </div>
-                  <div class="cd-row">
-                    <span>Estimated Processing</span>
-                    <code id="cd-eta">~45 seconds</code>
-                  </div>
-                  <div class="cd-row">
-                    <span>Encryption</span>
-                    <code>AES-256-GCM</code>
-                  </div>
-                  <div class="cd-row">
-                    <span>Status</span>
-                    <code class="status-queued">🟡 QUEUED</code>
+                  <div class="rm-bar">
+                    <div class="rm-fill cpu-fill" id="rmf-cpu"></div>
                   </div>
                 </div>
-                <div class="sp-actions">
-                  <button class="btn-secondary" onclick="resetSubmission()">Submit Another</button>
-                  <button class="btn-primary" onclick="switchView('queue')">View in Queue →</button>
+                <div class="resource-meter">
+                  <div class="rm-header">
+                    <span>Memory</span>
+                    <span class="rm-val" id="rm-mem">0%</span>
+                  </div>
+                  <div class="rm-bar">
+                    <div class="rm-fill mem-fill" id="rmf-mem"></div>
+                  </div>
                 </div>
+                <div class="resource-meter">
+                  <div class="rm-header">
+                    <span>Queue Load</span>
+                    <span class="rm-val" id="rm-qload">0%</span>
+                  </div>
+                  <div class="rm-bar">
+                    <div class="rm-fill queue-fill" id="rmf-qload"></div>
+                  </div>
+                </div>
+                <div class="resource-meter">
+                  <div class="rm-header">
+                    <span>Network I/O</span>
+                    <span class="rm-val" id="rm-net">0 MB/s</span>
+                  </div>
+                  <div class="rm-bar">
+                    <div class="rm-fill net-fill" id="rmf-net"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mini-worker-grid" id="mini-worker-grid">
+                <!-- dynamic worker mini cards -->
               </div>
             </div>
 
-          </div>
-        </div>
-      </section>
-
-      <!-- ════ VIEW: QUEUE MONITOR ════ -->
-      <section id="view-queue" class="view" aria-label="Queue Monitor">
-        <div class="view-header">
-          <div class="vh-left">
-            <h2 class="view-title">Queue Monitor</h2>
-            <p class="view-subtitle">Real-time view of the submission processing queue</p>
-          </div>
-          <div class="vh-right">
-            <div class="live-indicator"><span class="live-dot"></span><span>Live</span></div>
-          </div>
-        </div>
-
-        <div class="queue-stats-row">
-          <div class="qs-card"><span class="qs-val" id="qs-incoming">0</span><span class="qs-label">Incoming</span></div>
-          <div class="qs-card amber"><span class="qs-val" id="qs-processing">0</span><span class="qs-label">Processing</span></div>
-          <div class="qs-card green"><span class="qs-val" id="qs-completed">0</span><span class="qs-label">Completed</span></div>
-          <div class="qs-card red"><span class="qs-val" id="qs-failed">0</span><span class="qs-label">Failed</span></div>
-          <div class="qs-card purple"><span class="qs-val" id="qs-retry">0</span><span class="qs-label">Retry Queue</span></div>
-        </div>
-
-        <div class="queue-board">
-          <div class="queue-column" id="qcol-incoming">
-            <div class="qcol-header incoming">
-              <span>📥 Incoming</span>
-              <span class="qcol-count" id="qcc-incoming">0</span>
-            </div>
-            <div class="qcol-items" id="qci-incoming"></div>
-          </div>
-          <div class="queue-column" id="qcol-processing">
-            <div class="qcol-header processing">
-              <span>⚙️ Processing</span>
-              <span class="qcol-count" id="qcc-processing">0</span>
-            </div>
-            <div class="qcol-items" id="qci-processing"></div>
-          </div>
-          <div class="queue-column" id="qcol-completed">
-            <div class="qcol-header completed">
-              <span>✅ Completed</span>
-              <span class="qcol-count" id="qcc-completed">0</span>
-            </div>
-            <div class="qcol-items" id="qci-completed"></div>
-          </div>
-          <div class="queue-column" id="qcol-failed">
-            <div class="qcol-header failed">
-              <span>❌ Failed / Retry</span>
-              <span class="qcol-count" id="qcc-failed">0</span>
-            </div>
-            <div class="qcol-items" id="qci-failed"></div>
-          </div>
-        </div>
-
-        <!-- Queue Depth Bar -->
-        <div class="dash-card" style="margin-top:1.5rem">
-          <div class="dc-header">
-            <h3>Queue Depth History</h3>
-          </div>
-          <canvas id="queue-depth-chart" width="900" height="120"></canvas>
-        </div>
-      </section>
-
-      <!-- ════ VIEW: WORKERS ════ -->
-      <section id="view-workers" class="view" aria-label="Worker Pool">
-        <div class="view-header">
-          <div class="vh-left">
-            <h2 class="view-title">Worker Pool</h2>
-            <p class="view-subtitle">Background processing workers — auto-scaling enabled</p>
-          </div>
-          <div class="vh-right">
-            <div class="worker-summary-badges">
-              <span class="wsb active" id="wsb-active">0 Active</span>
-              <span class="wsb idle" id="wsb-idle">0 Idle</span>
-              <span class="wsb scaled" id="wsb-scaled">0 Auto-Scaled</span>
+            <!-- Throughput Chart -->
+            <div class="dash-card chart-card">
+              <div class="dc-header">
+                <h3>Throughput (Last 60s)</h3>
+                <div class="chart-legend">
+                  <span class="cl-dot" style="background:#6366f1"></span><span>Submissions/s</span>
+                  <span class="cl-dot" style="background:#10b981"></span><span>Processed/s</span>
+                </div>
+              </div>
+              <canvas id="throughput-chart" width="600" height="160"></canvas>
             </div>
           </div>
-        </div>
+        </section>
 
-        <div class="autoscale-notice" id="autoscale-notice" style="display:none">
-          <span>⚡</span>
-          <span id="autoscale-msg">Auto-scaling triggered — Spinning up additional workers...</span>
-        </div>
-
-        <div class="workers-grid" id="workers-grid">
-          <!-- Dynamic worker cards -->
-        </div>
-
-        <div class="dash-card" style="margin-top:1.5rem">
-          <div class="dc-header">
-            <h3>Worker Throughput</h3>
+        <!-- ════ VIEW: SUBMIT ════ -->
+        <section id="view-submit" class="view" aria-label="Submit Answer Script">
+          <div class="view-header">
+            <div class="vh-left">
+              <h2 class="view-title">Submit Answer Script</h2>
+              <p class="view-subtitle">Secure, encrypted answer-script submission portal</p>
+            </div>
           </div>
-          <canvas id="worker-chart" width="900" height="120"></canvas>
-        </div>
-      </section>
 
-      <!-- ════ VIEW: ANALYTICS ════ -->
-      <section id="view-analytics" class="view" aria-label="Analytics">
-        <div class="view-header">
-          <div class="vh-left">
-            <h2 class="view-title">Analytics & Logs</h2>
-            <p class="view-subtitle">Submission statistics, trends, and system logs</p>
-          </div>
-          <div class="vh-right">
-            <button class="btn-secondary small" id="btn-export-logs">⬇ Export Logs</button>
-          </div>
-        </div>
+          <div class="submit-layout">
+            <!-- Step Tracker -->
+            <div class="step-tracker" id="step-tracker">
+              <div class="step-item active" data-step="1" id="st-1">
+                <div class="step-circle">1</div>
+                <span>Verify Identity</span>
+              </div>
+              <div class="step-line" id="sl-1"></div>
+              <div class="step-item" data-step="2" id="st-2">
+                <div class="step-circle">2</div>
+                <span>Paper Details</span>
+              </div>
+              <div class="step-line" id="sl-2"></div>
+              <div class="step-item" data-step="3" id="st-3">
+                <div class="step-circle">3</div>
+                <span>Upload Script</span>
+              </div>
+              <div class="step-line" id="sl-3"></div>
+              <div class="step-item" data-step="4" id="st-4">
+                <div class="step-circle">4</div>
+                <span>Processing</span>
+              </div>
+              <div class="step-line" id="sl-4"></div>
+              <div class="step-item" data-step="5" id="st-5">
+                <div class="step-circle">5</div>
+                <span>Confirmation</span>
+              </div>
+            </div>
 
-        <div class="analytics-grid">
-          <!-- Main Chart -->
-          <div class="dash-card analytics-chart-card">
+            <!-- Step Panels -->
+            <div class="step-panels">
+
+              <!-- Step 1: Identity -->
+              <div class="step-panel active" id="sp-1">
+                <div class="sp-card">
+                  <h3>🪪 Evaluator Identity Verification</h3>
+                  <p>Confirm your details before proceeding with submission</p>
+                  <div class="identity-card" id="identity-card">
+                    <div class="ic-row">
+                      <span class="ic-label">Evaluator Name</span>
+                      <span class="ic-val" id="ic-name">—</span>
+                    </div>
+                    <div class="ic-row">
+                      <span class="ic-label">Evaluator ID</span>
+                      <span class="ic-val" id="ic-id">—</span>
+                    </div>
+                    <div class="ic-row">
+                      <span class="ic-label">Subject</span>
+                      <span class="ic-val" id="ic-subject">—</span>
+                    </div>
+                    <div class="ic-row">
+                      <span class="ic-label">Center Code</span>
+                      <span class="ic-val" id="ic-center">DEL-0412</span>
+                    </div>
+                    <div class="ic-row">
+                      <span class="ic-label">Session</span>
+                      <span class="ic-val">2024-25 · Board Exams</span>
+                    </div>
+                    <div class="ic-verified">
+                      <span class="iv-icon">✅</span>
+                      <span>Identity Verified · Biometric Auth Passed</span>
+                    </div>
+                  </div>
+                  <div class="sp-actions">
+                    <button class="btn-primary" onclick="nextStep(2)">Confirm & Continue →</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 2: Paper Details -->
+              <div class="step-panel" id="sp-2">
+                <div class="sp-card">
+                  <h3>📋 Paper & Student Details</h3>
+                  <div class="form-grid-2">
+                    <div class="form-group">
+                      <label>Class</label>
+                      <select id="sub-class" class="styled-select">
+                        <option value="10">Class X</option>
+                        <option value="12" selected>Class XII</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>Subject</label>
+                      <select id="sub-subject" class="styled-select">
+                        <option value="MATH">Mathematics (041)</option>
+                        <option value="PHY">Physics (042)</option>
+                        <option value="CHEM">Chemistry (043)</option>
+                        <option value="BIO">Biology (044)</option>
+                        <option value="CS">Computer Science (083)</option>
+                        <option value="ENG">English Core (301)</option>
+                        <option value="ECON">Economics (030)</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>Set Code</label>
+                      <select id="sub-set" class="styled-select">
+                        <option>Set A</option>
+                        <option>Set B</option>
+                        <option>Set C</option>
+                        <option>Set D</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>Student Roll Number</label>
+                      <input type="text" id="sub-roll" class="styled-input" placeholder="e.g. 2024123456"
+                        maxlength="12" />
+                    </div>
+                    <div class="form-group">
+                      <label>Exam Date</label>
+                      <input type="date" id="sub-date" class="styled-input" />
+                    </div>
+                    <div class="form-group">
+                      <label>Total Marks</label>
+                      <input type="number" id="sub-marks" class="styled-input" placeholder="e.g. 100" min="0"
+                        max="100" />
+                    </div>
+                  </div>
+                  <div class="sp-actions">
+                    <button class="btn-secondary" onclick="nextStep(1)">← Back</button>
+                    <button class="btn-primary" onclick="nextStep(3)">Continue →</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 3: Upload -->
+              <div class="step-panel" id="sp-3">
+                <div class="sp-card">
+                  <h3>📤 Upload Answer Script</h3>
+                  <div class="upload-zone" id="upload-zone">
+                    <input type="file" id="file-input" accept=".pdf,.jpg,.jpeg,.png,.tif,.tiff" multiple
+                      style="display:none" />
+                    <div class="uz-icon">📁</div>
+                    <div class="uz-text">
+                      <strong>Drag & Drop Answer Script here</strong>
+                      <span>or click to browse files</span>
+                      <span class="uz-formats">Accepted: PDF, JPG, PNG, TIFF · Max: 50MB per file</span>
+                    </div>
+                  </div>
+
+                  <div class="uploaded-files" id="uploaded-files"></div>
+
+                  <div class="upload-security-info">
+                    <div class="usi-item"><span>🔐</span> AES-256 encrypted in transit</div>
+                    <div class="usi-item"><span>#️⃣</span> SHA-256 hash generated per file</div>
+                    <div class="usi-item"><span>🆔</span> Unique submission ID assigned</div>
+                    <div class="usi-item"><span>📋</span> Audit trail recorded</div>
+                  </div>
+
+                  <div class="sp-actions">
+                    <button class="btn-secondary" onclick="nextStep(2)">← Back</button>
+                    <button class="btn-primary" id="btn-proceed-upload" onclick="startProcessing()" disabled>
+                      🔐 Encrypt & Submit
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 4: Processing -->
+              <div class="step-panel" id="sp-4">
+                <div class="sp-card processing-card">
+                  <h3>⚙️ Processing Submission</h3>
+                  <p>Please wait while your submission is securely processed</p>
+                  <div class="processing-steps" id="processing-steps">
+                    <div class="proc-step" id="proc-validate">
+                      <div class="proc-icon pending">⏳</div>
+                      <div class="proc-info">
+                        <span class="proc-name">File Validation</span>
+                        <span class="proc-detail" id="pd-validate">Checking file integrity...</span>
+                      </div>
+                      <div class="proc-status" id="ps-validate">Pending</div>
+                    </div>
+                    <div class="proc-step" id="proc-hash">
+                      <div class="proc-icon pending">⏳</div>
+                      <div class="proc-info">
+                        <span class="proc-name">SHA-256 Hash Generation</span>
+                        <span class="proc-detail" id="pd-hash">Computing cryptographic hash...</span>
+                      </div>
+                      <div class="proc-status" id="ps-hash">Pending</div>
+                    </div>
+                    <div class="proc-step" id="proc-encrypt">
+                      <div class="proc-icon pending">⏳</div>
+                      <div class="proc-info">
+                        <span class="proc-name">AES-256 Encryption</span>
+                        <span class="proc-detail" id="pd-encrypt">Encrypting with government-grade cipher...</span>
+                      </div>
+                      <div class="proc-status" id="ps-encrypt">Pending</div>
+                    </div>
+                    <div class="proc-step" id="proc-id">
+                      <div class="proc-icon pending">⏳</div>
+                      <div class="proc-info">
+                        <span class="proc-name">Submission ID Assignment</span>
+                        <span class="proc-detail" id="pd-id">Generating unique identifier...</span>
+                      </div>
+                      <div class="proc-status" id="ps-id">Pending</div>
+                    </div>
+                    <div class="proc-step" id="proc-enqueue">
+                      <div class="proc-icon pending">⏳</div>
+                      <div class="proc-info">
+                        <span class="proc-name">Queue Placement</span>
+                        <span class="proc-detail" id="pd-enqueue">Placing in processing queue...</span>
+                      </div>
+                      <div class="proc-status" id="ps-enqueue">Pending</div>
+                    </div>
+                  </div>
+                  <div class="proc-progress-bar">
+                    <div class="proc-progress-fill" id="proc-progress-fill" style="width:0%"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 5: Confirmation -->
+              <div class="step-panel" id="sp-5">
+                <div class="sp-card confirmation-card">
+                  <div class="confirm-icon">✅</div>
+                  <h3>Submission Successful!</h3>
+                  <p>Your answer script has been securely submitted and queued for processing</p>
+                  <div class="confirm-details" id="confirm-details">
+                    <div class="cd-row">
+                      <span>Submission ID</span>
+                      <code id="cd-sid">—</code>
+                    </div>
+                    <div class="cd-row">
+                      <span>SHA-256 Hash</span>
+                      <code id="cd-hash" class="hash-code">—</code>
+                    </div>
+                    <div class="cd-row">
+                      <span>Queue Position</span>
+                      <code id="cd-pos">—</code>
+                    </div>
+                    <div class="cd-row">
+                      <span>Estimated Processing</span>
+                      <code id="cd-eta">~45 seconds</code>
+                    </div>
+                    <div class="cd-row">
+                      <span>Encryption</span>
+                      <code>AES-256-GCM</code>
+                    </div>
+                    <div class="cd-row">
+                      <span>Status</span>
+                      <code class="status-queued">🟡 QUEUED</code>
+                    </div>
+                  </div>
+                  <div class="sp-actions">
+                    <button class="btn-secondary" onclick="resetSubmission()">Submit Another</button>
+                    <button class="btn-primary" onclick="switchView('queue')">View in Queue →</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- ════ VIEW: QUEUE MONITOR ════ -->
+        <section id="view-queue" class="view" aria-label="Queue Monitor">
+          <div class="view-header">
+            <div class="vh-left">
+              <h2 class="view-title">Queue Monitor</h2>
+              <p class="view-subtitle">Real-time view of the submission processing queue</p>
+            </div>
+            <div class="vh-right">
+              <div class="live-indicator"><span class="live-dot"></span><span>Live</span></div>
+            </div>
+          </div>
+
+          <div class="queue-stats-row">
+            <div class="qs-card"><span class="qs-val" id="qs-incoming">0</span><span class="qs-label">Incoming</span>
+            </div>
+            <div class="qs-card amber"><span class="qs-val" id="qs-processing">0</span><span
+                class="qs-label">Processing</span></div>
+            <div class="qs-card green"><span class="qs-val" id="qs-completed">0</span><span
+                class="qs-label">Completed</span></div>
+            <div class="qs-card red"><span class="qs-val" id="qs-failed">0</span><span class="qs-label">Failed</span>
+            </div>
+            <div class="qs-card purple"><span class="qs-val" id="qs-retry">0</span><span class="qs-label">Retry
+                Queue</span></div>
+          </div>
+
+          <div class="queue-board">
+            <div class="queue-column" id="qcol-incoming">
+              <div class="qcol-header incoming">
+                <span>📥 Incoming</span>
+                <span class="qcol-count" id="qcc-incoming">0</span>
+              </div>
+              <div class="qcol-items" id="qci-incoming"></div>
+            </div>
+            <div class="queue-column" id="qcol-processing">
+              <div class="qcol-header processing">
+                <span>⚙️ Processing</span>
+                <span class="qcol-count" id="qcc-processing">0</span>
+              </div>
+              <div class="qcol-items" id="qci-processing"></div>
+            </div>
+            <div class="queue-column" id="qcol-completed">
+              <div class="qcol-header completed">
+                <span>✅ Completed</span>
+                <span class="qcol-count" id="qcc-completed">0</span>
+              </div>
+              <div class="qcol-items" id="qci-completed"></div>
+            </div>
+            <div class="queue-column" id="qcol-failed">
+              <div class="qcol-header failed">
+                <span>❌ Failed / Retry</span>
+                <span class="qcol-count" id="qcc-failed">0</span>
+              </div>
+              <div class="qcol-items" id="qci-failed"></div>
+            </div>
+          </div>
+
+          <!-- Queue Depth Bar -->
+          <div class="dash-card" style="margin-top:1.5rem">
             <div class="dc-header">
-              <h3>Submission Timeline (Last 5 minutes)</h3>
-              <div class="chart-legend">
-                <span class="cl-dot" style="background:#6366f1"></span><span>Submitted</span>
-                <span class="cl-dot" style="background:#10b981"></span><span>Processed</span>
-                <span class="cl-dot" style="background:#f43f5e"></span><span>Failed</span>
+              <h3>Queue Depth History</h3>
+            </div>
+            <canvas id="queue-depth-chart" width="900" height="120"></canvas>
+          </div>
+        </section>
+
+        <!-- ════ VIEW: WORKERS ════ -->
+        <section id="view-workers" class="view" aria-label="Worker Pool">
+          <div class="view-header">
+            <div class="vh-left">
+              <h2 class="view-title">Worker Pool</h2>
+              <p class="view-subtitle">Background processing workers — auto-scaling enabled</p>
+            </div>
+            <div class="vh-right">
+              <div class="worker-summary-badges">
+                <span class="wsb active" id="wsb-active">0 Active</span>
+                <span class="wsb idle" id="wsb-idle">0 Idle</span>
+                <span class="wsb scaled" id="wsb-scaled">0 Auto-Scaled</span>
               </div>
             </div>
-            <canvas id="analytics-main-chart" width="700" height="200"></canvas>
           </div>
 
-          <!-- Stats Panel -->
-          <div class="dash-card stats-panel">
-            <div class="dc-header"><h3>Session Statistics</h3></div>
-            <div class="stat-rows" id="stat-rows">
-              <div class="stat-row"><span>Session Start</span><span id="stat-start">—</span></div>
-              <div class="stat-row"><span>Total Submitted</span><span id="stat-total" class="stat-good">0</span></div>
-              <div class="stat-row"><span>Successfully Processed</span><span id="stat-success" class="stat-good">0</span></div>
-              <div class="stat-row"><span>Failed</span><span id="stat-failed" class="stat-bad">0</span></div>
-              <div class="stat-row"><span>Retried</span><span id="stat-retried" class="stat-warn">0</span></div>
-              <div class="stat-row"><span>Peak Queue Depth</span><span id="stat-peak">0</span></div>
-              <div class="stat-row"><span>Avg Process Time</span><span id="stat-avgtime">—</span></div>
-              <div class="stat-row"><span>Workers Deployed</span><span id="stat-workers">6</span></div>
-              <div class="stat-row"><span>Traffic Spikes</span><span id="stat-spikes">0</span></div>
-            </div>
+          <div class="autoscale-notice" id="autoscale-notice" style="display:none">
+            <span>⚡</span>
+            <span id="autoscale-msg">Auto-scaling triggered — Spinning up additional workers...</span>
           </div>
 
-          <!-- Terminal -->
-          <div class="dash-card terminal-card">
+          <div class="workers-grid" id="workers-grid">
+            <!-- Dynamic worker cards -->
+          </div>
+
+          <div class="dash-card" style="margin-top:1.5rem">
             <div class="dc-header">
-              <div class="terminal-controls">
-                <span class="tc-dot red"></span>
-                <span class="tc-dot yellow"></span>
-                <span class="tc-dot green"></span>
-                <span style="margin-left:.5rem;font-size:.75rem;color:#64748b;">evalsync@cbse:~$ tail -f /var/log/evalsync.log</span>
-              </div>
-              <button class="dc-action" id="btn-clear-term">Clear</button>
+              <h3>Worker Throughput</h3>
             </div>
-            <div class="terminal" id="terminal">
-              <!-- dynamic log lines -->
+            <canvas id="worker-chart" width="900" height="120"></canvas>
+          </div>
+        </section>
+
+        <!-- ════ VIEW: ANALYTICS ════ -->
+        <section id="view-analytics" class="view" aria-label="Analytics">
+          <div class="view-header">
+            <div class="vh-left">
+              <h2 class="view-title">Analytics & Logs</h2>
+              <p class="view-subtitle">Submission statistics, trends, and system logs</p>
+            </div>
+            <div class="vh-right">
+              <button class="btn-secondary small" id="btn-export-logs">⬇ Export Logs</button>
             </div>
           </div>
 
-          <!-- Subject Distribution -->
+          <div class="analytics-grid">
+            <!-- Main Chart -->
+            <div class="dash-card analytics-chart-card">
+              <div class="dc-header">
+                <h3>Submission Timeline (Last 5 minutes)</h3>
+                <div class="chart-legend">
+                  <span class="cl-dot" style="background:#6366f1"></span><span>Submitted</span>
+                  <span class="cl-dot" style="background:#10b981"></span><span>Processed</span>
+                  <span class="cl-dot" style="background:#f43f5e"></span><span>Failed</span>
+                </div>
+              </div>
+              <canvas id="analytics-main-chart" width="700" height="200"></canvas>
+            </div>
+
+            <!-- Stats Panel -->
+            <div class="dash-card stats-panel">
+              <div class="dc-header">
+                <h3>Session Statistics</h3>
+              </div>
+              <div class="stat-rows" id="stat-rows">
+                <div class="stat-row"><span>Session Start</span><span id="stat-start">—</span></div>
+                <div class="stat-row"><span>Total Submitted</span><span id="stat-total" class="stat-good">0</span></div>
+                <div class="stat-row"><span>Successfully Processed</span><span id="stat-success"
+                    class="stat-good">0</span></div>
+                <div class="stat-row"><span>Failed</span><span id="stat-failed" class="stat-bad">0</span></div>
+                <div class="stat-row"><span>Retried</span><span id="stat-retried" class="stat-warn">0</span></div>
+                <div class="stat-row"><span>Peak Queue Depth</span><span id="stat-peak">0</span></div>
+                <div class="stat-row"><span>Avg Process Time</span><span id="stat-avgtime">—</span></div>
+                <div class="stat-row"><span>Workers Deployed</span><span id="stat-workers">6</span></div>
+                <div class="stat-row"><span>Traffic Spikes</span><span id="stat-spikes">0</span></div>
+              </div>
+            </div>
+
+            <!-- Terminal -->
+            <div class="dash-card terminal-card">
+              <div class="dc-header">
+                <div class="terminal-controls">
+                  <span class="tc-dot red"></span>
+                  <span class="tc-dot yellow"></span>
+                  <span class="tc-dot green"></span>
+                  <span style="margin-left:.5rem;font-size:.75rem;color:#64748b;">evalsync@cbse:~$ tail -f
+                    /var/log/evalsync.log</span>
+                </div>
+                <button class="dc-action" id="btn-clear-term">Clear</button>
+              </div>
+              <div class="terminal" id="terminal">
+                <!-- dynamic log lines -->
+              </div>
+            </div>
+
+            <!-- Subject Distribution -->
+            <div class="dash-card">
+              <div class="dc-header">
+                <h3>Submissions by Subject</h3>
+              </div>
+              <canvas id="subject-chart" width="400" height="180"></canvas>
+            </div>
+          </div>
+        </section>
+
+        <!-- ════ VIEW: SECURITY ════ -->
+        <section id="view-security" class="view" aria-label="Security Center">
+          <div class="view-header">
+            <div class="vh-left">
+              <h2 class="view-title">Security Center</h2>
+              <p class="view-subtitle">AES-256 encryption, SHA-256 hashing & integrity verification</p>
+            </div>
+            <div class="vh-right">
+              <div class="security-badge">🔐 FIPS 140-2 Compliant</div>
+            </div>
+          </div>
+
+          <div class="security-grid">
+            <!-- Encryption Simulator -->
+            <div class="dash-card sec-card">
+              <div class="dc-header">
+                <h3>🔐 AES-256-GCM Encryption Simulator</h3>
+              </div>
+              <div class="enc-simulator">
+                <div class="enc-row">
+                  <label>Plaintext (Submission Data)</label>
+                  <textarea id="enc-input" class="enc-textarea" rows="3"
+                    placeholder="Enter text to encrypt...">CBSE Board Exam 2024 | Roll: 2024123456 | Subject: Mathematics | Score: 87/100</textarea>
+                </div>
+                <button class="btn-primary full-width" id="btn-encrypt">🔐 Encrypt Now</button>
+                <div class="enc-output" id="enc-output">
+                  <div class="eo-row"><span>Cipher</span><code id="eo-cipher">AES-256-GCM</code></div>
+                  <div class="eo-row"><span>Key (256-bit)</span><code id="eo-key" class="mono-small">—</code></div>
+                  <div class="eo-row"><span>IV (96-bit)</span><code id="eo-iv" class="mono-small">—</code></div>
+                  <div class="eo-row"><span>Auth Tag</span><code id="eo-tag" class="mono-small">—</code></div>
+                  <div class="eo-row enc-result"><span>Encrypted Output</span><code id="eo-result"
+                      class="mono-small">—</code></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Hash Generator -->
+            <div class="dash-card sec-card">
+              <div class="dc-header">
+                <h3>#️⃣ SHA-256 Hash Generator</h3>
+              </div>
+              <div class="enc-simulator">
+                <div class="enc-row">
+                  <label>Input Data</label>
+                  <textarea id="hash-input" class="enc-textarea" rows="3"
+                    placeholder="Enter data to hash...">CBSE-EVS-2024-12-MATH-SET-A-2024123456</textarea>
+                </div>
+                <button class="btn-primary full-width" id="btn-hash">Generate SHA-256 Hash</button>
+                <div class="enc-output">
+                  <div class="eo-row"><span>Algorithm</span><code>SHA-256</code></div>
+                  <div class="eo-row enc-result"><span>Hash Output</span><code id="hash-result"
+                      class="mono-small">—</code></div>
+                  <div class="eo-row"><span>Integrity</span><code id="hash-status" class="status-ok">✅ Verified</code>
+                  </div>
+                </div>
+                <div class="hash-animation" id="hash-animation"></div>
+              </div>
+            </div>
+
+            <!-- ID Generator -->
+            <div class="dash-card sec-card">
+              <div class="dc-header">
+                <h3>🆔 Submission ID Generator</h3>
+              </div>
+              <div class="id-generator">
+                <div class="current-id-display" id="current-id-display">
+                  <span class="cid-label">Latest Generated ID</span>
+                  <code class="cid-value" id="cid-value">—</code>
+                </div>
+                <button class="btn-primary full-width" id="btn-gen-id">Generate New ID</button>
+                <div class="id-anatomy">
+                  <div class="ia-label">ID Anatomy:</div>
+                  <div class="ia-parts">
+                    <span class="ia-part cbse">CBSE</span>
+                    <span class="ia-sep">-</span>
+                    <span class="ia-part year">2024</span>
+                    <span class="ia-sep">-</span>
+                    <span class="ia-part sub">MATH</span>
+                    <span class="ia-sep">-</span>
+                    <span class="ia-part region">DEL</span>
+                    <span class="ia-sep">-</span>
+                    <span class="ia-part ts">17294810</span>
+                    <span class="ia-sep">-</span>
+                    <span class="ia-part rand">X7F2</span>
+                  </div>
+                </div>
+                <div class="recent-ids" id="recent-ids">
+                  <div class="ri-label">Recently Generated</div>
+                  <div class="ri-list" id="ri-list"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Security Events -->
+            <div class="dash-card sec-card">
+              <div class="dc-header">
+                <h3>🛡️ Security Audit Log</h3>
+              </div>
+              <div class="security-log" id="security-log">
+                <!-- dynamic -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ════ VIEW: DATABASE ════ -->
+        <section id="view-database" class="view" aria-label="Database Sync">
+          <div class="view-header">
+            <div class="vh-left">
+              <h2 class="view-title">Database Sync</h2>
+              <p class="view-subtitle">Central database synchronization and record management</p>
+            </div>
+            <div class="vh-right">
+              <div class="db-status-badge" id="db-status-badge">
+                <span class="dsb-dot syncing"></span>
+                <span id="dsb-text">Syncing...</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="db-grid">
+            <!-- DB Overview -->
+            <div class="dash-card db-overview">
+              <div class="dc-header">
+                <h3>🗄️ Central Database</h3>
+              </div>
+              <div class="db-visual" id="db-visual">
+                <div class="db-icon-large">🗄️</div>
+                <div class="db-stats-visual">
+                  <div class="dsv-row"><span>Total Records</span><span id="dbv-total" class="dsv-val">0</span></div>
+                  <div class="dsv-row"><span>Today's Synced</span><span id="dbv-today" class="dsv-val green">0</span>
+                  </div>
+                  <div class="dsv-row"><span>Pending Sync</span><span id="dbv-pending" class="dsv-val amber">0</span>
+                  </div>
+                  <div class="dsv-row"><span>Last Sync</span><span id="dbv-last" class="dsv-val">—</span></div>
+                  <div class="dsv-row"><span>DB Size</span><span id="dbv-size" class="dsv-val">0 MB</span></div>
+                  <div class="dsv-row"><span>Replication</span><span class="dsv-val green">3x Replicated</span></div>
+                </div>
+                <div class="db-replication-nodes">
+                  <div class="drn" id="drn-primary"><span>🟢</span><span>Primary DB</span><span
+                      class="drn-loc">Mumbai</span></div>
+                  <div class="drn" id="drn-r1"><span>🟢</span><span>Replica 1</span><span class="drn-loc">Delhi</span>
+                  </div>
+                  <div class="drn" id="drn-r2"><span>🟢</span><span>Replica 2</span><span class="drn-loc">Chennai</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sync Log -->
+            <div class="dash-card db-sync-log">
+              <div class="dc-header">
+                <h3>Sync Activity Log</h3>
+                <span class="dc-badge live">Live</span>
+              </div>
+              <div class="db-log" id="db-log"></div>
+            </div>
+
+            <!-- Recent Records -->
+            <div class="dash-card db-records">
+              <div class="dc-header">
+                <h3>Recent Records</h3>
+              </div>
+              <div class="records-table-wrapper">
+                <table class="records-table">
+                  <thead>
+                    <tr>
+                      <th>Submission ID</th>
+                      <th>Subject</th>
+                      <th>Roll No</th>
+                      <th>Hash (Short)</th>
+                      <th>Status</th>
+                      <th>Synced At</th>
+                    </tr>
+                  </thead>
+                  <tbody id="records-tbody">
+                    <!-- dynamic -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Sync Progress -->
+            <div class="dash-card">
+              <div class="dc-header">
+                <h3>Batch Sync Progress</h3>
+              </div>
+              <canvas id="db-sync-chart" width="400" height="160"></canvas>
+            </div>
+          </div>
+        </section>
+
+        <!-- ════ VIEW: ADMIN ════ -->
+        <section id="view-admin" class="view" aria-label="Admin Control">
+          <div class="view-header">
+            <div class="vh-left">
+              <h2 class="view-title">Admin Control Panel</h2>
+              <p class="view-subtitle">System configuration, traffic management & emergency controls</p>
+            </div>
+            <div class="vh-right">
+              <span class="admin-badge">🛡️ Administrator</span>
+            </div>
+          </div>
+
+          <div class="admin-grid">
+            <!-- Traffic Controls -->
+            <div class="dash-card admin-card">
+              <div class="dc-header">
+                <h3>⚡ Traffic Simulation</h3>
+              </div>
+              <div class="admin-controls">
+                <button class="btn-control spike" id="btn-spike-big">
+                  <span class="bc-icon">⚡</span>
+                  <div>
+                    <strong>Simulate Traffic Spike</strong>
+                    <span>Inject 50 submissions instantly</span>
+                  </div>
+                </button>
+                <button class="btn-control moderate" id="btn-moderate">
+                  <span class="bc-icon">📈</span>
+                  <div>
+                    <strong>Moderate Load Test</strong>
+                    <span>Inject 20 submissions</span>
+                  </div>
+                </button>
+                <button class="btn-control reset-btn" id="btn-reset-queue">
+                  <span class="bc-icon">🔄</span>
+                  <div>
+                    <strong>Reset Queue</strong>
+                    <span>Clear all pending items</span>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <!-- Worker Controls -->
+            <div class="dash-card admin-card">
+              <div class="dc-header">
+                <h3>⚙️ Worker Management</h3>
+              </div>
+              <div class="admin-controls">
+                <button class="btn-control add-worker" id="btn-add-worker">
+                  <span class="bc-icon">➕</span>
+                  <div>
+                    <strong>Spawn Worker</strong>
+                    <span>Add one processing worker</span>
+                  </div>
+                </button>
+                <button class="btn-control remove-worker" id="btn-remove-worker">
+                  <span class="bc-icon">➖</span>
+                  <div>
+                    <strong>Terminate Worker</strong>
+                    <span>Remove idle worker</span>
+                  </div>
+                </button>
+                <div class="worker-config">
+                  <label>Workers: <span id="worker-count-label">6</span></label>
+                  <input type="range" id="worker-slider" min="1" max="20" value="6" class="styled-range" />
+                </div>
+              </div>
+            </div>
+
+            <!-- System Config -->
+            <div class="dash-card admin-card">
+              <div class="dc-header">
+                <h3>🔧 System Configuration</h3>
+              </div>
+              <div class="config-rows">
+                <div class="config-row">
+                  <div>
+                    <span class="cr-name">Auto-Scaling</span>
+                    <span class="cr-desc">Dynamically add workers under load</span>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="toggle-autoscale" checked />
+                    <span class="ts-slider"></span>
+                  </label>
+                </div>
+                <div class="config-row">
+                  <div>
+                    <span class="cr-name">Retry on Failure</span>
+                    <span class="cr-desc">Auto-retry failed submissions (max 3x)</span>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="toggle-retry" checked />
+                    <span class="ts-slider"></span>
+                  </label>
+                </div>
+                <div class="config-row">
+                  <div>
+                    <span class="cr-name">Real-Time Logging</span>
+                    <span class="cr-desc">Stream processing logs to terminal</span>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="toggle-logging" checked />
+                    <span class="ts-slider"></span>
+                  </label>
+                </div>
+                <div class="config-row">
+                  <div>
+                    <span class="cr-name">Encryption Enforcement</span>
+                    <span class="cr-desc">Reject unencrypted submissions</span>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="toggle-encrypt" checked />
+                    <span class="ts-slider"></span>
+                  </label>
+                </div>
+                <div class="config-row">
+                  <div>
+                    <span class="cr-name">Queue Depth Alert</span>
+                    <span class="cr-desc">Alert when queue > threshold</span>
+                  </div>
+                  <div class="cr-input-row">
+                    <input type="number" id="queue-threshold" value="30" min="5" max="100" class="styled-input small" />
+                    <span>items</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Emergency Controls -->
+            <div class="dash-card admin-card emergency-card">
+              <div class="dc-header">
+                <h3>🚨 Emergency Controls</h3>
+              </div>
+              <div class="admin-controls">
+                <button class="btn-control emergency" id="btn-pause-queue">
+                  <span class="bc-icon">⏸️</span>
+                  <div>
+                    <strong>Pause Queue Processing</strong>
+                    <span>Halt all workers immediately</span>
+                  </div>
+                </button>
+                <button class="btn-control safe" id="btn-resume-queue" disabled>
+                  <span class="bc-icon">▶️</span>
+                  <div>
+                    <strong>Resume Processing</strong>
+                    <span>Restart all workers</span>
+                  </div>
+                </button>
+                <button class="btn-control danger" id="btn-full-reset">
+                  <span class="bc-icon">🔃</span>
+                  <div>
+                    <strong>Full System Reset</strong>
+                    <span>Reset all data and restart simulation</span>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ════ VIEW: SYSTEM HEALTH ════ -->
+        <section id="view-health" class="view" aria-label="System Health">
+          <div class="view-header">
+            <div class="vh-left">
+              <h2 class="view-title">System Health Map</h2>
+              <p class="view-subtitle">Real-time infrastructure health across all service layers</p>
+            </div>
+            <div class="vh-right">
+              <div class="live-indicator"><span class="live-dot"></span><span>Live</span></div>
+            </div>
+          </div>
+
+          <div class="health-grid">
+            <!-- Service Status Row -->
+            <div class="health-services-row" id="health-services">
+              <div class="svc-card" id="svc-gateway">
+                <div class="svc-icon">🌐</div>
+                <div class="svc-name">API Gateway</div>
+                <div class="svc-status ok" id="svcst-gateway">OPERATIONAL</div>
+                <div class="svc-latency" id="svcl-gateway">12ms</div>
+              </div>
+              <div class="svc-card" id="svc-queue">
+                <div class="svc-icon">📦</div>
+                <div class="svc-name">Queue Broker</div>
+                <div class="svc-status ok" id="svcst-queue">OPERATIONAL</div>
+                <div class="svc-latency" id="svcl-queue">8ms</div>
+              </div>
+              <div class="svc-card" id="svc-workers">
+                <div class="svc-icon">⚙️</div>
+                <div class="svc-name">Worker Pool</div>
+                <div class="svc-status ok" id="svcst-workers">OPERATIONAL</div>
+                <div class="svc-latency" id="svcl-workers">0ms</div>
+              </div>
+              <div class="svc-card" id="svc-encrypt">
+                <div class="svc-icon">🔐</div>
+                <div class="svc-name">Encryption Svc</div>
+                <div class="svc-status ok" id="svcst-encrypt">OPERATIONAL</div>
+                <div class="svc-latency" id="svcl-encrypt">3ms</div>
+              </div>
+              <div class="svc-card" id="svc-db">
+                <div class="svc-icon">🗄️</div>
+                <div class="svc-name">Primary DB</div>
+                <div class="svc-status ok" id="svcst-db">OPERATIONAL</div>
+                <div class="svc-latency" id="svcl-db">22ms</div>
+              </div>
+              <div class="svc-card" id="svc-replica">
+                <div class="svc-icon">🔁</div>
+                <div class="svc-name">DB Replicas</div>
+                <div class="svc-status ok" id="svcst-replica">IN SYNC</div>
+                <div class="svc-latency" id="svcl-replica">34ms</div>
+              </div>
+            </div>
+
+            <!-- Latency Chart -->
+            <div class="dash-card">
+              <div class="dc-header">
+                <h3>Service Latency (ms)</h3><span class="dc-badge live">Live</span>
+              </div>
+              <canvas id="health-latency-chart" width="700" height="130"></canvas>
+            </div>
+
+            <!-- Worker CPU -->
+            <div class="dash-card health-worker-cpu">
+              <div class="dc-header">
+                <h3>⚙️ Worker CPU Load</h3>
+              </div>
+              <div class="worker-cpu-grid" id="worker-cpu-grid"></div>
+            </div>
+
+            <!-- DB Replication -->
+            <div class="dash-card health-replication">
+              <div class="dc-header">
+                <h3>🗄️ Database Replication Health</h3>
+              </div>
+              <div class="replication-visual" id="replication-visual">
+                <div class="rep-node primary" id="rep-primary">
+                  <div class="rep-icon">🗄️</div>
+                  <div class="rep-name">Primary DB</div>
+                  <div class="rep-loc">Mumbai</div>
+                  <div class="rep-status synced" id="repst-primary">● ONLINE</div>
+                  <div class="rep-lag" id="repl-primary">0ms lag</div>
+                </div>
+                <div class="rep-arrow">→</div>
+                <div class="rep-node replica" id="rep-r1">
+                  <div class="rep-icon">🗄️</div>
+                  <div class="rep-name">Replica 1</div>
+                  <div class="rep-loc">Delhi</div>
+                  <div class="rep-status synced" id="repst-r1">● IN SYNC</div>
+                  <div class="rep-lag" id="repl-r1">12ms lag</div>
+                </div>
+                <div class="rep-arrow">→</div>
+                <div class="rep-node replica" id="rep-r2">
+                  <div class="rep-icon">🗄️</div>
+                  <div class="rep-name">Replica 2</div>
+                  <div class="rep-loc">Chennai</div>
+                  <div class="rep-status synced" id="repst-r2">● IN SYNC</div>
+                  <div class="rep-lag" id="repl-r2">28ms lag</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Uptime -->
+            <div class="dash-card health-uptime">
+              <div class="dc-header">
+                <h3>📈 Uptime (Last 90 Days)</h3>
+              </div>
+              <div class="uptime-bar-row" id="uptime-bar-row"></div>
+              <div class="uptime-summary">
+                <span class="us-val" id="us-val">99.98%</span>
+                <span class="us-label">Overall Uptime SLA</span>
+              </div>
+            </div>
+
+            <!-- Active Incidents -->
+            <div class="dash-card health-incidents">
+              <div class="dc-header">
+                <h3>🚨 Incidents & Alerts</h3>
+              </div>
+              <div class="incidents-list" id="incidents-list">
+                <div class="incident-empty">✅ No active incidents — All systems normal</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ════ VIEW: DEAD LETTER QUEUE ════ -->
+        <section id="view-dlq" class="view" aria-label="Dead Letter Queue">
+          <div class="view-header">
+            <div class="vh-left">
+              <h2 class="view-title">Dead Letter Queue</h2>
+              <p class="view-subtitle">Submissions that failed all retry attempts — zero data loss guaranteed</p>
+            </div>
+            <div class="vh-right">
+              <button class="btn-secondary small" id="btn-dlq-retry-all">🔄 Retry All</button>
+              <button class="btn-secondary small" id="btn-dlq-export">⬇ Export</button>
+            </div>
+          </div>
+
+          <div class="dlq-stats-row">
+            <div class="qs-card red"><span class="qs-val" id="dlqs-total">0</span><span class="qs-label">In DLQ</span>
+            </div>
+            <div class="qs-card amber"><span class="qs-val" id="dlqs-retried">0</span><span class="qs-label">Retried
+                from DLQ</span></div>
+            <div class="qs-card green"><span class="qs-val" id="dlqs-recovered">0</span><span
+                class="qs-label">Recovered</span></div>
+            <div class="qs-card"><span class="qs-val" id="dlqs-lost">0</span><span class="qs-label">Permanently
+                Lost</span></div>
+          </div>
+
+          <div class="dlq-explanation">
+            <div class="dlq-flow">
+              <span class="dlq-node">📥 Submission</span>
+              <span class="dlq-arrow">→</span>
+              <span class="dlq-node">⚙️ Processing</span>
+              <span class="dlq-arrow">→</span>
+              <span class="dlq-node warn">❌ Fail</span>
+              <span class="dlq-arrow">→</span>
+              <span class="dlq-node warn">🔄 Retry ×3</span>
+              <span class="dlq-arrow">→</span>
+              <span class="dlq-node dead">☠️ Dead Letter Queue</span>
+              <span class="dlq-arrow">→</span>
+              <span class="dlq-node safe">🛡️ Safe Storage</span>
+            </div>
+            <p class="dlq-note">Every failed submission is preserved in the DLQ — no data is ever permanently lost.
+              Admins can manually retry or export for investigation.</p>
+          </div>
+
           <div class="dash-card">
-            <div class="dc-header"><h3>Submissions by Subject</h3></div>
-            <canvas id="subject-chart" width="400" height="180"></canvas>
-          </div>
-        </div>
-      </section>
-
-      <!-- ════ VIEW: SECURITY ════ -->
-      <section id="view-security" class="view" aria-label="Security Center">
-        <div class="view-header">
-          <div class="vh-left">
-            <h2 class="view-title">Security Center</h2>
-            <p class="view-subtitle">AES-256 encryption, SHA-256 hashing & integrity verification</p>
-          </div>
-          <div class="vh-right">
-            <div class="security-badge">🔐 FIPS 140-2 Compliant</div>
-          </div>
-        </div>
-
-        <div class="security-grid">
-          <!-- Encryption Simulator -->
-          <div class="dash-card sec-card">
-            <div class="dc-header"><h3>🔐 AES-256-GCM Encryption Simulator</h3></div>
-            <div class="enc-simulator">
-              <div class="enc-row">
-                <label>Plaintext (Submission Data)</label>
-                <textarea id="enc-input" class="enc-textarea" rows="3" placeholder="Enter text to encrypt...">CBSE Board Exam 2024 | Roll: 2024123456 | Subject: Mathematics | Score: 87/100</textarea>
-              </div>
-              <button class="btn-primary full-width" id="btn-encrypt">🔐 Encrypt Now</button>
-              <div class="enc-output" id="enc-output">
-                <div class="eo-row"><span>Cipher</span><code id="eo-cipher">AES-256-GCM</code></div>
-                <div class="eo-row"><span>Key (256-bit)</span><code id="eo-key" class="mono-small">—</code></div>
-                <div class="eo-row"><span>IV (96-bit)</span><code id="eo-iv" class="mono-small">—</code></div>
-                <div class="eo-row"><span>Auth Tag</span><code id="eo-tag" class="mono-small">—</code></div>
-                <div class="eo-row enc-result"><span>Encrypted Output</span><code id="eo-result" class="mono-small">—</code></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Hash Generator -->
-          <div class="dash-card sec-card">
-            <div class="dc-header"><h3>#️⃣ SHA-256 Hash Generator</h3></div>
-            <div class="enc-simulator">
-              <div class="enc-row">
-                <label>Input Data</label>
-                <textarea id="hash-input" class="enc-textarea" rows="3" placeholder="Enter data to hash...">CBSE-EVS-2024-12-MATH-SET-A-2024123456</textarea>
-              </div>
-              <button class="btn-primary full-width" id="btn-hash">Generate SHA-256 Hash</button>
-              <div class="enc-output">
-                <div class="eo-row"><span>Algorithm</span><code>SHA-256</code></div>
-                <div class="eo-row enc-result"><span>Hash Output</span><code id="hash-result" class="mono-small">—</code></div>
-                <div class="eo-row"><span>Integrity</span><code id="hash-status" class="status-ok">✅ Verified</code></div>
-              </div>
-              <div class="hash-animation" id="hash-animation"></div>
-            </div>
-          </div>
-
-          <!-- ID Generator -->
-          <div class="dash-card sec-card">
-            <div class="dc-header"><h3>🆔 Submission ID Generator</h3></div>
-            <div class="id-generator">
-              <div class="current-id-display" id="current-id-display">
-                <span class="cid-label">Latest Generated ID</span>
-                <code class="cid-value" id="cid-value">—</code>
-              </div>
-              <button class="btn-primary full-width" id="btn-gen-id">Generate New ID</button>
-              <div class="id-anatomy">
-                <div class="ia-label">ID Anatomy:</div>
-                <div class="ia-parts">
-                  <span class="ia-part cbse">CBSE</span>
-                  <span class="ia-sep">-</span>
-                  <span class="ia-part year">2024</span>
-                  <span class="ia-sep">-</span>
-                  <span class="ia-part sub">MATH</span>
-                  <span class="ia-sep">-</span>
-                  <span class="ia-part region">DEL</span>
-                  <span class="ia-sep">-</span>
-                  <span class="ia-part ts">17294810</span>
-                  <span class="ia-sep">-</span>
-                  <span class="ia-part rand">X7F2</span>
-                </div>
-              </div>
-              <div class="recent-ids" id="recent-ids">
-                <div class="ri-label">Recently Generated</div>
-                <div class="ri-list" id="ri-list"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Security Events -->
-          <div class="dash-card sec-card">
-            <div class="dc-header"><h3>🛡️ Security Audit Log</h3></div>
-            <div class="security-log" id="security-log">
-              <!-- dynamic -->
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ════ VIEW: DATABASE ════ -->
-      <section id="view-database" class="view" aria-label="Database Sync">
-        <div class="view-header">
-          <div class="vh-left">
-            <h2 class="view-title">Database Sync</h2>
-            <p class="view-subtitle">Central database synchronization and record management</p>
-          </div>
-          <div class="vh-right">
-            <div class="db-status-badge" id="db-status-badge">
-              <span class="dsb-dot syncing"></span>
-              <span id="dsb-text">Syncing...</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="db-grid">
-          <!-- DB Overview -->
-          <div class="dash-card db-overview">
-            <div class="dc-header"><h3>🗄️ Central Database</h3></div>
-            <div class="db-visual" id="db-visual">
-              <div class="db-icon-large">🗄️</div>
-              <div class="db-stats-visual">
-                <div class="dsv-row"><span>Total Records</span><span id="dbv-total" class="dsv-val">0</span></div>
-                <div class="dsv-row"><span>Today's Synced</span><span id="dbv-today" class="dsv-val green">0</span></div>
-                <div class="dsv-row"><span>Pending Sync</span><span id="dbv-pending" class="dsv-val amber">0</span></div>
-                <div class="dsv-row"><span>Last Sync</span><span id="dbv-last" class="dsv-val">—</span></div>
-                <div class="dsv-row"><span>DB Size</span><span id="dbv-size" class="dsv-val">0 MB</span></div>
-                <div class="dsv-row"><span>Replication</span><span class="dsv-val green">3x Replicated</span></div>
-              </div>
-              <div class="db-replication-nodes">
-                <div class="drn" id="drn-primary"><span>🟢</span><span>Primary DB</span><span class="drn-loc">Mumbai</span></div>
-                <div class="drn" id="drn-r1"><span>🟢</span><span>Replica 1</span><span class="drn-loc">Delhi</span></div>
-                <div class="drn" id="drn-r2"><span>🟢</span><span>Replica 2</span><span class="drn-loc">Chennai</span></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Sync Log -->
-          <div class="dash-card db-sync-log">
             <div class="dc-header">
-              <h3>Sync Activity Log</h3>
-              <span class="dc-badge live">Live</span>
+              <h3>☠️ Dead Letter Queue Items</h3><span class="nav-count"
+                style="background:rgba(244,63,94,0.2);color:#f43f5e" id="dlq-count-badge">0 items</span>
             </div>
-            <div class="db-log" id="db-log"></div>
-          </div>
-
-          <!-- Recent Records -->
-          <div class="dash-card db-records">
-            <div class="dc-header"><h3>Recent Records</h3></div>
-            <div class="records-table-wrapper">
+            <div class="dlq-table-wrapper">
               <table class="records-table">
                 <thead>
                   <tr>
                     <th>Submission ID</th>
                     <th>Subject</th>
                     <th>Roll No</th>
-                    <th>Hash (Short)</th>
-                    <th>Status</th>
-                    <th>Synced At</th>
+                    <th>Retries</th>
+                    <th>Failure Reason</th>
+                    <th>Entered DLQ</th>
+                    <th>Actions</th>
                   </tr>
                 </thead>
-                <tbody id="records-tbody">
+                <tbody id="dlq-tbody">
+                  <tr>
+                    <td colspan="7" style="text-align:center;color:var(--text-muted);padding:2rem">☠️ No items in Dead
+                      Letter Queue</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ════ VIEW: LOAD BALANCER ════ -->
+        <section id="view-loadbalancer" class="view" aria-label="Load Balancer">
+          <div class="view-header">
+            <div class="vh-left">
+              <h2 class="view-title">Load Balancer & Architecture</h2>
+              <p class="view-subtitle">Real-time traffic distribution and system architecture visualization</p>
+            </div>
+            <div class="vh-right">
+              <div class="live-indicator"><span class="live-dot"></span><span>Live Traffic</span></div>
+            </div>
+          </div>
+
+          <div class="lb-layout">
+            <!-- Traffic Flow Diagram -->
+            <div class="dash-card lb-diagram-card">
+              <div class="dc-header">
+                <h3>🌐 Live Traffic Flow</h3>
+              </div>
+              <div class="lb-diagram" id="lb-diagram">
+                <!-- Internet -->
+                <div class="lb-tier">
+                  <div class="lb-box internet">🌍 Internet<br><span class="lb-stat" id="lb-rps">0 req/s</span></div>
+                </div>
+                <div class="lb-connector-col">
+                  <div class="lb-arrow-down" id="lba-internet"></div>
+                </div>
+                <!-- API Gateway -->
+                <div class="lb-tier">
+                  <div class="lb-box gateway">🛡️ API Gateway<br><span class="lb-stat" id="lb-gw">Active</span></div>
+                </div>
+                <div class="lb-connector-col">
+                  <div class="lb-arrow-down"></div>
+                </div>
+                <!-- Load Balancer -->
+                <div class="lb-tier">
+                  <div class="lb-box balancer">⚖️ Load Balancer<br><span class="lb-stat" id="lb-algo">Round-Robin</span>
+                  </div>
+                </div>
+                <!-- Spread arrows -->
+                <div class="lb-spread-arrows" id="lb-spread-arrows">
                   <!-- dynamic -->
+                </div>
+                <!-- Workers row -->
+                <div class="lb-tier workers-tier">
+                  <div class="lb-workers-row" id="lb-workers-row">
+                    <!-- dynamic -->
+                  </div>
+                </div>
+                <div class="lb-connector-col">
+                  <div class="lb-arrow-down"></div>
+                </div>
+                <!-- Queue -->
+                <div class="lb-tier">
+                  <div class="lb-box queue-box">📦 Queue System<br><span class="lb-stat" id="lb-qdepth">0 items</span>
+                  </div>
+                </div>
+                <div class="lb-connector-col">
+                  <div class="lb-arrow-down"></div>
+                </div>
+                <!-- DB -->
+                <div class="lb-tier">
+                  <div class="lb-box db-box">🗄️ Central Database<br><span class="lb-stat" id="lb-dbrecs">0
+                      records</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- LB Stats -->
+            <div class="lb-stats-col">
+              <div class="dash-card">
+                <div class="dc-header">
+                  <h3>⚖️ Balancer Stats</h3>
+                </div>
+                <div class="lb-stat-rows">
+                  <div class="lb-stat-row"><span>Algorithm</span><span class="lbsr-val"
+                      id="lbsr-algo">Round-Robin</span></div>
+                  <div class="lb-stat-row"><span>Active Workers</span><span class="lbsr-val green"
+                      id="lbsr-workers">6</span></div>
+                  <div class="lb-stat-row"><span>Requests/sec</span><span class="lbsr-val" id="lbsr-rps">0</span></div>
+                  <div class="lb-stat-row"><span>Avg Response</span><span class="lbsr-val" id="lbsr-resp">—</span></div>
+                  <div class="lb-stat-row"><span>Traffic Distributed</span><span class="lbsr-val green" id="lbsr-dist">✅
+                      Even</span></div>
+                  <div class="lb-stat-row"><span>Health Checks</span><span class="lbsr-val green">✅ Passing</span></div>
+                </div>
+              </div>
+              <div class="dash-card" style="margin-top:1rem">
+                <div class="dc-header">
+                  <h3>📊 Traffic Distribution</h3>
+                </div>
+                <canvas id="lb-dist-chart" width="300" height="180"></canvas>
+              </div>
+              <div class="dash-card" style="margin-top:1rem">
+                <div class="dc-header">
+                  <h3>⚙️ Scaling Events</h3>
+                </div>
+                <div class="scaling-events" id="scaling-events"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ════ VIEW: AI PREDICTION ════ -->
+        <section id="view-prediction" class="view" aria-label="AI Prediction">
+          <div class="view-header">
+            <div class="vh-left">
+              <h2 class="view-title">AI Traffic Prediction</h2>
+              <p class="view-subtitle">Machine learning–powered traffic forecasting and capacity planning</p>
+            </div>
+            <div class="vh-right">
+              <div class="ai-badge">🤖 ML Model v2.4</div>
+            </div>
+          </div>
+
+          <div class="prediction-grid">
+            <!-- Prediction Alert -->
+            <div class="prediction-alert" id="prediction-alert">
+              <div class="pa-icon" id="pa-icon">🤖</div>
+              <div class="pa-body">
+                <div class="pa-title" id="pa-title">Analyzing traffic patterns...</div>
+                <div class="pa-detail" id="pa-detail">Model initializing · Please wait</div>
+              </div>
+              <div class="pa-confidence" id="pa-confidence">—</div>
+            </div>
+
+            <!-- Forecast Chart -->
+            <div class="dash-card pred-chart-card">
+              <div class="dc-header">
+                <h3>📈 Traffic Forecast (Next 30 min)</h3>
+                <div class="chart-legend">
+                  <span class="cl-dot" style="background:#6366f1"></span><span>Actual</span>
+                  <span class="cl-dot" style="background:#f59e0b"></span><span>Predicted</span>
+                  <span class="cl-dot" style="background:#f43f5e;opacity:.4"></span><span>Confidence Band</span>
+                </div>
+              </div>
+              <canvas id="prediction-chart" width="700" height="180"></canvas>
+            </div>
+
+            <!-- Recommendations -->
+            <div class="dash-card pred-recs">
+              <div class="dc-header">
+                <h3>💡 AI Recommendations</h3>
+              </div>
+              <div class="recs-list" id="recs-list">
+                <div class="rec-item" id="rec-workers"><span class="rec-icon">⚙️</span>
+                  <div><span class="rec-title">Worker Capacity</span><span class="rec-body"
+                      id="rec-workers-body">Analyzing...</span></div><span class="rec-badge"
+                    id="rec-workers-badge">—</span>
+                </div>
+                <div class="rec-item" id="rec-queue"><span class="rec-icon">📦</span>
+                  <div><span class="rec-title">Queue Buffer</span><span class="rec-body"
+                      id="rec-queue-body">Analyzing...</span></div><span class="rec-badge" id="rec-queue-badge">—</span>
+                </div>
+                <div class="rec-item" id="rec-db"><span class="rec-icon">🗄️</span>
+                  <div><span class="rec-title">DB Connections</span><span class="rec-body"
+                      id="rec-db-body">Analyzing...</span></div><span class="rec-badge" id="rec-db-badge">—</span>
+                </div>
+                <div class="rec-item" id="rec-scale"><span class="rec-icon">📈</span>
+                  <div><span class="rec-title">Scale Up Time</span><span class="rec-body"
+                      id="rec-scale-body">Analyzing...</span></div><span class="rec-badge" id="rec-scale-badge">—</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Peak Prediction -->
+            <div class="dash-card pred-peak">
+              <div class="dc-header">
+                <h3>🎯 Next Peak Prediction</h3>
+              </div>
+              <div class="peak-display" id="peak-display">
+                <div class="peak-time"><span class="pt-label">Expected Peak In</span><span class="pt-val"
+                    id="pt-val">—</span></div>
+                <div class="peak-stats">
+                  <div class="ps-item"><span>Predicted Load</span><span class="psi-val" id="psi-load">—</span></div>
+                  <div class="ps-item"><span>Recommended Workers</span><span class="psi-val" id="psi-workers">—</span>
+                  </div>
+                  <div class="ps-item"><span>Est. Queue Depth</span><span class="psi-val" id="psi-qdepth">—</span></div>
+                  <div class="ps-item"><span>Confidence</span><span class="psi-val" id="psi-confidence">—</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Model Stats -->
+            <div class="dash-card pred-model">
+              <div class="dc-header">
+                <h3>🧠 Model Information</h3>
+              </div>
+              <div class="model-stats">
+                <div class="ms-row"><span>Algorithm</span><code>LSTM + ARIMA Ensemble</code></div>
+                <div class="ms-row"><span>Training Data</span><code>90 days · 2.4M samples</code></div>
+                <div class="ms-row"><span>Accuracy</span><code class="text-success">94.7%</code></div>
+                <div class="ms-row"><span>Last Retrained</span><code id="ms-retrain">Today 03:00 IST</code></div>
+                <div class="ms-row"><span>Features Used</span><code>Time, Subject, Region, Day-of-Week</code></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ════ VIEW: AUDIT LOG ════ -->
+        <section id="view-audit" class="view" aria-label="Audit Log">
+          <div class="view-header">
+            <div class="vh-left">
+              <h2 class="view-title">Audit Log System</h2>
+              <p class="view-subtitle">Complete immutable trail — who uploaded, when, from where, and what happened</p>
+            </div>
+            <div class="vh-right">
+              <button class="btn-secondary small" id="btn-export-audit">⬇ Export CSV</button>
+              <div class="security-badge">🔒 Tamper-Proof</div>
+            </div>
+          </div>
+
+          <div class="audit-filters">
+            <input type="text" id="audit-search" class="styled-input" placeholder="🔍 Search by ID, user, action, IP..."
+              style="width:280px" />
+            <select id="audit-filter-role" class="styled-select" style="width:150px">
+              <option value="">All Roles</option>
+              <option value="evaluator">Evaluator</option>
+              <option value="admin">Admin</option>
+              <option value="superadmin">Super Admin</option>
+              <option value="monitor">Monitor</option>
+            </select>
+            <select id="audit-filter-action" class="styled-select" style="width:160px">
+              <option value="">All Actions</option>
+              <option value="LOGIN">Login</option>
+              <option value="SUBMIT">Submission</option>
+              <option value="ADMIN">Admin Action</option>
+              <option value="SECURITY">Security Event</option>
+            </select>
+          </div>
+
+          <div class="dash-card" style="margin-top:1rem">
+            <div class="dc-header">
+              <h3>📋 Audit Trail</h3>
+              <span class="dc-badge"><span id="audit-count">0</span> entries</span>
+            </div>
+            <div class="audit-table-wrapper">
+              <table class="records-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Timestamp</th>
+                    <th>User</th>
+                    <th>Role</th>
+                    <th>Action</th>
+                    <th>Details</th>
+                    <th>IP Address</th>
+                    <th>Hash</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="audit-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="audit-stats-row" style="margin-top:1rem">
+            <div class="dash-card" style="flex:1">
+              <div class="dc-header">
+                <h3>Actions by Type</h3>
+              </div>
+              <canvas id="audit-type-chart" width="300" height="140"></canvas>
+            </div>
+            <div class="dash-card" style="flex:1">
+              <div class="dc-header">
+                <h3>Login History</h3>
+              </div>
+              <div class="login-history" id="login-history"></div>
+            </div>
+            <div class="dash-card" style="flex:1">
+              <div class="dc-header">
+                <h3>Active Sessions</h3>
+              </div>
+              <div class="active-sessions" id="active-sessions"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ════ VIEW: PERFORMANCE METRICS ════ -->
+        <section id="view-metrics" class="view" aria-label="Performance Metrics">
+          <div class="view-header">
+            <div class="vh-left">
+              <h2 class="view-title">Performance Metrics</h2>
+              <p class="view-subtitle">Detailed SLA metrics, throughput, latency and reliability statistics</p>
+            </div>
+          </div>
+
+          <div class="metrics-grid">
+            <div class="metric-card gold">
+              <div class="mc-icon">⚡</div>
+              <div class="mc-val" id="mc-throughput">0</div>
+              <div class="mc-label">Peak Throughput</div>
+              <div class="mc-sub">submissions/sec</div>
+            </div>
+            <div class="metric-card blue">
+              <div class="mc-icon">⏱️</div>
+              <div class="mc-val" id="mc-avgwait">—</div>
+              <div class="mc-label">Avg Queue Wait</div>
+              <div class="mc-sub">milliseconds</div>
+            </div>
+            <div class="metric-card green">
+              <div class="mc-icon">✅</div>
+              <div class="mc-val" id="mc-success">—</div>
+              <div class="mc-label">Success Rate</div>
+              <div class="mc-sub">first-attempt</div>
+            </div>
+            <div class="metric-card purple">
+              <div class="mc-icon">🔄</div>
+              <div class="mc-val" id="mc-retry">—</div>
+              <div class="mc-label">Retry Recovery</div>
+              <div class="mc-sub">of retried items</div>
+            </div>
+            <div class="metric-card cyan">
+              <div class="mc-icon">🎯</div>
+              <div class="mc-val" id="mc-p99">—</div>
+              <div class="mc-label">P99 Latency</div>
+              <div class="mc-sub">99th percentile</div>
+            </div>
+            <div class="metric-card red">
+              <div class="mc-icon">⚠️</div>
+              <div class="mc-val" id="mc-sla">99.99%</div>
+              <div class="mc-label">SLA Compliance</div>
+              <div class="mc-sub">uptime target</div>
+            </div>
+          </div>
+
+          <div class="metrics-detail-grid">
+            <div class="dash-card">
+              <div class="dc-header">
+                <h3>Processing Time Distribution</h3>
+              </div>
+              <canvas id="metrics-latency-chart" width="500" height="160"></canvas>
+            </div>
+            <div class="dash-card">
+              <div class="dc-header">
+                <h3>SLA Breakdown</h3>
+              </div>
+              <div class="sla-rows" id="sla-rows">
+                <div class="sla-row"><span>Total Submissions</span><span class="sla-val" id="sla-total">0</span>
+                  <div class="sla-bar">
+                    <div class="sla-fill" style="width:100%;background:var(--primary)"></div>
+                  </div>
+                </div>
+                <div class="sla-row"><span>Processed in &lt;500ms</span><span class="sla-val" id="sla-fast">0</span>
+                  <div class="sla-bar">
+                    <div class="sla-fill" id="slaf-fast" style="background:var(--success)"></div>
+                  </div>
+                </div>
+                <div class="sla-row"><span>Processed in 500ms–2s</span><span class="sla-val" id="sla-med">0</span>
+                  <div class="sla-bar">
+                    <div class="sla-fill" id="slaf-med" style="background:var(--warning)"></div>
+                  </div>
+                </div>
+                <div class="sla-row"><span>Processed in &gt;2s</span><span class="sla-val" id="sla-slow">0</span>
+                  <div class="sla-bar">
+                    <div class="sla-fill" id="slaf-slow" style="background:var(--danger)"></div>
+                  </div>
+                </div>
+                <div class="sla-row"><span>Retried &amp; Recovered</span><span class="sla-val" id="sla-recov">0</span>
+                  <div class="sla-bar">
+                    <div class="sla-fill" id="slaf-recov" style="background:var(--purple)"></div>
+                  </div>
+                </div>
+                <div class="sla-row"><span>Permanently Failed</span><span class="sla-val" id="sla-failed">0</span>
+                  <div class="sla-bar">
+                    <div class="sla-fill" id="slaf-failed" style="background:var(--danger)"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ════ VIEW: RESILIENCE TESTING ════ -->
+        <section id="view-testing" class="view" aria-label="Resilience Testing">
+          <div class="view-header">
+            <div class="vh-left">
+              <h2 class="view-title">Resilience Testing</h2>
+              <p class="view-subtitle">Simulate real-world failure scenarios to validate system stability</p>
+            </div>
+            <div class="vh-right">
+              <div class="chaos-badge">⚠️ Chaos Engineering</div>
+            </div>
+          </div>
+
+          <div class="testing-grid">
+            <!-- Failure Buttons -->
+            <div class="dash-card testing-card">
+              <div class="dc-header">
+                <h3>🔥 Failure Injection</h3>
+              </div>
+              <div class="chaos-buttons">
+                <button class="chaos-btn db-crash" id="chaos-db"><span class="cb-icon">💥</span>
+                  <div><strong>Simulate DB Crash</strong><span>Primary database goes offline for 10s</span></div><span
+                    class="cb-result" id="cbr-db">—</span>
+                </button>
+                <button class="chaos-btn net-fail" id="chaos-net"><span class="cb-icon">📡</span>
+                  <div><strong>Network Partition</strong><span>50% packet loss for 15 seconds</span></div><span
+                    class="cb-result" id="cbr-net">—</span>
+                </button>
+                <button class="chaos-btn overload" id="chaos-overload"><span class="cb-icon">⚡</span>
+                  <div><strong>Extreme Overload</strong><span>Inject 1000 submissions instantly</span></div><span
+                    class="cb-result" id="cbr-overload">—</span>
+                </button>
+                <button class="chaos-btn worker-kill" id="chaos-workers"><span class="cb-icon">🔪</span>
+                  <div><strong>Kill All Workers</strong><span>Terminate all workers for 5 seconds</span></div><span
+                    class="cb-result" id="cbr-workers">—</span>
+                </button>
+                <button class="chaos-btn enc-fail" id="chaos-encrypt"><span class="cb-icon">🔐</span>
+                  <div><strong>Encryption Failure</strong><span>Simulate cipher module crash</span></div><span
+                    class="cb-result" id="cbr-encrypt">—</span>
+                </button>
+                <button class="chaos-btn queue-full" id="chaos-queue"><span class="cb-icon">📦</span>
+                  <div><strong>Queue Saturation</strong><span>Fill queue to 95% capacity</span></div><span
+                    class="cb-result" id="cbr-queue">—</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- System Response -->
+            <div class="dash-card testing-response">
+              <div class="dc-header">
+                <h3>📊 System Response</h3>
+              </div>
+              <div class="response-panel" id="response-panel">
+                <div class="rp-idle">👾 Run a failure test to see how EvalSync responds</div>
+              </div>
+              <div class="resilience-scores" id="resilience-scores">
+                <div class="rs-item"><span class="rs-label">Queue Absorption</span>
+                  <div class="rs-bar">
+                    <div class="rs-fill" id="rsf-queue" style="width:100%;background:var(--success)"></div>
+                  </div><span class="rs-val" id="rsv-queue">100%</span>
+                </div>
+                <div class="rs-item"><span class="rs-label">Worker Recovery</span>
+                  <div class="rs-bar">
+                    <div class="rs-fill" id="rsf-worker" style="width:100%;background:var(--success)"></div>
+                  </div><span class="rs-val" id="rsv-worker">100%</span>
+                </div>
+                <div class="rs-item"><span class="rs-label">Data Integrity</span>
+                  <div class="rs-bar">
+                    <div class="rs-fill" id="rsf-data" style="width:100%;background:var(--success)"></div>
+                  </div><span class="rs-val" id="rsv-data">100%</span>
+                </div>
+                <div class="rs-item"><span class="rs-label">DB Failover</span>
+                  <div class="rs-bar">
+                    <div class="rs-fill" id="rsf-db" style="width:100%;background:var(--success)"></div>
+                  </div><span class="rs-val" id="rsv-db">100%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Test Log -->
+            <div class="dash-card testing-log-card">
+              <div class="dc-header">
+                <div class="terminal-controls">
+                  <span class="tc-dot red"></span><span class="tc-dot yellow"></span><span class="tc-dot green"></span>
+                  <span style="margin-left:.5rem;font-size:.72rem;color:#64748b">chaos-test@evalsync:~$</span>
+                </div>
+              </div>
+              <div class="terminal" id="chaos-terminal" style="height:220px"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ════ VIEW: MY SUBMISSIONS (Evaluator) ════ -->
+        <section id="view-mysubmissions" class="view" aria-label="My Submissions">
+          <div class="view-header">
+            <div class="vh-left">
+              <h2 class="view-title">My Submissions</h2>
+              <p class="view-subtitle">Live status of your uploaded answer scripts — from upload to database sync</p>
+            </div>
+            <div class="vh-right">
+              <span class="dc-badge" id="mysub-count">0 submissions</span>
+              <button class="btn-primary" onclick="switchView('submit')"
+                style="padding:.4rem 1.2rem;font-size:.8rem;margin-left:.5rem">＋ New Upload</button>
+            </div>
+          </div>
+
+          <!-- Evaluator journey flow -->
+          <div class="evaluator-flow">
+            <div class="ef-step" id="efs-upload">
+              <div class="efs-icon">📤</div>
+              <div class="efs-label">1. Upload</div>
+              <div class="efs-desc">PDF/Image upload</div>
+            </div>
+            <div class="ef-arrow">→</div>
+            <div class="ef-step" id="efs-queue">
+              <div class="efs-icon">📦</div>
+              <div class="efs-label">2. Queue</div>
+              <div class="efs-desc">Awaiting worker</div>
+            </div>
+            <div class="ef-arrow">→</div>
+            <div class="ef-step" id="efs-process">
+              <div class="efs-icon">⚙️</div>
+              <div class="efs-label">3. Processing</div>
+              <div class="efs-desc">Hash + Encrypt</div>
+            </div>
+            <div class="ef-arrow">→</div>
+            <div class="ef-step" id="efs-sync">
+              <div class="efs-icon">🗄️</div>
+              <div class="efs-label">4. Synced</div>
+              <div class="efs-desc">Written to DB</div>
+            </div>
+            <div class="ef-arrow">→</div>
+            <div class="ef-step" id="efs-done">
+              <div class="efs-icon">✅</div>
+              <div class="efs-label">5. Complete</div>
+              <div class="efs-desc">Certificate issued</div>
+            </div>
+          </div>
+
+          <!-- Evaluator info cards -->
+          <div class="eval-info-row">
+            <div class="eval-info-card">
+              <div class="eic-icon">📤</div>
+              <div class="eic-val" id="eic-submitted">0</div>
+              <div class="eic-label">Submitted Today</div>
+            </div>
+            <div class="eval-info-card green">
+              <div class="eic-icon">✅</div>
+              <div class="eic-val" id="eic-completed">0</div>
+              <div class="eic-label">Completed</div>
+            </div>
+            <div class="eval-info-card amber">
+              <div class="eic-icon">⏳</div>
+              <div class="eic-val" id="eic-pending">0</div>
+              <div class="eic-label">In Queue</div>
+            </div>
+            <div class="eval-info-card">
+              <div class="eic-icon">🔒</div>
+              <div class="eic-val" id="eic-encrypted">AES-256</div>
+              <div class="eic-label">Encryption</div>
+            </div>
+          </div>
+
+          <!-- Submission tracker table -->
+          <div class="dash-card">
+            <div class="dc-header">
+              <h3>📋 Your Submission History</h3>
+              <div class="live-indicator"><span class="live-dot"></span><span>Auto-updating every 8s</span></div>
+            </div>
+            <div style="overflow-x:auto">
+              <table class="records-table">
+                <thead>
+                  <tr>
+                    <th>Submission ID</th>
+                    <th>Subject</th>
+                    <th>Roll No</th>
+                    <th>Hash (SHA-256)</th>
+                    <th>Queue Position</th>
+                    <th>Status</th>
+                    <th>Submitted At</th>
+                  </tr>
+                </thead>
+                <tbody id="mysub-tbody">
+                  <tr>
+                    <td colspan="7" style="text-align:center;color:var(--text-muted);padding:2rem">📋 No submissions yet
+                      — <a href="#" onclick="switchView('submit');return false;" style="color:var(--primary)">Upload
+                        your first script</a></td>
+                  </tr>
                 </tbody>
               </table>
             </div>
           </div>
 
-          <!-- Sync Progress -->
-          <div class="dash-card">
-            <div class="dc-header"><h3>Batch Sync Progress</h3></div>
-            <canvas id="db-sync-chart" width="400" height="160"></canvas>
-          </div>
-        </div>
-      </section>
-
-      <!-- ════ VIEW: ADMIN ════ -->
-      <section id="view-admin" class="view" aria-label="Admin Control">
-        <div class="view-header">
-          <div class="vh-left">
-            <h2 class="view-title">Admin Control Panel</h2>
-            <p class="view-subtitle">System configuration, traffic management & emergency controls</p>
-          </div>
-          <div class="vh-right">
-            <span class="admin-badge">🛡️ Administrator</span>
-          </div>
-        </div>
-
-        <div class="admin-grid">
-          <!-- Traffic Controls -->
-          <div class="dash-card admin-card">
-            <div class="dc-header"><h3>⚡ Traffic Simulation</h3></div>
-            <div class="admin-controls">
-              <button class="btn-control spike" id="btn-spike-big">
-                <span class="bc-icon">⚡</span>
-                <div>
-                  <strong>Simulate Traffic Spike</strong>
-                  <span>Inject 50 submissions instantly</span>
-                </div>
-              </button>
-              <button class="btn-control moderate" id="btn-moderate">
-                <span class="bc-icon">📈</span>
-                <div>
-                  <strong>Moderate Load Test</strong>
-                  <span>Inject 20 submissions</span>
-                </div>
-              </button>
-              <button class="btn-control reset-btn" id="btn-reset-queue">
-                <span class="bc-icon">🔄</span>
-                <div>
-                  <strong>Reset Queue</strong>
-                  <span>Clear all pending items</span>
-                </div>
-              </button>
-            </div>
-          </div>
-
-          <!-- Worker Controls -->
-          <div class="dash-card admin-card">
-            <div class="dc-header"><h3>⚙️ Worker Management</h3></div>
-            <div class="admin-controls">
-              <button class="btn-control add-worker" id="btn-add-worker">
-                <span class="bc-icon">➕</span>
-                <div>
-                  <strong>Spawn Worker</strong>
-                  <span>Add one processing worker</span>
-                </div>
-              </button>
-              <button class="btn-control remove-worker" id="btn-remove-worker">
-                <span class="bc-icon">➖</span>
-                <div>
-                  <strong>Terminate Worker</strong>
-                  <span>Remove idle worker</span>
-                </div>
-              </button>
-              <div class="worker-config">
-                <label>Workers: <span id="worker-count-label">6</span></label>
-                <input type="range" id="worker-slider" min="1" max="20" value="6" class="styled-range" />
-              </div>
-            </div>
-          </div>
-
-          <!-- System Config -->
-          <div class="dash-card admin-card">
-            <div class="dc-header"><h3>🔧 System Configuration</h3></div>
-            <div class="config-rows">
-              <div class="config-row">
-                <div>
-                  <span class="cr-name">Auto-Scaling</span>
-                  <span class="cr-desc">Dynamically add workers under load</span>
-                </div>
-                <label class="toggle-switch">
-                  <input type="checkbox" id="toggle-autoscale" checked />
-                  <span class="ts-slider"></span>
-                </label>
-              </div>
-              <div class="config-row">
-                <div>
-                  <span class="cr-name">Retry on Failure</span>
-                  <span class="cr-desc">Auto-retry failed submissions (max 3x)</span>
-                </div>
-                <label class="toggle-switch">
-                  <input type="checkbox" id="toggle-retry" checked />
-                  <span class="ts-slider"></span>
-                </label>
-              </div>
-              <div class="config-row">
-                <div>
-                  <span class="cr-name">Real-Time Logging</span>
-                  <span class="cr-desc">Stream processing logs to terminal</span>
-                </div>
-                <label class="toggle-switch">
-                  <input type="checkbox" id="toggle-logging" checked />
-                  <span class="ts-slider"></span>
-                </label>
-              </div>
-              <div class="config-row">
-                <div>
-                  <span class="cr-name">Encryption Enforcement</span>
-                  <span class="cr-desc">Reject unencrypted submissions</span>
-                </div>
-                <label class="toggle-switch">
-                  <input type="checkbox" id="toggle-encrypt" checked />
-                  <span class="ts-slider"></span>
-                </label>
-              </div>
-              <div class="config-row">
-                <div>
-                  <span class="cr-name">Queue Depth Alert</span>
-                  <span class="cr-desc">Alert when queue > threshold</span>
-                </div>
-                <div class="cr-input-row">
-                  <input type="number" id="queue-threshold" value="30" min="5" max="100" class="styled-input small" />
-                  <span>items</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Emergency Controls -->
-          <div class="dash-card admin-card emergency-card">
-            <div class="dc-header"><h3>🚨 Emergency Controls</h3></div>
-            <div class="admin-controls">
-              <button class="btn-control emergency" id="btn-pause-queue">
-                <span class="bc-icon">⏸️</span>
-                <div>
-                  <strong>Pause Queue Processing</strong>
-                  <span>Halt all workers immediately</span>
-                </div>
-              </button>
-              <button class="btn-control safe" id="btn-resume-queue" disabled>
-                <span class="bc-icon">▶️</span>
-                <div>
-                  <strong>Resume Processing</strong>
-                  <span>Restart all workers</span>
-                </div>
-              </button>
-              <button class="btn-control danger" id="btn-full-reset">
-                <span class="bc-icon">🔃</span>
-                <div>
-                  <strong>Full System Reset</strong>
-                  <span>Reset all data and restart simulation</span>
-                </div>
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-      <!-- ════ VIEW: SYSTEM HEALTH ════ -->
-      <section id="view-health" class="view" aria-label="System Health">
-        <div class="view-header">
-          <div class="vh-left">
-            <h2 class="view-title">System Health Map</h2>
-            <p class="view-subtitle">Real-time infrastructure health across all service layers</p>
-          </div>
-          <div class="vh-right">
-            <div class="live-indicator"><span class="live-dot"></span><span>Live</span></div>
-          </div>
-        </div>
-
-        <div class="health-grid">
-          <!-- Service Status Row -->
-          <div class="health-services-row" id="health-services">
-            <div class="svc-card" id="svc-gateway"><div class="svc-icon">🌐</div><div class="svc-name">API Gateway</div><div class="svc-status ok" id="svcst-gateway">OPERATIONAL</div><div class="svc-latency" id="svcl-gateway">12ms</div></div>
-            <div class="svc-card" id="svc-queue"><div class="svc-icon">📦</div><div class="svc-name">Queue Broker</div><div class="svc-status ok" id="svcst-queue">OPERATIONAL</div><div class="svc-latency" id="svcl-queue">8ms</div></div>
-            <div class="svc-card" id="svc-workers"><div class="svc-icon">⚙️</div><div class="svc-name">Worker Pool</div><div class="svc-status ok" id="svcst-workers">OPERATIONAL</div><div class="svc-latency" id="svcl-workers">0ms</div></div>
-            <div class="svc-card" id="svc-encrypt"><div class="svc-icon">🔐</div><div class="svc-name">Encryption Svc</div><div class="svc-status ok" id="svcst-encrypt">OPERATIONAL</div><div class="svc-latency" id="svcl-encrypt">3ms</div></div>
-            <div class="svc-card" id="svc-db"><div class="svc-icon">🗄️</div><div class="svc-name">Primary DB</div><div class="svc-status ok" id="svcst-db">OPERATIONAL</div><div class="svc-latency" id="svcl-db">22ms</div></div>
-            <div class="svc-card" id="svc-replica"><div class="svc-icon">🔁</div><div class="svc-name">DB Replicas</div><div class="svc-status ok" id="svcst-replica">IN SYNC</div><div class="svc-latency" id="svcl-replica">34ms</div></div>
-          </div>
-
-          <!-- Latency Chart -->
-          <div class="dash-card">
-            <div class="dc-header"><h3>Service Latency (ms)</h3><span class="dc-badge live">Live</span></div>
-            <canvas id="health-latency-chart" width="700" height="130"></canvas>
-          </div>
-
-          <!-- Worker CPU -->
-          <div class="dash-card health-worker-cpu">
-            <div class="dc-header"><h3>⚙️ Worker CPU Load</h3></div>
-            <div class="worker-cpu-grid" id="worker-cpu-grid"></div>
-          </div>
-
-          <!-- DB Replication -->
-          <div class="dash-card health-replication">
-            <div class="dc-header"><h3>🗄️ Database Replication Health</h3></div>
-            <div class="replication-visual" id="replication-visual">
-              <div class="rep-node primary" id="rep-primary">
-                <div class="rep-icon">🗄️</div>
-                <div class="rep-name">Primary DB</div>
-                <div class="rep-loc">Mumbai</div>
-                <div class="rep-status synced" id="repst-primary">● ONLINE</div>
-                <div class="rep-lag" id="repl-primary">0ms lag</div>
-              </div>
-              <div class="rep-arrow">→</div>
-              <div class="rep-node replica" id="rep-r1">
-                <div class="rep-icon">🗄️</div>
-                <div class="rep-name">Replica 1</div>
-                <div class="rep-loc">Delhi</div>
-                <div class="rep-status synced" id="repst-r1">● IN SYNC</div>
-                <div class="rep-lag" id="repl-r1">12ms lag</div>
-              </div>
-              <div class="rep-arrow">→</div>
-              <div class="rep-node replica" id="rep-r2">
-                <div class="rep-icon">🗄️</div>
-                <div class="rep-name">Replica 2</div>
-                <div class="rep-loc">Chennai</div>
-                <div class="rep-status synced" id="repst-r2">● IN SYNC</div>
-                <div class="rep-lag" id="repl-r2">28ms lag</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Uptime -->
-          <div class="dash-card health-uptime">
-            <div class="dc-header"><h3>📈 Uptime (Last 90 Days)</h3></div>
-            <div class="uptime-bar-row" id="uptime-bar-row"></div>
-            <div class="uptime-summary">
-              <span class="us-val" id="us-val">99.98%</span>
-              <span class="us-label">Overall Uptime SLA</span>
-            </div>
-          </div>
-
-          <!-- Active Incidents -->
-          <div class="dash-card health-incidents">
-            <div class="dc-header"><h3>🚨 Incidents & Alerts</h3></div>
-            <div class="incidents-list" id="incidents-list">
-              <div class="incident-empty">✅ No active incidents — All systems normal</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ════ VIEW: DEAD LETTER QUEUE ════ -->
-      <section id="view-dlq" class="view" aria-label="Dead Letter Queue">
-        <div class="view-header">
-          <div class="vh-left">
-            <h2 class="view-title">Dead Letter Queue</h2>
-            <p class="view-subtitle">Submissions that failed all retry attempts — zero data loss guaranteed</p>
-          </div>
-          <div class="vh-right">
-            <button class="btn-secondary small" id="btn-dlq-retry-all">🔄 Retry All</button>
-            <button class="btn-secondary small" id="btn-dlq-export">⬇ Export</button>
-          </div>
-        </div>
-
-        <div class="dlq-stats-row">
-          <div class="qs-card red"><span class="qs-val" id="dlqs-total">0</span><span class="qs-label">In DLQ</span></div>
-          <div class="qs-card amber"><span class="qs-val" id="dlqs-retried">0</span><span class="qs-label">Retried from DLQ</span></div>
-          <div class="qs-card green"><span class="qs-val" id="dlqs-recovered">0</span><span class="qs-label">Recovered</span></div>
-          <div class="qs-card"><span class="qs-val" id="dlqs-lost">0</span><span class="qs-label">Permanently Lost</span></div>
-        </div>
-
-        <div class="dlq-explanation">
-          <div class="dlq-flow">
-            <span class="dlq-node">📥 Submission</span>
-            <span class="dlq-arrow">→</span>
-            <span class="dlq-node">⚙️ Processing</span>
-            <span class="dlq-arrow">→</span>
-            <span class="dlq-node warn">❌ Fail</span>
-            <span class="dlq-arrow">→</span>
-            <span class="dlq-node warn">🔄 Retry ×3</span>
-            <span class="dlq-arrow">→</span>
-            <span class="dlq-node dead">☠️ Dead Letter Queue</span>
-            <span class="dlq-arrow">→</span>
-            <span class="dlq-node safe">🛡️ Safe Storage</span>
-          </div>
-          <p class="dlq-note">Every failed submission is preserved in the DLQ — no data is ever permanently lost. Admins can manually retry or export for investigation.</p>
-        </div>
-
-        <div class="dash-card">
-          <div class="dc-header"><h3>☠️ Dead Letter Queue Items</h3><span class="nav-count" style="background:rgba(244,63,94,0.2);color:#f43f5e" id="dlq-count-badge">0 items</span></div>
-          <div class="dlq-table-wrapper">
-            <table class="records-table">
-              <thead>
-                <tr>
-                  <th>Submission ID</th>
-                  <th>Subject</th>
-                  <th>Roll No</th>
-                  <th>Retries</th>
-                  <th>Failure Reason</th>
-                  <th>Entered DLQ</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody id="dlq-tbody"><tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:2rem">☠️ No items in Dead Letter Queue</td></tr></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- ════ VIEW: LOAD BALANCER ════ -->
-      <section id="view-loadbalancer" class="view" aria-label="Load Balancer">
-        <div class="view-header">
-          <div class="vh-left">
-            <h2 class="view-title">Load Balancer & Architecture</h2>
-            <p class="view-subtitle">Real-time traffic distribution and system architecture visualization</p>
-          </div>
-          <div class="vh-right">
-            <div class="live-indicator"><span class="live-dot"></span><span>Live Traffic</span></div>
-          </div>
-        </div>
-
-        <div class="lb-layout">
-          <!-- Traffic Flow Diagram -->
-          <div class="dash-card lb-diagram-card">
-            <div class="dc-header"><h3>🌐 Live Traffic Flow</h3></div>
-            <div class="lb-diagram" id="lb-diagram">
-              <!-- Internet -->
-              <div class="lb-tier">
-                <div class="lb-box internet">🌍 Internet<br><span class="lb-stat" id="lb-rps">0 req/s</span></div>
-              </div>
-              <div class="lb-connector-col"><div class="lb-arrow-down" id="lba-internet"></div></div>
-              <!-- API Gateway -->
-              <div class="lb-tier">
-                <div class="lb-box gateway">🛡️ API Gateway<br><span class="lb-stat" id="lb-gw">Active</span></div>
-              </div>
-              <div class="lb-connector-col"><div class="lb-arrow-down"></div></div>
-              <!-- Load Balancer -->
-              <div class="lb-tier">
-                <div class="lb-box balancer">⚖️ Load Balancer<br><span class="lb-stat" id="lb-algo">Round-Robin</span></div>
-              </div>
-              <!-- Spread arrows -->
-              <div class="lb-spread-arrows" id="lb-spread-arrows">
-                <!-- dynamic -->
-              </div>
-              <!-- Workers row -->
-              <div class="lb-tier workers-tier">
-                <div class="lb-workers-row" id="lb-workers-row">
-                  <!-- dynamic -->
-                </div>
-              </div>
-              <div class="lb-connector-col"><div class="lb-arrow-down"></div></div>
-              <!-- Queue -->
-              <div class="lb-tier">
-                <div class="lb-box queue-box">📦 Queue System<br><span class="lb-stat" id="lb-qdepth">0 items</span></div>
-              </div>
-              <div class="lb-connector-col"><div class="lb-arrow-down"></div></div>
-              <!-- DB -->
-              <div class="lb-tier">
-                <div class="lb-box db-box">🗄️ Central Database<br><span class="lb-stat" id="lb-dbrecs">0 records</span></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- LB Stats -->
-          <div class="lb-stats-col">
-            <div class="dash-card">
-              <div class="dc-header"><h3>⚖️ Balancer Stats</h3></div>
-              <div class="lb-stat-rows">
-                <div class="lb-stat-row"><span>Algorithm</span><span class="lbsr-val" id="lbsr-algo">Round-Robin</span></div>
-                <div class="lb-stat-row"><span>Active Workers</span><span class="lbsr-val green" id="lbsr-workers">6</span></div>
-                <div class="lb-stat-row"><span>Requests/sec</span><span class="lbsr-val" id="lbsr-rps">0</span></div>
-                <div class="lb-stat-row"><span>Avg Response</span><span class="lbsr-val" id="lbsr-resp">—</span></div>
-                <div class="lb-stat-row"><span>Traffic Distributed</span><span class="lbsr-val green" id="lbsr-dist">✅ Even</span></div>
-                <div class="lb-stat-row"><span>Health Checks</span><span class="lbsr-val green">✅ Passing</span></div>
-              </div>
-            </div>
-            <div class="dash-card" style="margin-top:1rem">
-              <div class="dc-header"><h3>📊 Traffic Distribution</h3></div>
-              <canvas id="lb-dist-chart" width="300" height="180"></canvas>
-            </div>
-            <div class="dash-card" style="margin-top:1rem">
-              <div class="dc-header"><h3>⚙️ Scaling Events</h3></div>
-              <div class="scaling-events" id="scaling-events"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ════ VIEW: AI PREDICTION ════ -->
-      <section id="view-prediction" class="view" aria-label="AI Prediction">
-        <div class="view-header">
-          <div class="vh-left">
-            <h2 class="view-title">AI Traffic Prediction</h2>
-            <p class="view-subtitle">Machine learning–powered traffic forecasting and capacity planning</p>
-          </div>
-          <div class="vh-right">
-            <div class="ai-badge">🤖 ML Model v2.4</div>
-          </div>
-        </div>
-
-        <div class="prediction-grid">
-          <!-- Prediction Alert -->
-          <div class="prediction-alert" id="prediction-alert">
-            <div class="pa-icon" id="pa-icon">🤖</div>
-            <div class="pa-body">
-              <div class="pa-title" id="pa-title">Analyzing traffic patterns...</div>
-              <div class="pa-detail" id="pa-detail">Model initializing · Please wait</div>
-            </div>
-            <div class="pa-confidence" id="pa-confidence">—</div>
-          </div>
-
-          <!-- Forecast Chart -->
-          <div class="dash-card pred-chart-card">
+          <!-- What happens to your script -->
+          <div class="dash-card" style="margin-top:1rem">
             <div class="dc-header">
-              <h3>📈 Traffic Forecast (Next 30 min)</h3>
-              <div class="chart-legend">
-                <span class="cl-dot" style="background:#6366f1"></span><span>Actual</span>
-                <span class="cl-dot" style="background:#f59e0b"></span><span>Predicted</span>
-                <span class="cl-dot" style="background:#f43f5e;opacity:.4"></span><span>Confidence Band</span>
+              <h3>💡 What Happens To Your Script?</h3>
+            </div>
+            <div class="how-it-works">
+              <div class="hiw-step"><span class="hiw-num">1</span>
+                <div><strong>Upload</strong> — PDF/image validated: format, size, and integrity checks</div>
               </div>
-            </div>
-            <canvas id="prediction-chart" width="700" height="180"></canvas>
-          </div>
-
-          <!-- Recommendations -->
-          <div class="dash-card pred-recs">
-            <div class="dc-header"><h3>💡 AI Recommendations</h3></div>
-            <div class="recs-list" id="recs-list">
-              <div class="rec-item" id="rec-workers"><span class="rec-icon">⚙️</span><div><span class="rec-title">Worker Capacity</span><span class="rec-body" id="rec-workers-body">Analyzing...</span></div><span class="rec-badge" id="rec-workers-badge">—</span></div>
-              <div class="rec-item" id="rec-queue"><span class="rec-icon">📦</span><div><span class="rec-title">Queue Buffer</span><span class="rec-body" id="rec-queue-body">Analyzing...</span></div><span class="rec-badge" id="rec-queue-badge">—</span></div>
-              <div class="rec-item" id="rec-db"><span class="rec-icon">🗄️</span><div><span class="rec-title">DB Connections</span><span class="rec-body" id="rec-db-body">Analyzing...</span></div><span class="rec-badge" id="rec-db-badge">—</span></div>
-              <div class="rec-item" id="rec-scale"><span class="rec-icon">📈</span><div><span class="rec-title">Scale Up Time</span><span class="rec-body" id="rec-scale-body">Analyzing...</span></div><span class="rec-badge" id="rec-scale-badge">—</span></div>
-            </div>
-          </div>
-
-          <!-- Peak Prediction -->
-          <div class="dash-card pred-peak">
-            <div class="dc-header"><h3>🎯 Next Peak Prediction</h3></div>
-            <div class="peak-display" id="peak-display">
-              <div class="peak-time"><span class="pt-label">Expected Peak In</span><span class="pt-val" id="pt-val">—</span></div>
-              <div class="peak-stats">
-                <div class="ps-item"><span>Predicted Load</span><span class="psi-val" id="psi-load">—</span></div>
-                <div class="ps-item"><span>Recommended Workers</span><span class="psi-val" id="psi-workers">—</span></div>
-                <div class="ps-item"><span>Est. Queue Depth</span><span class="psi-val" id="psi-qdepth">—</span></div>
-                <div class="ps-item"><span>Confidence</span><span class="psi-val" id="psi-confidence">—</span></div>
+              <div class="hiw-step"><span class="hiw-num">2</span>
+                <div><strong>Queue</strong> — Submission enters secure FIFO processing queue</div>
+              </div>
+              <div class="hiw-step"><span class="hiw-num">3</span>
+                <div><strong>Hash</strong> — SHA-256 fingerprint computed to guarantee integrity</div>
+              </div>
+              <div class="hiw-step"><span class="hiw-num">4</span>
+                <div><strong>Encrypt</strong> — AES-256-GCM applied before any storage operation</div>
+              </div>
+              <div class="hiw-step"><span class="hiw-num">5</span>
+                <div><strong>Sync</strong> — Replicated to Mumbai, Delhi, and Chennai data centres</div>
+              </div>
+              <div class="hiw-step"><span class="hiw-num">6</span>
+                <div><strong>Done</strong> — Immutable confirmation ID issued. Script permanently recorded.</div>
               </div>
             </div>
           </div>
+        </section>
 
-          <!-- Model Stats -->
-          <div class="dash-card pred-model">
-            <div class="dc-header"><h3>🧠 Model Information</h3></div>
-            <div class="model-stats">
-              <div class="ms-row"><span>Algorithm</span><code>LSTM + ARIMA Ensemble</code></div>
-              <div class="ms-row"><span>Training Data</span><code>90 days · 2.4M samples</code></div>
-              <div class="ms-row"><span>Accuracy</span><code class="text-success">94.7%</code></div>
-              <div class="ms-row"><span>Last Retrained</span><code id="ms-retrain">Today 03:00 IST</code></div>
-              <div class="ms-row"><span>Features Used</span><code>Time, Subject, Region, Day-of-Week</code></div>
-            </div>
-          </div>
-        </div>
-      </section>
+      </main>
+    </div><!-- end main-content -->
+  </div><!-- end main-app -->
 
-      <!-- ════ VIEW: AUDIT LOG ════ -->
-      <section id="view-audit" class="view" aria-label="Audit Log">
-        <div class="view-header">
-          <div class="vh-left">
-            <h2 class="view-title">Audit Log System</h2>
-            <p class="view-subtitle">Complete immutable trail — who uploaded, when, from where, and what happened</p>
-          </div>
-          <div class="vh-right">
-            <button class="btn-secondary small" id="btn-export-audit">⬇ Export CSV</button>
-            <div class="security-badge">🔒 Tamper-Proof</div>
-          </div>
-        </div>
+  <!-- NOTIFICATIONS CONTAINER -->
+  <div id="notifications-container" class="notifications-container"></div>
 
-        <div class="audit-filters">
-          <input type="text" id="audit-search" class="styled-input" placeholder="🔍 Search by ID, user, action, IP..." style="width:280px" />
-          <select id="audit-filter-role" class="styled-select" style="width:150px">
-            <option value="">All Roles</option>
-            <option value="evaluator">Evaluator</option>
-            <option value="admin">Admin</option>
-            <option value="superadmin">Super Admin</option>
-            <option value="monitor">Monitor</option>
-          </select>
-          <select id="audit-filter-action" class="styled-select" style="width:160px">
-            <option value="">All Actions</option>
-            <option value="LOGIN">Login</option>
-            <option value="SUBMIT">Submission</option>
-            <option value="ADMIN">Admin Action</option>
-            <option value="SECURITY">Security Event</option>
-          </select>
-        </div>
-
-        <div class="dash-card" style="margin-top:1rem">
-          <div class="dc-header">
-            <h3>📋 Audit Trail</h3>
-            <span class="dc-badge"><span id="audit-count">0</span> entries</span>
-          </div>
-          <div class="audit-table-wrapper">
-            <table class="records-table">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Timestamp</th>
-                  <th>User</th>
-                  <th>Role</th>
-                  <th>Action</th>
-                  <th>Details</th>
-                  <th>IP Address</th>
-                  <th>Hash</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody id="audit-tbody"></tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="audit-stats-row" style="margin-top:1rem">
-          <div class="dash-card" style="flex:1">
-            <div class="dc-header"><h3>Actions by Type</h3></div>
-            <canvas id="audit-type-chart" width="300" height="140"></canvas>
-          </div>
-          <div class="dash-card" style="flex:1">
-            <div class="dc-header"><h3>Login History</h3></div>
-            <div class="login-history" id="login-history"></div>
-          </div>
-          <div class="dash-card" style="flex:1">
-            <div class="dc-header"><h3>Active Sessions</h3></div>
-            <div class="active-sessions" id="active-sessions"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ════ VIEW: PERFORMANCE METRICS ════ -->
-      <section id="view-metrics" class="view" aria-label="Performance Metrics">
-        <div class="view-header">
-          <div class="vh-left">
-            <h2 class="view-title">Performance Metrics</h2>
-            <p class="view-subtitle">Detailed SLA metrics, throughput, latency and reliability statistics</p>
-          </div>
-        </div>
-
-        <div class="metrics-grid">
-          <div class="metric-card gold">
-            <div class="mc-icon">⚡</div>
-            <div class="mc-val" id="mc-throughput">0</div>
-            <div class="mc-label">Peak Throughput</div>
-            <div class="mc-sub">submissions/sec</div>
-          </div>
-          <div class="metric-card blue">
-            <div class="mc-icon">⏱️</div>
-            <div class="mc-val" id="mc-avgwait">—</div>
-            <div class="mc-label">Avg Queue Wait</div>
-            <div class="mc-sub">milliseconds</div>
-          </div>
-          <div class="metric-card green">
-            <div class="mc-icon">✅</div>
-            <div class="mc-val" id="mc-success">—</div>
-            <div class="mc-label">Success Rate</div>
-            <div class="mc-sub">first-attempt</div>
-          </div>
-          <div class="metric-card purple">
-            <div class="mc-icon">🔄</div>
-            <div class="mc-val" id="mc-retry">—</div>
-            <div class="mc-label">Retry Recovery</div>
-            <div class="mc-sub">of retried items</div>
-          </div>
-          <div class="metric-card cyan">
-            <div class="mc-icon">🎯</div>
-            <div class="mc-val" id="mc-p99">—</div>
-            <div class="mc-label">P99 Latency</div>
-            <div class="mc-sub">99th percentile</div>
-          </div>
-          <div class="metric-card red">
-            <div class="mc-icon">⚠️</div>
-            <div class="mc-val" id="mc-sla">99.99%</div>
-            <div class="mc-label">SLA Compliance</div>
-            <div class="mc-sub">uptime target</div>
-          </div>
-        </div>
-
-        <div class="metrics-detail-grid">
-          <div class="dash-card">
-            <div class="dc-header"><h3>Processing Time Distribution</h3></div>
-            <canvas id="metrics-latency-chart" width="500" height="160"></canvas>
-          </div>
-          <div class="dash-card">
-            <div class="dc-header"><h3>SLA Breakdown</h3></div>
-            <div class="sla-rows" id="sla-rows">
-              <div class="sla-row"><span>Total Submissions</span><span class="sla-val" id="sla-total">0</span><div class="sla-bar"><div class="sla-fill" style="width:100%;background:var(--primary)"></div></div></div>
-              <div class="sla-row"><span>Processed in &lt;500ms</span><span class="sla-val" id="sla-fast">0</span><div class="sla-bar"><div class="sla-fill" id="slaf-fast" style="background:var(--success)"></div></div></div>
-              <div class="sla-row"><span>Processed in 500ms–2s</span><span class="sla-val" id="sla-med">0</span><div class="sla-bar"><div class="sla-fill" id="slaf-med" style="background:var(--warning)"></div></div></div>
-              <div class="sla-row"><span>Processed in &gt;2s</span><span class="sla-val" id="sla-slow">0</span><div class="sla-bar"><div class="sla-fill" id="slaf-slow" style="background:var(--danger)"></div></div></div>
-              <div class="sla-row"><span>Retried &amp; Recovered</span><span class="sla-val" id="sla-recov">0</span><div class="sla-bar"><div class="sla-fill" id="slaf-recov" style="background:var(--purple)"></div></div></div>
-              <div class="sla-row"><span>Permanently Failed</span><span class="sla-val" id="sla-failed">0</span><div class="sla-bar"><div class="sla-fill" id="slaf-failed" style="background:var(--danger)"></div></div></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ════ VIEW: RESILIENCE TESTING ════ -->
-      <section id="view-testing" class="view" aria-label="Resilience Testing">
-        <div class="view-header">
-          <div class="vh-left">
-            <h2 class="view-title">Resilience Testing</h2>
-            <p class="view-subtitle">Simulate real-world failure scenarios to validate system stability</p>
-          </div>
-          <div class="vh-right">
-            <div class="chaos-badge">⚠️ Chaos Engineering</div>
-          </div>
-        </div>
-
-        <div class="testing-grid">
-          <!-- Failure Buttons -->
-          <div class="dash-card testing-card">
-            <div class="dc-header"><h3>🔥 Failure Injection</h3></div>
-            <div class="chaos-buttons">
-              <button class="chaos-btn db-crash" id="chaos-db"><span class="cb-icon">💥</span><div><strong>Simulate DB Crash</strong><span>Primary database goes offline for 10s</span></div><span class="cb-result" id="cbr-db">—</span></button>
-              <button class="chaos-btn net-fail" id="chaos-net"><span class="cb-icon">📡</span><div><strong>Network Partition</strong><span>50% packet loss for 15 seconds</span></div><span class="cb-result" id="cbr-net">—</span></button>
-              <button class="chaos-btn overload" id="chaos-overload"><span class="cb-icon">⚡</span><div><strong>Extreme Overload</strong><span>Inject 1000 submissions instantly</span></div><span class="cb-result" id="cbr-overload">—</span></button>
-              <button class="chaos-btn worker-kill" id="chaos-workers"><span class="cb-icon">🔪</span><div><strong>Kill All Workers</strong><span>Terminate all workers for 5 seconds</span></div><span class="cb-result" id="cbr-workers">—</span></button>
-              <button class="chaos-btn enc-fail" id="chaos-encrypt"><span class="cb-icon">🔐</span><div><strong>Encryption Failure</strong><span>Simulate cipher module crash</span></div><span class="cb-result" id="cbr-encrypt">—</span></button>
-              <button class="chaos-btn queue-full" id="chaos-queue"><span class="cb-icon">📦</span><div><strong>Queue Saturation</strong><span>Fill queue to 95% capacity</span></div><span class="cb-result" id="cbr-queue">—</span></button>
-            </div>
-          </div>
-
-          <!-- System Response -->
-          <div class="dash-card testing-response">
-            <div class="dc-header"><h3>📊 System Response</h3></div>
-            <div class="response-panel" id="response-panel">
-              <div class="rp-idle">👾 Run a failure test to see how EvalSync responds</div>
-            </div>
-            <div class="resilience-scores" id="resilience-scores">
-              <div class="rs-item"><span class="rs-label">Queue Absorption</span><div class="rs-bar"><div class="rs-fill" id="rsf-queue" style="width:100%;background:var(--success)"></div></div><span class="rs-val" id="rsv-queue">100%</span></div>
-              <div class="rs-item"><span class="rs-label">Worker Recovery</span><div class="rs-bar"><div class="rs-fill" id="rsf-worker" style="width:100%;background:var(--success)"></div></div><span class="rs-val" id="rsv-worker">100%</span></div>
-              <div class="rs-item"><span class="rs-label">Data Integrity</span><div class="rs-bar"><div class="rs-fill" id="rsf-data" style="width:100%;background:var(--success)"></div></div><span class="rs-val" id="rsv-data">100%</span></div>
-              <div class="rs-item"><span class="rs-label">DB Failover</span><div class="rs-bar"><div class="rs-fill" id="rsf-db" style="width:100%;background:var(--success)"></div></div><span class="rs-val" id="rsv-db">100%</span></div>
-            </div>
-          </div>
-
-          <!-- Test Log -->
-          <div class="dash-card testing-log-card">
-            <div class="dc-header">
-              <div class="terminal-controls">
-                <span class="tc-dot red"></span><span class="tc-dot yellow"></span><span class="tc-dot green"></span>
-                <span style="margin-left:.5rem;font-size:.72rem;color:#64748b">chaos-test@evalsync:~$</span>
-              </div>
-            </div>
-            <div class="terminal" id="chaos-terminal" style="height:220px"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ════ VIEW: MY SUBMISSIONS (Evaluator) ════ -->
-      <section id="view-mysubmissions" class="view" aria-label="My Submissions">
-        <div class="view-header">
-          <div class="vh-left">
-            <h2 class="view-title">My Submissions</h2>
-            <p class="view-subtitle">Live status of your uploaded answer scripts — from upload to database sync</p>
-          </div>
-          <div class="vh-right">
-            <span class="dc-badge" id="mysub-count">0 submissions</span>
-            <button class="btn-primary" onclick="switchView('submit')" style="padding:.4rem 1.2rem;font-size:.8rem;margin-left:.5rem">＋ New Upload</button>
-          </div>
-        </div>
-
-        <!-- Evaluator journey flow -->
-        <div class="evaluator-flow">
-          <div class="ef-step" id="efs-upload">
-            <div class="efs-icon">📤</div>
-            <div class="efs-label">1. Upload</div>
-            <div class="efs-desc">PDF/Image upload</div>
-          </div>
-          <div class="ef-arrow">→</div>
-          <div class="ef-step" id="efs-queue">
-            <div class="efs-icon">📦</div>
-            <div class="efs-label">2. Queue</div>
-            <div class="efs-desc">Awaiting worker</div>
-          </div>
-          <div class="ef-arrow">→</div>
-          <div class="ef-step" id="efs-process">
-            <div class="efs-icon">⚙️</div>
-            <div class="efs-label">3. Processing</div>
-            <div class="efs-desc">Hash + Encrypt</div>
-          </div>
-          <div class="ef-arrow">→</div>
-          <div class="ef-step" id="efs-sync">
-            <div class="efs-icon">🗄️</div>
-            <div class="efs-label">4. Synced</div>
-            <div class="efs-desc">Written to DB</div>
-          </div>
-          <div class="ef-arrow">→</div>
-          <div class="ef-step" id="efs-done">
-            <div class="efs-icon">✅</div>
-            <div class="efs-label">5. Complete</div>
-            <div class="efs-desc">Certificate issued</div>
-          </div>
-        </div>
-
-        <!-- Evaluator info cards -->
-        <div class="eval-info-row">
-          <div class="eval-info-card">
-            <div class="eic-icon">📤</div>
-            <div class="eic-val" id="eic-submitted">0</div>
-            <div class="eic-label">Submitted Today</div>
-          </div>
-          <div class="eval-info-card green">
-            <div class="eic-icon">✅</div>
-            <div class="eic-val" id="eic-completed">0</div>
-            <div class="eic-label">Completed</div>
-          </div>
-          <div class="eval-info-card amber">
-            <div class="eic-icon">⏳</div>
-            <div class="eic-val" id="eic-pending">0</div>
-            <div class="eic-label">In Queue</div>
-          </div>
-          <div class="eval-info-card">
-            <div class="eic-icon">🔒</div>
-            <div class="eic-val" id="eic-encrypted">AES-256</div>
-            <div class="eic-label">Encryption</div>
-          </div>
-        </div>
-
-        <!-- Submission tracker table -->
-        <div class="dash-card">
-          <div class="dc-header">
-            <h3>📋 Your Submission History</h3>
-            <div class="live-indicator"><span class="live-dot"></span><span>Auto-updating every 8s</span></div>
-          </div>
-          <div style="overflow-x:auto">
-            <table class="records-table">
-              <thead>
-                <tr>
-                  <th>Submission ID</th>
-                  <th>Subject</th>
-                  <th>Roll No</th>
-                  <th>Hash (SHA-256)</th>
-                  <th>Queue Position</th>
-                  <th>Status</th>
-                  <th>Submitted At</th>
-                </tr>
-              </thead>
-              <tbody id="mysub-tbody">
-                <tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:2rem">📋 No submissions yet — <a href="#" onclick="switchView('submit');return false;" style="color:var(--primary)">Upload your first script</a></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- What happens to your script -->
-        <div class="dash-card" style="margin-top:1rem">
-          <div class="dc-header"><h3>💡 What Happens To Your Script?</h3></div>
-          <div class="how-it-works">
-            <div class="hiw-step"><span class="hiw-num">1</span><div><strong>Upload</strong> — PDF/image validated: format, size, and integrity checks</div></div>
-            <div class="hiw-step"><span class="hiw-num">2</span><div><strong>Queue</strong> — Submission enters secure FIFO processing queue</div></div>
-            <div class="hiw-step"><span class="hiw-num">3</span><div><strong>Hash</strong> — SHA-256 fingerprint computed to guarantee integrity</div></div>
-            <div class="hiw-step"><span class="hiw-num">4</span><div><strong>Encrypt</strong> — AES-256-GCM applied before any storage operation</div></div>
-            <div class="hiw-step"><span class="hiw-num">5</span><div><strong>Sync</strong> — Replicated to Mumbai, Delhi, and Chennai data centres</div></div>
-            <div class="hiw-step"><span class="hiw-num">6</span><div><strong>Done</strong> — Immutable confirmation ID issued. Script permanently recorded.</div></div>
-          </div>
-        </div>
-      </section>
-
-    </main>
-  </div><!-- end main-content -->
-</div><!-- end main-app -->
-
-<!-- NOTIFICATIONS CONTAINER -->
-<div id="notifications-container" class="notifications-container"></div>
-
-<!-- CONFIRM MODAL -->
-<div class="modal-overlay hidden" id="confirm-modal">
-  <div class="modal-box">
-    <div class="modal-icon" id="modal-icon">⚠️</div>
-    <h3 id="modal-title">Confirm Action</h3>
-    <p id="modal-msg">Are you sure?</p>
-    <div class="modal-actions">
-      <button class="btn-secondary" id="modal-cancel">Cancel</button>
-      <button class="btn-danger" id="modal-confirm">Confirm</button>
+  <!-- CONFIRM MODAL -->
+  <div class="modal-overlay hidden" id="confirm-modal">
+    <div class="modal-box">
+      <div class="modal-icon" id="modal-icon">⚠️</div>
+      <h3 id="modal-title">Confirm Action</h3>
+      <p id="modal-msg">Are you sure?</p>
+      <div class="modal-actions">
+        <button class="btn-secondary" id="modal-cancel">Cancel</button>
+        <button class="btn-danger" id="modal-confirm">Confirm</button>
+      </div>
     </div>
   </div>
-</div>
 
-<script src="app.runtime.js"></script>
-<script src="app.js"></script>
+  <script src="app.runtime.js"></script>
+  <script src="app.js"></script>
 </body>
+
 </html>

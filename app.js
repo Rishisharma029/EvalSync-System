@@ -1099,7 +1099,7 @@ function drawLineChart(canvas, datasets, options = {}) {
       ctx.lineTo(pad.l, pad.t + cH);
       ctx.closePath();
       const grad = ctx.createLinearGradient(0, pad.t, 0, pad.t + cH);
-      grad.addColorStop(0, ds.fillColor || 'rgba(99,102,241,0.15)');
+      grad.addColorStop(0, ds.fillColor || 'rgba(124,58,237,0.15)');
       grad.addColorStop(1, 'transparent');
       ctx.fillStyle = grad;
       ctx.fill();
@@ -1107,7 +1107,7 @@ function drawLineChart(canvas, datasets, options = {}) {
 
     // Line
     ctx.beginPath();
-    ctx.strokeStyle = ds.color || '#6366f1';
+    ctx.strokeStyle = ds.color || '#7c3aed';
     ctx.lineWidth = ds.lineWidth || 2;
     ctx.lineJoin = 'round';
     ctx.lineCap = 'round';
@@ -1170,8 +1170,8 @@ function renderThroughputChart() {
   if (!canvas) return;
   const max = Math.max(...state.stats.throughputHistory, ...state.stats.processedHistory, 5);
   drawLineChart(canvas, [
-    { data: state.stats.throughputHistory, color: '#6366f1', fillColor: 'rgba(99,102,241,0.1)', fill: true, lineWidth: 2 },
-    { data: state.stats.processedHistory, color: '#10b981', fillColor: 'rgba(16,185,129,0.08)', fill: true, lineWidth: 2 },
+    { data: state.stats.throughputHistory, color: '#7c3aed', fillColor: 'rgba(124,58,237,0.1)', fill: true, lineWidth: 2 },
+    { data: state.stats.processedHistory, color: '#4ade80', fillColor: 'rgba(74,222,128,0.08)', fill: true, lineWidth: 2 },
   ], { max, pad: { t: 10, r: 10, b: 20, l: 35 } });
 }
 
@@ -1179,7 +1179,7 @@ function renderQueueDepthChart() {
   const canvas = eid('queue-depth-chart');
   if (!canvas) return;
   drawLineChart(canvas, [
-    { data: state.stats.queueDepthHistory, color: '#f59e0b', fillColor: 'rgba(245,158,11,0.12)', fill: true, lineWidth: 2.5 },
+    { data: state.stats.queueDepthHistory, color: '#facc15', fillColor: 'rgba(250,204,21,0.12)', fill: true, lineWidth: 2.5 },
   ], { pad: { t: 10, r: 10, b: 20, l: 35 } });
 }
 
@@ -1187,7 +1187,7 @@ function renderWorkerChart() {
   const canvas = eid('worker-chart');
   if (!canvas) return;
   drawLineChart(canvas, [
-    { data: state.stats.workerHistory, color: '#6366f1', fillColor: 'rgba(99,102,241,0.12)', fill: true, lineWidth: 2 },
+    { data: state.stats.workerHistory, color: '#7c3aed', fillColor: 'rgba(124,58,237,0.12)', fill: true, lineWidth: 2 },
   ], { pad: { t: 10, r: 10, b: 20, l: 35 } });
 }
 
@@ -1199,9 +1199,9 @@ function renderAnalyticsChart() {
   const fail = state.stats.failHistory.slice(-120);
   const max = Math.max(...sub, ...succ, 5);
   drawLineChart(canvas, [
-    { data: sub, color: '#6366f1', fill: true, fillColor: 'rgba(99,102,241,0.08)', lineWidth: 2 },
-    { data: succ, color: '#10b981', fill: true, fillColor: 'rgba(16,185,129,0.08)', lineWidth: 2 },
-    { data: fail, color: '#f43f5e', fill: true, fillColor: 'rgba(244,63,94,0.06)', lineWidth: 1.5 },
+    { data: sub, color: '#7c3aed', fill: true, fillColor: 'rgba(124,58,237,0.08)', lineWidth: 2 },
+    { data: succ, color: '#4ade80', fill: true, fillColor: 'rgba(74,222,128,0.08)', lineWidth: 2 },
+    { data: fail, color: '#f87171', fill: true, fillColor: 'rgba(248,113,113,0.06)', lineWidth: 1.5 },
   ], { max, pad: { t: 10, r: 10, b: 20, l: 35 } });
 }
 
@@ -1210,14 +1210,14 @@ function renderSubjectChart() {
   if (!canvas) return;
   const subjects = SUBJECTS;
   const counts = subjects.map(s => state.stats.subjectCounts[s] || 0);
-  const colors = ['#6366f1', '#06b6d4', '#10b981', '#f59e0b', '#f43f5e', '#a855f7', '#ec4899', '#14b8a6', '#f97316'];
+  const colors = ['#7c3aed', '#a78bfa', '#4ade80', '#facc15', '#f87171', '#7c3aed', '#ec4899', '#14b8a6', '#f97316'];
   drawBarChart(canvas, counts, colors, { labels: subjects.map(s => s.substring(0, 4)) });
 }
 
 function renderDbSyncChart() {
   const canvas = eid('db-sync-chart');
   if (!canvas) return;
-  const colors = Array(20).fill('#10b981');
+  const colors = Array(20).fill('#4ade80');
   drawBarChart(canvas, state.stats.dbSyncBatches, colors);
 }
 
@@ -1229,7 +1229,7 @@ function updateSparklines() {
     state.stats.processedHistory.slice(-15),
     state.stats.processTimes.slice(-15).map(t => t / 10),
   ];
-  const colors = ['#6366f1', '#f59e0b', '#10b981', '#06b6d4'];
+  const colors = ['#7c3aed', '#facc15', '#4ade80', '#a78bfa'];
 
   ids.forEach((id, idx) => {
     const canvas = eid(`spark-${id}`);
@@ -1259,7 +1259,7 @@ function updateSparklines() {
 
     // Safe gradient fill (avoid expensive/buggy string transforms on each tick)
     const grad = ctx.createLinearGradient(0, 0, 0, H);
-    grad.addColorStop(0, 'rgba(99,102,241,0.15)');
+    grad.addColorStop(0, 'rgba(124,58,237,0.15)');
     grad.addColorStop(1, 'transparent');
     ctx.fillStyle = grad;
     ctx.fill();
@@ -1270,7 +1270,7 @@ function updateSparklines() {
 function startParticles() {
   const container = eid('pipeline-particles');
   if (!container) return;
-  const colors = ['#6366f1', '#06b6d4', '#10b981', '#f59e0b', '#f43f5e'];
+  const colors = ['#7c3aed', '#a78bfa', '#4ade80', '#facc15', '#f87171'];
   let particleInterval = setInterval(() => {
     if (!eid('pipeline-particles')) { clearInterval(particleInterval); return; }
     const p = document.createElement('div');
@@ -2131,7 +2131,7 @@ function updateWorkerCPUGrid() {
 function drawHealthLatencyChart() {
   const canvas = eid('health-latency-chart'); if (!canvas) return;
   const ctx = canvas.getContext('2d'); const W = canvas.width, H = canvas.height; ctx.clearRect(0, 0, W, H);
-  const colors = { gateway: '#6366f1', queue: '#06b6d4', encrypt: '#10b981', db: '#f59e0b', replica: '#a855f7' };
+  const colors = { gateway: '#7c3aed', queue: '#a78bfa', encrypt: '#4ade80', db: '#facc15', replica: '#7c3aed' };
   Object.entries(colors).forEach(([svc, color]) => {
     const hist = p2State.healthLatencyHistory[svc] || [];
     if (hist.length < 2) return;
@@ -2175,11 +2175,11 @@ function drawLBDistChart() {
   const ctx = canvas.getContext('2d'); const W = canvas.width, H = canvas.height; ctx.clearRect(0, 0, W, H);
   const workers = state.workers; if (!workers.length) return;
   const total = workers.reduce((a, w) => a + Math.max(w.tasksCompleted, 1), 0);
-  const colors = ['#6366f1', '#06b6d4', '#10b981', '#f59e0b', '#a855f7', '#f43f5e', '#3b82f6', '#ec4899'];
+  const colors = ['#7c3aed', '#a78bfa', '#4ade80', '#facc15', '#7c3aed', '#f87171', '#3b82f6', '#ec4899'];
   const cx = W / 2, cy = H / 2, r = Math.min(W, H) * 0.35; let start = -Math.PI / 2;
   workers.slice(0, 8).forEach((w, i) => { const share = w.tasksCompleted / total; const angle = share * Math.PI * 2; ctx.beginPath(); ctx.moveTo(cx, cy); ctx.arc(cx, cy, r, start, start + angle); ctx.closePath(); ctx.fillStyle = colors[i % colors.length]; ctx.globalAlpha = 0.8; ctx.fill(); ctx.globalAlpha = 1; start += angle; });
-  ctx.fillStyle = 'rgba(255,255,255,0.8)'; ctx.font = 'bold 13px Inter'; ctx.textAlign = 'center'; ctx.fillText(workers.length + ' Workers', cx, cy - 5);
-  ctx.font = '10px Inter'; ctx.fillStyle = 'rgba(255,255,255,0.4)'; ctx.fillText('Even Load', cx, cy + 12);
+  ctx.fillStyle = 'rgba(255,255,255,0.8)'; ctx.font = 'bold 13px system-ui, sans-serif'; ctx.textAlign = 'center'; ctx.fillText(workers.length + ' Workers', cx, cy - 5);
+  ctx.font = '10px system-ui, sans-serif'; ctx.fillStyle = 'rgba(255,255,255,0.4)'; ctx.fillText('Even Load', cx, cy + 12);
 }
 
 /* ─── AI PREDICTION ───────────────────────────────────────── */
@@ -2229,12 +2229,12 @@ function drawPredictionChart() {
   ctx.beginPath();
   predicted.forEach((v, i) => { const x = toX(actual.length + i), y = toY(v * 1.2); i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y); });
   for (let i = predicted.length - 1; i >= 0; i--) ctx.lineTo(toX(actual.length + i), toY(predicted[i] * 0.8));
-  ctx.closePath(); ctx.fillStyle = 'rgba(244,63,94,0.06)'; ctx.fill();
+  ctx.closePath(); ctx.fillStyle = 'rgba(248,113,113,0.06)'; ctx.fill();
   // Actual
-  ctx.beginPath(); ctx.strokeStyle = '#6366f1'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.strokeStyle = '#7c3aed'; ctx.lineWidth = 2;
   actual.forEach((v, i) => { const x = toX(i), y = toY(v); i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y); }); ctx.stroke();
   // Predicted dashed
-  ctx.beginPath(); ctx.strokeStyle = '#f59e0b'; ctx.lineWidth = 2; ctx.setLineDash([5, 3]);
+  ctx.beginPath(); ctx.strokeStyle = '#facc15'; ctx.lineWidth = 2; ctx.setLineDash([5, 3]);
   predicted.forEach((v, i) => { const x = toX(actual.length + i), y = toY(v); i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y); }); ctx.stroke(); ctx.setLineDash([]);
   // Divider
   const divX = toX(actual.length - 1); ctx.beginPath(); ctx.strokeStyle = 'rgba(255,255,255,0.15)'; ctx.lineWidth = 1; ctx.setLineDash([3, 3]); ctx.moveTo(divX, 0); ctx.lineTo(divX, H); ctx.stroke(); ctx.setLineDash([]);

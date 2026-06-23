@@ -9,11 +9,6 @@
     content="EvalSync is a queue-based, AES-256 encrypted, secure answer-script submission system for CBSE examinations. Prevents server overload with intelligent queue management and background workers." />
   <meta name="keywords" content="CBSE, EvalSync, submission system, queue, secure, answer script, evaluation" />
   <meta name="author" content="EvalSync CBSE Tech Division" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
-    rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -43,12 +38,12 @@
               <path d="M15 24 L24 15 L33 24 L24 33 Z" fill="white" opacity="0.9" />
               <defs>
                 <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#6366f1" />
-                  <stop offset="100%" stop-color="#06b6d4" />
+                  <stop offset="0%" stop-color="#7c3aed" />
+                  <stop offset="100%" stop-color="#a78bfa" />
                 </linearGradient>
                 <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#06b6d4" />
-                  <stop offset="100%" stop-color="#6366f1" />
+                  <stop offset="0%" stop-color="#a78bfa" />
+                  <stop offset="100%" stop-color="#7c3aed" />
                 </linearGradient>
               </defs>
             </svg>
@@ -194,12 +189,12 @@
               <path d="M10 16 L16 10 L22 16 L16 22 Z" fill="white" opacity="0.9" />
               <defs>
                 <linearGradient id="sg1" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#6366f1" />
-                  <stop offset="100%" stop-color="#06b6d4" />
+                  <stop offset="0%" stop-color="#7c3aed" />
+                  <stop offset="100%" stop-color="#a78bfa" />
                 </linearGradient>
                 <linearGradient id="sg2" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#06b6d4" />
-                  <stop offset="100%" stop-color="#6366f1" />
+                  <stop offset="0%" stop-color="#a78bfa" />
+                  <stop offset="100%" stop-color="#7c3aed" />
                 </linearGradient>
 
               </defs>
@@ -388,7 +383,7 @@
           <!-- KPI Cards -->
           <div class="kpi-grid" id="kpi-grid">
             <div class="kpi-card" id="kpi-total">
-              <div class="kpi-icon" style="background:linear-gradient(135deg,#6366f1,#818cf8)">📄</div>
+              <div class="kpi-icon">📄</div>
               <div class="kpi-info">
                 <span class="kpi-value" id="kv-total">0</span>
                 <span class="kpi-label">Total Submissions</span>
@@ -397,7 +392,7 @@
               <canvas class="kpi-sparkline" id="spark-total" width="80" height="40"></canvas>
             </div>
             <div class="kpi-card" id="kpi-queue">
-              <div class="kpi-icon" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)">📦</div>
+              <div class="kpi-icon">📦</div>
               <div class="kpi-info">
                 <span class="kpi-value" id="kv-queue">0</span>
                 <span class="kpi-label">Queue Depth</span>
@@ -406,7 +401,7 @@
               <canvas class="kpi-sparkline" id="spark-queue" width="80" height="40"></canvas>
             </div>
             <div class="kpi-card" id="kpi-success">
-              <div class="kpi-icon" style="background:linear-gradient(135deg,#10b981,#34d399)">✅</div>
+              <div class="kpi-icon">✅</div>
               <div class="kpi-info">
                 <span class="kpi-value" id="kv-success">99.7%</span>
                 <span class="kpi-label">Success Rate</span>
@@ -415,7 +410,7 @@
               <canvas class="kpi-sparkline" id="spark-success" width="80" height="40"></canvas>
             </div>
             <div class="kpi-card" id="kpi-speed">
-              <div class="kpi-icon" style="background:linear-gradient(135deg,#06b6d4,#22d3ee)">⚡</div>
+              <div class="kpi-icon">⚡</div>
               <div class="kpi-info">
                 <span class="kpi-value" id="kv-speed">142ms</span>
                 <span class="kpi-label">Avg Process Time</span>
@@ -452,7 +447,7 @@
                     <span class="ps-count" id="psc-queue">0</span>
                   </div>
                   <div class="ps-bar">
-                    <div class="ps-fill" id="psf-queue" style="background:linear-gradient(90deg,#f59e0b,#fbbf24)"></div>
+                    <div class="ps-fill" id="psf-queue"></div>
                   </div>
                 </div>
                 <div class="pipeline-arrow">→</div>
@@ -463,8 +458,7 @@
                     <span class="ps-count" id="psc-workers">6 Active</span>
                   </div>
                   <div class="ps-bar">
-                    <div class="ps-fill" id="psf-workers" style="background:linear-gradient(90deg,#6366f1,#818cf8)">
-                    </div>
+                    <div class="ps-fill" id="psf-workers"></div>
                   </div>
                 </div>
                 <div class="pipeline-arrow">→</div>
@@ -475,7 +469,7 @@
                     <span class="ps-count" id="psc-db">Syncing</span>
                   </div>
                   <div class="ps-bar">
-                    <div class="ps-fill" id="psf-db" style="background:linear-gradient(90deg,#10b981,#34d399)"></div>
+                    <div class="ps-fill" id="psf-db"></div>
                   </div>
                 </div>
               </div>
@@ -548,8 +542,8 @@
               <div class="dc-header">
                 <h3>Throughput (Last 60s)</h3>
                 <div class="chart-legend">
-                  <span class="cl-dot" style="background:#6366f1"></span><span>Submissions/s</span>
-                  <span class="cl-dot" style="background:#10b981"></span><span>Processed/s</span>
+                  <span class="cl-dot" style="background:#7c3aed"></span><span>Submissions/s</span>
+                  <span class="cl-dot" style="background:#4ade80"></span><span>Processed/s</span>
                 </div>
               </div>
               <canvas id="throughput-chart" width="600" height="160"></canvas>
@@ -935,9 +929,9 @@
               <div class="dc-header">
                 <h3>Submission Timeline (Last 5 minutes)</h3>
                 <div class="chart-legend">
-                  <span class="cl-dot" style="background:#6366f1"></span><span>Submitted</span>
-                  <span class="cl-dot" style="background:#10b981"></span><span>Processed</span>
-                  <span class="cl-dot" style="background:#f43f5e"></span><span>Failed</span>
+                  <span class="cl-dot" style="background:#7c3aed"></span><span>Submitted</span>
+                  <span class="cl-dot" style="background:#4ade80"></span><span>Processed</span>
+                  <span class="cl-dot" style="background:#f87171"></span><span>Failed</span>
                 </div>
               </div>
               <canvas id="analytics-main-chart" width="700" height="200"></canvas>
@@ -1668,9 +1662,9 @@
               <div class="dc-header">
                 <h3>📈 Traffic Forecast (Next 30 min)</h3>
                 <div class="chart-legend">
-                  <span class="cl-dot" style="background:#6366f1"></span><span>Actual</span>
-                  <span class="cl-dot" style="background:#f59e0b"></span><span>Predicted</span>
-                  <span class="cl-dot" style="background:#f43f5e;opacity:.4"></span><span>Confidence Band</span>
+                  <span class="cl-dot" style="background:#7c3aed"></span><span>Actual</span>
+                  <span class="cl-dot" style="background:#facc15"></span><span>Predicted</span>
+                  <span class="cl-dot" style="background:#f87171;opacity:.4"></span><span>Confidence Band</span>
                 </div>
               </div>
               <canvas id="prediction-chart" width="700" height="180"></canvas>

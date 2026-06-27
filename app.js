@@ -6,9 +6,9 @@
 'use strict';
 
 /* ─── CONSTANTS & CONFIG ──────────────────────────────────── */
+// DEMO_USER provides safe fallback display info only — no password stored here
 const DEMO_USER = {
   email: 'evaluator@cbse.gov.in',
-  password: 'CBSE@2024',
   name: 'Rajan Mehta',
   initials: 'RM',
   role: 'Senior Evaluator',
@@ -16,6 +16,7 @@ const DEMO_USER = {
   subject: 'Mathematics (041)',
   center: 'DEL-0412',
 };
+
 
 const SUBJECTS = ['Mathematics', 'Physics', 'Chemistry', 'Biology', 'Computer Sc', 'English', 'Economics', 'History', 'Geography'];
 const SUBJECT_CODES = { 'Mathematics': '041', 'Physics': '042', 'Chemistry': '043', 'Biology': '044', 'Computer Sc': '083', 'English': '301', 'Economics': '030', 'History': '027', 'Geography': '029' };
@@ -450,6 +451,9 @@ function initUploadZone() {
 }
 
 /* ─── WORKER SYSTEM ───────────────────────────────────────── */
+// Monotonic counter to prevent duplicate worker IDs after scale-down/up cycles
+let workerIdCounter = 0;
+
 function createWorker(id, isScaled = false) {
   return {
     id, isScaled,
@@ -467,9 +471,11 @@ function createWorker(id, isScaled = false) {
 }
 
 function initWorkers(count = 6) {
+  workerIdCounter = count;
   state.workers = Array.from({ length: count }, (_, i) => createWorker(i + 1, false));
   renderWorkers();
 }
+
 
 function renderWorkers() {
   const grid = eid('workers-grid');
@@ -845,7 +851,8 @@ function checkAutoScale() {
   const maxWorkers = 20;
 
   if (qDepth > 15 && state.workers.length < maxWorkers) {
-    const newId = state.workers.length + 1;
+    workerIdCounter++;
+    const newId = workerIdCounter;
     const w = createWorker(newId, true);
     state.workers.push(w);
     const grid = eid('workers-grid');
@@ -907,8 +914,8 @@ function startSimulation() {
     updateThroughputHistory();
     updateKPIs();
     updateResourceMeters();
-    updateSystemHealth();
   }, 1000);
+
 
   // Throughput chart updater
   setManagedInterval('chart', () => {
@@ -962,7 +969,6 @@ function updateThroughputHistory() {
 
 /* ─── KPI UPDATES ─────────────────────────────────────────── */
 function updateKPIs() {
-  setText('kv-total', state.stats.totalSubmitted.toLocaleString());
   setText('kv-total', state.stats.totalSubmitted.toLocaleString());
 
   const totalProcessed = state.stats.totalProcessed;
@@ -1061,9 +1067,6 @@ function calculateSystemHealth() {
   return Math.min(Math.max(Math.round(health), 60), 100);
 }
 
-function updateSystemHealth() {
-  // already done in updateKPIs
-}
 
 /* ─── CANVAS CHARTS ───────────────────────────────────────── */
 function drawLineChart(canvas, datasets, options = {}) {
@@ -1405,7 +1408,8 @@ function initAdminControls() {
 
   const addWorker = eid('btn-add-worker');
   if (addWorker) addWorker.onclick = () => {
-    const newId = state.workers.length + 1;
+    workerIdCounter++;
+    const newId = workerIdCounter;
     const w = createWorker(newId, true);
     state.workers.push(w);
     renderWorkers();
@@ -1414,11 +1418,13 @@ function initAdminControls() {
     logAuditEvent('scale-worker', `Manually spawned Worker-${newId}`);
   };
 
+
   const removeWorker = eid('btn-remove-worker');
   if (removeWorker) removeWorker.onclick = () => {
-    const idle = state.workers.filter(w => w.status === 'idle');
-    if (idle.length === 0) { notify('No Idle Workers', 'All workers are busy', 'warning'); return; }
-    const w = idle[idle.length - 1];
+    // Also handle OFFLINE workers left behind by chaos tests (HB-7)
+    const removable = state.workers.filter(w => w.status === 'idle' || w.status === 'IDLE' || w.status === 'OFFLINE');
+    if (removable.length === 0) { notify('No Idle Workers', 'All workers are busy', 'warning'); return; }
+    const w = removable[removable.length - 1];
     state.workers = state.workers.filter(x => x.id !== w.id);
     const card = eid(`wcard-${w.id}`);
     if (card) card.remove();
@@ -1427,19 +1433,25 @@ function initAdminControls() {
     logAuditEvent('scale-worker', `Manually terminated Worker-${w.id}`);
   };
 
+
   const slider = eid('worker-slider');
   if (slider) slider.addEventListener('input', () => {
     const target = parseInt(slider.value);
     setText('worker-count-label', target);
     const current = state.workers.length;
     if (target > current) {
-      for (let i = current + 1; i <= target; i++) state.workers.push(createWorker(i, true));
+      // Use monotonic counter for unique IDs
+      for (let i = current; i < target; i++) {
+        workerIdCounter++;
+        state.workers.push(createWorker(workerIdCounter, true));
+      }
       renderWorkers();
     } else if (target < current) {
       state.workers = state.workers.slice(0, target);
       renderWorkers();
     }
   });
+
 
   const pause = eid('btn-pause-queue');
   const resume = eid('btn-resume-queue');
@@ -1473,7 +1485,9 @@ function initAdminControls() {
     state.database.todayRecords = 0; state.database.pendingSync = 0;
     state.database.recentRecords = [];
     state.simulation.paused = false; state.simulation.spikesCount = 0;
+    subCounter = 10000;
     initWorkers(6);
+
     ['incoming', 'processing', 'completed', 'failed'].forEach(col => { const c = eid(`qci-${col}`); if (c) c.innerHTML = ''; });
     updateQueueStats(); updateKPIs();
     notify('System Reset', 'All data cleared — Simulation restarted', 'info', 4000);
@@ -1528,13 +1542,20 @@ function initLogin() {
     demoBtn.onclick = () => {
       const selectedRoleKey = getSelectedRoleKey();
       const selectedRole = ROLES[selectedRoleKey] || ROLES.evaluator;
-      const email = eid('login-email');
-      const pass = eid('login-pass');
-      if (email) email.value = selectedRole.email;
-      if (pass) pass.value = selectedRole.pass;
-      setTimeout(() => doLogin(selectedRole.email, selectedRole.pass, selectedRoleKey), 300);
+      const demoPass = (DEMO_CREDENTIALS[selectedRoleKey] || {}).pass || '';
+      const emailEl = eid('login-email');
+      const passEl = eid('login-pass');
+      if (emailEl) emailEl.value = selectedRole.email;
+      if (passEl) passEl.value = demoPass;
+      // Submit after brief UI feedback delay so the user sees the fill
+      setTimeout(() => {
+        const submitEvent = new Event('submit', { bubbles: true, cancelable: true });
+        const loginForm = eid('login-form');
+        if (loginForm) loginForm.dispatchEvent(submitEvent);
+      }, 300);
     };
   }
+
 
   if (form) {
     form.onsubmit = (e) => {
@@ -1598,27 +1619,15 @@ function initLogin() {
             return;
           }
 
-          // Otherwise (network error/404), fallback to local simulation
-          console.warn('[EvalSync API] Backend offline/static environment. Falling back to local client simulation.', err);
-
-          const matchedRoleKey = Object.keys(ROLES).find(key => {
-            const r = ROLES[key];
-            return r.email === email && r.pass === pass;
-          });
-
+          // Network/server error — do NOT fall back to client-side auth (MI-4 security fix)
+          console.warn('[EvalSync API] Authentication service unavailable.', err.message);
           if (spinner) spinner.classList.add('hidden');
           if (btnText) btnText.textContent = 'Sign In Securely';
           if (loginBtn) loginBtn.disabled = false;
           if (demoBtn) demoBtn.disabled = false;
-
-          if (!matchedRoleKey) {
-            if (errEmail) errEmail.textContent = 'Invalid credentials. Use the demo credentials shown above.';
-            return;
-          }
-
-          activeRole = matchedRoleKey;
-          doLogin(email, pass, matchedRoleKey);
+          if (errEmail) errEmail.textContent = 'Authentication service unavailable. Please try again shortly.';
         });
+
     };
   }
 }
@@ -1826,15 +1835,11 @@ document.addEventListener('DOMContentLoaded', () => {
         doLoginSuccess(data.user, data.user.roleKey);
       })
       .catch(err => {
-        // If no session, fallback to local remember-me check
-        const savedLogin = localStorage.getItem('evalsync_session');
-        if (savedLogin === 'demo') {
-          const email = eid('login-email');
-          const pass = eid('login-pass');
-          if (email) email.value = DEMO_USER.email;
-          if (pass) pass.value = DEMO_USER.password;
-        }
+        // If no session exists, just show the login form normally
+        // MI-1 fix: Do NOT auto-fill credentials into form fields
+        console.log('[EvalSync] No active session, showing login form.');
       });
+
   });
 
   // Remember me
@@ -1854,11 +1859,13 @@ document.addEventListener('DOMContentLoaded', () => {
    ═══════════════════════════════════════════════════════════ */
 
 /* ─── ROLE SYSTEM ─────────────────────────────────────────── */
+// CV-2 fix: pass fields removed — credentials validated server-side only via bcrypt.
+// Demo credentials are shown in the UI login panel for convenience but NOT stored here.
 const ROLES = {
   // EVALUATOR — only Submit + personal Queue tracker
   evaluator: {
     label: '👨‍🏫 Evaluator', cls: 'evaluator',
-    email: 'evaluator@cbse.gov.in', pass: 'CBSE@2024',
+    email: 'evaluator@cbse.gov.in',
     name: 'Rajan Mehta', initials: 'RM',
     allowedViews: ['submit', 'queue', 'mysubmissions'],
     defaultView: 'submit', readOnly: false,
@@ -1867,7 +1874,7 @@ const ROLES = {
   // ADMIN — queue ops, DLQ recovery, DB sync monitoring, audit
   admin: {
     label: '🛡️ Admin', cls: 'admin',
-    email: 'admin@cbse.gov.in', pass: 'Admin@2024',
+    email: 'admin@cbse.gov.in',
     name: 'Priya Singh', initials: 'PS',
     allowedViews: ['dashboard', 'submit', 'queue', 'dlq', 'database', 'security', 'admin', 'audit'],
     defaultView: 'dashboard', readOnly: false,
@@ -1876,7 +1883,7 @@ const ROLES = {
   // SUPER ADMIN — full unrestricted access
   superadmin: {
     label: '👑 Super Admin', cls: 'superadmin',
-    email: 'superadmin@cbse.gov.in', pass: 'SuperAdmin@2024',
+    email: 'superadmin@cbse.gov.in',
     name: 'Dr. Arvind Kumar', initials: 'AK',
     allowedViews: ['dashboard', 'submit', 'queue', 'workers', 'analytics', 'security', 'database', 'admin', 'health', 'dlq', 'audit', 'loadbalancer', 'prediction', 'metrics', 'testing', 'mysubmissions'],
     defaultView: 'dashboard', readOnly: false,
@@ -1885,7 +1892,7 @@ const ROLES = {
   // MONITOR — read-only view of all modules, no actions
   monitor: {
     label: '📡 Monitor', cls: 'monitor',
-    email: 'monitor@cbse.gov.in', pass: 'Monitor@2024',
+    email: 'monitor@cbse.gov.in',
     name: 'Sanjay Patel', initials: 'SP',
     allowedViews: ['dashboard', 'queue', 'workers', 'analytics', 'health', 'loadbalancer', 'prediction', 'metrics', 'testing', 'database', 'dlq', 'audit', 'security'],
     defaultView: 'dashboard', readOnly: true,
@@ -1896,6 +1903,15 @@ let activeRole = 'evaluator';
 let sessionSeconds = 1800;
 let sessionTimerInterval = null;
 
+// Demo credential display labels — used ONLY for the UI hint panel, NOT for authentication.
+// These are intentionally visible in the login UI for demo/evaluation purposes.
+const DEMO_CREDENTIALS = {
+  evaluator:  { pass: 'CBSE@2024' },
+  admin:      { pass: 'Admin@2024' },
+  superadmin: { pass: 'SuperAdmin@2024' },
+  monitor:    { pass: 'Monitor@2024' },
+};
+
 function initRoleSystem() {
   document.querySelectorAll('.role-tab').forEach(tab => {
     tab.addEventListener('click', () => {
@@ -1903,15 +1919,17 @@ function initRoleSystem() {
       tab.classList.add('active');
       activeRole = tab.dataset.role;
       const role = ROLES[activeRole];
+      const demo = DEMO_CREDENTIALS[activeRole] || {};
       const emailEl = eid('dc-email'), passEl = eid('dc-pass');
-      const loginEmailEl = eid('login-email'), loginPassEl = eid('login-pass');
+      const loginEmailEl = eid('login-email');
+      // Only pre-fill email in the login form, not the password
       if (emailEl) emailEl.textContent = role.email;
-      if (passEl) passEl.textContent = role.pass;
+      if (passEl) passEl.textContent = demo.pass || '—';
       if (loginEmailEl) loginEmailEl.value = role.email;
-      if (loginPassEl) loginPassEl.value = role.pass;
     });
   });
 }
+
 
 function applyRoleBadge(role) {
   const r = ROLES[role] || ROLES.evaluator;
@@ -1970,7 +1988,12 @@ function startSessionTimer() {
       timerEl.textContent = `⏱ ${pad(m)}:${pad(s)}`;
       timerEl.className = 'session-timer' + (sessionSeconds <= 300 ? ' warning' : '') + (sessionSeconds <= 60 ? ' critical' : '');
     }
-    if (sessionSeconds <= 0) { clearInterval(sessionTimerInterval); notify('Session Expired', 'Please log in again', 'warning', 8000); }
+    if (sessionSeconds <= 0) {
+      clearInterval(sessionTimerInterval);
+      notify('Session Expired', 'Your session has expired. Signing out...', 'warning', 5000);
+      setTimeout(doLogout, 3000);
+    }
+
   }, 1000);
 }
 
@@ -2448,21 +2471,23 @@ async function runChaosTest(type) {
     await step('warn', '🤖 Auto-scaler triggered — Requesting new worker instances', 1500);
 
     // Auto-scale: add workers progressively
-    const addWorker = (delay, id) => setTimeout(() => {
-      const newWorker = { id, status: 'IDLE', processed: 0, errors: 0, currentTask: null, uptime: 0, cpu: 0 };
-      state.workers.push(newWorker);
+    // HB-4 fix: use createWorker() for a properly-shaped object (avoids undefined errors in updateWorkerCard)
+    const addWorker = (delay) => setTimeout(() => {
+      workerIdCounter++;
+      const w = createWorker(workerIdCounter, true);
+      state.workers.push(w);
       setText('nb-workers', state.workers.length);
-      chaosLog(`⚙️ Worker-${String(id).padStart(2, '0')} spawned (auto-scale) — Total: ${state.workers.length}`, 'ok');
-      addResponseItem('ok', `⚙️ Worker-${String(id).padStart(2, '0')} spawned — Total workers: ${state.workers.length}`);
-      feedLog('⚙️', `<strong>AUTO-SCALE:</strong> Worker-${String(id).padStart(2, '0')} spawned — pool now ${state.workers.length} workers`, 'success');
+      chaosLog(`⚙️ Worker-${String(w.id).padStart(2, '0')} spawned (auto-scale) — Total: ${state.workers.length}`, 'ok');
+      addResponseItem('ok', `⚙️ Worker-${String(w.id).padStart(2, '0')} spawned — Total workers: ${state.workers.length}`);
+      feedLog('⚙️', `<strong>AUTO-SCALE:</strong> Worker-${String(w.id).padStart(2, '0')} spawned — pool now ${state.workers.length} workers`, 'success');
     }, delay);
 
-    addWorker(2000, 7);
-    addWorker(2500, 8);
-    addWorker(3000, 9);
-    addWorker(3500, 10);
-    addWorker(4000, 11);
-    addWorker(4500, 12);
+    addWorker(2000);
+    addWorker(2500);
+    addWorker(3000);
+    addWorker(3500);
+    addWorker(4000);
+    addWorker(4500);
 
     await step('ok', '✅ Worker-07 spawned (auto-scale +1)', 2200);
     await step('ok', '✅ Worker-08 spawned (auto-scale +2)', 2700);

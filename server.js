@@ -122,6 +122,15 @@ const authLimiter = rateLimit({
 
 app.use('/api/auth/login', authLimiter);
 
+// --- Middleware ---
+
+// Authentication guard — requires a valid session
+function requireAuth(req, res, next) {
+  if (req.session && req.session.user) return next();
+  writeAuditLog('anonymous', 'auth-required', `Unauthenticated access attempt on ${req.path}`, 'failure');
+  return res.status(401).json({ error: 'Authentication required' });
+}
+
 // --- API Endpoints ---
 
 // CSRF Token endpoint for Single Page Application client integration
@@ -208,9 +217,16 @@ app.post('/api/auth/logout', (req, res) => {
   }
 });
 
-// Endpoint to allow client-side actions to append to audit logs (like setting changes or chaos tests)
+// Allowlist of permissible client-side audit actions to prevent log injection
+const ALLOWED_AUDIT_ACTIONS = new Set([
+  'settings-change', 'queue-reset', 'queue-control', 'scale-worker',
+  'system-reset', 'chaos-test', 'logout'
+]);
+
+// Endpoint to allow authenticated client-side actions to append to audit logs
 app.post(
   '/api/audit/log',
+  requireAuth,
   [
     body('action').trim().notEmpty().withMessage('Action is required'),
     body('details').trim().escape()
@@ -221,8 +237,14 @@ app.post(
       return res.status(400).json({ error: errors.array()[0].msg });
     }
 
-    const roleKey = req.session && req.session.user ? req.session.user.roleKey : 'anonymous';
+    const roleKey = req.session.user.roleKey;
     const { action, details } = req.body;
+
+    // Only allow known action types to prevent log injection
+    if (!ALLOWED_AUDIT_ACTIONS.has(action)) {
+      writeAuditLog(roleKey, 'audit-rejected', `Rejected unknown audit action: ${action}`, 'failure');
+      return res.status(400).json({ error: 'Unknown audit action' });
+    }
 
     writeAuditLog(roleKey, action, details, 'success');
     return res.status(200).json({ success: true });

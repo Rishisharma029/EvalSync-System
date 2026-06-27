@@ -268,16 +268,21 @@
           <span class="nav-label">Database Sync</span>
         </a>
 
-        <div class="nav-section-label">Intelligence</div>
         <a href="#" class="nav-item" data-view="health" id="nav-health">
           <span class="nav-icon">🌐</span>
           <span class="nav-label">System Health</span>
           <span class="nav-badge live" id="nb-health">LIVE</span>
         </a>
+        <a href="#" class="nav-item" data-view="soc" id="nav-soc">
+          <span class="nav-icon">🛡️</span>
+          <span class="nav-label">Executive SOC</span>
+          <span class="nav-badge live" style="background:rgba(99,102,241,0.15);color:var(--text-accent);border-color:rgba(99,102,241,0.3)">SEC 5.0</span>
+        </a>
         <a href="#" class="nav-item" data-view="loadbalancer" id="nav-loadbalancer">
           <span class="nav-icon">⚖️</span>
           <span class="nav-label">Load Balancer</span>
         </a>
+
         <a href="#" class="nav-item" data-view="prediction" id="nav-prediction">
           <span class="nav-icon">🤖</span>
           <span class="nav-label">AI Prediction</span>
@@ -1718,6 +1723,147 @@
             </div>
           </div>
         </section>
+
+        <!-- ════ VIEW: EXECUTIVE SOC ════ -->
+        <section id="view-soc" class="view" aria-label="Executive SOC">
+          <div class="view-header">
+            <div class="vh-left">
+              <h2 class="view-title">Executive SOC Dashboard</h2>
+              <p class="view-subtitle">Security Operations Center, WAF controls, RASP event logging & SIEM telemetry</p>
+            </div>
+            <div class="vh-right">
+              <div class="security-badge" id="soc-threat-badge" style="background:rgba(16,185,129,0.15);color:var(--success);border:1px solid rgba(16,185,129,0.3)">
+                Threat Level: LOW
+              </div>
+            </div>
+          </div>
+
+          <div class="health-grid">
+            <!-- Security Status Gauge Card -->
+            <div class="svc-card glass-card" style="display:flex;flex-direction:row;align-items:center;justify-content:space-around;padding:var(--space-lg);grid-column:span 4;min-height:100px;">
+              <div style="text-align:center;">
+                <span style="font-size:2rem;font-weight:800;color:var(--primary);filter:drop-shadow(0 0 8px var(--primary))" id="soc-score-val">98%</span>
+                <span style="font-size:0.75rem;color:var(--text-secondary);display:block;margin-top:2px;">Overall Security Score</span>
+              </div>
+              <div style="width:1px;height:50px;background:rgba(255,255,255,0.08);"></div>
+              <div style="text-align:center;">
+                <span style="font-size:1.8rem;font-weight:700;color:var(--success);" id="soc-blocked-val">1,422</span>
+                <span style="font-size:0.75rem;color:var(--text-secondary);display:block;margin-top:2px;">Blocked Requests</span>
+              </div>
+              <div style="width:1px;height:50px;background:rgba(255,255,255,0.08);"></div>
+              <div style="text-align:center;">
+                <span style="font-size:1.8rem;font-weight:700;color:var(--warning);" id="soc-failures-val">14</span>
+                <span style="font-size:0.75rem;color:var(--text-secondary);display:block;margin-top:2px;">Failed Logins</span>
+              </div>
+              <div style="width:1px;height:50px;background:rgba(255,255,255,0.08);"></div>
+              <div style="text-align:center;">
+                <span style="font-size:1.8rem;font-weight:700;color:var(--text-secondary);" id="soc-fps-val">0</span>
+                <span style="font-size:0.75rem;color:var(--text-secondary);display:block;margin-top:2px;">Malware Blocked</span>
+              </div>
+            </div>
+
+            <!-- Attack Simulation Center (Red Team console) -->
+            <div class="dash-card glass-card" style="grid-column: span 2;">
+              <div class="dc-header">
+                <h3>🧪 Red Team Attack Simulation Console</h3>
+              </div>
+              <div style="padding:var(--space-md);display:grid;grid-template-columns:1fr 1fr;gap:var(--space-sm);">
+                <button class="btn-control emergency" id="btn-sim-sqli" style="padding:var(--space-md);">
+                  <span style="font-size:1.2rem">💉</span>
+                  <div style="text-align:left">
+                    <strong style="display:block;font-size:0.8rem">SQL Injection</strong>
+                    <span style="font-size:0.6rem;color:var(--text-muted)">Inject ' OR 1=1</span>
+                  </div>
+                </button>
+                <button class="btn-control emergency" id="btn-sim-xss" style="padding:var(--space-md);">
+                  <span style="font-size:1.2rem">🖥️</span>
+                  <div style="text-align:left">
+                    <strong style="display:block;font-size:0.8rem">Stored XSS</strong>
+                    <span style="font-size:0.6rem;color:var(--text-muted)">Script tag payload</span>
+                  </div>
+                </button>
+                <button class="btn-control emergency" id="btn-sim-csrf" style="padding:var(--space-md);">
+                  <span style="font-size:1.2rem">🔄</span>
+                  <div style="text-align:left">
+                    <strong style="display:block;font-size:0.8rem">CSRF Exploits</strong>
+                    <span style="font-size:0.6rem;color:var(--text-muted)">Unauthorized state action</span>
+                  </div>
+                </button>
+                <button class="btn-control emergency" id="btn-sim-jwt" style="padding:var(--space-md);">
+                  <span style="font-size:1.2rem">🔑</span>
+                  <div style="text-align:left">
+                    <strong style="display:block;font-size:0.8rem">JWT Signature Tamper</strong>
+                    <span style="font-size:0.6rem;color:var(--text-muted)">Alter token headers</span>
+                  </div>
+                </button>
+                <button class="btn-control emergency" id="btn-sim-brute" style="padding:var(--space-md);">
+                  <span style="font-size:1.2rem">🔓</span>
+                  <div style="text-align:left">
+                    <strong style="display:block;font-size:0.8rem">Brute Force / Stuffing</strong>
+                    <span style="font-size:0.6rem;color:var(--text-muted)">High frequency login attempt</span>
+                  </div>
+                </button>
+                <button class="btn-control emergency" id="btn-sim-dlp" style="padding:var(--space-md);">
+                  <span style="font-size:1.2rem">📤</span>
+                  <div style="text-align:left">
+                    <strong style="display:block;font-size:0.8rem">DLP Leakage (Bulk)</strong>
+                    <span style="font-size:0.6rem;color:var(--text-muted)">Unauthorized script export</span>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <!-- Threat Level Risk Heatmap -->
+            <div class="dash-card glass-card">
+              <div class="dc-header">
+                <h3>🗺️ Risk Heatmap (Geographic distribution)</h3>
+              </div>
+              <div style="padding:var(--space-md);height:170px;display:flex;flex-direction:column;justify-content:space-around;">
+                <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.8rem;">
+                  <span>Delhi Region (Replica 1)</span>
+                  <span class="status-badge info" id="rm-risk-delhi">LOW RISK</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.8rem;">
+                  <span>Mumbai Region (Primary)</span>
+                  <span class="status-badge ok" id="rm-risk-mumbai">SAFE</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.8rem;">
+                  <span>Chennai Region (Replica 2)</span>
+                  <span class="status-badge ok" id="rm-risk-chennai">SAFE</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.8rem;">
+                  <span>Bangalore Region (Replica 3)</span>
+                  <span class="status-badge warn" id="rm-risk-bangalore">SCANNING ACTIVE</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Forensic Threat Log Table -->
+            <div class="dash-card glass-card" style="grid-column: span 3;">
+              <div class="dc-header">
+                <h3>🔍 Real-Time Forensic Threat Log</h3>
+                <span class="dc-badge live" style="background:rgba(239,68,68,0.15);color:var(--danger)">RASP Active</span>
+              </div>
+              <div class="records-table-wrapper" style="max-height: 250px;">
+                <table class="records-table">
+                  <thead>
+                    <tr>
+                      <th>Timestamp</th>
+                      <th>Attack Vector</th>
+                      <th>Source IP</th>
+                      <th>Trace Correlation ID</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="soc-alerts-tbody">
+                    <!-- Dynamic logs -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
 
         <!-- ════ VIEW: DEAD LETTER QUEUE ════ -->
         <section id="view-dlq" class="view" aria-label="Dead Letter Queue">

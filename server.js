@@ -72,9 +72,14 @@ const globalLimiter = rateLimit({
 });
 app.use(globalLimiter);
 
+// 3. Web Application Firewall (WAF) Payload Scan (early prevention)
+const { wafMiddleware } = require('./services/gateway/waf');
+app.use(wafMiddleware);
+
 // Parsers
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 
 // 1. Security Hardening: Secure Session Handling
 const isProd = process.env.NODE_ENV === 'production';

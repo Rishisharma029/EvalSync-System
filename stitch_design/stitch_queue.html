@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EvalSync | Queue Monitor</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;family=Public+Sans:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#353437",
+                        "inverse-on-surface": "#313032",
+                        "on-primary-container": "#dad7ff",
+                        "secondary-fixed-dim": "#c3c0ff",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "primary": "#c3c0ff",
+                        "secondary-container": "#413f82",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "on-primary": "#1d00a5",
+                        "secondary": "#c3c0ff",
+                        "outline": "#918fa1",
+                        "on-surface-variant": "#c7c4d8",
+                        "surface-bright": "#39393b",
+                        "surface-container-lowest": "#0e0e10",
+                        "tertiary-fixed": "#ffdbcc",
+                        "surface-container-highest": "#353437",
+                        "on-tertiary-fixed": "#351000",
+                        "background": "#131315",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "surface": "#131315",
+                        "on-background": "#e5e1e4",
+                        "on-surface": "#e5e1e4",
+                        "outline-variant": "#464555",
+                        "error-container": "#93000a",
+                        "surface-container-high": "#2a2a2c",
+                        "surface-container": "#201f22",
+                        "on-error-container": "#ffdad6",
+                        "inverse-surface": "#e5e1e4",
+                        "on-tertiary": "#571f00",
+                        "surface-dim": "#131315",
+                        "on-secondary-fixed": "#140f54",
+                        "secondary-fixed": "#e2dfff",
+                        "on-secondary-fixed-variant": "#413f82",
+                        "on-secondary": "#2a276a",
+                        "primary-fixed": "#e2dfff",
+                        "surface-tint": "#c3c0ff",
+                        "primary-container": "#4f46e5",
+                        "on-error": "#690005",
+                        "on-secondary-container": "#b0aef9",
+                        "on-primary-fixed": "#0f0069",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "tertiary": "#ffb695",
+                        "error": "#ffb4ab",
+                        "surface-container-low": "#1c1b1d",
+                        "tertiary-container": "#a44100",
+                        "on-tertiary-container": "#ffd2be",
+                        "inverse-primary": "#4d44e3",
+                        "zinc-950": "#09090B",
+                        "zinc-900": "#18181B",
+                        "zinc-800": "#27272A",
+                        "zinc-500": "#71717A"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "8px",
+                        "lg": "8px",
+                        "xl": "12px",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter", "sans-serif"],
+                        "display": ["Inter", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Public Sans", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #09090B;
+            color: #e5e1e4;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #27272A;
+            border-radius: 10px;
+        }
+        .glass-card {
+            background: rgba(24, 24, 27, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid #27272A;
+        }
+        .kanban-col {
+            min-width: 320px;
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-on-surface selection:bg-primary selection:text-on-primary">
+<!-- SideNavBar Component -->
+<aside class="bg-surface-container dark:bg-surface-container border-r border-outline-variant shadow-sm h-screen w-64 fixed left-0 top-0 flex flex-col py-4 z-50">
+<div class="px-6 mb-8">
+<h1 class="text-xl font-headline font-black text-primary dark:text-primary">EvalSync</h1>
+<p class="text-[10px] font-label text-on-surface-variant opacity-70 tracking-widest uppercase">v3.2.1 CBSE</p>
+</div>
+<nav class="flex-1 space-y-1 px-3">
+<!-- Active Tab: Dashboard (Closest mapping for Queue Monitor) -->
+<a class="flex items-center gap-3 px-3 py-2.5 text-primary font-bold border-r-2 border-primary bg-surface-variant/20 transition-colors cursor-pointer active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-body text-label-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/50 transition-colors cursor-pointer active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">router</span>
+<span class="font-body text-label-sm">Gateway</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/50 transition-colors cursor-pointer active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">database</span>
+<span class="font-body text-label-sm">Database</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/50 transition-colors cursor-pointer active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">verified_user</span>
+<span class="font-body text-label-sm">Compliance</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/50 transition-colors cursor-pointer active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-body text-label-sm">Audit Logs</span>
+</a>
+</nav>
+<div class="mt-auto px-3 space-y-1">
+<button class="w-full mb-4 py-2 px-4 bg-primary-container text-on-primary-container rounded-lg font-bold text-sm flex items-center justify-center gap-2 hover:brightness-110 transition-all active:scale-95">
+<span class="material-symbols-outlined text-sm">analytics</span>
+                System Monitor
+            </button>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/50 transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body text-label-sm">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/50 transition-colors" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-body text-label-sm">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="pl-64 min-h-screen flex flex-col">
+<!-- TopNavBar Component -->
+<header class="flex justify-between items-center h-16 w-full pl-8 pr-6 z-40 bg-zinc-950/80 backdrop-blur-md border-b border-outline-variant sticky top-0">
+<div class="flex items-center gap-8">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">search</span>
+<input class="bg-zinc-900 border border-zinc-800 rounded-lg pl-10 pr-4 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 w-64 transition-all" placeholder="Search queue packages..." type="text"/>
+</div>
+<nav class="flex gap-6">
+<a class="font-headline text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Network</a>
+<a class="font-headline text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Security</a>
+<a class="font-headline text-body-md text-primary border-b-2 border-primary pb-1" href="#">Nodes</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 bg-emerald-500/10 text-emerald-500 px-3 py-1 rounded-full text-xs font-bold border border-emerald-500/20">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    System Status: Operational
+                </div>
+<div class="flex gap-2">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-zinc-900 rounded-full transition-all duration-200">
+<span class="material-symbols-outlined">schedule</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-zinc-900 rounded-full transition-all duration-200 relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-rose-500 rounded-full"></span>
+</button>
+</div>
+<div class="flex items-center gap-3 pl-4 border-l border-zinc-800">
+<div class="text-right">
+<p class="text-xs font-bold leading-none">Admin_CBSE</p>
+<p class="text-[10px] text-on-surface-variant">Global Access</p>
+</div>
+<img class="w-8 h-8 rounded-full border border-primary/30 object-cover" data-alt="A professional headshot of a senior system administrator in a dark studio setting. The lighting is dramatic and moody with deep indigo shadows, highlighting the subject's focused expression. He is wearing a dark, high-quality knit sweater, embodying a tech-savvy and authoritative professional persona consistent with a high-end SaaS environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDorQciqSJqNl7TT_0QEwG6L5tI04tLbe2ceFbEBSlLNBllUczTql_rOPmvlU4S9oYnni0Q5aJZNMPrDKUkxb4Ot3mvDzZnMeSbk1iZaAjaRU4XNyo80EPVM4I_eVHUM-T2a08-eN-09CbIscEXQ7BRtJaSAL1b6H4v6rF3gNDj5YHNHDCTh1iTClvvlsdX5CYNJluZIFzVPIslSZJiasEI8rqIj00ajAFkMZo52IxkL4zqFgsz-f9oH-eZRYgi01o6Gzifnq8g32E"/>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<main class="p-8 space-y-8 max-w-[1600px]">
+<!-- Statistics Row -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="bg-zinc-900 border border-zinc-800 p-5 rounded-lg hover:border-indigo-500/50 transition-all duration-300 shadow-sm group">
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 bg-zinc-800 rounded-lg text-zinc-400 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">hourglass_empty</span>
+</span>
+<span class="text-xs font-bold text-zinc-500">+12% vs last hr</span>
+</div>
+<h3 class="text-zinc-500 text-xs font-bold uppercase tracking-wider">Pending Items</h3>
+<p class="text-3xl font-black mt-1">1,248</p>
+</div>
+<div class="bg-zinc-900 border border-zinc-800 p-5 rounded-lg hover:border-emerald-500/50 transition-all duration-300 shadow-sm group">
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 bg-zinc-800 rounded-lg text-emerald-500">
+<span class="material-symbols-outlined">check_circle</span>
+</span>
+<span class="text-xs font-bold text-emerald-500">99.8% Success</span>
+</div>
+<h3 class="text-zinc-500 text-xs font-bold uppercase tracking-wider">Completed Items</h3>
+<p class="text-3xl font-black mt-1">14,802</p>
+</div>
+<div class="bg-zinc-900 border border-zinc-800 p-5 rounded-lg hover:border-rose-500/50 transition-all duration-300 shadow-sm group">
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 bg-zinc-800 rounded-lg text-rose-500">
+<span class="material-symbols-outlined">error</span>
+</span>
+<span class="text-xs font-bold text-rose-500">Action Required</span>
+</div>
+<h3 class="text-zinc-500 text-xs font-bold uppercase tracking-wider">Failed Items</h3>
+<p class="text-3xl font-black mt-1">24</p>
+</div>
+<div class="bg-zinc-900 border border-zinc-800 p-5 rounded-lg hover:border-amber-500/50 transition-all duration-300 shadow-sm group">
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 bg-zinc-800 rounded-lg text-amber-500">
+<span class="material-symbols-outlined">bolt</span>
+</span>
+<span class="text-xs font-bold text-zinc-500">Peak Performance</span>
+</div>
+<h3 class="text-zinc-500 text-xs font-bold uppercase tracking-wider">Processing Rate</h3>
+<p class="text-3xl font-black mt-1">842 <span class="text-sm font-normal text-zinc-500">pkg/min</span></p>
+</div>
+</section>
+<!-- Kanban Queue Board -->
+<section class="flex gap-6 overflow-x-auto pb-6 custom-scrollbar">
+<!-- Incoming -->
+<div class="kanban-col flex-1 min-w-[320px] flex flex-col">
+<div class="flex items-center justify-between mb-4 px-2">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-zinc-500"></div>
+<h2 class="font-bold text-zinc-300">Incoming</h2>
+<span class="bg-zinc-800 px-2 py-0.5 rounded text-[10px] font-mono text-zinc-400">12</span>
+</div>
+<button class="text-zinc-500 hover:text-zinc-300"><span class="material-symbols-outlined text-sm">more_horiz</span></button>
+</div>
+<div class="space-y-3 p-1">
+<div class="glass-card p-4 rounded-xl space-y-3 cursor-pointer hover:border-zinc-500/50 transition-all border-l-4 border-l-zinc-500">
+<div class="flex justify-between items-start">
+<span class="font-mono text-[11px] text-primary">PKG-88124-001</span>
+<span class="text-[10px] text-zinc-500">2m ago</span>
+</div>
+<h4 class="text-sm font-bold truncate">physics_sec_a.zip</h4>
+<div class="flex items-center gap-2 text-[10px] text-zinc-500">
+<span class="material-symbols-outlined text-[12px]">description</span>
+                                142.4 MB
+                                <span class="ml-auto flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">account_tree</span> Node-04</span>
+</div>
+</div>
+<div class="glass-card p-4 rounded-xl space-y-3 cursor-pointer hover:border-zinc-500/50 transition-all border-l-4 border-l-zinc-500">
+<div class="flex justify-between items-start">
+<span class="font-mono text-[11px] text-primary">PKG-88124-002</span>
+<span class="text-[10px] text-zinc-500">4m ago</span>
+</div>
+<h4 class="text-sm font-bold truncate">math_advanced_final.zip</h4>
+<div class="flex items-center gap-2 text-[10px] text-zinc-500">
+<span class="material-symbols-outlined text-[12px]">description</span>
+                                89.1 MB
+                                <span class="ml-auto flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">account_tree</span> Node-02</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Processing -->
+<div class="kanban-col flex-1 min-w-[320px] flex flex-col">
+<div class="flex items-center justify-between mb-4 px-2">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></div>
+<h2 class="font-bold text-zinc-300">Processing</h2>
+<span class="bg-zinc-800 px-2 py-0.5 rounded text-[10px] font-mono text-zinc-400">3</span>
+</div>
+<button class="text-zinc-500 hover:text-zinc-300"><span class="material-symbols-outlined text-sm">more_horiz</span></button>
+</div>
+<div class="space-y-3 p-1">
+<div class="glass-card p-4 rounded-xl space-y-3 border-l-4 border-l-amber-500 shadow-[0_0_15px_rgba(245,158,11,0.05)]">
+<div class="flex justify-between items-start">
+<span class="font-mono text-[11px] text-primary">PKG-88110-098</span>
+<span class="px-1.5 py-0.5 bg-amber-500/10 text-amber-500 text-[9px] rounded font-bold uppercase">Decrypting</span>
+</div>
+<h4 class="text-sm font-bold truncate">chemistry_bulk_upload.zip</h4>
+<div class="space-y-1.5">
+<div class="flex justify-between text-[10px] text-zinc-400">
+<span>OCR Scan &amp; Validation</span>
+<span>65%</span>
+</div>
+<div class="h-1 bg-zinc-800 rounded-full overflow-hidden">
+<div class="h-full bg-amber-500 w-[65%] transition-all duration-1000"></div>
+</div>
+</div>
+</div>
+<div class="glass-card p-4 rounded-xl space-y-3 border-l-4 border-l-amber-500">
+<div class="flex justify-between items-start">
+<span class="font-mono text-[11px] text-primary">PKG-88110-099</span>
+<span class="px-1.5 py-0.5 bg-zinc-800 text-zinc-400 text-[9px] rounded font-bold uppercase">Queued</span>
+</div>
+<h4 class="text-sm font-bold truncate">history_paper_ii.zip</h4>
+<div class="flex items-center gap-2">
+<div class="flex-1 h-1 bg-zinc-800 rounded-full relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-r from-transparent via-amber-500/20 to-transparent w-full animate-[shimmer_2s_infinite]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Completed -->
+<div class="kanban-col flex-1 min-w-[320px] flex flex-col">
+<div class="flex items-center justify-between mb-4 px-2">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+<h2 class="font-bold text-zinc-300">Completed</h2>
+<span class="bg-zinc-800 px-2 py-0.5 rounded text-[10px] font-mono text-zinc-400">142</span>
+</div>
+<button class="text-zinc-500 hover:text-zinc-300"><span class="material-symbols-outlined text-sm">more_horiz</span></button>
+</div>
+<div class="space-y-3 p-1">
+<div class="glass-card p-4 rounded-xl space-y-3 border-l-4 border-l-emerald-500 opacity-80 hover:opacity-100 transition-all">
+<div class="flex justify-between items-start">
+<span class="font-mono text-[11px] text-zinc-500 line-through decoration-zinc-700">PKG-88102-441</span>
+<span class="text-emerald-500"><span class="material-symbols-outlined text-sm">verified</span></span>
+</div>
+<h4 class="text-sm font-bold truncate text-zinc-400">biology_practical_marks.zip</h4>
+<div class="flex items-center justify-between text-[10px] text-zinc-500">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">done_all</span> Distributed</span>
+<span>14:02:11</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Failed -->
+<div class="kanban-col flex-1 min-w-[320px] flex flex-col">
+<div class="flex items-center justify-between mb-4 px-2">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-rose-500"></div>
+<h2 class="font-bold text-zinc-300">Failed</h2>
+<span class="bg-rose-500/20 px-2 py-0.5 rounded text-[10px] font-mono text-rose-500">2</span>
+</div>
+<button class="text-zinc-500 hover:text-zinc-300"><span class="material-symbols-outlined text-sm">more_horiz</span></button>
+</div>
+<div class="space-y-3 p-1">
+<div class="glass-card p-4 rounded-xl space-y-3 border-l-4 border-l-rose-500 bg-rose-500/5">
+<div class="flex justify-between items-start">
+<span class="font-mono text-[11px] text-rose-500 font-bold">PKG-ERR-402</span>
+<span class="material-symbols-outlined text-rose-500 text-sm">warning</span>
+</div>
+<h4 class="text-sm font-bold truncate">english_lit_corrupted.zip</h4>
+<div class="p-2 bg-rose-500/10 border border-rose-500/20 rounded text-[9px] text-rose-200 font-mono">
+                                ERROR_INVALID_CHECKSUM_ENCRYPTION_KEY_MISMATCH
+                            </div>
+<div class="flex gap-2">
+<button class="flex-1 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded text-[10px] font-bold transition-all">RETRY</button>
+<button class="flex-1 py-1.5 bg-rose-900/40 hover:bg-rose-900/60 text-rose-200 rounded text-[10px] font-bold transition-all">LOGS</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Dead Letter Queue (DLQ) -->
+<section class="space-y-4">
+<div class="flex items-center justify-between">
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-rose-500">outbox</span>
+                            Dead Letter Queue (DLQ)
+                        </h2>
+<p class="text-sm text-zinc-500">6 packages stalled in non-retryable state requiring manual override.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-sm font-bold hover:bg-zinc-800 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">refresh</span> Retry All
+                        </button>
+<button class="px-4 py-2 bg-rose-600/20 text-rose-400 border border-rose-600/30 rounded-lg text-sm font-bold hover:bg-rose-600/30 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">delete_sweep</span> Purge DLQ
+                        </button>
+</div>
+</div>
+<div class="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden">
+<table class="w-full text-sm text-left">
+<thead>
+<tr class="bg-zinc-950/50 text-zinc-500 uppercase text-[10px] tracking-widest font-bold">
+<th class="px-6 py-4">Package ID</th>
+<th class="px-6 py-4">Context</th>
+<th class="px-6 py-4">Failure Reason</th>
+<th class="px-6 py-4">Stalled For</th>
+<th class="px-6 py-4 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-zinc-800">
+<tr class="hover:bg-zinc-800/30 transition-colors">
+<td class="px-6 py-4 font-mono text-xs text-rose-400">DLQ-X92-001</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-bold">computer_sci_final.zip</span>
+<span class="text-[10px] text-zinc-500">Central Node • v1.4 Payload</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-zinc-800 rounded text-[10px] font-mono text-zinc-400">MALFORMED_HEADER_EXCEPTION</span>
+</td>
+<td class="px-6 py-4 text-zinc-400">14h 22m</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 hover:text-primary transition-colors" title="Retry"><span class="material-symbols-outlined text-lg">replay</span></button>
+<button class="p-2 hover:text-amber-500 transition-colors" title="Inspect"><span class="material-symbols-outlined text-lg">visibility</span></button>
+<button class="p-2 hover:text-rose-500 transition-colors" title="Delete"><span class="material-symbols-outlined text-lg">delete</span></button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-zinc-800/30 transition-colors">
+<td class="px-6 py-4 font-mono text-xs text-rose-400">DLQ-X92-004</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-bold">regional_center_04.pkg</span>
+<span class="text-[10px] text-zinc-500">Edge Gateway • v1.4 Payload</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-zinc-800 rounded text-[10px] font-mono text-zinc-400">TIMED_OUT_LOCK_WAIT</span>
+</td>
+<td class="px-6 py-4 text-zinc-400">2h 11m</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 hover:text-primary transition-colors" title="Retry"><span class="material-symbols-outlined text-lg">replay</span></button>
+<button class="p-2 hover:text-amber-500 transition-colors" title="Inspect"><span class="material-symbols-outlined text-lg">visibility</span></button>
+<button class="p-2 hover:text-rose-500 transition-colors" title="Delete"><span class="material-symbols-outlined text-lg">delete</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</main>
+</div>
+<!-- Micro-interaction Scripts -->
+<script>
+        // Simple hover effect for Kanban cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-2px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Keyframe animation for shimmer in Tailwind
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes shimmer {
+                0% { transform: translateX(-100%); }
+                100% { transform: translateX(100%); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body></html>

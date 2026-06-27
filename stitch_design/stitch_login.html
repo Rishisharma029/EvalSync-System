@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EvalSync | Secure Access Gateway</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=Public+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#c3c0ff",
+                        "surface-container-lowest": "#0e0e10",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "surface-bright": "#39393b",
+                        "surface": "#131315",
+                        "on-error": "#690005",
+                        "surface-variant": "#353437",
+                        "on-primary-fixed": "#0f0069",
+                        "secondary-fixed-dim": "#c3c0ff",
+                        "on-primary": "#1d00a5",
+                        "on-background": "#e5e1e4",
+                        "tertiary-fixed": "#ffdbcc",
+                        "surface-container-high": "#2a2a2c",
+                        "on-secondary-container": "#b0aef9",
+                        "secondary": "#c3c0ff",
+                        "background": "#131315",
+                        "on-primary-container": "#dad7ff",
+                        "inverse-surface": "#e5e1e4",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "on-secondary-fixed-variant": "#413f82",
+                        "inverse-primary": "#4d44e3",
+                        "on-secondary": "#2a276a",
+                        "surface-dim": "#131315",
+                        "inverse-on-surface": "#313032",
+                        "error": "#ffb4ab",
+                        "surface-container": "#201f22",
+                        "surface-container-highest": "#353437",
+                        "secondary-container": "#413f82",
+                        "on-tertiary": "#571f00",
+                        "error-container": "#93000a",
+                        "outline": "#918fa1",
+                        "tertiary-container": "#a44100",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "on-secondary-fixed": "#140f54",
+                        "on-surface-variant": "#c7c4d8",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed": "#e2dfff",
+                        "outline-variant": "#464555",
+                        "on-surface": "#e5e1e4",
+                        "on-tertiary-fixed": "#351000",
+                        "on-tertiary-container": "#ffd2be",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "surface-tint": "#c3c0ff",
+                        "primary-fixed": "#e2dfff",
+                        "primary-container": "#4f46e5",
+                        "tertiary": "#ffb695",
+                        "surface-container-low": "#1c1b1d",
+                        "brand-indigo": "#4F46E5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "8px",
+                        "xl": "12px",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter", "sans-serif"],
+                        "display": ["Inter", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Public Sans", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #09090B; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .bg-zinc-900 { background-color: #18181B; }
+        .bg-zinc-950 { background-color: #09090B; }
+        .border-zinc-800 { border-color: #27272A; }
+    </style>
+</head>
+<body class="antialiased text-on-surface overflow-hidden">
+<!-- Login Container -->
+<div class="flex h-screen w-full">
+<!-- Left Panel: Brand & Stats (35%) -->
+<aside class="hidden lg:flex w-[35%] bg-zinc-900 border-r border-zinc-800 flex-col p-12 justify-between relative">
+<div class="space-y-12">
+<!-- Brand Anchor -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-brand-indigo rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">sync</span>
+</div>
+<h1 class="text-2xl font-black font-headline text-on-surface tracking-tight">EvalSync</h1>
+</div>
+<p class="text-on-surface-variant font-label text-sm pl-[52px]">v3.2.1 CBSE</p>
+</div>
+<!-- Features -->
+<nav class="space-y-6">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-brand-indigo mt-0.5">verified_user</span>
+<div>
+<p class="font-semibold text-on-surface leading-none">CBSE Encryption</p>
+<p class="text-sm text-on-surface-variant mt-1">Industrial-grade cryptographic layer for all evaluation payloads.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-brand-indigo mt-0.5">router</span>
+<div>
+<p class="font-semibold text-on-surface leading-none">Worker Pooling</p>
+<p class="text-sm text-on-surface-variant mt-1">Elastic distribution of computational tasks across federated nodes.</p>
+</div>
+</div>
+</nav>
+</div>
+<!-- Stats Block -->
+<div class="grid grid-cols-2 gap-8 border-t border-zinc-800 pt-12">
+<div class="space-y-1">
+<p class="text-xs font-label text-on-surface-variant uppercase tracking-widest">Total Submissions</p>
+<p class="text-3xl font-headline font-bold text-on-surface">42,000+</p>
+</div>
+<div class="space-y-1">
+<p class="text-xs font-label text-on-surface-variant uppercase tracking-widest">Active Nodes</p>
+<div class="flex items-center gap-2">
+<span class="relative flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+</span>
+<p class="text-3xl font-headline font-bold text-on-surface">12 active</p>
+</div>
+</div>
+</div>
+<!-- Atmospheric Pattern (Subtle grid) -->
+<div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 24px 24px;"></div>
+</aside>
+<!-- Right Panel: Login Form (65%) -->
+<main class="flex-1 bg-zinc-950 flex flex-col items-center justify-center p-6 lg:p-24 relative">
+<div class="w-full max-w-md space-y-10">
+<div class="text-center space-y-2">
+<h2 class="text-3xl font-headline font-bold text-on-surface tracking-tight">Secure Access Gateway</h2>
+<p class="text-on-surface-variant">Authorized personnel only. All access is logged via CBSE.</p>
+</div>
+<!-- Role Selection Tabs -->
+<div class="bg-zinc-900 p-1.5 rounded-xl border border-zinc-800 flex w-full">
+<button class="flex-1 py-2 text-sm font-medium rounded-lg transition-all duration-200 bg-brand-indigo text-white shadow-lg" id="tab-evaluator" onclick="switchRole('Evaluator')">Evaluator</button>
+<button class="flex-1 py-2 text-sm font-medium rounded-lg transition-all duration-200 text-on-surface-variant hover:text-on-surface" id="tab-admin" onclick="switchRole('Admin')">Admin</button>
+<button class="flex-1 py-2 text-sm font-medium rounded-lg transition-all duration-200 text-on-surface-variant hover:text-on-surface" id="tab-superadmin" onclick="switchRole('Superadmin')">Superadmin</button>
+<button class="flex-1 py-2 text-sm font-medium rounded-lg transition-all duration-200 text-on-surface-variant hover:text-on-surface" id="tab-monitor" onclick="switchRole('System Monitor')">Monitor</button>
+</div>
+<!-- Form -->
+<form class="space-y-6" onsubmit="return false;">
+<div class="space-y-2">
+<label class="text-xs font-label text-on-surface-variant uppercase tracking-wider pl-1" for="email">CBSE Registered Email</label>
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-on-surface-variant group-focus-within:text-brand-indigo transition-colors">mail</span>
+</div>
+<input class="block w-full pl-12 pr-4 py-4 bg-zinc-900 border border-zinc-800 rounded-xl text-on-surface focus:ring-2 focus:ring-brand-indigo/50 focus:border-brand-indigo transition-all outline-none" id="email" placeholder="name@organization.gov" type="email"/>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<label class="text-xs font-label text-on-surface-variant uppercase tracking-wider pl-1" for="password">Secure Key/Password</label>
+<a class="text-xs text-brand-indigo hover:underline font-medium transition-colors" href="#">Forgot secure key?</a>
+</div>
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-on-surface-variant group-focus-within:text-brand-indigo transition-colors">lock</span>
+</div>
+<input class="block w-full pl-12 pr-12 py-4 bg-zinc-900 border border-zinc-800 rounded-xl text-on-surface focus:ring-2 focus:ring-brand-indigo/50 focus:border-brand-indigo transition-all outline-none" id="password" placeholder="••••••••••••" type="password"/>
+<div class="absolute inset-y-0 right-0 pr-4 flex items-center">
+<button class="text-on-surface-variant hover:text-on-surface focus:outline-none" type="button">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</div>
+</div>
+</div>
+<button class="w-full bg-brand-indigo hover:bg-indigo-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg shadow-brand-indigo/20 flex items-center justify-center gap-2 active:scale-[0.98] transition-all group" type="submit">
+                        Log In
+                        <span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">arrow_forward</span>
+</button>
+</form>
+<!-- Footer Links -->
+<div class="pt-4 flex flex-col items-center gap-4">
+<div class="flex items-center gap-4 text-xs text-on-surface-variant">
+<a class="hover:text-on-surface transition-colors" href="#">Status</a>
+<span class="w-1 h-1 bg-zinc-800 rounded-full"></span>
+<a class="hover:text-on-surface transition-colors" href="#">Privacy Policy</a>
+<span class="w-1 h-1 bg-zinc-800 rounded-full"></span>
+<a class="hover:text-on-surface transition-colors" href="#">Compliance PDF</a>
+</div>
+</div>
+</div>
+<!-- Absolute decorative element -->
+<div class="absolute bottom-8 right-8 text-[10px] text-zinc-700 font-label select-none">
+                EVALSYNC_SYSTEM_AUTH_V3.2.1_STABLE
+            </div>
+</main>
+</div>
+<script>
+        function switchRole(roleName) {
+            const tabs = ['Evaluator', 'Admin', 'Superadmin', 'System Monitor'];
+            const ids = ['tab-evaluator', 'tab-admin', 'tab-superadmin', 'tab-monitor'];
+            
+            ids.forEach((id, index) => {
+                const el = document.getElementById(id);
+                if (tabs[index] === roleName) {
+                    el.classList.remove('text-on-surface-variant', 'hover:text-on-surface');
+                    el.classList.add('bg-brand-indigo', 'text-white', 'shadow-lg');
+                } else {
+                    el.classList.add('text-on-surface-variant', 'hover:text-on-surface');
+                    el.classList.remove('bg-brand-indigo', 'text-white', 'shadow-lg');
+                }
+            });
+
+            console.log('Role switched to:', roleName);
+        }
+
+        // Simple input interaction visual feedback
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('shadow-[0_0_15px_rgba(79,70,229,0.1)]');
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.classList.remove('shadow-[0_0_15px_rgba(79,70,229,0.1)]');
+            });
+        });
+    </script>
+</body></html>

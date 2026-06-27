@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EvalSync - Answer Script Submission</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Public+Sans:wght@400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Public+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed-dim": "#ffb695",
+                      "on-background": "#e5e1e4",
+                      "outline": "#918fa1",
+                      "on-primary-container": "#dad7ff",
+                      "surface-tint": "#c3c0ff",
+                      "inverse-primary": "#4d44e3",
+                      "primary-fixed": "#e2dfff",
+                      "tertiary-fixed": "#ffdbcc",
+                      "on-error": "#690005",
+                      "tertiary-container": "#a44100",
+                      "surface-variant": "#353437",
+                      "inverse-surface": "#e5e1e4",
+                      "on-surface-variant": "#c7c4d8",
+                      "surface-container-high": "#2a2a2c",
+                      "surface": "#131315",
+                      "on-secondary": "#2a276a",
+                      "primary-fixed-dim": "#c3c0ff",
+                      "background": "#131315",
+                      "primary": "#c3c0ff",
+                      "surface-container-highest": "#353437",
+                      "surface-bright": "#39393b",
+                      "on-tertiary": "#571f00",
+                      "on-primary-fixed": "#0f0069",
+                      "on-tertiary-fixed-variant": "#7b2f00",
+                      "on-tertiary-fixed": "#351000",
+                      "on-secondary-fixed": "#140f54",
+                      "error-container": "#93000a",
+                      "error": "#ffb4ab",
+                      "inverse-on-surface": "#313032",
+                      "tertiary": "#ffb695",
+                      "primary-container": "#4f46e5",
+                      "on-secondary-container": "#b0aef9",
+                      "on-error-container": "#ffdad6",
+                      "secondary-container": "#413f82",
+                      "surface-container-lowest": "#0e0e10",
+                      "on-primary-fixed-variant": "#3323cc",
+                      "surface-dim": "#131315",
+                      "on-primary": "#1d00a5",
+                      "secondary": "#c3c0ff",
+                      "on-surface": "#e5e1e4",
+                      "surface-container-low": "#1c1b1d",
+                      "outline-variant": "#464555",
+                      "surface-container": "#201f22",
+                      "secondary-fixed-dim": "#c3c0ff",
+                      "on-tertiary-container": "#ffd2be",
+                      "secondary-fixed": "#e2dfff",
+                      "on-secondary-fixed-variant": "#413f82",
+                      "zinc-950": "#09090B",
+                      "zinc-900": "#18181B",
+                      "zinc-800": "#27272A",
+                      "zinc-700": "#3F3F46"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Inter"],
+                      "display": ["Inter"],
+                      "body": ["Inter"],
+                      "label": ["Public Sans"]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .step-completed { color: #4F46E5; }
+        .step-line-active { background-color: #4F46E5; }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #27272A; border-radius: 10px; }
+        .glow-indigo:hover { box-shadow: 0 0 20px rgba(79, 70, 229, 0.15); }
+    </style>
+</head>
+<body class="bg-zinc-950 text-on-surface font-body selection:bg-primary-container selection:text-white">
+<!-- SideNavBar Integration -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface-container border-r border-outline-variant flex flex-col py-4 z-50">
+<div class="px-6 mb-8">
+<h1 class="text-xl font-headline font-black text-primary">EvalSync</h1>
+<p class="text-[10px] font-label tracking-widest text-outline uppercase opacity-70">v3.2.1 CBSE</p>
+</div>
+<nav class="flex-1 space-y-1 px-3">
+<!-- Dashboard (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/50 transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="text-label-sm font-medium">Dashboard</span>
+</a>
+<!-- Gateway (Active Mapping for Submission Flow) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-primary font-bold border-r-2 border-primary bg-surface-variant/30 cursor-pointer">
+<span class="material-symbols-outlined text-[20px]">router</span>
+<span class="text-label-sm">Gateway</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/50 transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-[20px]">database</span>
+<span class="text-label-sm">Database</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/50 transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-[20px]">verified_user</span>
+<span class="text-label-sm">Compliance</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/50 transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-[20px]">history</span>
+<span class="text-label-sm">Audit Logs</span>
+</a>
+</nav>
+<div class="mt-auto px-3 space-y-1">
+<div class="px-3 py-4 mb-2">
+<button class="w-full bg-primary-container text-white py-2 rounded-lg text-xs font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-sm">monitor_heart</span>
+                    System Monitor
+                </button>
+</div>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/50 transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="text-label-sm">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/50 transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-[20px]">help_outline</span>
+<span class="text-label-sm">Support</span>
+</a>
+</div>
+</aside>
+<!-- TopNavBar Integration -->
+<header class="flex justify-between items-center h-16 w-full pl-64 pr-6 z-40 bg-surface/80 backdrop-blur-md fixed top-0 border-b border-outline-variant">
+<div class="flex items-center gap-8">
+<div class="relative group">
+<span class="absolute inset-y-0 left-3 flex items-center text-outline pointer-events-none group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">search</span>
+</span>
+<input class="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-1.5 text-sm w-64 focus:ring-1 focus:ring-primary placeholder:text-outline/50 transition-all" placeholder="Search operations..." type="text"/>
+</div>
+<nav class="flex items-center gap-6">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-headline text-body-md" href="#">Network</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-headline text-body-md" href="#">Security</a>
+<a class="text-primary border-b-2 border-primary pb-1 font-headline text-body-md" href="#">Nodes</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
+<div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+<span class="text-[11px] font-bold text-emerald-500 tracking-tight">System Status: Operational</span>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">schedule</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-primary rounded-full border-2 border-surface"></span>
+</button>
+<div class="flex items-center gap-3 ml-2 pl-4 border-l border-outline-variant">
+<div class="text-right">
+<p class="text-xs font-bold text-on-surface leading-none">Admin_KV1</p>
+<p class="text-[10px] text-outline leading-none mt-1">Superuser</p>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a middle-aged male administrator with glasses, looking directly at the camera with a neutral, focused expression. He is wearing a formal dark suit. The background is a clean, out-of-focus modern office environment with cool indigo and charcoal tones. The lighting is soft and professional, emphasizing a high-security corporate atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVBCaMLQV0eRR9FioNuYyqqlYC1zuab9TZathD2mSiX7RLpR7qb1wHwaKIr5mcDAFOdcI7jRipp36ZCvtGKbr5PiRTRZCYNrEYCu9E4m0QXb1z8ghNzQzv7eapmDDEJkMixoiGgnVRvVi_HFOZPAumGsq759vFZ79ju-J05xrqAH96yplHmeJY3qdZtgUTXj3F7cJS0IKxBkog6NazZp2VTNO6ie6acNesiqGa4lQRMSVbCC5QwVGYb96YZHxYqur0n3oCHVemO8M"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="pl-64 pt-16 min-h-screen flex flex-col">
+<div class="p-8 max-w-5xl mx-auto w-full">
+<!-- Step Tracker -->
+<div class="mb-10">
+<div class="flex items-center justify-between relative px-2">
+<!-- Progress Lines -->
+<div class="absolute top-5 left-8 right-8 h-[2px] bg-zinc-800 -z-10"></div>
+<div class="absolute top-5 left-8 w-1/3 h-[2px] bg-[#4F46E5] -z-10"></div>
+<!-- Step 1: Identity -->
+<div class="flex flex-col items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-[#4F46E5] flex items-center justify-center shadow-[0_0_15px_rgba(79,70,229,0.3)]">
+<span class="material-symbols-outlined text-white text-xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<span class="text-[11px] font-bold uppercase tracking-wider text-[#4F46E5]">Identity</span>
+</div>
+<!-- Step 2: Upload -->
+<div class="flex flex-col items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-[#4F46E5] border-4 border-zinc-950 flex items-center justify-center ring-2 ring-[#4F46E5] shadow-[0_0_20px_rgba(79,70,229,0.4)]">
+<span class="text-white font-bold">2</span>
+</div>
+<span class="text-[11px] font-bold uppercase tracking-wider text-[#4F46E5]">Upload</span>
+</div>
+<!-- Step 3: Processing -->
+<div class="flex flex-col items-center gap-3 opacity-40">
+<div class="w-10 h-10 rounded-full bg-zinc-800 border-4 border-zinc-950 flex items-center justify-center">
+<span class="text-outline font-bold">3</span>
+</div>
+<span class="text-[11px] font-bold uppercase tracking-wider text-outline">Processing</span>
+</div>
+<!-- Step 4: Confirmation -->
+<div class="flex flex-col items-center gap-3 opacity-40">
+<div class="w-10 h-10 rounded-full bg-zinc-800 border-4 border-zinc-950 flex items-center justify-center">
+<span class="text-outline font-bold">4</span>
+</div>
+<span class="text-[11px] font-bold uppercase tracking-wider text-outline">Confirmation</span>
+</div>
+</div>
+</div>
+<!-- Dashboard Layout Grid -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Left Column: Verified Identity Card -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-6">
+<div class="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-xl">
+<div class="bg-surface-variant/20 px-5 py-4 border-b border-zinc-800 flex justify-between items-center">
+<h3 class="text-sm font-bold tracking-tight text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg" style="font-variation-settings: 'FILL' 1;">verified</span>
+                                Verified Identity
+                            </h3>
+<span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full font-bold">LOCKED</span>
+</div>
+<div class="p-5 space-y-5">
+<div>
+<label class="text-[10px] text-outline font-bold uppercase tracking-widest mb-1 block">CBSE School Code</label>
+<p class="text-lg font-mono font-bold text-white tracking-wider">88124</p>
+</div>
+<div>
+<label class="text-[10px] text-outline font-bold uppercase tracking-widest mb-1 block">Centre Name</label>
+<p class="text-sm font-medium text-on-surface">KV No.1 Delhi</p>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="text-[10px] text-outline font-bold uppercase tracking-widest mb-1 block">Region</label>
+<p class="text-sm font-medium text-on-surface">RO-DELHI</p>
+</div>
+<div>
+<label class="text-[10px] text-outline font-bold uppercase tracking-widest mb-1 block">Session</label>
+<p class="text-sm font-medium text-on-surface">2023-24</p>
+</div>
+</div>
+<div class="pt-4 border-t border-zinc-800">
+<label class="text-[10px] text-outline font-bold uppercase tracking-widest mb-1 block">Secure Key ID</label>
+<div class="bg-zinc-950 p-3 rounded-lg border border-zinc-800 flex items-center justify-between">
+<code class="text-xs text-primary-fixed-dim font-mono">CBSE-SK-7721</code>
+<span class="material-symbols-outlined text-outline text-sm cursor-pointer hover:text-white transition-colors">content_copy</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-[#4F46E5]/5 border border-[#4F46E5]/20 rounded-xl p-5 flex gap-4">
+<span class="material-symbols-outlined text-[#4F46E5] mt-0.5">info</span>
+<div>
+<p class="text-xs font-bold text-white mb-1">Security Protocol</p>
+<p class="text-[11px] text-on-surface-variant leading-relaxed">Ensure all answer script bundles are scanned and compiled into a single ZIP or encrypted PDF before initiating the gateway upload.</p>
+</div>
+</div>
+</div>
+<!-- Right Column: Upload Zone -->
+<div class="col-span-12 lg:col-span-8 flex flex-col gap-6">
+<!-- Secure Upload Zone -->
+<div class="group relative bg-zinc-900 border-2 border-dashed border-zinc-700 rounded-xl p-10 flex flex-col items-center justify-center text-center transition-all duration-300 hover:border-[#4F46E5] hover:bg-zinc-800/50 cursor-pointer glow-indigo min-h-[300px]">
+<div class="w-16 h-16 rounded-full bg-zinc-800 flex items-center justify-center mb-6 group-hover:bg-[#4F46E5] transition-colors duration-500">
+<span class="material-symbols-outlined text-3xl text-outline group-hover:text-white group-hover:scale-110 transition-all duration-500">cloud_upload</span>
+</div>
+<h4 class="text-lg font-bold text-white mb-2">Drag & drop secure script package or <span class="text-[#4F46E5] hover:underline">browse files</span></h4>
+<p class="text-sm text-outline mb-6">ZIP or PDF format, max 50MB per session</p>
+<div class="flex items-center gap-3 text-xs text-outline/60 bg-zinc-950 px-4 py-2 rounded-full border border-zinc-800">
+<span class="material-symbols-outlined text-sm">lock</span>
+                            End-to-End Encrypted Tunnel Active
+                        </div>
+<input class="absolute inset-0 opacity-0 cursor-pointer" type="file"/>
+</div>
+<!-- Uploaded Files List -->
+<div class="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-lg">
+<div class="px-5 py-3 border-b border-zinc-800 flex justify-between items-center bg-zinc-950/30">
+<span class="text-[10px] font-bold uppercase tracking-widest text-outline">Staged for Upload (2)</span>
+<button class="text-[10px] font-bold text-error hover:underline transition-all">Clear All</button>
+</div>
+<div class="divide-y divide-zinc-800">
+<!-- File 1 -->
+<div class="p-4 flex items-center justify-between hover:bg-zinc-800/30 transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-zinc-800 flex items-center justify-center text-primary border border-zinc-700">
+<span class="material-symbols-outlined">folder_zip</span>
+</div>
+<div>
+<p class="text-sm font-medium text-white">physics_scripts_centre_88124.zip</p>
+<p class="text-[11px] text-outline">14.2 MB • Prepared 2m ago</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="text-[10px] font-bold text-emerald-500 uppercase">Ready</span>
+</div>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-outline hover:text-error hover:bg-error/10 transition-all opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-lg">close</span>
+</button>
+</div>
+</div>
+<!-- File 2 -->
+<div class="p-4 flex items-center justify-between hover:bg-zinc-800/30 transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-zinc-800 flex items-center justify-center text-error border border-zinc-700">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div>
+<p class="text-sm font-medium text-white">log_report.pdf</p>
+<p class="text-[11px] text-outline">2.4 MB • Prepared 1m ago</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="text-[10px] font-bold text-emerald-500 uppercase">Ready</span>
+</div>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-outline hover:text-error hover:bg-error/10 transition-all opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-lg">close</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Action -->
+<div class="flex items-center justify-between pt-6 border-t border-zinc-800 mt-4">
+<div class="flex items-center gap-2 text-outline/50">
+<span class="material-symbols-outlined text-sm">shield_locked</span>
+<span class="text-[10px] font-medium italic">Compliant with CBSE Protocol v4.0.12</span>
+</div>
+<button class="bg-[#4F46E5] hover:bg-[#4338ca] text-white px-8 py-3 rounded-lg font-bold text-sm shadow-[0_4px_15px_rgba(79,70,229,0.3)] flex items-center gap-3 transition-all active:scale-95 group">
+                            Proceed to Encryption
+                            <span class="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Overlay Background Element (Micro-interaction effect) -->
+<div class="fixed bottom-0 right-0 w-1/2 h-1/2 bg-indigo-900/10 blur-[120px] rounded-full -z-10 pointer-events-none"></div>
+<script>
+        // Simple micro-interaction for upload zone
+        const dropZone = document.querySelector('.group');
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('border-solid', 'bg-indigo-900/20');
+        });
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('border-solid', 'bg-indigo-900/20');
+        });
+
+        // Current Date/Time Display logic could go here if needed for high-fidelity feel
+    </script>
+</body></html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EvalSync | Enterprise Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;family=Public+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#571f00",
+                        "inverse-on-surface": "#313032",
+                        "surface-container-low": "#1c1b1d",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "on-primary-fixed": "#0f0069",
+                        "error-container": "#93000a",
+                        "primary-fixed": "#e2dfff",
+                        "on-primary": "#1d00a5",
+                        "surface-dim": "#131315",
+                        "secondary": "#c3c0ff",
+                        "on-surface-variant": "#c7c4d8",
+                        "on-secondary-fixed": "#140f54",
+                        "outline": "#918fa1",
+                        "on-primary-container": "#dad7ff",
+                        "on-secondary": "#2a276a",
+                        "on-secondary-fixed-variant": "#413f82",
+                        "secondary-fixed": "#e2dfff",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "on-background": "#e5e1e4",
+                        "secondary-container": "#413f82",
+                        "on-secondary-container": "#b0aef9",
+                        "surface-container": "#201f22",
+                        "tertiary": "#ffb695",
+                        "inverse-surface": "#e5e1e4",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "secondary-fixed-dim": "#c3c0ff",
+                        "tertiary-container": "#a44100",
+                        "surface-container-lowest": "#0e0e10",
+                        "tertiary-fixed": "#ffdbcc",
+                        "primary-container": "#4f46e5",
+                        "outline-variant": "#464555",
+                        "surface": "#131315",
+                        "error": "#ffb4ab",
+                        "surface-variant": "#353437",
+                        "surface-bright": "#39393b",
+                        "surface-tint": "#c3c0ff",
+                        "on-tertiary-container": "#ffd2be",
+                        "on-tertiary-fixed": "#351000",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "on-error": "#690005",
+                        "inverse-primary": "#4d44e3",
+                        "surface-container-high": "#2a2a2c",
+                        "background": "#131315",
+                        "surface-container-highest": "#353437",
+                        "on-surface": "#e5e1e4",
+                        "primary": "#c3c0ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "display": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Public Sans"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .pulse-dot {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: .5; transform: scale(1.2); }
+        }
+        .flow-line {
+            background: linear-gradient(90deg, transparent 0%, #4f46e5 50%, transparent 100%);
+            background-size: 200% 100%;
+            animation: flow 3s linear infinite;
+        }
+        @keyframes flow {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary/30 selection:text-primary">
+<!-- SideNavBar (from JSON) -->
+<aside class="bg-surface-container dark:bg-surface-container h-screen w-64 fixed left-0 top-0 border-r border-outline-variant shadow-sm z-50 flex flex-col h-full py-4 font-body text-label-sm">
+<div class="px-6 mb-8 flex flex-col">
+<span class="text-xl font-headline font-black text-primary dark:text-primary tracking-tight">EvalSync</span>
+<span class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">v3.2.1 CBSE</span>
+</div>
+<nav class="flex-1 space-y-1 px-3">
+<!-- Active Tab: Dashboard -->
+<a class="flex items-center gap-3 px-3 py-2 text-primary font-bold border-r-2 border-primary bg-surface-variant/30 cursor-pointer active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/50 transition-colors cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined">router</span>
+<span>Gateway</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/50 transition-colors cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined">database</span>
+<span>Database</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/50 transition-colors cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined">verified_user</span>
+<span>Compliance</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/50 transition-colors cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined">history</span>
+<span>Audit Logs</span>
+</a>
+</nav>
+<div class="px-6 mb-4">
+<button class="w-full bg-primary-container text-white py-2 rounded-lg text-xs font-bold hover:brightness-110 transition-all cursor-pointer active:scale-95 shadow-lg shadow-primary/20">
+                System Monitor
+            </button>
+</div>
+<div class="mt-auto px-3 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/50 transition-colors cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/50 transition-colors cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span>Support</span>
+</a>
+<div class="pt-4 px-3 flex items-center gap-3">
+<img class="w-8 h-8 rounded-full border border-outline-variant bg-surface-container-high object-cover" data-alt="A professional high-definition headshot of a modern software administrator in a dark studio setting. The lighting is dramatic, coming from the side to highlight sharp features. The color palette matches the dashboard's indigo and zinc tones, giving a sense of sophisticated security and high-level technical expertise." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCS-idvGF5RxEa3NQux1L-PkWaY1Yx_l7deNNxys9RUIpX47qXj8VHcSBs4G2S3hsNx9y2xDeMcFowXb22bhUjZyRGMVkTXgNYJLAwy2hK7lJjMhmyrVgN0EZS1ueEL0v4kfiELQ1xAjvrdKbbsLo96pnwXRv5Cf7RaTaI2Xc6sKVaDMRIGdOzjsjtdYx7_lfI-i3VFanFbe8rKkTUCuXwXYDDb-VPNTdQkgpH38CBze0eNpuUjZCP3S0BlW8l1o-GGD7vPxY9Hqig"/>
+<div class="flex flex-col">
+<span class="text-xs font-bold truncate">Administrator</span>
+<span class="text-[10px] text-on-surface-variant">Admin Privileges</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar (from JSON) -->
+<header class="flex justify-between items-center h-16 w-full pl-64 pr-6 z-40 bg-surface/80 backdrop-blur-md fixed top-0 border-b border-outline-variant font-headline text-body-md">
+<div class="flex items-center gap-8">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-on-surface-variant">search</span>
+<input class="bg-surface-container text-xs pl-10 pr-4 py-2 rounded-full border border-outline-variant focus:outline-none focus:border-primary w-64 transition-all" placeholder="Global system search..." type="text"/>
+</div>
+<div class="flex items-center gap-6">
+<a class="text-primary border-b-2 border-primary pb-1 duration-200 ease-in-out cursor-pointer" href="#">Network</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200 ease-in-out cursor-pointer" href="#">Security</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200 ease-in-out cursor-pointer" href="#">Nodes</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-high rounded-full border border-outline-variant">
+<div class="w-2 h-2 rounded-full bg-emerald-500 pulse-dot"></div>
+<span class="text-[10px] font-bold text-on-surface-variant">System Status: Operational</span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant text-sm font-medium mr-4">
+<span class="material-symbols-outlined text-lg">schedule</span>
+<span id="system-clock">12:04:32 UTC</span>
+</div>
+<button class="p-2 text-on-surface-variant hover:bg-surface-variant rounded-full transition-all active:scale-90">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pl-64 pt-16 min-h-screen bg-background">
+<div class="p-6 max-w-7xl mx-auto space-y-6">
+<!-- KPI Row -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="bg-surface-container-low p-4 rounded-xl border border-outline-variant shadow-sm group hover:border-primary/50 transition-all">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Peak Throughput</span>
+<span class="material-symbols-outlined text-primary">speed</span>
+</div>
+<div class="text-2xl font-black text-on-surface">1.2 <span class="text-sm font-normal text-on-surface-variant">GB/s</span></div>
+<div class="mt-2 text-[10px] text-emerald-500 flex items-center gap-1 font-bold">
+<span class="material-symbols-outlined text-[12px]">trending_up</span>
+                        +4.2% from peak
+                    </div>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl border border-outline-variant shadow-sm group hover:border-primary/50 transition-all">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Avg Queue Wait</span>
+<span class="material-symbols-outlined text-tertiary">timer</span>
+</div>
+<div class="text-2xl font-black text-on-surface">42 <span class="text-sm font-normal text-on-surface-variant">ms</span></div>
+<div class="mt-2 text-[10px] text-emerald-500 flex items-center gap-1 font-bold">
+<span class="material-symbols-outlined text-[12px]">check_circle</span>
+                        Below SLA threshold
+                    </div>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl border border-outline-variant shadow-sm group hover:border-primary/50 transition-all">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Success Rate</span>
+<span class="material-symbols-outlined text-emerald-500">verified</span>
+</div>
+<div class="text-2xl font-black text-on-surface">99.98 <span class="text-sm font-normal text-on-surface-variant">%</span></div>
+<div class="mt-2 text-[10px] text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">history</span>
+                        Last 24h average
+                    </div>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl border border-outline-variant shadow-sm group hover:border-primary/50 transition-all">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">SLA Compliance</span>
+<span class="material-symbols-outlined text-on-primary-container">shield</span>
+</div>
+<div class="text-2xl font-black text-on-surface">100 <span class="text-sm font-normal text-on-surface-variant">%</span></div>
+<div class="mt-2 text-[10px] text-primary flex items-center gap-1 font-bold">
+<span class="material-symbols-outlined text-[12px]">verified_user</span>
+                        Audit Certified
+                    </div>
+</div>
+</div>
+<!-- Pipeline Visualization (Bento Style) -->
+<div class="bg-surface-container p-6 rounded-xl border border-outline-variant relative overflow-hidden">
+<div class="flex justify-between items-center mb-8">
+<div>
+<h2 class="text-lg font-bold">Live Data Pipeline</h2>
+<p class="text-xs text-on-surface-variant">Real-time visualization of ingestion and processing flow</p>
+</div>
+<div class="flex gap-2">
+<div class="px-2 py-1 bg-primary/10 text-primary border border-primary/20 rounded text-[10px] font-bold">FLOW: ACTIVE</div>
+</div>
+</div>
+<div class="relative flex items-center justify-between gap-4 py-12 px-8">
+<!-- Flow Nodes -->
+<div class="relative z-10 flex flex-col items-center gap-3">
+<div class="w-14 h-14 rounded-xl bg-surface-container-highest border border-outline-variant flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-primary text-3xl">hub</span>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Gateway</span>
+</div>
+<div class="h-0.5 flex-1 relative bg-outline-variant/30">
+<div class="absolute inset-0 flow-line opacity-50"></div>
+<div class="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_rgba(79,70,229,0.8)] pulse-dot"></div>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-3">
+<div class="w-14 h-14 rounded-xl bg-surface-container-highest border border-outline-variant flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-primary text-3xl">reorder</span>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Queue</span>
+</div>
+<div class="h-0.5 flex-1 relative bg-outline-variant/30">
+<div class="absolute inset-0 flow-line opacity-50"></div>
+<div class="absolute -top-1 left-1/4 -translate-x-1/2 w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_rgba(79,70,229,0.8)] pulse-dot"></div>
+<div class="absolute -top-1 left-3/4 -translate-x-1/2 w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_rgba(79,70,229,0.8)] pulse-dot"></div>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-3">
+<div class="w-14 h-14 rounded-xl bg-surface-container-highest border border-outline-variant flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-primary text-3xl">memory</span>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Workers</span>
+</div>
+<div class="h-0.5 flex-1 relative bg-outline-variant/30">
+<div class="absolute inset-0 flow-line opacity-50"></div>
+<div class="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_rgba(79,70,229,0.8)] pulse-dot"></div>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-3">
+<div class="w-14 h-14 rounded-xl bg-surface-container-highest border border-outline-variant flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-primary text-3xl">database</span>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Database</span>
+</div>
+</div>
+<!-- Background decorative mesh -->
+<div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(#4f46e5 0.5px, transparent 0.5px); background-size: 24px 24px;"></div>
+</div>
+<!-- Metrics Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<!-- Throughput Live Chart -->
+<div class="bg-surface-container p-6 rounded-xl border border-outline-variant">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-sm font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">insights</span>
+                            Throughput Dynamics
+                        </h3>
+<div class="text-[10px] font-medium text-on-surface-variant flex gap-4">
+<div class="flex items-center gap-1"><span class="w-2 h-2 bg-primary rounded-full"></span> Inbound</div>
+<div class="flex items-center gap-1"><span class="w-2 h-2 bg-tertiary rounded-full"></span> Outbound</div>
+</div>
+</div>
+<div class="h-48 flex items-end gap-1.5 px-2">
+<!-- Simulated Area Chart using Bars for simplicity but styled as high-tech graph -->
+<div class="flex-1 bg-primary/20 rounded-t h-[60%] hover:bg-primary/40 transition-all cursor-crosshair"></div>
+<div class="flex-1 bg-primary/20 rounded-t h-[75%] hover:bg-primary/40 transition-all cursor-crosshair"></div>
+<div class="flex-1 bg-primary/20 rounded-t h-[45%] hover:bg-primary/40 transition-all cursor-crosshair"></div>
+<div class="flex-1 bg-primary/20 rounded-t h-[90%] hover:bg-primary/40 transition-all cursor-crosshair"></div>
+<div class="flex-1 bg-primary/20 rounded-t h-[65%] hover:bg-primary/40 transition-all cursor-crosshair"></div>
+<div class="flex-1 bg-primary/20 rounded-t h-[55%] hover:bg-primary/40 transition-all cursor-crosshair"></div>
+<div class="flex-1 bg-primary/20 rounded-t h-[80%] hover:bg-primary/40 transition-all cursor-crosshair"></div>
+<div class="flex-1 bg-primary/20 rounded-t h-[70%] hover:bg-primary/40 transition-all cursor-crosshair"></div>
+<div class="flex-1 bg-primary/20 rounded-t h-[95%] hover:bg-primary/40 transition-all cursor-crosshair"></div>
+<div class="flex-1 bg-primary/20 rounded-t h-[60%] hover:bg-primary/40 transition-all cursor-crosshair"></div>
+<div class="flex-1 bg-primary/20 rounded-t h-[40%] hover:bg-primary/40 transition-all cursor-crosshair"></div>
+<div class="flex-1 bg-primary/20 rounded-t h-[85%] hover:bg-primary/40 transition-all cursor-crosshair"></div>
+</div>
+</div>
+<!-- Queue Depth Sparkline -->
+<div class="bg-surface-container p-6 rounded-xl border border-outline-variant">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-sm font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary">stacks</span>
+                            Queue Depth Latency
+                        </h3>
+<span class="text-xs font-bold text-tertiary">Peak: 12.4k req/s</span>
+</div>
+<div class="h-48 relative flex flex-col justify-center">
+<div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden mb-4">
+<div class="h-full bg-tertiary w-2/3 shadow-[0_0_8px_rgba(245,158,11,0.5)]"></div>
+</div>
+<div class="grid grid-cols-3 gap-4 mt-auto">
+<div class="bg-surface-container-low p-3 rounded-lg border border-outline-variant">
+<div class="text-[10px] text-on-surface-variant uppercase font-bold">Active</div>
+<div class="text-lg font-black">4,209</div>
+</div>
+<div class="bg-surface-container-low p-3 rounded-lg border border-outline-variant">
+<div class="text-[10px] text-on-surface-variant uppercase font-bold">Pending</div>
+<div class="text-lg font-black">128</div>
+</div>
+<div class="bg-surface-container-low p-3 rounded-lg border border-outline-variant">
+<div class="text-[10px] text-on-surface-variant uppercase font-bold">Dropped</div>
+<div class="text-lg font-black text-rose-500">0</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Active Workers List -->
+<div class="bg-surface-container rounded-xl border border-outline-variant overflow-hidden shadow-sm">
+<div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-high/50">
+<h3 class="text-sm font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-emerald-500">engineering</span>
+                        Active Worker Nodes
+                    </h3>
+<button class="text-xs font-bold text-primary hover:underline transition-all">Provision New Node</button>
+</div>
+<div class="overflow-x-auto hide-scrollbar">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-highest/30">
+<th class="p-4 text-[10px] font-bold uppercase text-on-surface-variant tracking-wider">Worker ID</th>
+<th class="p-4 text-[10px] font-bold uppercase text-on-surface-variant tracking-wider">Region</th>
+<th class="p-4 text-[10px] font-bold uppercase text-on-surface-variant tracking-wider">Load</th>
+<th class="p-4 text-[10px] font-bold uppercase text-on-surface-variant tracking-wider">Status</th>
+<th class="p-4 text-[10px] font-bold uppercase text-on-surface-variant tracking-wider">Uptime</th>
+<th class="p-4"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-variant/20 transition-colors group">
+<td class="p-4 font-mono text-xs font-bold text-primary">ES-NODE-7721</td>
+<td class="p-4 text-xs font-medium">us-east-1</td>
+<td class="p-4">
+<div class="w-24 h-1.5 bg-surface-variant rounded-full overflow-hidden">
+<div class="bg-emerald-500 h-full w-[14%]"></div>
+</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 text-[10px] font-bold border border-emerald-500/20">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                        Active
+                                    </span>
+</td>
+<td class="p-4 text-xs font-medium">14d 02h 12m</td>
+<td class="p-4 text-right">
+<button class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface transition-colors">more_vert</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-variant/20 transition-colors group">
+<td class="p-4 font-mono text-xs font-bold text-primary">ES-NODE-7725</td>
+<td class="p-4 text-xs font-medium">eu-central-1</td>
+<td class="p-4">
+<div class="w-24 h-1.5 bg-surface-variant rounded-full overflow-hidden">
+<div class="bg-amber-500 h-full w-[82%]"></div>
+</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-500 text-[10px] font-bold border border-amber-500/20">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500 pulse-dot"></span>
+                                        Processing
+                                    </span>
+</td>
+<td class="p-4 text-xs font-medium">02d 18h 44m</td>
+<td class="p-4 text-right">
+<button class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface transition-colors">more_vert</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-variant/20 transition-colors group">
+<td class="p-4 font-mono text-xs font-bold text-primary">ES-NODE-7810</td>
+<td class="p-4 text-xs font-medium">ap-south-1</td>
+<td class="p-4">
+<div class="w-24 h-1.5 bg-surface-variant rounded-full overflow-hidden">
+<div class="bg-outline-variant h-full w-0"></div>
+</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-variant text-on-surface-variant text-[10px] font-bold border border-outline-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                                        Idle
+                                    </span>
+</td>
+<td class="p-4 text-xs font-medium">08h 12m 05s</td>
+<td class="p-4 text-right">
+<button class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface transition-colors">more_vert</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // System Clock logic
+        function updateClock() {
+            const now = new Date();
+            const h = String(now.getUTCHours()).padStart(2, '0');
+            const m = String(now.getUTCMinutes()).padStart(2, '0');
+            const s = String(now.getUTCSeconds()).padStart(2, '0');
+            document.getElementById('system-clock').textContent = `${h}:${m}:${s} UTC`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Simple sparkline animation
+        const bars = document.querySelectorAll('.h-48.flex div');
+        setInterval(() => {
+            bars.forEach(bar => {
+                if (Math.random() > 0.7) {
+                    const h = Math.floor(Math.random() * 60) + 30;
+                    bar.style.height = `${h}%`;
+                }
+            });
+        }, 1500);
+    </script>
+</body></html>

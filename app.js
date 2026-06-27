@@ -1676,23 +1676,22 @@ function initLogin() {
           doLoginSuccess(data.user, data.user.roleKey);
         })
         .catch(err => {
-          // If it's a validation/credentials failure from backend, show error
-          if (err.message === 'Invalid credentials' || err.message === 'A valid email address is required' || err.message === 'Password is required') {
-            if (spinner) spinner.classList.add('hidden');
-            if (btnText) btnText.textContent = 'Sign In Securely';
-            if (loginBtn) loginBtn.disabled = false;
-            if (demoBtn) demoBtn.disabled = false;
-            if (errEmail) errEmail.textContent = err.message;
-            return;
-          }
-
-          // Network/server error — do NOT fall back to client-side auth (MI-4 security fix)
-          console.warn('[EvalSync API] Authentication service unavailable.', err.message);
           if (spinner) spinner.classList.add('hidden');
           if (btnText) btnText.textContent = 'Sign In Securely';
           if (loginBtn) loginBtn.disabled = false;
           if (demoBtn) demoBtn.disabled = false;
-          if (errEmail) errEmail.textContent = 'Authentication service unavailable. Please try again shortly.';
+
+          // Check if it's a network-level fetch failure
+          const isNetworkError = err.name === 'TypeError' || err.message.toLowerCase().includes('fetch');
+          
+          if (isNetworkError) {
+            console.warn('[EvalSync API] Connection refused. Backend server appears to be offline.', err.message);
+            if (errEmail) errEmail.textContent = 'Authentication service offline. Please start node server.js on port 3000.';
+          } else {
+            // Display the specific security/validation error from the server
+            console.warn('[EvalSync API] Authentication rejected:', err.message);
+            if (errEmail) errEmail.textContent = err.message;
+          }
         });
 
     };

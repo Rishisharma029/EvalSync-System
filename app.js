@@ -1650,6 +1650,33 @@ function initLogin() {
       if (loginBtn) loginBtn.disabled = true;
       if (demoBtn) demoBtn.disabled = true;
 
+      // 4.0 Local static file fallback handler
+      const isLocalFile = window.location.protocol === 'file:';
+      if (isLocalFile) {
+        console.log('[EvalSync] Running in local static file mode. Bypassing backend auth.');
+        setTimeout(() => {
+          if (spinner) spinner.classList.add('hidden');
+          if (btnText) btnText.textContent = 'Sign In Securely';
+          if (loginBtn) loginBtn.disabled = false;
+          if (demoBtn) demoBtn.disabled = false;
+          
+          const role = ROLES[activeRole] || ROLES.evaluator;
+          const loggedInUser = {
+            email: role.email,
+            name: role.name,
+            initials: role.initials,
+            role: role.label,
+            roleKey: activeRole,
+            id: `${activeRole.toUpperCase()}-LOCAL-${rand(1000, 9999)}-2024`,
+            subject: 'Mathematics (041)',
+            center: `LOCAL-${rand(1000, 9999)}`,
+            riskScore: 10
+          };
+          doLoginSuccess(loggedInUser, activeRole);
+        }, 800);
+        return;
+      }
+
       // Try secure backend login first
       fetch('/api/auth/login', {
         method: 'POST',

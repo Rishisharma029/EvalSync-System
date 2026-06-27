@@ -1777,3 +1777,334 @@ canvas { display: block; max-width: 100%; border-radius: var(--radius-sm); }
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ══════════════════════════════════════════════════════════
+   4.0 ENTERPRISE DESIGN SYSTEMS (Apple Vision Pro Glassmorphism)
+   ══════════════════════════════════════════════════════════ */
+
+/* Frosted glass surfaces with saturation and blurs */
+.glass-card {
+  background: rgba(18, 18, 24, 0.6) !important;
+  backdrop-filter: blur(18px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
+  border-radius: var(--radius-xl);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.glass-card:hover {
+  border-color: rgba(99, 102, 241, 0.3) !important;
+  box-shadow: 0 12px 40px 0 rgba(79, 70, 229, 0.15) !important;
+}
+
+/* Topology Animated Flows */
+.topo-svg {
+  width: 100%;
+  height: 220px;
+  background: rgba(10, 10, 12, 0.4);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.topo-node {
+  fill: #18181b;
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 1.5;
+  transition: all 0.3s;
+}
+.topo-node:hover {
+  stroke: var(--primary);
+  fill: #202024;
+}
+
+.topo-line {
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-width: 1.5;
+  stroke-dasharray: 5, 5;
+}
+
+.topo-packet {
+  fill: var(--primary);
+  filter: drop-shadow(0 0 4px var(--primary));
+  offset-path: path("M 40,110 L 140,110");
+  animation: move-packet 4s infinite linear;
+}
+
+@keyframes move-packet {
+  0% { offset-distance: 0%; }
+  100% { offset-distance: 100%; }
+}
+
+/* Digital Twin Map */
+.india-map-svg {
+  width: 100%;
+  height: 280px;
+  background: rgba(10, 10, 12, 0.3);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.map-region {
+  fill: rgba(255,255,255,0.02);
+  stroke: rgba(255,255,255,0.08);
+  stroke-width: 1;
+}
+
+.map-node {
+  r: 6;
+  transition: all 0.3s;
+}
+
+.map-node.operational {
+  fill: var(--success);
+  filter: drop-shadow(0 0 6px var(--success));
+}
+
+.map-node.warning {
+  fill: var(--warning);
+  filter: drop-shadow(0 0 6px var(--warning));
+}
+
+.map-node.critical {
+  fill: var(--danger);
+  filter: drop-shadow(0 0 6px var(--danger));
+}
+
+.map-node-pulse {
+  animation: pulse-ring 2s infinite ease-out;
+  transform-origin: center;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+/* AI Assistant Widget */
+.ai-assistant-container {
+  display: flex;
+  flex-direction: column;
+  height: 380px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.ai-chat-messages {
+  flex: 1;
+  padding: var(--space-md);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  background: rgba(10, 10, 12, 0.4);
+}
+
+.ai-msg {
+  max-width: 80%;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.ai-msg.system {
+  background: rgba(255,255,255,0.04);
+  color: var(--text-secondary);
+  align-self: flex-start;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.ai-msg.user {
+  background: var(--primary);
+  color: #fff;
+  align-self: flex-end;
+}
+
+.ai-msg strong {
+  color: #fff;
+}
+
+.ai-chat-input-row {
+  display: flex;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  background: rgba(20, 20, 25, 0.8);
+}
+
+.ai-chat-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: var(--space-md);
+  color: #fff;
+  font-size: 0.85rem;
+}
+
+.ai-chat-input:focus {
+  outline: none;
+}
+
+.ai-chat-send {
+  background: var(--primary);
+  border: none;
+  color: #fff;
+  padding: 0 var(--space-xl);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.ai-chat-send:hover {
+  background: var(--primary-dark);
+}
+
+/* Compliance Grid */
+.compliance-checklist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-lg);
+}
+
+.compliance-check-card {
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255,255,255,0.05);
+  background: rgba(255,255,255,0.02);
+}
+
+.cc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-md);
+}
+
+.cc-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.cc-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.cc-badge.ok {
+  background: rgba(16,185,129,0.15);
+  color: var(--success);
+}
+
+.cc-list {
+  list-style: none;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.cc-list li {
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cc-list li::before {
+  content: '✓';
+  color: var(--success);
+  font-weight: 700;
+}
+
+/* Disaster Recovery Visuals */
+.dr-flow-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  padding: var(--space-lg);
+}
+
+.dr-nodes-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+}
+
+.dr-node-box {
+  width: 130px;
+  padding: var(--space-md);
+  text-align: center;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+}
+
+.dr-node-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.dr-node-status {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--success);
+}
+
+.dr-node-status.offline {
+  color: var(--danger);
+}
+
+.dr-sync-line {
+  flex: 1;
+  height: 2px;
+  background: rgba(255,255,255,0.1);
+  margin: 0 var(--space-sm);
+  position: relative;
+}
+
+.dr-sync-line::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+  animation: sync-travel 2.5s infinite linear;
+}
+
+@keyframes sync-travel {
+  0% { left: 0%; opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+
+.dr-bar-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dr-bar-title {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.dr-progress-bar {
+  height: 8px;
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.dr-progress-fill {
+  height: 100%;
+  background: var(--primary);
+  width: 100%;
+  transition: width 1s linear;
+}
+

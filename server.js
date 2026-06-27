@@ -37,27 +37,13 @@ const getRolePasswordHash = (role) => {
   }
 };
 
-// 2. Audit Logging Utility
+// 2. Cryptographic Ledger Chain integration
+const { appendLedgerEntry } = require('./services/audit-service/ledger');
+
 function writeAuditLog(role, action, details, status = 'success') {
-  const logEntry = {
-    time: new Date().toISOString(),
-    role: role || 'anonymous',
-    action,
-    details: details || '',
-    status
-  };
-  
-  // Console output (useful for docker logs)
-  console.log(`[AUDIT] ${JSON.stringify(logEntry)}`);
-  
-  // Write to persistent audit.log file (JSON Lines format)
-  const logFilePath = path.join(__dirname, 'audit.log');
-  fs.appendFile(logFilePath, JSON.stringify(logEntry) + '\n', (err) => {
-    if (err) {
-      console.error('[AUDIT ERROR] Failed to write to audit.log', err);
-    }
-  });
+  appendLedgerEntry(role, action, details, status);
 }
+
 
 // 1. Security Hardening: Security Headers via Helmet
 app.use(helmet({
@@ -251,8 +237,21 @@ app.post(
   }
 );
 
+// --- 4.0 Distributed Microservices Routes Mapping (Monolithic Mode Mounts) ---
+app.use('/api/v1/auth', require('./services/auth-service/routes'));
+app.use('/api/v1/submissions', require('./services/submission-service/routes'));
+app.use('/api/v1/queue', require('./services/queue-service/routes'));
+app.use('/api/v1/workers', require('./services/worker-service/routes'));
+app.use('/api/v1/db', require('./services/db-service/routes'));
+app.use('/api/v1/analytics', require('./services/analytics-service/routes'));
+app.use('/api/v1/prediction', require('./services/prediction-service/routes'));
+app.use('/api/v1/monitoring', require('./services/monitoring-service/routes'));
+app.use('/api/v1/control', require('./services/control-plane/routes'));
+app.use('/api/audit', require('./services/audit-service/routes'));
+
 // Serve frontend static assets from current directory
 app.use(express.static(path.join(__dirname)));
+
 
 // Wildcard fallback to index.html for single page app
 app.get('*', (req, res) => {

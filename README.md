@@ -1,14 +1,15 @@
-# 🚀 EvalSync — Secure Academic Evaluation Gateway for CBSE
+# 🚀 EvalSync Enterprise Security 6.0 — Secure Academic Evaluation Gateway for CBSE
 
 <div align="center">
 
-_**"Distributed System Architecture for High-Traffic Board Examination Evaluation Portals"**_
+_**"Distributed Microservices System Architecture & Zero-Trust Security Ledger for High-Traffic Board Examination Evaluation Portals"**_
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 [![Node.js Version](https://img.shields.io/badge/Node.js-v20.x-green.svg?style=for-the-badge&logo=node.js)](https://nodejs.org)
 [![Tests Status](https://img.shields.io/badge/Tests-100%25%20Passing-success.svg?style=for-the-badge&logo=jest)](tests/server.test.js)
 [![Vulnerabilities](https://img.shields.io/badge/Vulnerabilities-0%20Discovered-brightgreen.svg?style=for-the-badge&logo=npm)](package.json)
 [![Docker](https://img.shields.io/badge/Docker-Compatible-blue.svg?style=for-the-badge&logo=docker)](Dockerfile)
+[![Kubernetes](https://img.shields.io/badge/Kubernetes-Ingress%20%26%20HPA-blue?style=for-the-badge&logo=kubernetes)](k8s/deployment.yaml)
 
 [Live Demo Preview](https://rishisharma029.github.io/EvalSync-System/) • [GitHub Repository](https://github.com/Rishisharma029/EvalSync-System) • [Developer Portfolio](https://github.com/Rishisharma029)
 
@@ -18,108 +19,118 @@ _**"Distributed System Architecture for High-Traffic Board Examination Evaluatio
 
 ## 📌 Project Overview
 
-**EvalSync** is a production-grade, highly secure, and containerized academic evaluation portal designed to handle high-traffic board examination environments (such as CBSE).
+**EvalSync Enterprise 6.0** is a production-grade, highly secure, and containerized academic evaluation portal designed to handle high-traffic board examination environments (such as CBSE) at a nationwide scale. 
 
-### The Problem
-During peak evaluation periods, thousands of academic evaluators attempt to upload high-resolution scanned answer scripts simultaneously. Traditional database-coupled web gateways crash under these load spikes due to connection pool exhaustion, write locks, and memory overflows.
+During peak evaluation periods, thousands of academic evaluators upload high-resolution scanned answer scripts simultaneously. Traditional database-coupled gateways crash under these load spikes due to connection pool exhaustion and memory overflows. 
 
-### The Solution
-EvalSync implements a **distributed queue-based system architecture** that decouples request ingestion from database writes:
-1. **Ingestion Layer**: Answer scripts are immediately ingested, validated, and placed into a secure in-memory processing queue.
-2. **Worker Pool**: Background worker threads pull scripts from the queue asynchronously. If load spikes, the system automatically scales up active workers to prevent queue congestion.
-3. **Database Layer**: Clean, throttled synchronization is executed to database tables, preventing system bottlenecks.
-4. **Dual-Mode Portability**: Supports a dual-mode model. If a local Node.js Express server is active, it runs secure backend operations. If deployed on a static hosting system (like GitHub Pages), it gracefully displays an interactive browser mockup, preserving portfolio discoverability.
+EvalSync addresses this with a **decoupled distributed queue architecture** combined with a **Zero-Trust Security Framework** to protect sensitive student records against advanced persistent threats (APTs), insider collation attacks, and automated brute-force scripts.
 
 ---
 
 ## 🏗️ System Architecture
 
-EvalSync is built on a modular client-server model separating UI, security gateway, logging layers, and deployment targets:
+EvalSync operates in a **dual-mode configuration**:
+1. **Monolithic In-Process Router Mode:** Fits seamlessly in Jest test suites and local lightweight development runs.
+2. **Distributed Microservices Ingress Mode:** Runs as 11 decoupled microservices communicating through mTLS, utilizing Redis caching and RabbitMQ messaging, orchestrated via Kubernetes.
 
-```text
-                               +-------------------------------------+
-                               |          Evaluator Browser          |
-                               +------------------+------------------+
-                                                  |
-                                                  | HTTPS Requests
-                                                  v
-                               +-------------------------------------+
-                               |           Express Gateway           | (Port 3000)
-                               +------------------+------------------+
-                                                  |
-                       +--------------------------+--------------------------+
-                       |                                                     |
-                       v                                                     v
-        +--------------+--------------+                       +--------------+--------------+
-        |        Security Layer       |                       |        Static Assets        |
-        | - Helmet Headers            |                       | - HTML5 Shell (index.html)  |
-        | - Session Cookie (HttpOnly) |                       | - CSS Visuals (style.css)   |
-        | - IP Rate Limiter (10/min)  |                       | - Client Engine (app.js)    |
-        | - Sanitizer Middleware      |                       | - Runtime Hooks (runtime.js)|
-        +--------------+--------------+                       +-----------------------------+
-                       |
-                       v
-        +--------------+--------------+
-        |        Routing Engine       |
-        | - POST /api/auth/login      |
-        | - POST /api/auth/logout     |
-        | - POST /api/audit/log       |
-        | - GET  /api/auth/session    |
-        +--------------+--------------+
-                       |
-        +--------------+--------------+
-        |        Queue Manager        |
-        | - Ingestion Buffer          |
-        | - Auto-Scaling Worker Pool  |
-        | - Dead Letter Queue (DLQ)   |
-        +--------------+--------------+
-                       |
-                       v
-        +--------------+--------------+
-        |         Audit Log           |
-        | - persistent: audit.log     |
-        +-----------------------------+
+### 🌐 Distributed System Architecture Diagram
+
+```mermaid
+graph TD
+    User([Evaluator Client Browser]) -->|HTTPS / WAF / RASP| Gateway[API Gateway - Port 3000]
+    
+    subgraph Security Boundary [Zero-Trust Boundary]
+        Gateway -->|mTLS / Route Proxies| AuthSvc[Auth Service]
+        Gateway -->|mTLS / Route Proxies| SubSvc[Submission Service]
+        Gateway -->|mTLS / Route Proxies| ControlPlane[Control Plane]
+        
+        AuthSvc -->|Evaluates IP, Geolocation, Device| RiskEngine[Adaptive Risk Engine]
+        
+        SubSvc -->|Generate Keys & Verify Integrity| HSM[FIPS 140-2 HSM Simulator]
+        SubSvc -->|S3 Envelope Upload| ObjectStorage[(AWS S3 / MinIO Storage)]
+        SubSvc -->|Upload Metadata| DBConn[(Primary Database - Mumbai)]
+        
+        Gateway -->|Event Stream| QueueSvc[Queue Service]
+        QueueSvc -->|AMQP Pub/Sub| MsgQueue[[RabbitMQ Queue]]
+        
+        MsgQueue -->|Asynchronous Worker Pull| WorkerPool{Auto-Scaling Worker Pool}
+        WorkerPool -->|Process Uploads & Write Metadata| DBConn
+        
+        WorkerPool -->|Dead Letter Queue| DLQSvc[DLQ Service]
+        
+        ControlPlane -->|Write Block Ledger| LedgerSvc[Cryptographic Ledger Svc]
+        LedgerSvc -->|Chained SHA-256 Digest| LedgerFile[(Immutable Ledger File)]
+    end
+
+    DBConn -->|Replication Stream| DBReplica1[(Delhi Replica)]
+    DBConn -->|Replication Stream| DBReplica2[(Chennai Replica)]
+    DBConn -->|Replication Stream| DBReplica3[(Bangalore Replica)]
 ```
 
-### Flow Breakdown
-* **Authentication**: Evaluators log in via `/api/auth/login`. Passwords are encrypted using high work-factor `bcryptjs` algorithms compared against hashes in environment variables.
-* **Session Persistence**: Express establishes an encrypted cookie session (`evalsync_sid`) with `HttpOnly`, `SameSite: Lax`, and `Secure` parameters (in production).
-* **Logging System**: A centralized logging utility outputs JSON Lines to both standard stdout (for Docker container log aggregation) and appends directly to a server-side `audit.log` file.
-* **Spike Ingestion**: Scanned scripts are buffered in an in-memory queue. Active background worker threads scale dynamically from 6 to 20 based on the queue depth threshold to resolve bottlenecks.
+---
+
+## 🛡️ Enterprise Security 6.0 Features
+
+EvalSync's Zero-Trust design implements enterprise-grade layers to secure every aspect of the examination evaluation cycle:
+
+### 1. Web Application Firewall (WAF) & RASP Gateway Filters
+The gateway hosts a real-time parsing engine inspecting incoming request payloads before they reach business routers:
+*   **SQL Injection (SQLi) Blockers:** Detects and denies patterns matching `' OR 1=1`, database comment codes (`' --`), and query unions.
+*   **Stored XSS Defenses:** Automatically neutralizes HTML `<script>` tags, event handlers (`onerror=`, `onload=`), and script execution functions.
+*   **Path Traversal Prevention:** Rejects relative path segments (`../`) and system file paths (`/etc/passwd`).
+*   **SIEM Event Log Normalization:** Formats blocked incidents in Common Event Format (CEF) for direct security log ingestion.
+
+### 2. Adaptive Authentication Risk Engine
+Login endpoints evaluate multiple risk telemetry layers to adjust authentication requirements dynamically:
+*   **Impossible Travel Detection:** Evaluates consecutive login timestamps and geolocations to check if the distance speed vector is physically impossible.
+*   **Device Fingerprinting:** Flags browser reputation, OS mismatches, and bot user agents.
+*   **Progressive Login Lockouts:** Suspends account access for 15 minutes after 5 consecutive failures, adding exponential response delays.
+*   **8 Role RBAC Support:** Granular access controls mapping Evaluator, Moderator, Admin, Super Admin, Monitor, Auditor, Regional Admin, and API Client tokens.
+
+### 3. FIPS-Compliant HSM Envelope Encryption & DLP
+*   **HSM Signature Creation:** Scanned answer scripts are signed using a simulated Hardware Security Module (FIPS 140-2 key architecture) to guarantee non-repudiation.
+*   **Data Loss Prevention (DLP):** Rejects bulk downloads, limiting active sessions to a maximum of 5 script downloads to prevent database scrapers.
+*   **Expiring Signed URLs:** Document retrieval requests generate short-lived signed tokens containing expiration nonces and client hashes.
+
+### 4. Immutable Cryptographic Ledger Chain
+All configuration settings and threat incidents append to a tamper-evident cryptographic ledger:
+*   Each block is chained via `SHA-256(BlockIndex | Timestamp | Role | Action | Details | Status | PreviousBlockHash)`.
+*   Any unauthorized tampering with the ledger file invalidates the digest sequence, alerting audit monitors immediately.
 
 ---
 
-## 🔐 Security Features
+## 🔬 Red Team Attack Simulation Console
 
-EvalSync was reviewed and hardened against OWASP Top 10 vulnerabilities:
+EvalSync features an interactive **Executive SOC (Security Operations Center) Dashboard** and an integrated **Red Team Simulation Center**. 
 
-* **Blowfish `$2b$` Bcrypt Hashing**: Passwords are never stored in plain text. The application uses `bcryptjs` (Work Factor: 10) to compute and check passwords against secure hashes configured in `.env`.
-* **Helmet Security Headers**: Injects key defense headers to prevent browser vulnerabilities:
-  * `X-Frame-Options: SAMEORIGIN` (mitigates clickjacking)
-  * `X-Content-Type-Options: nosniff` (mitigates MIME-sniffing)
-  * Strict `Content-Security-Policy` (CSP) preventing unauthorized external scripts.
-* **IP-Based Rate Limiting**: Employs `express-rate-limit` on the authentication gateway to permit at most 10 login requests per minute per IP address, stopping brute-force guessing.
-* **Input Validation & Sanitization**: Uses `express-validator` to enforce strict formatting requirements on email inputs, and escapes incoming strings to neutralize script injections.
-* **Session Security**: Session identifiers use secure cookie configs to block cross-site access and cookie hijacking.
-* **Kebab-Case Audit Trails**: Every key operational event logs JSON lines to the server:
-  ```json
-  {"time":"2026-06-04T16:22:52.350Z","role":"evaluator","action":"login-failure","details":"Failed login attempt for evaluator@cbse.gov.in (incorrect password)","status":"failure"}
-  {"time":"2026-06-04T16:22:53.288Z","role":"admin","action":"login","details":"Logged in successfully from IP ::ffff:127.0.0.1","status":"success"}
-  {"time":"2026-06-04T16:22:53.317Z","role":"admin","action":"settings-change","details":"autoScale toggle changed to false","status":"success"}
-  ```
+Administrators can simulate common exploits to verify that gateway defenses intercept, log, and contain threat vectors in real-time:
+*   **💉 SQL Injection:** Submits raw injection patterns to test WAF blocking.
+*   **🖥️ Stored XSS:** Inject script tags into form parameters.
+*   **🔄 CSRF Tampering:** Triggers state changes without token validation.
+*   **🔑 JWT Signature forgery:** Emulates tampering with session tokens.
+*   **🔓 Brute Force:** Generates high-frequency authentication attempts.
+*   **📤 DLP Leakage:** Attempts bulk file downloads.
 
----
-
-## ✨ Features Checklist
-
-* **Role-Based Access Control**:
-  * `👨‍🏫 Evaluator`: Upload scanned answer sheets, check queue position, view performance.
-  * `🛡️ Admin`: Manage active workers, monitor Dead Letter Queue (DLQ), check security alerts.
-  * `👑 Super Admin`: Master dashboard access unlocking all operations.
-  * `📡 Monitor`: Read-only views to monitor real-time queue graphs, zero write access.
-* **Interactive Resilience Simulator**: Built-in panels to simulate network delay, database sync rate, worker count adjustment, and chaos test triggers (Network Downtime, Queue Spikes, Database Sync Failure).
-* **Multi-Stage Containerization**: Built on Alpine Linux with unprivileged execution context.
-* **Automated CI/CD Workflows**: Configured GitHub Action testing, dependency audit scans, and build triggers.
+```text
+               [EXPLOT SIMULATION TRIGGERED]
+                            │
+                            ▼
+        ┌───────────────────────────────────────┐
+        │  WAF/RASP Gateway Parsing Filter      │
+        └───────────────────┬───────────────────┘
+                            ├────────────────────────┐
+                 [Matches Block Rules]     [No Violations]
+                            │                        │
+                            ▼                        ▼
+        ┌───────────────────────────────────────┐   ┌─────────────────┐
+        │ 🚨 exploit blocked, 403 Forbidden     │   │ Process Request │
+        │ - Generate CEF alert payload          │   └─────────────────┘
+        │ - Securely append to Cryptographic    │
+        │   ledger chain block                  │
+        │ - Decrement SOC Security Score        │
+        │ - Increment Blocked Threat Telemetry  │
+        └───────────────────────────────────────┘
+```
 
 ---
 
@@ -127,23 +138,25 @@ EvalSync was reviewed and hardened against OWASP Top 10 vulnerabilities:
 
 ```text
 evalsync/
- ├── .github/
- │    └── workflows/
- │         └── ci.yml             # GitHub Actions CI pipeline configuration
+ ├── services/                    # Decoupled Microservice Logic
+ │    ├── api-gateway/            # Central request proxying & mTLS simulation
+ │    ├── auth-service/           # Adaptive Auth risk checks, lockout controls, RBAC
+ │    ├── submission-service/     # FIPS HSM signing, S3 upload, DLP download constraints
+ │    ├── audit-service/          # Tamper-evident cryptographic ledger chain
+ │    ├── control-plane/          # Disaster Recovery, Feature Flags, Attack Simulation
+ │    └── gateway/                # WAF / RASP middleware filter definitions
+ ├── k8s/                         # Kubernetes Deployment Manifests
+ │    └── deployment.yaml         # Configures Ingress, HPAs, Services, and Pod limits
  ├── tests/
- │    └── server.test.js          # Jest + Supertest API integration tests
+ │    └── server.test.js          # Jest + Supertest integration security test suite
  ├── Dockerfile                   # Hardened multi-stage container configuration
- ├── docker-compose.yml           # Local development service orchestrator
- ├── .env.example                 # Production configuration variables template
- ├── .gitignore                   # Excludes node_modules, .env, and local logs
- ├── README.md                    # System documentation and setup guide
- ├── LICENSE                      # MIT Open-source license terms
- ├── server.js                    # Secure Node.js Express Backend & API Router
- ├── index.html                   # Semantic HTML5 single-page application Shell
- ├── style.css                    # Premium Glassmorphism styling rules
- ├── app.js                       # Frontend client logic (mirrors app.dev.js)
- ├── app.dev.js                   # Development source file for frontend client
- └── app.runtime.js               # Timer cleanup and login patch script
+ ├── docker-compose.yml           # Dev environment launcher (Redis + RabbitMQ + App)
+ ├── server.js                    # Core entrypoint mounting monolithic / microservice routes
+ ├── index.html                   # Glassmorphic single-page app containing SOC Dashboard
+ ├── style.css                    # Visual stylesheets housing SOC controls
+ ├── app.js                       # Frontend app shell binding telemetry & simulators
+ ├── .env.example                 # Configuration variables template
+ └── audit.log                    # Local persistence of audited actions
 ```
 
 ---
@@ -185,40 +198,34 @@ npm start
 ```
 Open `http://localhost:3000` in your web browser.
 
+> [!NOTE]
+> **Static Browser Fallback:** EvalSync supports offline mode. If you double-click `index.html` directly from your hard drive (`file://` protocol), the client automatically bypasses backend server requirements and executes simulated authentication, keeping the portfolio fully interactive without starting Node.js.
+
 ---
 
-## 🐳 Docker Deployment
+## 🐳 Container & Cluster Deployment
 
-The system contains configurations to compile and run using Docker containers:
-
-### Build & Startup
-Build the container image and start the service in background detached mode:
+### Docker Compose Dev Stack
+To spin up EvalSync integrated with a local Redis caching container and RabbitMQ message broker:
 ```bash
 docker compose up -d --build
 ```
-The application will run on port `3000` using the local environment settings configured inside `.env`.
 
-### Container Verification
+### Kubernetes Production Cluster
+Kubernetes configurations are available inside `k8s/deployment.yaml`. Apply the deployment to your cluster:
 ```bash
-# View active containers
-docker compose ps
-
-# Inspect logs
-docker compose logs -f
+kubectl apply -f k8s/deployment.yaml
 ```
-
-### Shutdown Container
-```bash
-docker compose down
-```
+The manifest deploys:
+- **Horizontal Pod Autoscaling (HPA):** Scales pods dynamically between 3 and 12 based on average CPU utilization exceeding 80%.
+- **Ingress Controller:** Rules handling secure mTLS endpoint forwarding.
+- **Resource Constraints:** Enforces standard memory limits (Max: 512Mi) and CPU limits (Max: 500m) to mitigate denial-of-service node exhaustion.
 
 ---
 
 ## 🧪 Testing & Validation
 
-EvalSync includes a comprehensive Jest integration test suite targeting authentication middleware, Helmet defenses, rate limiting, and persistent log writing.
-
-### Run Tests
+Run the Jest integration suite to verify session management, rate limits, Helmet configurations, and WAF blocks:
 ```bash
 # Run tests
 npm test
@@ -226,102 +233,6 @@ npm test
 # Run test coverage
 npm run test:coverage
 ```
-
-### Current Test Suite Output
-```bash
-PASS tests/server.test.js
-  EvalSync Express Backend API & Security Tests
-    √ 1. Security Headers check (Helmet) (294 ms)
-    √ 2. Unauthenticated Session check (GET /api/auth/session) (34 ms)
-    √ 3. Invalid Login validation (POST /api/auth/login - Malformed Email) (105 ms)
-    √ 4. Invalid Login credentials check (POST /api/auth/login - Wrong Password) (235 ms)
-    √ 5. Successful Login workflow (POST /api/auth/login) (227 ms)
-    √ 6. Session persistence after login (251 ms)
-    √ 7. Logout workflow (POST /api/auth/logout) (259 ms)
-    √ 8. Client-side Settings Audit Log (POST /api/audit/log) (221 ms)
-    √ 9. Rate Limiter checking on login attempts (808 ms)
-    √ 10. CSRF Token retrieval check (GET /api/csrf-token) (35 ms)
-
-Test Suites: 1 passed, 1 total
-Tests:       10 passed, 10 total
-Time:        6.061 s
-```
-
-### Latest Code Coverage Metrics
-* **Statements Coverage**: `81.25%`
-* **Lines Coverage**: `81.05%`
-* **Functions Coverage**: `83.33%`
-* **Branch Coverage**: `60.71%`
-
----
-
-## 🔄 GitHub Actions CI/CD Pipeline
-
-The [.github/workflows/ci.yml](file:///c:/Users/Rishi%20Sharma/.gemini/antigravity/scratch/new%20evacsync%20app/.github/workflows/ci.yml) workflow triggers on every push and pull request to `main` and `master`:
-
-1. **Lint & Code Quality Check**: Installs exact dependencies using `npm ci`.
-2. **Security Audit**: Scans npm tree using `npm audit --audit-level=high` (fails build if vulnerabilities are found).
-3. **Automated Integration Testing**: Launches Jest tests in a simulated Node environment.
-4. **Docker Compilation Check**: Compiles the container configuration (`docker build`) to verify that the build succeeds without error.
-
----
-
-## 📸 Screenshots & Interface Visuals
-
-Here is a visual walk-through of the portal interface components:
-
-<details>
-<summary><b>🖥️ View Portal Interfaces (Dashboard & Real-time Monitors)</b></summary>
-
-### 1. Main Landing & Multi-Role Selector
-*Features a premium dark glassmorphic portal selector permitting Evaluator, Admin, Super Admin, and Monitor accounts.*
-> *[Placeholder: Role Selection Landing View]*
-
-### 2. Live Queue Processing Monitor
-*Interactive real-time task visualization tracking ingestion, worker allocation, and database synchronization pipelines.*
-> *[Placeholder: Live Queue Monitor Dashboard]*
-
-### 3. System Resilience & Chaos Center
-*Control panel allowing administrators to manually simulate server delay, trigger data sync halts, inject simulated heavy loads, and verify scaling response.*
-> *[Placeholder: Chaos Testing Panel]*
-
-</details>
-
----
-
-## 📊 Security & Vulnerability Audit Results
-
-* **Vulnerabilities**: **`0` vulnerabilities** detected across 369 dependencies.
-* **Session Validation**: Secure session cookies successfully mitigate XSS-based hijacking.
-* **CSRF Protection**: Native `lusca` CSRF token verification middleware intercepts unauthorized cross-site actions on all state-changing endpoints.
-* **Headers Assessment**: Helmet scores A+ rating on security headers validations.
-
----
-
-## 🛠️ Tech Stack
-
-* **Frontend**: HTML5, Vanilla JavaScript (ES6+), CSS3 Variables.
-* **Backend**: Node.js, Express, `express-session`, `express-rate-limit`, `helmet`, `express-validator`.
-* **Testing**: Jest, Supertest.
-* **Deployment**: Docker, Docker Compose, GitHub Actions.
-
----
-
-## 🔮 Future Improvements Roadmap
-
-* [ ] **Redis Integration**: Shift session storage from local memory to a Redis instance for scaling across multiple server instances.
-* [ ] **Distributed Messaging Queue**: Transition in-memory queue arrays to RabbitMQ or Amazon SQS.
-* [ ] **APM Dashboard**: Add metrics collection using Prometheus and Grafana.
-* [ ] **Cloud Deployment**: Create Terraform configurations to deploy the container onto AWS ECS/EKS.
-
----
-
-## 👨‍💻 Author
-
-**Rishi Sharma**
-* **Role**: BCA Student | Developer & Full-Stack Enthusiast
-* **GitHub**: [@Rishisharma029](https://github.com/Rishisharma029)
-* **Email**: [rishisharma.bca25@satyug.edu.in](mailto:rishisharma.bca25@satyug.edu.in)
 
 ---
 

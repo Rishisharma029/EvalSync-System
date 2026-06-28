@@ -703,13 +703,13 @@ function updateQueueStats() {
   setText('nb-queue', depth);
   setText('qs-incoming', state.queue.incoming.length);
   setText('qs-processing', state.queue.processing.length);
-  setText('qs-completed', state.queue.completed.length);
-  setText('qs-failed', state.queue.failed.length);
+  setText('qs-completed', state.stats.totalProcessed);
+  setText('qs-failed', state.stats.totalFailed);
   setText('qs-retry', state.queue.retry.length);
   setText('qcc-incoming', state.queue.incoming.length);
   setText('qcc-processing', state.queue.processing.length);
-  setText('qcc-completed', state.queue.completed.length);
-  setText('qcc-failed', state.queue.failed.length);
+  setText('qcc-completed', state.stats.totalProcessed);
+  setText('qcc-failed', state.stats.totalFailed);
 
   if (depth > state.stats.peakQueueDepth) {
     state.stats.peakQueueDepth = depth;
@@ -1614,12 +1614,27 @@ function initLogin() {
       const passEl = eid('login-pass');
       if (emailEl) emailEl.value = selectedRole.email;
       if (passEl) passEl.value = demoPass;
-      // Submit after brief UI feedback delay so the user sees the fill
+      
+      // Perform local client-side login directly to bypass backend
       setTimeout(() => {
-        const submitEvent = new Event('submit', { bubbles: true, cancelable: true });
-        const loginForm = eid('login-form');
-        if (loginForm) loginForm.dispatchEvent(submitEvent);
-      }, 300);
+        if (spinner) spinner.classList.add('hidden');
+        if (btnText) btnText.textContent = 'Sign In Securely';
+        if (loginBtn) loginBtn.disabled = false;
+        if (demoBtn) demoBtn.disabled = false;
+        
+        const loggedInUser = {
+          email: selectedRole.email,
+          name: selectedRole.name,
+          initials: selectedRole.initials,
+          role: selectedRole.label,
+          roleKey: selectedRoleKey,
+          id: `${selectedRoleKey.toUpperCase()}-DEMO-${rand(1000, 9999)}-2024`,
+          subject: 'Mathematics (041)',
+          center: `DEMO-${rand(1000, 9999)}`,
+          riskScore: 10
+        };
+        doLoginSuccess(loggedInUser, selectedRoleKey);
+      }, 500);
     };
   }
 
@@ -2800,15 +2815,27 @@ function updateMySubmissions() {
   const tbody = eid('mysub-tbody'); if (!tbody) return;
   // Sync statuses from main queue state
   mySubmissions.forEach(ms => {
+    if (ms.lastStatus === 'completed') return; // Once completed, stay completed permanently
     const inProcessing = state.queue.processing.find(s => s.id === ms.id);
-    const inCompleted = state.queue.completed.find(s => s.id === ms.id);
+    const inCompleted = state.queue.completed.find(s => s.id === ms.id) || state.database.recentRecords.find(s => s.id === ms.id);
     const inFailed = state.queue.failed.find(s => s.id === ms.id);
     const inDLQ = p2State.dlq.find(s => s.id === ms.id);
+    
     if (inCompleted) ms.lastStatus = 'completed';
     else if (inProcessing) ms.lastStatus = 'processing';
     else if (inDLQ) ms.lastStatus = 'dlq';
     else if (inFailed) ms.lastStatus = 'failed';
-    else ms.lastStatus = 'queued';
+    else {
+      // If it's not in processing/failed/DLQ/completed lists,
+      // but was previously queued, and is no longer in the incoming queue array either,
+      // it means the worker has processed it and shifted it out of memory, so it is completed.
+      const inIncoming = state.queue.incoming.find(s => s.id === ms.id);
+      if (!inIncoming && (ms.lastStatus === 'queued' || ms.lastStatus === 'processing')) {
+        ms.lastStatus = 'completed';
+      } else {
+        ms.lastStatus = 'queued';
+      }
+    }
   });
 
   // Update nav count badge

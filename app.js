@@ -1650,10 +1650,10 @@ function initLogin() {
       if (loginBtn) loginBtn.disabled = true;
       if (demoBtn) demoBtn.disabled = true;
 
-      // 4.0 Local static file fallback handler
-      const isLocalFile = window.location.protocol === 'file:';
-      if (isLocalFile) {
-        console.log('[EvalSync] Running in local static file mode. Bypassing backend auth.');
+      // 4.0 Local static file & GitHub Pages fallback handler
+      const isStaticHost = window.location.protocol === 'file:' || window.location.hostname.includes('github.io');
+      if (isStaticHost) {
+        console.log('[EvalSync] Running in static host mode. Bypassing backend auth for demonstration.');
         setTimeout(() => {
           if (spinner) spinner.classList.add('hidden');
           if (btnText) btnText.textContent = 'Sign In Securely';

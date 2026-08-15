@@ -5,3 +5,8 @@ node_modules/
 .env
 coverage/
 audit.log
+
+# Temporary / backup files
+.tunnel_key
+.ui-snapshots/
+style.css.bak-luxe
